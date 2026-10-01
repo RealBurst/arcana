@@ -1,0 +1,17 @@
+# Text files: normalized to LF in the repository
+* text=auto
+
+# Shell scripts must keep LF (bash fails on CRLF), Windows scripts keep CRLF
+*.sh   text eol=lf
+*.bat  text eol=crlf
+*.cmd  text eol=crlf
+
+# Binary files
+*.jar  binary
+*.zip  binary
+*.7z   binary
+*.rar  binary
+*.gz   binary
+*.png  binary
+*.jpg  binary
+*.ico  binary

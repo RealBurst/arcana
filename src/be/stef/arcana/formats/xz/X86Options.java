@@ -1,0 +1,32 @@
+// SPDX-License-Identifier: 0BSD
+// SPDX-FileCopyrightText: The XZ for Java authors and contributors
+// SPDX-FileContributor: Lasse Collin <lasse.collin@tukaani.org>
+
+/* Ported from org.tukaani.xz (XZ for Java). Original licence: 0BSD. Changes: package only. */
+package be.stef.arcana.formats.xz;
+
+import java.io.InputStream;
+import be.stef.arcana.formats.xz.simple.X86;
+
+/**
+ * BCJ filter for x86 (32-bit and 64-bit) instructions.
+ */
+public final class X86Options extends BCJOptions {
+    private static final int ALIGNMENT = 1;
+
+    public X86Options() {
+        super(ALIGNMENT);
+    }
+
+    @Override
+    public FinishableOutputStream getOutputStream(FinishableOutputStream out,
+                                                  ArrayCache arrayCache) {
+        return new SimpleOutputStream(out, new X86(true, startOffset));
+    }
+
+    @Override
+    public InputStream getInputStream(InputStream in, ArrayCache arrayCache) {
+        return new SimpleInputStream(in, new X86(false, startOffset));
+    }
+
+}

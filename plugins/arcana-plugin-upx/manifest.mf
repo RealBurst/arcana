@@ -1,0 +1,4 @@
+Manifest-Version: 1.0
+Arcana-Plugin-Source-Url: https://github.com/upx/upx/tree/v5.2.1
+Arcana-Plugin-License: GPL-3.0-or-later
+

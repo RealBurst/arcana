@@ -1,0 +1,101 @@
+name: Build
+
+# - push / pull request on main: compile Arcana and the plugins with Java 8 and Java 21, run the smoke test,
+#   keep the JARs as a downloadable artifact of the run (Actions tab);
+# - release published on GitHub (tag vX.Y.Z): same build, then the JARs and their SHA-256 are attached to the release.
+
+on:
+  push:
+    branches: [ main ]
+    paths-ignore: [ '**.md', 'docs/**' ]
+  pull_request:
+    branches: [ main ]
+  release:
+    types: [ published ]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: Build and test (Java ${{ matrix.java }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        java: [ '8', '21' ]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Java ${{ matrix.java }}
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: ${{ matrix.java }}
+
+      - name: Check that the Java sources are ASCII only
+        run: |
+          FILES="$(find src plugins -name '*.java' 2>/dev/null | xargs -r grep -lP '[^\x00-\x7F]' || true)"
+          if [ -n "$FILES" ]; then
+            echo "$FILES" | while read -r f; do echo "::error file=$f::non-ASCII character in $f"; done
+            exit 1
+          fi
+          echo "All Java sources are ASCII."
+
+      - name: Build Arcana and the plugins
+        run: bash build.sh all
+
+      - name: Smoke test
+        run: bash .github/scripts/smoke-test.sh
+
+      - name: Keep the JARs (Java 8 build only)
+        if: matrix.java == '8'
+        uses: actions/upload-artifact@v4
+        with:
+          name: arcana-jars
+          path: |
+            jar/*.jar
+            plugins/*/jar/*.jar
+          if-no-files-found: error
+          retention-days: 30
+
+  release:
+    name: Attach the JARs to the release
+    if: github.event_name == 'release'
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Check that the tag matches the VERSION file
+        run: |
+          VERSION="$(head -n 1 VERSION | tr -d ' \t\r\n')"
+          TAG="${{ github.event.release.tag_name }}"
+          if [ "$TAG" != "v$VERSION" ]; then
+            echo "::error::Release tag '$TAG' does not match the VERSION file (expected 'v$VERSION')"
+            exit 1
+          fi
+
+      - name: Download the JARs built with Java 8
+        uses: actions/download-artifact@v4
+        with:
+          name: arcana-jars
+          path: dist
+
+      - name: Compute the SHA-256 checksums
+        run: |
+          mkdir -p upload
+          find dist -name '*.jar' -exec cp {} upload/ \;
+          cd upload
+          sha256sum *.jar > SHA256SUMS.txt
+          cat SHA256SUMS.txt
+
+      - name: Upload to the release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh release upload "${{ github.event.release.tag_name }}" upload/* --clobber --repo "${{ github.repository }}"
