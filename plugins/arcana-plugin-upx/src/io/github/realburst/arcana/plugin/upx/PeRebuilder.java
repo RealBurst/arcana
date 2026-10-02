@@ -188,7 +188,7 @@ final class PeRebuilder {
     }
 
     /** UPX filters 0x26 and 0x49: x86/x64 relative call/jump reversal. */
-    private static void unfilterCto(byte[] b, int start, int size, int add, int cto, boolean jcc) {
+    static void unfilterCto(byte[] b, int start, int size, int add, int cto, boolean jcc) {
         int lastcall = 0;
         for (int i = 0; i < size - 5; i++) {
             int opcode = b[start+i] & 255;

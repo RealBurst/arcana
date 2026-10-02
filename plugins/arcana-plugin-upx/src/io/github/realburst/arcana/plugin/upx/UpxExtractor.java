@@ -31,7 +31,7 @@ public final class UpxExtractor implements ArchiveExtractor {
     public void extract(File archive, File destination) throws IOException {
         // Complete validation before creating any destination entry.
         Result result = process(archive, null);
-        try (OutputStream out = PluginSupport.openOutput(destination, outputName(archive, result.pe))) {
+        try (OutputStream out = PluginSupport.openOutput(destination, outputName(archive, result.pe, result.rebuilt))) {
             Result written = process(archive, out);
             if (written.expanded != result.expanded || written.compressed != result.compressed)
                 throw new IOException("Input file changed during extraction");
@@ -44,14 +44,15 @@ public final class UpxExtractor implements ArchiveExtractor {
 
     public List<ArcanaEntry> list(File archive) throws IOException {
         Result r = process(archive, null);
-        return Collections.singletonList(new ArcanaEntry.Builder(outputName(archive, r.pe)).compressedSize(r.compressed).uncompressedSize(r.expanded).build());
+        return Collections.singletonList(new ArcanaEntry.Builder(outputName(archive, r.pe, r.rebuilt))
+                .compressedSize(r.compressed).uncompressedSize(r.expanded).build());
     }
 
     public boolean supportsStream() { return false; }
 
-    private static String outputName(File file, boolean pe) {
+    private static String outputName(File file, boolean pe, boolean rebuilt) {
         String name = file.getName();
-        if (!pe) return name + ".upx-decoded.bin";
+        if (!pe) return name + (rebuilt ? ".unpacked" : ".upx-decoded.bin"); // ELF: restored executable, or decoded blocks for analysis
         int dot = name.lastIndexOf('.');
         if (dot >= 0) {
             String ext = name.substring(dot).toLowerCase(java.util.Locale.ROOT);
@@ -66,7 +67,8 @@ public final class UpxExtractor implements ArchiveExtractor {
             if (in.length() < 128) throw new IOException("UPX executable is too short");
             int a = in.readUnsignedByte(), b = in.readUnsignedByte();
             if (a == 'M' && b == 'Z') return pe(in, out);
-            if (a == 0x7f && b == 'E' && in.readUnsignedByte() == 'L' && in.readUnsignedByte() == 'F' && elfLittleEndian(in))
+            if (a == 0x7f && b == 'E' && in.readUnsignedByte() == 'L' && in.readUnsignedByte() == 'F'
+                    && elfLittleEndian(in))
                 return elf(in, out);
             throw new IOException("Only PE and ELF UPX executables are supported");
         }
@@ -79,7 +81,8 @@ public final class UpxExtractor implements ArchiveExtractor {
             throw new IOException("Invalid PE header");
         int count = le16(in, peOff + 6), optional = le16(in, peOff + 20);
         long sections = peOff + 24 + optional;
-        if (count < 2 || count > 96 || sections + count * 40L > size || !sectionName(in, sections, "UPX0") || !sectionName(in, sections + 40, "UPX1"))
+        if (count < 2 || count > 96 || sections + count * 40L > size
+                || !sectionName(in, sections, "UPX0") || !sectionName(in, sections + 40, "UPX1"))
             throw new IOException("Missing or invalid UPX0/UPX1 sections");
         long raw = le32(in, sections + 40 + 20);
         if (raw < 64 || raw >= size) throw new IOException("Invalid UPX1 offset");
@@ -102,9 +105,10 @@ public final class UpxExtractor implements ArchiveExtractor {
         byte[] decoded = decode(compressed, (int)header.uSize, header.method);
         checkAdler(compressed, header.cAdler, "compressed PE block");
         checkAdler(decoded, header.uAdler, "decoded PE block");
-        byte[] restored = PeRebuilder.rebuild(in, decoded, peOff, sections, count, optional, header.filter, header.filterCto);
+        byte[] restored = PeRebuilder.rebuild(in, decoded, peOff, sections, count, optional,
+                header.filter, header.filterCto);
         if (out != null) out.write(restored);
-        return new Result(header.cSize, restored.length, true);
+        return new Result(header.cSize, restored.length, true, true);
     }
 
     private static Result elf(RandomAccessFile in, OutputStream out) throws IOException {
@@ -117,7 +121,8 @@ public final class UpxExtractor implements ArchiveExtractor {
             if (le32(in, p) == MAGIC) {
                 Header candidate = header(in, p);
                 long o = candidate == null ? -1 : le32(in, p + 32);
-                if (candidate != null && o >= 12 && o + 24 < p && le32(in, o - 8) == MAGIC && candidate.format < 128) {
+                if (candidate != null && o >= 12 && o + 24 < p
+                        && le32(in, o - 8) == MAGIC && candidate.format < 128) {
                     h = candidate;
                     overlay = o;
                 }
@@ -134,7 +139,8 @@ public final class UpxExtractor implements ArchiveExtractor {
         boolean skippedLoader = false;
         List<byte[]> loadBlocks = new ArrayList<byte[]>(), gapBlocks = new ArrayList<byte[]>();
         while (position < h.offset) {
-            if (position + 8 <= h.offset && le32(in, position) == 0 && le32(in, position + 4) == MAGIC) break;
+            if (position + 8 <= h.offset && le32(in, position) == 0
+                    && le32(in, position + 4) == MAGIC) break;
             Block next = block(in, position, h.offset, blockSize);
             if (next == null) {
                 // The loader is recorded in l_info; do not scan arbitrary bytes
@@ -155,7 +161,8 @@ public final class UpxExtractor implements ArchiveExtractor {
             if (++blocks > 65536 || expanded + next.decoded.length > origSize)
                 throw new IOException("UPX decompression limits exceeded");
             cAdler.update(next.compressed);
-            uAdler.update(next.decoded);
+            if (next.filter != 0) PeRebuilder.unfilterCto(next.decoded, 0, next.decoded.length, 0, next.cto, next.filter == 0x49);
+            uAdler.update(next.decoded); // for ELF, UPX checksums the original (unfiltered) data
             (skippedLoader ? gapBlocks : loadBlocks).add(next.decoded);
             consumed += next.compressed.length;
             expanded += next.decoded.length;
@@ -175,17 +182,19 @@ public final class UpxExtractor implements ArchiveExtractor {
                 for (byte[] part : gapBlocks) out.write(part);
             }
         } else if (out != null) out.write(image);
-        return new Result(consumed, expanded, false);
+        return new Result(consumed, expanded, false, image != null);
     }
 
     /** Reassemble the common ELF64 ET_EXEC layout used by UPX 5.2.1. */
     private static byte[] rebuildElf64(List<byte[]> loads, List<byte[]> gaps, int size) {
         if (loads.isEmpty()) return null;
         byte[] header = loads.get(0);
-        if (header.length < 64 || header[4] != 2 || header[5] != 1 || u16(header, 16) != 2 || u16(header, 18) != 62) return null;
+        if (header.length < 64 || header[4] != 2 || header[5] != 1
+                || u16(header, 16) != 2 || u16(header, 18) != 62) return null;
         long phoff = u64(header, 32);
         int ent = u16(header, 54), n = u16(header, 56);
-        if (phoff != 64 || ent != 56 || n < 1 || n > 256 || phoff + (long)ent * n != header.length || header.length > size) return null;
+        if (phoff != 64 || ent != 56 || n < 1 || n > 256
+                || phoff + (long)ent * n != header.length || header.length > size) return null;
         List<int[]> spans = new ArrayList<int[]>();
         for (int i = 0; i < n; ++i) {
             int p = (int)phoff + i * ent;
@@ -235,10 +244,7 @@ public final class UpxExtractor implements ArchiveExtractor {
         return index;
     }
 
-    private static int u16(byte[] b, int p) { 
-       return (b[p] & 255) | (b[p+1] & 255) << 8; 
-    }
-    
+    private static int u16(byte[] b, int p) { return (b[p] & 255) | (b[p+1] & 255) << 8; }
     private static long u64(byte[] b, int p) {
         long lo = u32(b, p), hi = u32(b, p + 4);
         return hi == 0 ? lo : Long.MAX_VALUE;
@@ -252,21 +258,18 @@ public final class UpxExtractor implements ArchiveExtractor {
         in.seek(p + 8);
         int method = in.readUnsignedByte(), filter = in.readUnsignedByte();
         int cto = in.readUnsignedByte(), unused = in.readUnsignedByte();
-        if (filter != 0 || cto != 0 || unused != 0 || (c < u && !isSupportedMethod(method)) || (c == u && method != 0)) return null;
+        boolean plain = filter == 0 && cto == 0;
+        boolean ctoFilter = (filter == 0x49 || filter == 0x26) && cto != 0; // x86-64 / x86 call-jump filters (code segments)
+        if ((!plain && !ctoFilter) || unused != 0 || (c < u && !isSupportedMethod(method)) || (c == u && method != 0)) return null;
         byte[] compressed = read(in, p + 12, (int)c);
         byte[] decoded;
         try { decoded = c == u ? compressed : decode(compressed, (int)u, method); }
         catch (IOException badCandidate) { return null; }
-        return new Block(compressed, decoded, p + 12 + c);
+        return new Block(compressed, c == u ? compressed.clone() : decoded, p + 12 + c, filter, cto);
     }
 
-    private static boolean isNrv(int m) { 
-       return m >= 2 && m <= 10; 
-    }
-    
-    private static boolean isSupportedMethod(int m) { 
-       return isNrv(m) || m == 14; 
-    }
+    private static boolean isNrv(int m) { return m >= 2 && m <= 10; }
+    private static boolean isSupportedMethod(int m) { return isNrv(m) || m == 14; }
 
     private static byte[] decode(byte[] data, int uSize, int method) throws IOException {
         if (isNrv(method)) return NrvDecoder.decode(data, uSize, method);
@@ -282,7 +285,8 @@ public final class UpxExtractor implements ArchiveExtractor {
         int sum = 0;
         for (int i = 4; i < 31; ++i) sum += bytes[i] & 255;
         if (sum % 251 != (bytes[31] & 255)) return null;
-        return new Header(p, bytes[5] & 255, bytes[6] & 255, bytes[28] & 255, bytes[29] & 255, u32(bytes, 16), u32(bytes, 20), u32(bytes, 8), u32(bytes, 12));
+        return new Header(p, bytes[5] & 255, bytes[6] & 255, bytes[28] & 255, bytes[29] & 255,
+                u32(bytes, 16), u32(bytes, 20), u32(bytes, 8), u32(bytes, 12));
     }
 
     private static void checkAdler(byte[] data, long expected, String context) throws IOException {
@@ -312,11 +316,13 @@ public final class UpxExtractor implements ArchiveExtractor {
 
     private static long le32(RandomAccessFile in, long pos) throws IOException {
         in.seek(pos);
-        return (in.readUnsignedByte() | in.readUnsignedByte() << 8 | in.readUnsignedByte() << 16 | in.readUnsignedByte() << 24) & 0xffffffffL;
+        return (in.readUnsignedByte() | in.readUnsignedByte() << 8
+                | in.readUnsignedByte() << 16 | in.readUnsignedByte() << 24) & 0xffffffffL;
     }
 
     private static long u32(byte[] b, int p) {
-        return ((b[p] & 255) | (b[p+1] & 255) << 8 | (b[p+2] & 255) << 16 | (b[p+3] & 255) << 24) & 0xffffffffL;
+        return ((b[p] & 255) | (b[p+1] & 255) << 8
+                | (b[p+2] & 255) << 16 | (b[p+3] & 255) << 24) & 0xffffffffL;
     }
 
     private static final class Header {
@@ -331,12 +337,13 @@ public final class UpxExtractor implements ArchiveExtractor {
     private static final class Block {
         final byte[] compressed, decoded;
         final long end;
-        Block(byte[] c, byte[] d, long e) { compressed=c; decoded=d; end=e; }
+        final int filter, cto;
+        Block(byte[] c, byte[] d, long e, int f, int t) { compressed=c; decoded=d; end=e; filter=f; cto=t; }
     }
 
     private static final class Result {
         final long compressed, expanded;
-        final boolean pe;
-        Result(long c, long e, boolean isPe) { compressed=c; expanded=e; pe=isPe; }
+        final boolean pe, rebuilt;
+        Result(long c, long e, boolean isPe, boolean isRebuilt) { compressed=c; expanded=e; pe=isPe; rebuilt=isRebuilt; }
     }
 }
