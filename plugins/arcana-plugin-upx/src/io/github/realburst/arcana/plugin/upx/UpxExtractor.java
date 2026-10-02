@@ -192,12 +192,12 @@ public final class UpxExtractor implements ArchiveExtractor {
         return new Result(consumed, expanded, false, image != null);
     }
 
-    /** Reassemble the common ELF64 ET_EXEC layout used by UPX 5.2.1. */
+    /** Reassemble the common ELF64 layout used by UPX 5.x: ET_EXEC and PIE (ET_DYN) executables. */
     private static byte[] rebuildElf64(List<byte[]> loads, List<byte[]> gaps, int size) {
         if (loads.isEmpty()) return null;
         byte[] header = loads.get(0);
         if (header.length < 64 || header[4] != 2 || header[5] != 1
-                || u16(header, 16) != 2 || u16(header, 18) != 62) return null;
+                || (u16(header, 16) != 2 && u16(header, 16) != 3) || u16(header, 18) != 62) return null;
         long phoff = u64(header, 32);
         int ent = u16(header, 54), n = u16(header, 56);
         if (phoff != 64 || ent != 56 || n < 1 || n > 256
