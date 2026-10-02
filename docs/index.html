@@ -239,9 +239,7 @@ Description: PE32 EXE x86
           <thead><tr><th scope="col">File</th><th scope="col">Content</th><th scope="col">Size</th></tr></thead>
           <tbody id="release-assets">
             <tr><td><a class="js-download" data-file="Arcana-v{v}.jar" href="https://github.com/RealBurst/arcana/releases/latest"><span data-jar>Arcana-v1.0.0.jar</span></a></td><td>Command-line tool and Java library</td><td></td></tr>
-            <tr><td><a class="js-download" data-file="arcana-plugin-pak.jar" href="https://github.com/RealBurst/arcana/releases/latest">arcana-plugin-pak.jar</a></td><td>Plugin: Quake PAK archives (Apache-2.0)</td><td></td></tr>
-            <tr><td><a class="js-download" data-file="arcana-plugin-upx.jar" href="https://github.com/RealBurst/arcana/releases/latest">arcana-plugin-upx.jar</a></td><td>Plugin: UPX-compressed executables (GPL-3.0-or-later)</td><td></td></tr>
-            <tr><td><a href="https://github.com/RealBurst/arcana/releases/latest">SHA256SUMS.txt</a></td><td>SHA-256 checksums of the JAR files</td><td></td></tr>
+            <tr id="sums-row"><td><a href="https://github.com/RealBurst/arcana/releases/latest">SHA256SUMS.txt</a></td><td>SHA-256 checksums of the JAR files</td><td></td></tr>
           </tbody>
         </table>
       </div>
@@ -520,9 +518,8 @@ PluginManager.get().register(<span class="k">new</span> MyPlugin());
       <div class="table-wrap">
         <table>
           <thead><tr><th scope="col">Plugin</th><th scope="col">What it does</th><th scope="col">Files</th><th scope="col">Capabilities</th><th scope="col">Author</th><th scope="col">License</th></tr></thead>
-          <tbody>
-            <tr><td><a href="https://github.com/RealBurst/arcana/tree/main/plugins/arcana-plugin-pak">arcana-plugin-pak</a></td><td>Quake PAK archives (id Software, 1996)</td><td><code>.pak</code></td><td>extract, create, recover, split</td><td>Stephane Bury</td><td>Apache-2.0</td></tr>
-            <tr><td><a href="https://github.com/RealBurst/arcana/tree/main/plugins/arcana-plugin-upx">arcana-plugin-upx</a></td><td>Restores executables compressed with UPX (NRV2B/2D/2E and LZMA) for static analysis. It never runs them.</td><td>Windows PE32 and PE32+, Linux ELF, by content</td><td>extract</td><td>Stephane Bury</td><td>GPL-3.0-or-later</td></tr>
+          <tbody id="known-plugins-list">
+            <tr><td colspan="6">The list of known plugins is in <a href="plugins.json">plugins.json</a>.</td></tr>
           </tbody>
         </table>
       </div>

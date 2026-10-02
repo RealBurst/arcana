@@ -9,7 +9,7 @@
   "use strict";
 
   var REPO = "RealBurst/arcana";
-  var FALLBACK = { version: "1.0.0", date: "" }; // used when the GitHub API cannot be reached: update it at each release
+  var FALLBACK = { version: "1.0.2", date: "" }; // used when the GitHub API cannot be reached: update it at each release
   var REPO_URL = "https://github.com/" + REPO;
 
   /* ------------------------------------------------------------------ release and stars */
@@ -37,8 +37,8 @@
 
   function describeAsset(name) {
     if (/^Arcana-v/.test(name)) return "Command-line tool and Java library";
-    if (name === "arcana-plugin-pak.jar") return "Plugin: Quake PAK archives (Apache-2.0)";
-    if (name === "arcana-plugin-upx.jar") return "Plugin: UPX-compressed executables (GPL-3.0-or-later)";
+    var p = pluginByJar(name);
+    if (p) return "Plugin: " + (p.summary || p.name) + " (" + p.license + ")";
     if (name === "SHA256SUMS.txt") return "SHA-256 checksums of the JAR files";
     if (/^arcana-plugin-/.test(name)) return "Plugin";
     return "";
@@ -64,6 +64,71 @@
       body.appendChild(tr);
     });
     bindDownloads(body);
+  }
+
+  /* ------------------------------------------------------------------ known plugins (docs/plugins.json) */
+
+  var PLUGINS = [];
+
+  function pluginByJar(name) {
+    for (var i = 0; i < PLUGINS.length; i++) if (PLUGINS[i].jar === name) return PLUGINS[i];
+    return null;
+  }
+
+  function cell(tr, text) {
+    var td = document.createElement("td");
+    td.textContent = text || "";
+    tr.appendChild(td);
+    return td;
+  }
+
+  // "Known plugins" table, and the plugin rows of the download table (used when the GitHub API cannot be reached)
+  function fillPlugins() {
+    var body = document.getElementById("known-plugins-list");
+    if (body && PLUGINS.length) {
+      body.innerHTML = "";
+      PLUGINS.forEach(function (p) {
+        var tr = document.createElement("tr");
+        var td = cell(tr, "");
+        var a = document.createElement("a");
+        a.href = p.url;
+        a.textContent = p.name;
+        td.appendChild(a);
+        cell(tr, p.description);
+        cell(tr, p.files);
+        cell(tr, p.capabilities);
+        cell(tr, p.author);
+        cell(tr, p.license);
+        body.appendChild(tr);
+      });
+    }
+    var sums = document.getElementById("sums-row");
+    if (sums) {
+      PLUGINS.forEach(function (p) {
+        if (!p.jar) return;
+        var tr = document.createElement("tr");
+        var td = cell(tr, "");
+        var a = document.createElement("a");
+        a.className = "js-download";
+        a.setAttribute("data-file", p.jar);
+        a.href = REPO_URL + "/releases/latest";
+        a.textContent = p.jar;
+        td.appendChild(a);
+        cell(tr, describeAsset(p.jar));
+        cell(tr, "");
+        sums.parentNode.insertBefore(tr, sums);
+      });
+    }
+  }
+
+  function loadPlugins() {
+    if (!window.fetch) return Promise.resolve();
+    return fetch("plugins.json", { cache: "no-cache" }).then(function (r) { return r.ok ? r.json() : null; }).then(function (data) {
+      if (data && data.plugins && data.plugins.length) {
+        PLUGINS = data.plugins.slice().sort(function (x, y) { return x.name < y.name ? -1 : x.name > y.name ? 1 : 0; });
+        fillPlugins();
+      }
+    }).catch(function () { /* file:// or offline: the table keeps its link to plugins.json */ });
   }
 
   function loadRelease() {
@@ -380,7 +445,8 @@
     });
   }
 
-  loadRelease();
+  // the plugin list first: it gives the descriptions of the plugin JARs of the release
+  if (window.Promise) loadPlugins().then(function () { loadRelease(); bindDownloads(); }); else loadRelease();
   bindDownloads();
   initInspector();
   initToc();

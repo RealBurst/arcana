@@ -1,0 +1,38 @@
+{
+  "comment": "List of known plugins shown on the website (section Known plugins). Add an entry to list a plugin; 'jar' only for the plugins published with Arcana's releases. Plain text only (no HTML).",
+  "plugins": [
+    {
+      "name": "arcana-plugin-nsis",
+      "url": "https://github.com/RealBurst/arcana/tree/main/plugins/arcana-plugin-nsis",
+      "description": "Extracts the files of NSIS installers (NSIS 2 and 3, ANSI and Unicode, zlib, bzip2 and LZMA, solid or not). Requires Arcana 1.0.2.",
+      "files": "Windows installers (.exe), by content",
+      "capabilities": "extract, identify",
+      "author": "Stephane Bury",
+      "license": "Apache-2.0",
+      "jar": "arcana-plugin-nsis.jar",
+      "summary": "NSIS installers"
+    },
+    {
+      "name": "arcana-plugin-pak",
+      "url": "https://github.com/RealBurst/arcana/tree/main/plugins/arcana-plugin-pak",
+      "description": "Quake PAK archives (id Software, 1996)",
+      "files": ".pak",
+      "capabilities": "extract, create, recover, split",
+      "author": "Stephane Bury",
+      "license": "Apache-2.0",
+      "jar": "arcana-plugin-pak.jar",
+      "summary": "Quake PAK archives"
+    },
+    {
+      "name": "arcana-plugin-upx",
+      "url": "https://github.com/RealBurst/arcana/tree/main/plugins/arcana-plugin-upx",
+      "description": "Restores executables compressed with UPX (NRV2B/2D/2E and LZMA) for static analysis. It never runs them.",
+      "files": "Windows PE32 and PE32+, Linux ELF, by content",
+      "capabilities": "extract",
+      "author": "Stephane Bury",
+      "license": "GPL-3.0-or-later",
+      "jar": "arcana-plugin-upx.jar",
+      "summary": "UPX-compressed executables"
+    }
+  ]
+}
