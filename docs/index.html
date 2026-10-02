@@ -1,0 +1,652 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Arcana - pure-Java archive library and command-line tool</title>
+<meta name="description" content="Arcana extracts, creates, identifies and repairs ZIP, 7z, RAR, TAR, XZ, Zstandard, CAB, ISO and 20 more formats in pure Java 8. No native code, no dependencies, extensible with plugins.">
+<meta property="og:title" content="Arcana - pure-Java archive library and command-line tool">
+<meta property="og:description" content="ZIP, 7z, RAR 4/5, TAR, XZ, Zstandard, CAB, ISO and more, in pure Java 8. No native code, no dependencies.">
+<meta property="og:type" content="website">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/arcana.css">
+</head>
+<body>
+
+<header class="topbar">
+  <a class="wordmark" href="#top" aria-label="Arcana, back to top"><b>Arcana</b><span>v<span data-version>1.0.0</span></span></a>
+  <nav aria-label="Main sections">
+    <a href="#formats">Formats</a>
+    <a href="#command-line">Command line</a>
+    <a href="#java-api">Java API</a>
+    <a href="#plugins">Plugins</a>
+    <a href="#faq">FAQ</a>
+  </nav>
+  <div class="actions">
+    <a class="btn btn-small" href="https://github.com/RealBurst/arcana" target="_blank" rel="noopener">
+      <svg viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor" d="M8 .25a.75.75 0 0 1 .673.418l1.882 3.815 4.21.612a.75.75 0 0 1 .416 1.279l-3.046 2.97.719 4.192a.75.75 0 0 1-1.088.791L8 12.347l-3.766 1.98a.75.75 0 0 1-1.088-.79l.72-4.194L.818 6.374a.75.75 0 0 1 .416-1.28l4.21-.611L7.327.668A.75.75 0 0 1 8 .25Z"/></svg>
+      Star<span class="count" data-stars></span>
+    </a>
+  </div>
+</header>
+
+<div class="hero" id="top">
+  <div>
+    <h1>Arcana</h1>
+    <p class="lede">Open, create and repair archives from Java or from the command line. One JAR, written entirely in Java 8, with nothing else to install.</p>
+    <ul class="facts">
+      <li>ZIP, 7z, RAR 4 and 5, TAR, XZ, Zstandard, CAB, ISO 9660 and 20 more formats</li>
+      <li>Encrypted ZIP, 7z and RAR, including encrypted headers and multi-volume RAR</li>
+      <li>No native library, no JNI, no dependency: runs wherever Java 8 runs</li>
+      <li>Apache License 2.0, extensible with plugins</li>
+    </ul>
+    <div class="cta">
+      <a class="btn btn-primary js-download" data-file="Arcana-v{v}.jar" href="https://github.com/RealBurst/arcana/releases/latest">
+        <svg viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor" d="M2.75 14A1.75 1.75 0 0 1 1 12.25v-2.5a.75.75 0 0 1 1.5 0v2.5c0 .138.112.25.25.25h10.5a.25.25 0 0 0 .25-.25v-2.5a.75.75 0 0 1 1.5 0v2.5A1.75 1.75 0 0 1 13.25 14ZM7.25 7.689V2a.75.75 0 0 1 1.5 0v5.689l1.97-1.969a.749.749 0 1 1 1.06 1.06l-3.25 3.25a.749.749 0 0 1-1.06 0L4.22 6.78a.749.749 0 1 1 1.06-1.06l1.97 1.969Z"/></svg>
+        Download <span data-jar>Arcana-v1.0.0.jar</span>
+      </a>
+      <a class="btn" href="https://github.com/RealBurst/arcana" target="_blank" rel="noopener">
+        <svg viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor" d="M8 .25a.75.75 0 0 1 .673.418l1.882 3.815 4.21.612a.75.75 0 0 1 .416 1.279l-3.046 2.97.719 4.192a.75.75 0 0 1-1.088.791L8 12.347l-3.766 1.98a.75.75 0 0 1-1.088-.79l.72-4.194L.818 6.374a.75.75 0 0 1 .416-1.28l4.21-.611L7.327.668A.75.75 0 0 1 8 .25Z"/></svg>
+        Star on GitHub<span class="count" data-stars></span>
+      </a>
+      <span class="meta">Version <span data-version>1.0.0</span>, requires Java 8 or later. Other files and checksums: <a href="#download">Download</a>.</span>
+    </div>
+    <pre class="term quick"><span class="p">$ </span><span class="cmd">java -jar <span data-jar>Arcana-v1.0.0.jar</span> x holidays.rar -o photos</span>
+Extracting holidays.rar -> /home/anna/photos
+Done.</pre>
+  </div>
+
+  <aside class="inspector" aria-labelledby="inspector-title">
+    <h2 id="inspector-title">How Arcana recognizes a file</h2>
+    <p class="hint">Arcana does not trust file names: it reads the first bytes and looks for the signature of each format. This page applies the same detection rules to the first bytes of your file, in your browser. Nothing is uploaded and nothing is extracted: to open the file, use Arcana itself.</p>
+    <div class="drop" id="drop">
+      <div class="filename" id="hex-name"></div>
+      <pre class="hexdump" id="hexdump" aria-label="First bytes of the file in hexadecimal"></pre>
+      <div class="verdict" id="verdict" aria-live="polite"></div>
+    </div>
+    <div class="pick">
+      <label class="btn btn-small" for="file-input">Choose a file</label>
+      <input class="visually-hidden" type="file" id="file-input">
+      <span>or drop it in the box. Examples:</span>
+      <div class="samples" id="samples"></div>
+    </div>
+  </aside>
+</div>
+
+<div class="doc">
+  <nav class="toc" aria-label="On this page">
+    <ol>
+      <li><a href="#overview">Overview</a></li>
+      <li><a href="#formats">Formats</a>
+        <ol>
+          <li><a href="#archive-based-files">Archive-based files</a></li>
+          <li><a href="#identification">Identification</a></li>
+        </ol>
+      </li>
+      <li><a href="#download">Download</a></li>
+      <li><a href="#command-line">Command line</a>
+        <ol>
+          <li><a href="#cli-options">Options</a></li>
+          <li><a href="#cli-recover">Damaged archives</a></li>
+          <li><a href="#cli-split">Glued files</a></li>
+          <li><a href="#cli-exit">Exit codes</a></li>
+        </ol>
+      </li>
+      <li><a href="#java-api">Java API</a>
+        <ol>
+          <li><a href="#api-compress">Compression</a></li>
+          <li><a href="#api-identify">Identification</a></li>
+          <li><a href="#api-recover">Recovery</a></li>
+          <li><a href="#api-errors">Errors</a></li>
+        </ol>
+      </li>
+      <li><a href="#plugins">Plugins</a>
+        <ol>
+          <li><a href="#plugins-java">From Java</a></li>
+          <li><a href="#known-plugins">Known plugins</a></li>
+          <li><a href="#write-plugin">Write a plugin</a></li>
+        </ol>
+      </li>
+      <li><a href="#safety">Safety</a></li>
+      <li><a href="#build">Building</a></li>
+      <li><a href="#faq">FAQ</a></li>
+      <li><a href="#contribute">Bugs and help</a></li>
+    </ol>
+  </nav>
+
+  <main>
+
+    <section id="overview">
+      <h2>Overview</h2>
+      <p class="section-intro">Arcana is a single JAR that is both a command-line tool and a Java library. It reads the archive formats you meet in practice, writes the most common ones, and tells you what an unknown file is.</p>
+      <p>Everything is implemented in Java: the decompressors (Deflate, Deflate64, LZMA, LZMA2, PPMd, BZip2, LZ4, Zstandard, Brotli, LZX, the RAR 4 and RAR 5 algorithms...), the encryption (AES, ZipCrypto) and the container formats. There is no call to a native library and no third-party JAR, so Arcana behaves the same on Windows, Linux and macOS and can be dropped into any Java 8 application.</p>
+      <h3>What you can do with it</h3>
+      <dl class="ref plain">
+        <dt>Extract</dt>
+        <dd>every supported format, encrypted or not, from a file or from a stream.</dd>
+        <dt>Compress</dt>
+        <dd>to ZIP, 7z, TAR (plain, GZIP, BZIP2, XZ, LZ4), GZIP, BZIP2, XZ, LHA and CAB, with AES-256 encryption for ZIP and 7z.</dd>
+        <dt>Identify</dt>
+        <dd>any file: archive, executable, image, document, database, font, media, with its version and details.</dd>
+        <dt>Recover</dt>
+        <dd>what is still readable in a damaged archive, with a report giving the state of every file.</dd>
+        <dt>Split</dt>
+        <dd>files made of several files glued together, such as installers and self-extracting archives.</dd>
+        <dt>Extend</dt>
+        <dd>with plugins that add formats without changing Arcana.</dd>
+      </dl>
+    </section>
+
+    <section id="formats" class="wide">
+      <h2>Formats</h2>
+      <p>The signature column shows the bytes Arcana looks for. Formats without a signature (LZMA, Brotli) are recognized by their extension. <code>arcana formats</code> prints the same list, including the formats added by installed plugins.</p>
+      <div class="table-wrap">
+        <table class="formats">
+          <thead><tr><th scope="col">Format</th><th scope="col">Extract</th><th scope="col">Create</th><th scope="col">Signature</th><th scope="col">Notes</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">ZIP</th><td class="yes">yes</td><td class="yes">yes</td><td><span class="hex">50 4B 03 04</span></td><td>Also JAR, WAR, EAR. Decrypts ZipCrypto and WinZip AES; encrypts with AES-256 (ZipCrypto from the Java API). Deflate64 supported.</td></tr>
+            <tr><th scope="row">7-Zip</th><td class="yes">yes</td><td class="yes">yes</td><td><span class="hex">37 7A BC AF 27 1C</span></td><td>LZMA, LZMA2, PPMd, BZip2, Deflate, Deflate64; BCJ, BCJ2, ARM, ARM-Thumb, PowerPC, SPARC, IA-64 and Delta filters. AES-256, encrypted headers. Creates LZMA2, levels 0 to 9.</td></tr>
+            <tr><th scope="row">RAR 5</th><td class="yes">yes</td><td class="no">no</td><td><span class="hex">52 61 72 21 1A 07 01 00</span></td><td>AES-256, encrypted headers, multi-volume, solid archives. Also .cbr.</td></tr>
+            <tr><th scope="row">RAR 4</th><td class="yes">yes</td><td class="no">no</td><td><span class="hex">52 61 72 21 1A 07 00</span></td><td>AES-128, encrypted headers, multi-volume, solid archives, VM filters.</td></tr>
+            <tr><th scope="row">TAR</th><td class="yes">yes</td><td class="yes">yes</td><td><span class="hex">"ustar"</span> at byte 257</td><td>Also .gem.</td></tr>
+            <tr><th scope="row">TAR + GZIP</th><td class="yes">yes</td><td class="yes">yes</td><td><span class="hex">1F 8B</span></td><td>.tar.gz, .tgz</td></tr>
+            <tr><th scope="row">TAR + BZIP2</th><td class="yes">yes</td><td class="yes">yes</td><td><span class="hex">42 5A 68</span></td><td>.tar.bz2, .tbz2, .tbz</td></tr>
+            <tr><th scope="row">TAR + XZ</th><td class="yes">yes</td><td class="yes">yes</td><td><span class="hex">FD 37 7A 58 5A 00</span></td><td>.tar.xz, .txz; levels 0 to 9</td></tr>
+            <tr><th scope="row">TAR + LZ4</th><td class="yes">yes</td><td class="yes">yes</td><td><span class="hex">04 22 4D 18</span></td><td>.tar.lz4</td></tr>
+            <tr><th scope="row">TAR + Zstandard</th><td class="yes">yes</td><td class="no">no</td><td><span class="hex">FD 2F B5 28</span></td><td>.tar.zst, .tzst</td></tr>
+            <tr><th scope="row">TAR + Brotli</th><td class="yes">yes</td><td class="no">no</td><td>none</td><td>.tar.br, .tbr</td></tr>
+            <tr><th scope="row">GZIP</th><td class="yes">yes</td><td class="yes">yes</td><td><span class="hex">1F 8B</span></td><td>Single file.</td></tr>
+            <tr><th scope="row">BZIP2</th><td class="yes">yes</td><td class="yes">yes</td><td><span class="hex">42 5A 68</span></td><td>Single file.</td></tr>
+            <tr><th scope="row">XZ</th><td class="yes">yes</td><td class="yes">yes</td><td><span class="hex">FD 37 7A 58 5A 00</span></td><td>Single file, LZMA2, levels 0 to 9.</td></tr>
+            <tr><th scope="row">LZMA</th><td class="yes">yes</td><td class="no">no</td><td>none</td><td>Raw .lzma stream, recognized by its extension.</td></tr>
+            <tr><th scope="row">LZ4</th><td class="yes">yes</td><td class="no">no</td><td><span class="hex">04 22 4D 18</span></td><td>Frame format.</td></tr>
+            <tr><th scope="row">Zstandard</th><td class="yes">yes</td><td class="no">no</td><td><span class="hex">FD 2F B5 28</span></td><td>.zst, .zstd</td></tr>
+            <tr><th scope="row">Snappy</th><td class="yes">yes</td><td class="no">no</td><td><span class="hex">FF 06 00 00 73 4E 61 50 70 59</span></td><td>Framing format.</td></tr>
+            <tr><th scope="row">Brotli</th><td class="yes">yes</td><td class="no">no</td><td>none</td><td>.br, recognized by its extension.</td></tr>
+            <tr><th scope="row">Unix compress</th><td class="yes">yes</td><td class="no">no</td><td><span class="hex">1F 9D</span></td><td>.Z (LZW)</td></tr>
+            <tr><th scope="row">LHA / LZH</th><td class="yes">yes</td><td class="yes">yes</td><td><span class="hex">"-lh"</span> at byte 2</td><td>Extracts -lh0-, -lh4- to -lh7-; creates -lh5- (default), -lh6-, -lh7-.</td></tr>
+            <tr><th scope="row">Cabinet</th><td class="yes">yes</td><td class="yes">yes</td><td><span class="hex">"MSCF"</span></td><td>Extracts stored, MSZIP and LZX; creates MSZIP.</td></tr>
+            <tr><th scope="row">CPIO</th><td class="yes">yes</td><td class="no">no</td><td><span class="hex">"07070"</span></td><td>newc (SVR4) and odc.</td></tr>
+            <tr><th scope="row">ISO 9660</th><td class="yes">yes</td><td class="no">no</td><td><span class="hex">"CD001"</span> at byte 32769</td><td>CD and DVD images.</td></tr>
+            <tr><th scope="row">AR / Debian package</th><td class="yes">yes</td><td class="no">no</td><td><span class="hex">"!&lt;arch&gt;"</span></td><td>.a, .deb (contents unpacked, control files in <code>DEBIAN/</code>).</td></tr>
+            <tr><th scope="row">RPM</th><td class="yes">yes</td><td class="no">no</td><td><span class="hex">ED AB EE DB</span></td><td>gzip, bzip2, xz and zstd payloads.</td></tr>
+            <tr><th scope="row">XAR</th><td class="yes">yes</td><td class="no">no</td><td><span class="hex">"xar!"</span></td><td>Apple.</td></tr>
+            <tr><th scope="row">Self-extracting archive</th><td class="yes">yes</td><td class="no">no</td><td><span class="hex">"MZ"</span> or <span class="hex">7F "ELF"</span></td><td>Finds and extracts the ZIP, RAR, 7z or CAB (IExpress) inside an executable.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>A TAR or CPIO archive inside any single-file format is unpacked automatically: <code>.cpio.gz</code>, <code>.cpio.xz</code>, <code>.cpio.zst</code>, <code>.tar.lzma</code>...</p>
+
+      <h3 id="archive-based-files">Archive-based files</h3>
+      <p>Many everyday files are archives under another name. Because Arcana goes by the content, it opens them directly, whatever their extension.</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th scope="col">Built on</th><th scope="col">Files</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">ZIP</th><td>Word, Excel and PowerPoint documents (<code>.docx</code>, <code>.xlsx</code>, <code>.pptx</code>, their templates and macro-enabled variants), OpenDocument (<code>.odt</code>, <code>.ods</code>, <code>.odp</code>, <code>.odg</code>, <code>.odf</code>, <code>.odb</code>), EPUB books, Java archives (<code>.jar</code>, <code>.war</code>, <code>.ear</code>, <code>.aar</code>), Android and iOS packages (<code>.apk</code>, <code>.ipa</code>), Python packages (<code>.whl</code>, <code>.egg</code>), browser and IDE extensions (<code>.xpi</code>, <code>.crx</code>, <code>.vsix</code>), NuGet packages, Google Earth <code>.kmz</code>, comic books <code>.cbz</code>, XPS documents, FreeCAD <code>.fcstd</code>, 3D printing <code>.3mf</code></td></tr>
+            <tr><th scope="row">GZIP</th><td>Dia diagrams (<code>.dia</code>), compressed SVG (<code>.svgz</code>)</td></tr>
+            <tr><th scope="row">RAR, 7z</th><td>Comic books (<code>.cbr</code>, <code>.cb7</code>)</td></tr>
+            <tr><th scope="row">TAR</th><td>Ruby gems (<code>.gem</code>)</td></tr>
+            <tr><th scope="row">AR</th><td>Debian packages (<code>.deb</code>)</td></tr>
+          </tbody>
+        </table>
+      </div>
+<pre class="term"><span class="p">$ </span><span class="cmd">arcana x report.docx -o report</span>
+Extracting report.docx -> /home/anna/report
+Done.</pre>
+      <p>A single-file stream (GZIP, BZIP2, XZ...) that does not store its original name is extracted to a file named <code>output</code>.</p>
+
+      <h3 id="identification">Identification</h3>
+      <p><code>arcana i</code> tells what a file is without extracting anything. It recognizes:</p>
+      <ul>
+        <li>archives: every format of the table above;</li>
+        <li>executables: Windows PE32 and PE32+ (architecture, subsystem, EXE or DLL), .NET assemblies and .NET single-file bundles, Linux ELF, macOS Mach-O, MS-DOS programs, Java class files, WebAssembly modules;</li>
+        <li>images: PNG, JPEG, GIF, BMP, TIFF and WebP, with their dimensions;</li>
+        <li>documents and data: PDF, SQLite databases, OLE2 compound files (legacy Office documents, MSI...);</li>
+        <li>fonts: TrueType, OpenType, WOFF and WOFF2;</li>
+        <li>media: MP3, FLAC, Ogg, MP4 and other RIFF or ISO media containers.</li>
+      </ul>
+<pre class="term"><span class="p">$ </span><span class="cmd">arcana i sunset.png</span>
+File       : sunset.png
+Category   : image
+Type       : PNG
+Description: PNG image, 640x480
+  dimensions     : 640 x 480
+  bit depth      : 8
+  color type     : truecolor (RGB)
+<span class="p">$ </span><span class="cmd">arcana i setup.exe</span>
+File       : setup.exe
+Category   : executable
+Type       : PE32
+Description: PE32 EXE x86
+  kind           : EXE (application)
+  architecture   : x86 (32-bit)
+  subsystem      : Windows GUI</pre>
+    </section>
+
+    <section id="download" class="wide">
+      <h2>Download</h2>
+      <div class="release">
+        <span class="ver">Arcana <span data-version>1.0.0</span></span>
+        <span class="date" data-release-date></span>
+        <a href="https://github.com/RealBurst/arcana/releases" target="_blank" rel="noopener">All releases</a>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th scope="col">File</th><th scope="col">Content</th><th scope="col">Size</th></tr></thead>
+          <tbody id="release-assets">
+            <tr><td><a class="js-download" data-file="Arcana-v{v}.jar" href="https://github.com/RealBurst/arcana/releases/latest"><span data-jar>Arcana-v1.0.0.jar</span></a></td><td>Command-line tool and Java library</td><td></td></tr>
+            <tr><td><a class="js-download" data-file="arcana-plugin-pak.jar" href="https://github.com/RealBurst/arcana/releases/latest">arcana-plugin-pak.jar</a></td><td>Plugin: Quake PAK archives (Apache-2.0)</td><td></td></tr>
+            <tr><td><a class="js-download" data-file="arcana-plugin-upx.jar" href="https://github.com/RealBurst/arcana/releases/latest">arcana-plugin-upx.jar</a></td><td>Plugin: UPX-compressed executables (GPL-3.0-or-later)</td><td></td></tr>
+            <tr><td><a href="https://github.com/RealBurst/arcana/releases/latest">SHA256SUMS.txt</a></td><td>SHA-256 checksums of the JAR files</td><td></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>Arcana needs a Java runtime, version 8 or later. Nothing else: no installer, no native library. Every release is built and tested automatically with Java 8 and Java 21.</p>
+      <h3>Check the download</h3>
+      <p>Compare the SHA-256 of the file with the line given for it in <code>SHA256SUMS.txt</code>:</p>
+<pre class="term"><span class="p">C:\&gt; </span><span class="cmd">certutil -hashfile <span data-jar>Arcana-v1.0.0.jar</span> SHA256</span>
+<span class="p">$ </span><span class="cmd">sha256sum -c SHA256SUMS.txt --ignore-missing</span></pre>
+      <h3>As a dependency</h3>
+      <p>Add the JAR to the class path of your application. Publication on Maven Central under <code>io.github.realburst:arcana</code> is planned.</p>
+    </section>
+
+    <section id="command-line">
+      <h2>Command line</h2>
+<pre class="code">java -jar <span data-jar>Arcana-v1.0.0.jar</span> &lt;command&gt; [options]</pre>
+      <p>In the examples below, <code>arcana</code> stands for <code>java -jar <span data-jar>Arcana-v1.0.0.jar</span></code>. On Windows, a one-line <code>arcana.bat</code> next to the JAR gives you the short form: <code>@java -jar "%~dp0<span data-jar>Arcana-v1.0.0.jar</span>" %*</code>.</p>
+      <p>Run it without arguments for the syntax of each command, and with <code>help</code> (or <code>-h</code>, <code>--help</code>) for the descriptions, options and examples. <code>version</code> (or <code>-v</code>, <code>--version</code>) prints the version.</p>
+
+      <dl class="ref">
+        <dt>arcana x &lt;archive&gt; [-o dest] [-p password] [-f format]</dt>
+        <dd>Extracts the archive into <var>dest</var>, or into the current directory.</dd>
+        <dt>arcana l &lt;archive&gt; [-p password] [-f format]</dt>
+        <dd>Lists the contents: size, date and name of every entry.</dd>
+        <dt>arcana c &lt;source&gt; &lt;archive&gt; [-t format] [-l 0-9] [-p password]</dt>
+        <dd>Compresses a file or a directory. The format comes from the archive name, using the longest known extension (<code>backup.tar.gz</code> gives <code>tar.gz</code>); <code>-t</code> sets it explicitly.</dd>
+        <dt>arcana r &lt;archive&gt; [-o dest] [-p password] [-f format]</dt>
+        <dd>Recovers a damaged archive: extracts everything that can still be read and writes a report.</dd>
+        <dt>arcana s &lt;file&gt; [-o dest] [-n]</dt>
+        <dd>Splits a file made of files glued together into <var>dest</var>/<var>file name</var>/.</dd>
+        <dt>arcana i &lt;file&gt;</dt>
+        <dd>Identifies a file: category, type, version and details.</dd>
+        <dt>arcana formats [extract|compress]</dt>
+        <dd>Lists the supported formats, optionally only those that can be extracted or created.</dd>
+        <dt>arcana plugins [&lt;file&gt;]</dt>
+        <dd>Lists the plugins found, loaded or refused, with their directories and checksums. With a file, shows which plugin or format Arcana chooses for it, and why.</dd>
+      </dl>
+
+<pre class="term"><span class="p">$ </span><span class="cmd">arcana c demo backup.7z -l 9 -p secret</span>
+Compressing demo -> backup.7z
+Done. 452 bytes in 621 ms.
+<span class="p">$ </span><span class="cmd">arcana l backup.7z -p secret</span>
+Size          Modified             Name
+------------  -------------------  ----------------------------------------
+          14  2026-10-02 11:40:43  demo/docs/notes.txt
+          12  2026-10-02 11:40:43  demo/docs/budget.csv
+        2366  2026-10-02 11:40:43  demo/photos/sunset.png
+           0  2026-10-02 11:40:43  demo/
+           0  2026-10-02 11:40:43  demo/docs/
+           0  2026-10-02 11:40:43  demo/photos/
+  6 entries
+<span class="p">$ </span><span class="cmd">arcana x backup.7z -o restored -p secret</span>
+Extracting backup.7z -> /home/anna/restored
+Done.</pre>
+
+      <h3 id="cli-options">Options</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th scope="col">Option</th><th scope="col">Commands</th><th scope="col">Meaning</th></tr></thead>
+          <tbody>
+            <tr><td><code>-o &lt;dir&gt;</code></td><td>x, r, s</td><td>Output directory. It can also be given as the second argument: <code>arcana x a.zip out</code>.</td></tr>
+            <tr><td><code>-p &lt;password&gt;</code></td><td>x, l, r, c</td><td>Password to decrypt; with <code>c</code>, encrypts the new ZIP or 7z archive with AES-256.</td></tr>
+            <tr><td><code>-f &lt;format&gt;</code></td><td>x, l, r</td><td>Forces the input format instead of detecting it: a format name or extension (<code>zip</code>, <code>tar.gz</code>...), or a plugin id.</td></tr>
+            <tr><td><code>-t &lt;format&gt;</code></td><td>c</td><td>Forces the output format instead of taking it from the archive name.</td></tr>
+            <tr><td><code>-l &lt;level&gt;</code></td><td>c</td><td>0 (fastest) to 9 (smallest) for 7z, xz and tar.xz, default 6; 5, 6 or 7 for lzh (-lh5-, -lh6-, -lh7-).</td></tr>
+            <tr><td><code>-n</code></td><td>s</td><td>Lists the pieces without writing anything.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>Before running any command, Arcana prints on the error output the plugins it refused, with the reason, or <code>[plugins] No plugin found in any plugin directory.</code> when there is none. Nothing is printed when every plugin loaded correctly. Because these lines go to the error output, they do not mix with a listing you redirect to a file.</p>
+
+      <h3 id="cli-recover">Damaged archives</h3>
+      <p>Normal extraction stops at the first error, so that you never get a damaged file without knowing it. <code>arcana r</code> does the opposite: it keeps everything that can be read and gives the state of every file.</p>
+<pre class="term"><span class="p">$ </span><span class="cmd">arcana x photos.zip</span>
+Extracting photos.zip -> /home/anna
+<span class="bad">Error: ZIP entry 'photos/sunset.png' has 2 bytes instead of 2366</span>
+<span class="p">$ </span><span class="cmd">arcana r photos.zip -o rescue</span>
+Archive : photos.zip
+Method  : ZIP: local headers scanned one by one
+Result  : 3 file(s): 2 OK, 0 unverified, 1 bad checksum, 0 partial, 0 lost
+
+Status            Written / Expected     Name
+<span class="ok">OK                     14 / 14           docs/notes.txt</span>
+<span class="ok">OK                     12 / 12           docs/budget.csv</span>
+<span class="bad">BAD_CHECKSUM            2 / 2366         photos/sunset.png  (CRC c0f36009 instead of 364d29a8)</span>
+
+Report written to /home/anna/rescue/_ARCANA_RECOVERY_REPORT.txt</pre>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th scope="col">Status</th><th scope="col">Meaning</th></tr></thead>
+          <tbody>
+            <tr><td><code>OK</code></td><td>Decoded completely, and its checksum (when the format has one) is correct.</td></tr>
+            <tr><td><code>UNVERIFIED</code></td><td>Decoded completely, but no checksum could confirm the content.</td></tr>
+            <tr><td><code>BAD_CHECKSUM</code></td><td>Decoded completely, but the checksum does not match: the content is damaged.</td></tr>
+            <tr><td><code>PARTIAL</code></td><td>Decoding stopped on an error: only the beginning of the file was written.</td></tr>
+            <tr><td><code>LOST</code></td><td>Nothing could be decoded (encrypted, unsupported method, destroyed data).</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="note warn"><p>A recovered file can be incomplete or contain garbage. Check every file whose status is not <code>OK</code> before using it.</p></div>
+
+      <h3 id="cli-split">Glued files</h3>
+      <p>Installers, self-extracting archives and firmware images are often several files placed one after the other. <code>arcana s</code> finds where each one starts and ends.</p>
+<pre class="term"><span class="p">$ </span><span class="cmd">arcana s bundle.bin -n</span>
+  Offset         Size  Type     Description
+  0x00000000        99840  pe       PE32+ EXE x64
+  0x00018600          452  7z       7-Zip archive
+  0x000187C4         2366  png      PNG image
+  3 piece(s), 3 recognized</pre>
+      <p>Without <code>-n</code>, the pieces are written into <code>bundle/</code> in the output directory, named after their position and type (<code>001_0x00018600.7z</code>...). Parts that match no known format are written too, with <code>_unknown</code> in their name, so nothing is lost; only gaps made of zero bytes are skipped.</p>
+
+      <h3 id="cli-exit">Exit codes</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th scope="col">Code</th><th scope="col">Meaning</th></tr></thead>
+          <tbody>
+            <tr><td><code>0</code></td><td>Success.</td></tr>
+            <tr><td><code>1</code></td><td>Wrong command line: unknown command or option, missing argument, file not found, unknown format.</td></tr>
+            <tr><td><code>2</code></td><td>The operation failed: damaged or encrypted archive, wrong password, unsupported method... The message starts with <code>Error:</code>.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="java-api">
+      <h2>Java API</h2>
+      <p>Add the JAR to your class path. The entry point is <code>be.stef.arcana.Arcana</code>.</p>
+<pre class="code"><span class="k">import</span> be.stef.arcana.Arcana;
+<span class="k">import</span> be.stef.arcana.ArcanaEntry;
+<span class="k">import</span> be.stef.arcana.ArcanaFormat;
+
+<span class="cm">// Format detected from the content</span>
+Arcana.extractTo(<span class="k">new</span> File(<span class="s">"archive.tar.gz"</span>), <span class="k">new</span> File(<span class="s">"out"</span>));
+
+<span class="cm">// Entries, without extracting</span>
+<span class="k">for</span> (ArcanaEntry e : Arcana.listEntries(<span class="k">new</span> File(<span class="s">"archive.rar"</span>))) {
+    System.out.println(e.getName() + <span class="s">"  "</span> + e.getUncompressedSize());
+}
+
+<span class="cm">// Encrypted archive</span>
+Arcana.withPassword(<span class="s">"secret"</span>.getBytes(<span class="s">"UTF-8"</span>)).extract(<span class="k">new</span> File(<span class="s">"secure.7z"</span>), <span class="k">new</span> File(<span class="s">"out"</span>));
+
+<span class="cm">// From a stream: the format must be given</span>
+<span class="k">try</span> (InputStream in = <span class="k">new</span> FileInputStream(<span class="s">"data.bz2"</span>)) {
+    Arcana.with(ArcanaFormat.BZIP2).extract(in, <span class="k">new</span> File(<span class="s">"out"</span>));
+}</pre>
+      <p><code>ArcanaEntry</code> also gives the compressed size, the modification time and whether the entry is a directory.</p>
+
+      <h3 id="api-compress">Compression</h3>
+<pre class="code"><span class="k">import</span> be.stef.arcana.compressor.ZipCompressor;
+<span class="k">import</span> be.stef.arcana.plugin.FormatRegistry;
+
+<span class="k">byte</span>[] password = <span class="s">"secret"</span>.getBytes(<span class="s">"UTF-8"</span>);
+
+<span class="k">new</span> ZipCompressor().compress(<span class="k">new</span> File(<span class="s">"mydir"</span>), <span class="k">new</span> File(<span class="s">"backup.zip"</span>));
+<span class="k">new</span> ZipCompressor(password).compress(<span class="k">new</span> File(<span class="s">"mydir"</span>), <span class="k">new</span> File(<span class="s">"secure.zip"</span>));   <span class="cm">// WinZip AES-256</span>
+<span class="k">new</span> ZipCompressor(password, ZipCompressor.ENCRYPT_ZIPCRYPTO).compress(<span class="k">new</span> File(<span class="s">"mydir"</span>), <span class="k">new</span> File(<span class="s">"legacy.zip"</span>));
+
+<span class="cm">// Any format: level 0-9 (-1 = default), password or null</span>
+FormatRegistry.builtin(ArcanaFormat.SEVEN_Z).createCompressor(9, password).compress(<span class="k">new</span> File(<span class="s">"mydir"</span>), <span class="k">new</span> File(<span class="s">"vault.7z"</span>));
+FormatRegistry.builtin(ArcanaFormat.TAR_XZ).createCompressor(-1, <span class="k">null</span>).compress(<span class="k">new</span> File(<span class="s">"mydir"</span>), <span class="k">new</span> File(<span class="s">"backup.tar.xz"</span>));</pre>
+      <p><code>createCompressor</code> returns <code>null</code> for a format Arcana can only extract. ZipCrypto is weak encryption: use it only when the archive must open in very old tools.</p>
+
+      <h3 id="api-identify">Identification and splitting</h3>
+<pre class="code"><span class="k">import</span> be.stef.arcana.analyze.Identification;
+<span class="k">import</span> be.stef.arcana.formats.carve.FileCarver;
+
+Identification id = Arcana.identify(<span class="k">new</span> File(<span class="s">"mystery.bin"</span>));   <span class="cm">// never null</span>
+System.out.println(id.category + <span class="s">" / "</span> + id.type + (id.version != <span class="k">null</span> ? <span class="s">" "</span> + id.version : <span class="s">""</span>));
+System.out.println(id.description);
+System.out.println(id.getDetails());   <span class="cm">// for example the dimensions of an image</span>
+
+<span class="k">for</span> (FileCarver.Item item : Arcana.scanEmbedded(<span class="k">new</span> File(<span class="s">"setup.exe"</span>))) {   <span class="cm">// list only</span>
+    System.out.println(item);
+}
+Arcana.split(<span class="k">new</span> File(<span class="s">"setup.exe"</span>), <span class="k">new</span> File(<span class="s">"out"</span>));   <span class="cm">// writes out/setup/...</span></pre>
+
+      <h3 id="api-recover">Recovery</h3>
+<pre class="code"><span class="k">import</span> be.stef.arcana.formats.recover.RecoveryReport;
+
+RecoveryReport report = Arcana.forceUnpack(<span class="k">new</span> File(<span class="s">"damaged.zip"</span>), <span class="k">new</span> File(<span class="s">"rescue"</span>));
+System.out.println(report.summary());
+<span class="k">for</span> (RecoveryReport.Entry e : report.getEntries()) {
+    <span class="k">if</span> (e.status != RecoveryReport.Status.OK) System.out.println(e.name + <span class="s">": "</span> + e.status);
+}</pre>
+      <p>The same report is written to <code>_ARCANA_RECOVERY_REPORT.txt</code> in the destination directory.</p>
+
+      <h3>Extraction limits</h3>
+      <p>Every extraction made through <code>Arcana</code> is guarded by the limits of <code>be.stef.arcana.util.ExtractionLimits</code>. They are public static fields that you can change at run time.</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th scope="col">Field</th><th scope="col">Default</th><th scope="col">Effect</th></tr></thead>
+          <tbody>
+            <tr><td><code>maxRatio</code></td><td>1000</td><td>Largest allowed ratio between the extracted size and the archive size, checked once <code>ratioThreshold</code> bytes are written. Stops decompression bombs.</td></tr>
+            <tr><td><code>ratioThreshold</code></td><td>1 GiB</td><td>Extracted size from which the ratio is checked.</td></tr>
+            <tr><td><code>maxTotalBytes</code></td><td>0 (no limit)</td><td>Largest total size one extraction may write.</td></tr>
+            <tr><td><code>minFreeSpace</code></td><td>256 MiB</td><td>The extraction stops before the disk has less free space than this.</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3 id="api-errors">Errors</h3>
+      <p>All errors are <code>IOException</code>s. The Arcana ones extend <code>be.stef.arcana.exceptions.ArcanaException</code>:</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th scope="col">Exception</th><th scope="col">When</th></tr></thead>
+          <tbody>
+            <tr><td><code>ArcanaUnsupportedFormatException</code></td><td>The format cannot be detected, or no plugin matches the requested id.</td></tr>
+            <tr><td><code>ArcanaCorruptedException</code></td><td>The archive is damaged.</td></tr>
+            <tr><td><code>ArcanaEncryptedException</code></td><td>A ZIP or RAR archive is encrypted and the password is missing or wrong.</td></tr>
+            <tr><td><code>ArcanaLimitExceededException</code></td><td>An extraction limit was reached.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="plugins">
+      <h2>Plugins</h2>
+      <p>A plugin is a JAR that adds a format to Arcana: extraction, and if the format allows it, creation, recovery, detection inside glued files or identification. Once installed, its format works with every command and through the Java API, exactly like a built-in one.</p>
+      <h3>Installing a plugin</h3>
+      <p>Copy the JAR into one of these directories, then check with <code>arcana plugins</code>:</p>
+      <ul>
+        <li><code>plugins/</code> next to the Arcana JAR;</li>
+        <li><code>.arcana/plugins/</code> in your home directory;</li>
+        <li><code>plugins/</code> in the current directory.</li>
+      </ul>
+      <p>The system property <code>arcana.plugins.dir</code> replaces these directories with your own list, separated by the path separator: <code>java -Darcana.plugins.dir=D:\tools\arcana-plugins -jar <span data-jar>Arcana-v1.0.0.jar</span> ...</code></p>
+<pre class="term"><span class="p">$ </span><span class="cmd">arcana plugins</span>
+Plugin directories:
+  /home/anna/tools/plugins
+
+<span class="ok">[LOADED]</span>  io.github.realburst.upx 0.3.0 - UPX executable decompression (PE/ELF)
+    priority   : 0   capabilities: extract
+    source     : https://github.com/RealBurst/arcana/tree/main/plugins/arcana-plugin-upx   license: GPL-3.0-or-later
+    jar        : /home/anna/tools/plugins/arcana-plugin-upx.jar   sha256: 44b3504815e08e04ac79016873228d9e798c0cb7ee93249a882e6dad3aa0c824</pre>
+      <h3>Rules checked at load time</h3>
+      <p>A plugin JAR is refused, with the reason printed on every run, unless:</p>
+      <ul>
+        <li>the JAR contains the <strong>source code</strong> of each of its classes, so that anyone can read what it does;</li>
+        <li>it declares a <strong>source URL</strong> and a <strong>license</strong>;</li>
+        <li>its id is not already used by another plugin;</li>
+        <li>its classes use their own package: <code>be.stef.arcana</code> is reserved for Arcana;</li>
+        <li>it declares its plugin class in <code>META-INF/services/be.stef.arcana.plugin.ArcanaPlugin</code>.</li>
+      </ul>
+      <h3>Which format wins</h3>
+      <p>For each file, Arcana looks in this order and takes the first match:</p>
+      <ol>
+        <li>plugins with a priority above 0, highest first (they can replace a built-in format, on purpose);</li>
+        <li>the built-in formats recognized by their content;</li>
+        <li>the other plugins, in load order;</li>
+        <li>the built-in formats recognized by their extension, then the search for an archive inside an executable.</li>
+      </ol>
+      <p>A plugin with the default priority can therefore never take a file away from a built-in format. <code>arcana plugins &lt;file&gt;</code> shows the decision for a given file.</p>
+
+      <h3 id="plugins-java">Plugins from Java</h3>
+      <p>Your application can use plugins in three ways. In each case, the extraction goes through <code>Arcana</code>, so the extraction limits apply.</p>
+<pre class="code"><span class="cm">// 1. Plugin JAR in a plugin directory: detection works as for any archive</span>
+System.setProperty(<span class="s">"arcana.plugins.dir"</span>, <span class="s">"D:/myapp/plugins"</span>);   <span class="cm">// optional, before the first use of Arcana</span>
+Arcana.extractTo(<span class="k">new</span> File(<span class="s">"setup.exe"</span>), <span class="k">new</span> File(<span class="s">"out"</span>));               <span class="cm">// writes out/setup.unpacked.exe</span>
+
+<span class="cm">// 2. Force a plugin, by id or by extension</span>
+Arcana.withPlugin(<span class="s">"io.github.realburst.upx"</span>, <span class="k">null</span>).extract(<span class="k">new</span> File(<span class="s">"setup.exe"</span>), <span class="k">new</span> File(<span class="s">"out"</span>));
+Arcana.withPlugin(<span class="s">"pak"</span>, <span class="k">null</span>).extract(<span class="k">new</span> File(<span class="s">"pak0.pak"</span>), <span class="k">new</span> File(<span class="s">"out"</span>));
+
+<span class="cm">// 3. Plugin JAR on the class path of your application: found automatically,
+//    or registered by code (no source check: you chose your dependencies)</span>
+PluginManager.get().register(<span class="k">new</span> MyPlugin());
+
+<span class="cm">// Loaded and refused plugins</span>
+<span class="k">for</span> (PluginManager.PluginInfo info : PluginManager.get().getPlugins()) System.out.println(info);</pre>
+      <p>Plugins are loaded once, at the first use of Arcana: set <code>arcana.plugins.dir</code> before that.</p>
+
+      <h3 id="known-plugins">Known plugins</h3>
+      <div class="note warn">
+        <p>A plugin is ordinary Java code that runs with the same rights as Arcana and your application. Being listed here is not a security audit. Read the source of a plugin before installing it, download it only from its own repository, and check that the SHA-256 shown by <code>arcana plugins</code> matches the published one.</p>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th scope="col">Plugin</th><th scope="col">What it does</th><th scope="col">Files</th><th scope="col">Capabilities</th><th scope="col">Author</th><th scope="col">License</th></tr></thead>
+          <tbody>
+            <tr><td><a href="https://github.com/RealBurst/arcana/tree/main/plugins/arcana-plugin-pak">arcana-plugin-pak</a></td><td>Quake PAK archives (id Software, 1996)</td><td><code>.pak</code></td><td>extract, create, recover, split</td><td>Stephane Bury</td><td>Apache-2.0</td></tr>
+            <tr><td><a href="https://github.com/RealBurst/arcana/tree/main/plugins/arcana-plugin-upx">arcana-plugin-upx</a></td><td>Restores executables compressed with UPX (NRV2B/2D/2E and LZMA) for static analysis. It never runs them.</td><td>Windows PE32 and PE32+, Linux ELF, by content</td><td>extract</td><td>Stephane Bury</td><td>GPL-3.0-or-later</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>To have your plugin listed, open an issue titled <code>Plugin: &lt;name&gt;</code> with its name, the URL of its public repository, its id, a one-sentence description, the formats it handles, its capabilities, its author and license, the Arcana version it was tested with, and the link and SHA-256 of its JAR. The plugin stays in your repository and under your control.</p>
+
+      <h3 id="write-plugin">Write a plugin</h3>
+      <p>Implement <code>be.stef.arcana.plugin.ArcanaPlugin</code> (and an <code>ArchiveExtractor</code>), declare it in <code>META-INF/services</code>, and package the classes together with their sources. The complete guide, with a working example, is in <a href="https://github.com/RealBurst/arcana/blob/main/PLUGIN-API.md">PLUGIN-API.md</a>.</p>
+<pre class="code"><span class="k">public final class</span> FooPlugin <span class="k">implements</span> ArcanaPlugin {
+    <span class="k">public</span> String getId()           { <span class="k">return</span> <span class="s">"io.github.you.foo"</span>; }
+    <span class="k">public</span> String getName()         { <span class="k">return</span> <span class="s">"Foo archive"</span>; }
+    <span class="k">public</span> String getVersion()      { <span class="k">return</span> <span class="s">"1.0.0"</span>; }
+    <span class="k">public</span> String getSourceUrl()    { <span class="k">return</span> <span class="s">"https://github.com/you/arcana-plugin-foo"</span>; }
+    <span class="k">public</span> String getLicense()      { <span class="k">return</span> <span class="s">"Apache-2.0"</span>; }
+    <span class="k">public</span> String[] getExtensions() { <span class="k">return new</span> String[] {<span class="s">"foo"</span>}; }
+    <span class="k">public boolean</span> matches(<span class="k">byte</span>[] header, String fileName) { <span class="k">return</span> header.length &gt;= 4 &amp;&amp; header[0] == <span class="s">'F'</span> &amp;&amp; header[1] == <span class="s">'O'</span> &amp;&amp; header[2] == <span class="s">'O'</span> &amp;&amp; header[3] == 0; }
+    <span class="k">public</span> ArchiveExtractor createExtractor(<span class="k">byte</span>[] password) { <span class="k">return new</span> FooExtractor(); }
+}</pre>
+      <p>In an extractor, always create files with <code>PluginSupport.openOutput(destination, entryName)</code>: your plugin then gets the same path checks and extraction limits as the built-in formats.</p>
+    </section>
+
+    <section id="safety">
+      <h2>Safety</h2>
+      <p>An archive is data from someone else. Arcana treats it that way.</p>
+      <dl class="ref plain">
+        <dt>Paths</dt>
+        <dd>Entry names are cleaned before anything is written: no absolute path, no <code>..</code>, no character forbidden on Windows. An archive cannot write outside the destination directory.</dd>
+        <dt>Decompression bombs</dt>
+        <dd>The extracted size is compared to the archive size; extraction stops when the ratio becomes absurd. See <a href="#java-api">extraction limits</a>.</dd>
+        <dt>Disk space</dt>
+        <dd>Extraction stops before the disk is full.</dd>
+        <dt>Damaged data</dt>
+        <dd>Normal extraction stops at the first inconsistency and reports it; only <code>arcana r</code> keeps doubtful data, and labels it.</dd>
+        <dt>Executables</dt>
+        <dd>Arcana reads executables, it never runs them. The UPX plugin restores the original file without executing any of its code.</dd>
+        <dt>Plugins</dt>
+        <dd>A plugin must ship its source code, and <code>arcana plugins</code> shows the SHA-256 of each JAR so you know exactly which binary is loaded.</dd>
+      </dl>
+    </section>
+
+    <section id="build">
+      <h2>Building from source</h2>
+      <p>No build tool is needed: only <code>javac</code> and <code>jar</code> from a JDK 8 or later. The version number comes from the <code>VERSION</code> file at the root of the repository.</p>
+<pre class="term"><span class="p">$ </span><span class="cmd">git clone https://github.com/RealBurst/arcana.git</span>
+<span class="p">$ </span><span class="cmd">cd arcana</span>
+<span class="p">$ </span><span class="cmd">./build.sh all</span>
+Building Arcana v1.0.0...
+Done: jar/Arcana-v1.0.0.jar
+Building arcana-plugin-pak...
+Done: plugins/arcana-plugin-pak/jar/arcana-plugin-pak.jar
+Building arcana-plugin-upx...
+Done: plugins/arcana-plugin-upx/jar/arcana-plugin-upx.jar</pre>
+      <p>On Windows, use <code>build.bat</code> with the same arguments: <code>arcana</code>, <code>plugin-&lt;name&gt;</code> or <code>all</code>. The repository holds Arcana in <code>src/</code> and one directory per official plugin in <code>plugins/</code>; each of them is also an Eclipse project.</p>
+    </section>
+
+    <section id="faq">
+      <h2>FAQ</h2>
+      <details>
+        <summary>Do I need to install anything besides Java?</summary>
+        <p>No. Arcana is a single JAR with no dependency and no native library. Java 8 or any later version is enough.</p>
+      </details>
+      <details>
+        <summary>Can Arcana create RAR archives?</summary>
+        <p>No. RAR 4 and RAR 5 archives can be extracted, including encrypted and multi-volume ones, but not created. Use 7z or ZIP to create archives.</p>
+      </details>
+      <details>
+        <summary>A file has the wrong extension. Will Arcana still open it?</summary>
+        <p>Yes for every format that has a signature: Arcana reads the content first. A ZIP renamed <code>.dat</code> or a Word document is opened as a ZIP. Only LZMA and Brotli streams, which have no signature, need their usual extension, or <code>-f lzma</code> / <code>-f br</code>.</p>
+      </details>
+      <details>
+        <summary>Extraction stops with "Error:" on a damaged archive. How do I get my files back?</summary>
+        <p>Run <code>arcana r</code> on it. It extracts whatever can still be read and tells you, file by file, what is intact and what is not. See <a href="#cli-recover">Damaged archives</a>.</p>
+      </details>
+      <details>
+        <summary>What are the "[plugins]" lines printed before each command?</summary>
+        <p>They report plugins that were found but refused, with the reason, or the fact that no plugin was found. They are printed on the error output, so they do not end up in a listing you redirect to a file. When every plugin loads correctly, nothing is printed.</p>
+      </details>
+      <details>
+        <summary>Can I use Arcana in a commercial product?</summary>
+        <p>Arcana is under the Apache License 2.0, which allows it, including in closed-source software, provided you keep the license and copyright notices. Plugins have their own license: the UPX plugin, for example, is under the GPL-3.0-or-later. It is a separate JAR that you are free not to ship.</p>
+      </details>
+      <details>
+        <summary>Which Java versions are tested?</summary>
+        <p>Every change is built and tested automatically with Java 8 and Java 21: compression and extraction round trips in every writable format, encrypted ZIP and 7z, and the loading of the official plugins.</p>
+      </details>
+    </section>
+
+    <section id="contribute">
+      <h2>Bugs and help</h2>
+      <p>Arcana is young and may still contain bugs, especially with unusual archives. When something goes wrong, <a href="https://github.com/RealBurst/arcana/issues">open an issue</a> with the command line, the full error message, the Arcana version (<code>arcana version</code>) and, if you can share it, the file or a way to reproduce it.</p>
+      <p>Pull requests are welcome, and so are plugins: see <a href="#write-plugin">Write a plugin</a>.</p>
+    </section>
+
+  </main>
+</div>
+
+<div class="star-band">
+  <p>If Arcana saves you time, a star on GitHub helps other Java developers find it. Telling a colleague about it helps too.</p>
+  <a class="btn btn-primary" href="https://github.com/RealBurst/arcana" target="_blank" rel="noopener">
+    <svg viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor" d="M8 .25a.75.75 0 0 1 .673.418l1.882 3.815 4.21.612a.75.75 0 0 1 .416 1.279l-3.046 2.97.719 4.192a.75.75 0 0 1-1.088.791L8 12.347l-3.766 1.98a.75.75 0 0 1-1.088-.79l.72-4.194L.818 6.374a.75.75 0 0 1 .416-1.28l4.21-.611L7.327.668A.75.75 0 0 1 8 .25Z"/></svg>
+    Star Arcana on GitHub<span class="count" data-stars></span>
+  </a>
+</div>
+
+<footer>
+  <div class="inner">
+    <span>Arcana is written by Stephane Bury and published under the <a href="https://github.com/RealBurst/arcana/blob/main/LICENSE">Apache License 2.0</a>.</span>
+    <span><a href="https://github.com/RealBurst/arcana">Source code</a> &nbsp; <a href="https://github.com/RealBurst/arcana/releases">Releases</a> &nbsp; <a href="https://github.com/RealBurst/arcana/issues">Issues</a> &nbsp; <a href="https://github.com/RealBurst/arcana/blob/main/PLUGIN-API.md">Plugin guide</a></span>
+  </div>
+</footer>
+
+<dialog id="star-dialog" aria-labelledby="star-title">
+  <h2 id="star-title">Your download has started</h2>
+  <p class="dl-file"></p>
+  <p>Arcana is free and open source. If you find it useful, a star on GitHub is the simplest way to say so, and it helps other developers find the project.</p>
+  <div class="buttons">
+    <a class="btn btn-primary" href="https://github.com/RealBurst/arcana" target="_blank" rel="noopener">
+      <svg viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor" d="M8 .25a.75.75 0 0 1 .673.418l1.882 3.815 4.21.612a.75.75 0 0 1 .416 1.279l-3.046 2.97.719 4.192a.75.75 0 0 1-1.088.791L8 12.347l-3.766 1.98a.75.75 0 0 1-1.088-.79l.72-4.194L.818 6.374a.75.75 0 0 1 .416-1.28l4.21-.611L7.327.668A.75.75 0 0 1 8 .25Z"/></svg>
+      Star Arcana on GitHub
+    </a>
+    <button class="btn" type="button" data-close>Close</button>
+  </div>
+  <p class="fallback">Nothing downloaded? <a class="dl-retry" href="https://github.com/RealBurst/arcana/releases/latest">Download it again</a>.</p>
+</dialog>
+
+<script src="assets/arcana.js"></script>
+</body>
+</html>
