@@ -1,7 +1,7 @@
 /*
  * NRV2B/NRV2D/NRV2E decoder adapted from the UCL 1.03 algorithms used by UPX.
  * Copyright (C) 1996-2004 Markus Franz Xaver Johannes Oberhumer.
- * Copyright 2026 Stephane Bury and contributors (Java adaptation).
+ * Copyright 2026 Stephane Bury (Java adaptation).
  * SPDX-License-Identifier: GPL-3.0-or-later
  * Reference: UPX v5.2.1 vendor/ucl/src/n2{b,d,e}_d.c, getbit.h.
  */

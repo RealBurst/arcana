@@ -1,2 +1,0 @@
-Arcana-Plugin-Source-Url: https://example.com/arcana-plugin-pak
-Arcana-Plugin-License: Apache-2.0

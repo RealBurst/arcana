@@ -1,6 +1,6 @@
 # Arcana UPX plugin 0.3.0 (Java 8)
 
-This pure Java plugin extracts supported UPX executables through Arcana 1.3+.
+This pure Java plugin extracts supported UPX executables through Arcana 1.0.0 or later.
 It never runs the input executable and does not offer compression.
 
 ## Output and supported formats

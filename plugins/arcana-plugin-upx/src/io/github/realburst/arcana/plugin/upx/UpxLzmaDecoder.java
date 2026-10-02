@@ -1,5 +1,5 @@
 /*
- * Copyright 2026 Stephane Bury and contributors.
+ * Copyright 2026 Stephane Bury.
  * SPDX-License-Identifier: GPL-3.0-or-later
  * UPX framing reference: UPX 5.2.1 src/compress/compress_lzma.cpp.
  */

@@ -50,14 +50,19 @@ jobs:
       - name: Smoke test
         run: bash .github/scripts/smoke-test.sh
 
+      - name: Gather the JARs (Arcana + every plugin) in dist/
+        if: matrix.java == '8'
+        run: |
+          mkdir -p dist
+          cp jar/*.jar plugins/*/jar/*.jar dist/
+          ls -l dist
+
       - name: Keep the JARs (Java 8 build only)
         if: matrix.java == '8'
         uses: actions/upload-artifact@v4
         with:
           name: arcana-jars
-          path: |
-            jar/*.jar
-            plugins/*/jar/*.jar
+          path: dist/*.jar
           if-no-files-found: error
           retention-days: 30
 

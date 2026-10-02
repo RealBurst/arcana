@@ -1,5 +1,7 @@
 /*
- * Copyright 2026 Stephane Bury and contributors.
+ * Copyright (C) Markus Franz Xaver Johannes Oberhumer
+ * Copyright (C) Laszlo Molnar
+ * Copyright 2026 Stephane Bury.
  * SPDX-License-Identifier: GPL-3.0-or-later
  * Adapted from UPX 5.2.1 src/pefile.cpp and src/packer_r.cpp.
  */
@@ -18,9 +20,7 @@ final class PeRebuilder {
     private static final int MAX_FILE = 256 * 1024 * 1024;
     private PeRebuilder() { }
 
-    static byte[] rebuild(RandomAccessFile source, byte[] image, long peOffset,
-                          long packedSections, int packedCount, int optional,
-                          int filter, int filterCto) throws IOException {
+    static byte[] rebuild(RandomAccessFile source, byte[] image, long peOffset, long packedSections, int packedCount, int optional, int filter, int filterCto) throws IOException {
         int ntSize = 24 + optional;
         boolean pe64 = optional == 240;
         if (!pe64 && optional != 224) throw bad("Unsupported PE optional header size");
@@ -86,8 +86,7 @@ final class PeRebuilder {
             if (u16(image, meta) != 0)
                 throw bad("UPX icon resource transformation is unsupported");
             meta += 2;
-            rebuildResources(source, image, resourceRva, packedResourceRva,
-                    packedSections, packedCount, rvamin);
+            rebuildResources(source, image, resourceRva, packedResourceRva, packedSections, packedCount, rvamin);
         }
 
         // Matches UPX unpack0: remove the generated IAT/bound import directories.
@@ -116,8 +115,7 @@ final class PeRebuilder {
         long packedAlign = readU32(source, peOffset + 0x3c);
         if (packedAlign < 1 || packedAlign > 65536 || (packedAlign & (packedAlign - 1)) != 0)
             throw bad("Invalid packed PE alignment");
-        long overlayStart = align(readU32(source, lastPacked + 20)
-                + readU32(source, lastPacked + 16), (int)packedAlign);
+        long overlayStart = align(readU32(source, lastPacked + 20) + readU32(source, lastPacked + 16), (int)packedAlign);
         if (overlayStart > source.length()) throw bad("Invalid PE overlay offset");
         long overlay = source.length() - overlayStart;
         if (length + overlay > MAX_FILE) throw bad("PE overlay exceeds size limit");
@@ -141,10 +139,7 @@ final class PeRebuilder {
         return result;
     }
 
-    private static void rebuildImports(RandomAccessFile in, byte[] image, byte[] nt,
-                                       byte[] sections, long packedSections, int packedCount,
-                                       long packedImportRva, int imdata, int namesRva,
-                                       long rvamin, int width) throws IOException {
+    private static void rebuildImports(RandomAccessFile in, byte[] image, byte[] nt, byte[] sections, long packedSections, int packedCount, long packedImportRva, int imdata, int namesRva, long rvamin, int width) throws IOException {
         if (namesRva != 0) throw bad("Unsupported UPX import name table");
         long packedBase = packedRvaToFile(in, packedSections, packedCount, packedImportRva);
         int importDesc = imageOffset(image, dirRva(nt, width == 8 ? 0x88 : 0x78, 1), rvamin, 20);
@@ -160,8 +155,7 @@ final class PeRebuilder {
             range(image, desc, 20);
             long dllNameRva = u32(image, desc + 12);
             byte[] dllName = readCString(in, packedBase + dllOffset, 4096);
-            System.arraycopy(dllName, 0, image,
-                    imageOffset(image, dllNameRva, rvamin, dllName.length), dllName.length);
+            System.arraycopy(dllName, 0, image, imageOffset(image, dllNameRva, rvamin, dllName.length), dllName.length);
             put32(image, desc + 16, iat);
             p += 8;
             int imported = 0;
@@ -214,8 +208,7 @@ final class PeRebuilder {
         }
     }
 
-    private static void rebuildRelocs(byte[] image, byte[] nt, int dir, int source,
-                                      int flags, long rvamin, boolean pe64) throws IOException {
+    private static void rebuildRelocs(byte[] image, byte[] nt, int dir, int source, int flags, long rvamin, boolean pe64) throws IOException {
         if ((flags & 6) != 0) throw bad("16-bit relocations are unsupported");
         int p = source, pc = -4;
         List<Integer> positions = new ArrayList<Integer>();
@@ -224,12 +217,18 @@ final class PeRebuilder {
             int v = image[p] & 255;
             if (v == 0) break;
             long delta;
-            if (v < 240) { delta = v; ++p; }
-            else {
+            if (v < 240) { 
+               delta = v; 
+               ++p; 
+            } else {
                 range(image, p, 3);
                 delta = (v & 15) * 65536L + u16(image, p + 1);
                 p += 3;
-                if (delta == 0) { range(image, p, 4); delta = u32(image, p); p += 4; }
+                if (delta == 0) { 
+                   range(image, p, 4); 
+                   delta = u32(image, p); 
+                   p += 4; 
+                }
             }
             if (delta < 4 || delta > image.length || positions.size() > 1000000)
                 throw bad("Invalid relocation delta");
@@ -272,9 +271,7 @@ final class PeRebuilder {
         for (int i = size; i < aligned; i++) out.write(0);
     }
 
-    private static void rebuildResources(RandomAccessFile in, byte[] image,
-                                         long originalRva, long packedRva,
-                                         long sectionTable, int count, long rvamin) throws IOException {
+    private static void rebuildResources(RandomAccessFile in, byte[] image, long originalRva, long packedRva, long sectionTable, int count, long rvamin) throws IOException {
         int last = (count - 1) * 40;
         long sectionVa = readU32(in, sectionTable + last + 12);
         long sectionRaw = readU32(in, sectionTable + last + 20);

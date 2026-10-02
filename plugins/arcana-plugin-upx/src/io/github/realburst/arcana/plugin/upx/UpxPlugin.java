@@ -1,5 +1,5 @@
 /*
- * Copyright 2026 Stephane Bury and contributors.
+ * Copyright 2026 Stephane Bury.
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
 package io.github.realburst.arcana.plugin.upx;
@@ -9,11 +9,11 @@ import be.stef.arcana.plugin.ArcanaPlugin;
 
 /** Read-only UPX payload extraction for static inspection. */
 public final class UpxPlugin implements ArcanaPlugin {
-    public String getId() { return "be.stef.arcana.upx"; }
+    public String getId() { return "io.github.realburst.upx"; }
     public String getName() { return "UPX executable decompression (PE/ELF)"; }
     public String getVersion() { return "0.3.0"; }
-    public String getAuthor() { return "Stephane Bury and contributors"; }
-    public String getSourceUrl() { return "https://github.com/upx/upx/tree/v5.2.1"; }
+    public String getAuthor() { return "Stephane Bury"; }
+    public String getSourceUrl() { return "https://github.com/RealBurst/arcana/tree/main/plugins/arcana-plugin-upx"; }
     public String getLicense() { return "GPL-3.0-or-later"; }
     public String[] getExtensions() { return new String[0]; }
     public int getProbeSize() { return 65536; }

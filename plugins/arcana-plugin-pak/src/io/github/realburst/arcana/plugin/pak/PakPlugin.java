@@ -1,5 +1,5 @@
 /*
- * Sample Arcana plugin: Quake PAK archives (id Software, 1996).
+ * Arcana plugin: Quake PAK archives (id Software, 1996).
  * Licensed under the Apache License, Version 2.0.
  */
 package io.github.realburst.arcana.plugin.pak;
@@ -19,11 +19,11 @@ import be.stef.arcana.plugin.ArcanaPlugin;
  */
 public final class PakPlugin implements ArcanaPlugin {
 
-    @Override public String getId() { return "com.example.pak"; }
+    @Override public String getId() { return "io.github.realburst.pak"; }
     @Override public String getName() { return "Quake PAK archive"; }
     @Override public String getVersion() { return "1.0.0"; }
-    @Override public String getAuthor() { return "Arcana sample"; }
-    @Override public String getSourceUrl() { return "https://example.com/arcana-plugin-pak"; }
+    @Override public String getAuthor() { return "Stephane Bury"; }
+    @Override public String getSourceUrl() { return "https://github.com/RealBurst/arcana/tree/main/plugins/arcana-plugin-pak"; }
     @Override public String getLicense() { return "Apache-2.0"; }
     @Override public String[] getExtensions() { return new String[] {"pak"}; }
     @Override public int getProbeSize() { return 12; }

@@ -334,8 +334,8 @@ When running from an IDE (classes not packaged in a JAR), `arcana version` print
 
 | Plugin | Description | Formats | Capabilities | Author | License | Tested with |
 |--------|-------------|---------|--------------|--------|---------|-------------|
-| [arcana-plugin-pak](plugins/arcana-plugin-pak) | PAK game archives | `.pak` | extract | Stephane Bury | Apache-2.0 | 1.0.0 |
-| [arcana-plugin-upx](plugins/arcana-plugin-upx) | Unpacks executables compressed with UPX (NRV and LZMA methods) | `.exe`, `.dll` (by content) | extract | Stephane Bury | Apache-2.0 | 1.0.0 |
+| [arcana-plugin-pak](plugins/arcana-plugin-pak) | Quake PAK archives (id Software, 1996) | `.pak` | extract, compress, recover, split | Stephane Bury | Apache-2.0 | 1.0.0 |
+| [arcana-plugin-upx](plugins/arcana-plugin-upx) | Unpacks UPX-compressed executables (NRV2B/2D/2E and LZMA) for static analysis, without ever running them | Windows PE32 / PE32+, Linux ELF (by content) | extract | Stephane Bury | GPL-3.0-or-later | 1.0.0 |
 
 ### Submit your plugin
 
@@ -361,6 +361,9 @@ The plugin stays in your repository and under your control: you publish its upda
 
 ## License
 
-Apache License 2.0 - see [LICENSE](LICENSE).
+Arcana is licensed under the Apache License 2.0 - see [LICENSE](LICENSE).
+
+Each plugin in `plugins/` has its own license, given in the [Known plugins](#known-plugins) table.
+In particular `arcana-plugin-upx` is licensed under the GPL-3.0-or-later (see [its LICENSE](plugins/arcana-plugin-upx/LICENSE)): it is a separate JAR, loaded only when you install it.
 
 Copyright 2025 Stephane Bury
