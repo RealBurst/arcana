@@ -286,7 +286,10 @@ final class PeRebuilder {
         int dirLength = (tree.directoryEnd + 3) & ~3;
         int dest = imageOffset(image, originalRva, rvamin, dirLength);
         range(packed, root, dirLength);
-        System.arraycopy(packed, root, image, dest, dirLength);
+        // Like upx -d: the packed directory is written back only when the original one was
+        // zeroed by the packer (UPX 3.x keeps it intact in the compressed image).
+        boolean keepOriginal = u32(image, dest + 12) != 0;
+        if (!keepOriginal) System.arraycopy(packed, root, image, dest, dirLength);
         for (int entry : tree.leaves) {
             long dataRva = u32(packed, entry);
             // Only uncompressed resources were moved into the packed section.
@@ -299,7 +302,7 @@ final class PeRebuilder {
             long oldRva = u32(packed, (int)off - 4);
             int target = imageOffset(image, oldRva, rvamin, copied);
             System.arraycopy(packed, (int)off, image, target, copied);
-            put32(image, dest + entry - root, oldRva);
+            if (!keepOriginal) put32(image, dest + entry - root, oldRva);
         }
     }
 

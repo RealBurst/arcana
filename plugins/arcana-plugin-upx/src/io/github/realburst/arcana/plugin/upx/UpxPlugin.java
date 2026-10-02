@@ -11,7 +11,7 @@ import be.stef.arcana.plugin.ArcanaPlugin;
 public final class UpxPlugin implements ArcanaPlugin {
     public String getId() { return "io.github.realburst.upx"; }
     public String getName() { return "UPX executable decompression (PE/ELF)"; }
-    public String getVersion() { return "0.3.0"; }
+    public String getVersion() { return "0.3.1"; }
     public String getAuthor() { return "Stephane Bury"; }
     public String getSourceUrl() { return "https://github.com/RealBurst/arcana/tree/main/plugins/arcana-plugin-upx"; }
     public String getLicense() { return "GPL-3.0-or-later"; }

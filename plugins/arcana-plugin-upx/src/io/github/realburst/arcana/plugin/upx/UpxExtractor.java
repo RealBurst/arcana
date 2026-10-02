@@ -96,6 +96,13 @@ public final class UpxExtractor implements ArchiveExtractor {
                 break;
             }
         }
+        // Older UPX versions (3.x) write the header right after the section table, so the
+        // compressed data starts before UPX1; UPX itself searches the first 1024 bytes.
+        for (long p = 0; header == null && p + 32 <= Math.min(size, 1024); ++p) {
+            if (le32(in, p) != MAGIC) continue;
+            Header candidate = header(in, p);
+            if (candidate != null && candidate.format < 128 && p + 32 + candidate.cSize <= size) header = candidate;
+        }
         if (header == null) throw new IOException("Missing or corrupt UPX PE header");
         if (header.filter != 0 && header.filter != 0x49 && header.filter != 0x26)
             throw new IOException("Unsupported UPX PE filter 0x" + Integer.toHexString(header.filter));
