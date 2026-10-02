@@ -235,6 +235,8 @@ public class BZip2InputStream extends java.io.InputStream implements BZip2Consta
     private int nInUse;
     private BZip2BitInputStream bin;
     private final boolean decompressConcatenated;
+    /** NSIS variant: no "BZh" header, 1-byte block signatures (0x31 block, 0x17 end), no CRC, no randomised bit, 900k blocks. */
+    private final boolean nsis;
     private int currentState = START_BLOCK_STATE;
     private int storedBlockCRC;
     private int storedCombinedCRC;
@@ -276,10 +278,28 @@ public class BZip2InputStream extends java.io.InputStream implements BZip2Consta
      * @throws IOException if {@code in == null}, the stream content is malformed, or an I/O error occurs.
      */
     public BZip2InputStream(final InputStream in, final boolean decompressConcatenated) throws IOException {
+        this(in, decompressConcatenated, false);
+    }
+
+    private BZip2InputStream(final InputStream in, final boolean decompressConcatenated, final boolean nsis) throws IOException {
         this.bin = new BZip2BitInputStream(in == System.in ? new CloseShieldInputStream(in) : in, ByteOrder.BIG_ENDIAN);
         this.decompressConcatenated = decompressConcatenated;
+        this.nsis = nsis;
         init(true);
         initBlock();
+    }
+
+    /**
+     * Decompresses the BZip2 variant written by NSIS installers (Nullsoft Scriptable Install System): no stream header,
+     * a single signature byte per block (0x31, 0x17 at the end of the stream), no CRC and no randomised blocks.
+     *
+     * @param in the NSIS BZip2 stream
+     * @return the decompressed stream
+     * @throws IOException if the stream is not valid
+     * @since 1.0.2
+     */
+    public static BZip2InputStream forNsis(final InputStream in) throws IOException {
+        return new BZip2InputStream(in, false, true);
     }
 
     @Override
@@ -337,6 +357,7 @@ public class BZip2InputStream extends java.io.InputStream implements BZip2Consta
     }
 
     private void endBlock() throws IOException {
+        if (nsis) return; // NSIS blocks carry no CRC
         final int computedBlockCRC = this.crc.getValue();
         // A bad BZip2CRC is considered a fatal error.
         if (this.storedBlockCRC != computedBlockCRC) {
@@ -522,6 +543,11 @@ public class BZip2InputStream extends java.io.InputStream implements BZip2Consta
             throw new IOException("No InputStream");
         }
 
+        if (nsis) {
+            this.blockSize100k = 9; // NSIS always uses 900k blocks (NSIS_COMPRESS_BZIP2_LEVEL)
+            this.computedCombinedCRC = 0;
+            return true;
+        }
         if (!isFirstStream) {
             bin.clearBitCache();
         }
@@ -553,6 +579,24 @@ public class BZip2InputStream extends java.io.InputStream implements BZip2Consta
 
     private void initBlock() throws IOException {
         final BZip2BitInputStream bin = this.bin;
+        if (nsis) {
+            final int signature = bsGetUByte(bin);
+            if (signature == 0x17) { // end of stream
+                this.currentState = EOF;
+                this.data = null;
+                return;
+            }
+            if (signature != 0x31) {
+                this.currentState = EOF;
+                throw new IOException("Bad NSIS BZip2 block header");
+            }
+            this.blockRandomised = false;
+            if (this.data == null) this.data = new Data(this.blockSize100k);
+            getAndMoveToFrontDecode();
+            this.crc.reset();
+            this.currentState = START_BLOCK_STATE;
+            return;
+        }
         char magic0;
         char magic1;
         char magic2;

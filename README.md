@@ -336,6 +336,8 @@ When running from an IDE (classes not packaged in a JAR), `arcana version` print
 |--------|-------------|---------|--------------|--------|---------|-------------|
 | [arcana-plugin-pak](plugins/arcana-plugin-pak) | Quake PAK archives (id Software, 1996) | `.pak` | extract, compress, recover, split | Stephane Bury | Apache-2.0 | 1.0.0 |
 | [arcana-plugin-upx](plugins/arcana-plugin-upx) | Unpacks UPX-compressed executables (NRV2B/2D/2E and LZMA) for static analysis, without ever running them | Windows PE32 / PE32+, Linux ELF (by content) | extract | Stephane Bury | GPL-3.0-or-later | 1.0.0 |
+| [arcana-plugin-nsis](plugins/arcana-plugin-nsis) | NSIS installer | Windows exe | extract | Stephane Bury | Apache-2.0 | 1.0.0 |
+
 
 ### Submit your plugin
 
