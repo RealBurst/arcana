@@ -9,7 +9,7 @@
   "use strict";
 
   var REPO = "RealBurst/arcana";
-  var FALLBACK = { version: "1.0.2", date: "" }; // used when the GitHub API cannot be reached: update it at each release
+  var FALLBACK = { version: "1.0.3", date: "" }; // used when the GitHub API cannot be reached: update it at each release
   var REPO_URL = "https://github.com/" + REPO;
 
   /* ------------------------------------------------------------------ release and stars */
