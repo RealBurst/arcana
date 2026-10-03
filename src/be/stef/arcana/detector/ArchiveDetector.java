@@ -70,6 +70,8 @@ public final class ArchiveDetector {
     private static final byte[] MAGIC_CPIO_CRC  = {0x30, 0x37, 0x30, 0x37, 0x30, 0x32}; // "070702"
     private static final byte[] MAGIC_CPIO_ODC  = {0x30, 0x37, 0x30, 0x37, 0x30, 0x37}; // "070707"
     private static final byte[] MAGIC_CAB       = {0x4D, 0x53, 0x43, 0x46};             // "MSCF"
+    private static final byte[] MAGIC_WIM       = {0x4D, 0x53, 0x57, 0x49, 0x4D, 0x00, 0x00, 0x00}; // "MSWIM\0\0\0"
+    private static final byte[] MAGIC_SQUASHFS  = {0x68, 0x73, 0x71, 0x73};             // "hsqs" (SquashFS 4, little-endian)
 
     /** Number of bytes to read for magic-byte detection (must cover TAR offset 257+5). */
     private static final int PROBE_SIZE = 264;
@@ -99,7 +101,7 @@ public final class ArchiveDetector {
     public static ArcanaFormat detectByContent(File file) throws IOException {
         ArcanaFormat byMagic = detectByMagic(readProbe(file));
         if (byMagic != ArcanaFormat.UNKNOWN) return byMagic;
-        return isIso9660(file) ? ArcanaFormat.ISO : ArcanaFormat.UNKNOWN;
+        return discFormat(file);
     }
 
     /**
@@ -114,9 +116,41 @@ public final class ArchiveDetector {
         byte[] probe = readProbe(file);
         ArcanaFormat byMagic = detectByMagic(probe);
         if (byMagic != ArcanaFormat.UNKNOWN) return byMagic;
-        if (isIso9660(file)) return ArcanaFormat.ISO;
+        ArcanaFormat disc = discFormat(file);
+        if (disc != ArcanaFormat.UNKNOWN) return disc;
         // Magic bytes did not match - fall back to extension
         return detectByExtension(file.getName());
+    }
+
+    /**
+     * Disc images, recognized by the volume descriptors from sector 16 on (2048-byte
+     * sectors): UDF when a "NSR02" / "NSR03" descriptor is present (UDF-only images and
+     * UDF bridge discs such as DVDs and Windows install media, whose ISO 9660 part may
+     * be incomplete), else ISO 9660 ("CD001").
+     */
+    private static ArcanaFormat discFormat(File file) {
+        if (isUdf(file)) return ArcanaFormat.UDF;
+        return isIso9660(file) ? ArcanaFormat.ISO : ArcanaFormat.UNKNOWN;
+    }
+
+    private static boolean isUdf(File file) {
+        if (file.length() < 34 * 2048L) return false;
+        try (java.io.RandomAccessFile raf = new java.io.RandomAccessFile(file, "r")) {
+            byte[] id = new byte[5];
+            // Volume Recognition Sequence (ECMA-167 2/8.3): BEA01, then NSR0x, then TEA01
+            for (int sector = 16; sector < 32; sector++) {
+                raf.seek(sector * 2048L + 1);
+                raf.readFully(id);
+                String s = new String(id, java.nio.charset.StandardCharsets.US_ASCII);
+                if (s.equals("NSR02") || s.equals("NSR03")) return true;
+                if (s.equals("TEA01")) return false;
+                if (id[0] == 0 && id[1] == 0) continue; // 4096-byte sectors: descriptors every other 2 KiB
+                if (!s.equals("BEA01") && !s.equals("CD001") && !s.equals("CDW02") && !s.equals("BOOT2")) return false;
+            }
+            return false;
+        } catch (java.io.IOException e) {
+            return false;
+        }
     }
 
     private static boolean isIso9660(File file) {
@@ -161,6 +195,8 @@ public final class ArchiveDetector {
         if (startsWith(probe, MAGIC_XAR))   return ArcanaFormat.XAR;
         // LZMA: magic is just the props byte 0x5D -- ambiguous, rely on extension
         if (startsWith(probe, MAGIC_CAB))   return ArcanaFormat.CAB;
+        if (startsWith(probe, MAGIC_WIM))   return ArcanaFormat.WIM;
+        if (startsWith(probe, MAGIC_SQUASHFS)) return ArcanaFormat.SQUASHFS;
         // LHA: bytes[2..4] = '-','l','h' (0x2D 0x6C 0x68)
         if (probe.length > 4
                 && probe[2] == (byte) 0x2D
@@ -226,6 +262,9 @@ public final class ArchiveDetector {
         if (lower.endsWith(".cab"))                                         return ArcanaFormat.CAB;
         if (lower.endsWith(".br"))                                          return ArcanaFormat.BROTLI;
         if (lower.endsWith(".iso"))                                         return ArcanaFormat.ISO;
+        if (lower.endsWith(".udf"))                                         return ArcanaFormat.UDF;
+        if (lower.endsWith(".wim") || lower.endsWith(".swm") || lower.endsWith(".esd")) return ArcanaFormat.WIM;
+        if (lower.endsWith(".sqfs") || lower.endsWith(".squashfs") || lower.endsWith(".snap")) return ArcanaFormat.SQUASHFS;
         return ArcanaFormat.UNKNOWN;
     }
 

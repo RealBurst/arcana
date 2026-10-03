@@ -246,6 +246,13 @@
     if (at(b, 0, ascii("MSCF"))) return { off: 0, len: 4, title: "Microsoft Cabinet", how: "x" };
     if (b.length > 5 && b[2] === 0x2D && b[3] === 0x6C && b[4] === 0x68) return { off: 2, len: 3, title: "LHA / LZH archive", how: "x" };
     if (at(b, 257, ascii("ustar"))) return { off: 257, len: 5, title: "TAR archive", how: "x" };
+    if (at(b, 0, ascii("MSWIM"))) return { off: 0, len: 5, title: "Windows Imaging Format (WIM)", how: "x" };
+    if (at(b, 0, ascii("hsqs"))) return { off: 0, len: 4, title: "SquashFS file system", how: "x" };
+    for (var s = 16; s < 32; s++) {
+      // UDF volume recognition sequence: a "NSR02" or "NSR03" descriptor, also on UDF + ISO 9660 discs
+      var o = s * 2048 + 1;
+      if (at(b, o, ascii("NSR02")) || at(b, o, ascii("NSR03"))) return { off: o, len: 5, title: "UDF disc image", how: "x" };
+    }
     if (at(b, 0x8001, ascii("CD001"))) return { off: 0x8001, len: 5, title: "ISO 9660 disc image", how: "x" };
     if (at(b, 0, ascii("MZ"))) {
       var upx = findAscii(b, "UPX0", 4096);
@@ -308,7 +315,7 @@
   }
 
   function hexRow(b, start, hl) {
-    // offsets on 5 digits (enough for the ISO 9660 signature at 0x8001), one continuous mark over the signature
+    // offsets on 5 digits (enough for the disc image signatures below 0x10000), one continuous mark over the signature
     var off = ("0000" + start.toString(16).toUpperCase()).slice(-5);
     var h = "", a = "", inH = false;
     function on(i) { return hl && i >= hl[0] && i < hl[0] + hl[1]; }
@@ -390,7 +397,7 @@
         box.querySelectorAll("button").forEach(function (x) { x.setAttribute("aria-pressed", "false"); });
         render(b, f.name);
       };
-      reader.readAsArrayBuffer(f.slice(0, 0x8010)); // enough for the ISO 9660 signature at 0x8001
+      reader.readAsArrayBuffer(f.slice(0, 0x10000)); // enough for the ISO 9660 and UDF descriptors (sectors 16 to 31)
     }
     var input = document.getElementById("file-input");
     input.addEventListener("change", function () { readFile(input.files[0]); });

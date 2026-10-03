@@ -49,6 +49,7 @@ import be.stef.arcana.extractor.RpmExtractor;
 import be.stef.arcana.extractor.SevenZExtractor;
 import be.stef.arcana.extractor.SfxExtractor;
 import be.stef.arcana.extractor.SnappyExtractor;
+import be.stef.arcana.extractor.SquashfsExtractor;
 import be.stef.arcana.extractor.TarBrotliExtractor;
 import be.stef.arcana.extractor.TarBz2Extractor;
 import be.stef.arcana.extractor.TarExtractor;
@@ -56,6 +57,8 @@ import be.stef.arcana.extractor.TarGzExtractor;
 import be.stef.arcana.extractor.TarLz4Extractor;
 import be.stef.arcana.extractor.TarXzExtractor;
 import be.stef.arcana.extractor.TarZstdExtractor;
+import be.stef.arcana.extractor.UdfExtractor;
+import be.stef.arcana.extractor.WimExtractor;
 import be.stef.arcana.extractor.XarExtractor;
 import be.stef.arcana.extractor.XzExtractor;
 import be.stef.arcana.extractor.ZExtractor;
@@ -106,6 +109,9 @@ public final class FormatRegistry {
         l.add(new BuiltinFormat(ArcanaFormat.RPM, ARCHIVE, names("rpm"), "rpm", "RPM package (gzip/bzip2/xz/zstd payload)", pw -> new RpmExtractor(), null, null));
         l.add(new BuiltinFormat(ArcanaFormat.XAR, ARCHIVE, names("xar"), "xar", "XAR archive (Apple)", pw -> new XarExtractor(), null, null));
         l.add(new BuiltinFormat(ArcanaFormat.ISO, ARCHIVE, names("iso"), "iso", "ISO 9660 disc image", pw -> new IsoExtractor(), null, null));
+        l.add(new BuiltinFormat(ArcanaFormat.UDF, ARCHIVE, names("udf"), "udf", "UDF disc image (DVD, Blu-ray, Windows media), revisions 1.02 to 2.60", pw -> new UdfExtractor(), null, null));
+        l.add(new BuiltinFormat(ArcanaFormat.SQUASHFS, ARCHIVE, names("sqfs", "squashfs", "snap"), "sqfs squashfs snap", "SquashFS 4.0 (gzip, LZMA, LZO, XZ, LZ4, Zstandard)", pw -> new SquashfsExtractor(), null, null));
+        l.add(new BuiltinFormat(ArcanaFormat.WIM, ARCHIVE, names("wim", "swm", "esd"), "wim  esd", "Windows Imaging Format (XPRESS, LZX; not LZMS)", pw -> new WimExtractor(), null, null));
         // ---- Single-file compression (a TAR or CPIO inside is unpacked automatically) ----
         l.add(new BuiltinFormat(ArcanaFormat.GZIP, SINGLE_FILE, names("gz", "gzip"), "gz   gzip", "GZip", pw -> new CompressedStreamExtractor(ArcanaFormat.GZIP, new GzipExtractor()), "GZip (single file only)", (level, pw) -> new GzipCompressor()));
         l.add(new BuiltinFormat(ArcanaFormat.BZIP2, SINGLE_FILE, names("bz2", "bzip2"), "bz2  bzip2", "BZip2", pw -> new CompressedStreamExtractor(ArcanaFormat.BZIP2, new BZip2Extractor()), "BZip2 (single file only)", (level, pw) -> new BZip2Compressor()));

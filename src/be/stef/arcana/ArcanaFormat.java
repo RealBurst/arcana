@@ -93,7 +93,16 @@ public enum ArcanaFormat {
 
     /** ISO 9660 disc image (.iso), with Joliet and Rock Ridge support. Pure-Java reader. */
     ISO("ISO 9660", new String[]{"iso"}),
-    
+
+    /** UDF disc image (DVD, Blu-ray, Windows install media). Pure-Java reader, extraction only. */
+    UDF("UDF", new String[]{"udf"}),
+
+    /** Windows Imaging Format (.wim, .swm, .esd). XPRESS and LZX extraction. */
+    WIM("WIM", new String[]{"wim", "swm", "esd"}),
+
+    /** SquashFS 4.0 file system (.sqfs, .squashfs, .snap). gzip, LZMA, LZO, XZ, LZ4 and Zstandard. */
+    SQUASHFS("SquashFS", new String[]{"sqfs", "squashfs", "snap"}),
+
     /** LHA/LZH archive (.lzh, .lha). Extraction: -lh0- to -lh7-. Compression: -lh5-. */
     LHA("LHA/LZH", new String[]{"lzh", "lha"}),
 

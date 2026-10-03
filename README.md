@@ -1,7 +1,7 @@
 # Arcana
 
 **Pure-Java archive library and command-line tool.**
-ZIP, 7z, RAR 4 and 5, TAR, GZIP, BZIP2, XZ, LZMA, LZ4, Zstandard, Snappy, Brotli, Unix compress, LHA, CAB, CPIO, ISO 9660, AR / DEB, RPM, XAR, self-extracting archives, and more through plugins.
+ZIP, 7z, RAR 4 and 5, TAR, GZIP, BZIP2, XZ, LZMA, LZ4, Zstandard, Snappy, Brotli, Unix compress, LHA, CAB, CPIO, ISO 9660, UDF, WIM, SquashFS, AR / DEB, RPM, XAR, self-extracting archives, and more through plugins.
 
 No native libraries. No JNI. No external dependencies. Runs on Java 8 or later.
 
@@ -54,6 +54,9 @@ No native libraries. No JNI. No external dependencies. Runs on Java 8 or later.
 | Microsoft Cabinet (.cab) | yes (stored, MSZIP, LZX) | yes (MSZIP) | - |
 | CPIO (newc, odc) | yes | - | - |
 | ISO 9660 | yes | - | - |
+| UDF (DVD, Blu-ray, Windows media; revisions 1.02 to 2.60) | yes | - | - |
+| WIM (XPRESS, LZX; not LZMS) | yes | - | - |
+| SquashFS 4.0 (gzip, LZMA, LZO, XZ, LZ4, Zstandard) | yes | - | - |
 | AR / Debian package (.a, .deb) | yes | - | - |
 | RPM (gzip, bzip2, xz, zstd payload) | yes | - | - |
 | XAR | yes | - | - |

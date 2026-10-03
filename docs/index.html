@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Arcana - pure-Java archive library and command-line tool</title>
-<meta name="description" content="Arcana extracts, creates, identifies and repairs ZIP, 7z, RAR, TAR, XZ, Zstandard, CAB, ISO and 20 more formats in pure Java 8. No native code, no dependencies, extensible with plugins.">
+<meta name="description" content="Arcana extracts, creates, identifies and repairs ZIP, 7z, RAR, TAR, XZ, Zstandard, CAB, ISO, UDF, WIM, SquashFS and 20 more formats in pure Java 8. No native code, no dependencies, extensible with plugins.">
 <meta property="og:title" content="Arcana - pure-Java archive library and command-line tool">
 <meta property="og:description" content="ZIP, 7z, RAR 4/5, TAR, XZ, Zstandard, CAB, ISO and more, in pure Java 8. No native code, no dependencies.">
 <meta property="og:type" content="website">
@@ -38,7 +38,7 @@
     <h1>Arcana</h1>
     <p class="lede">Open, create and repair archives from Java or from the command line. One JAR, written entirely in Java 8, with nothing else to install.</p>
     <ul class="facts">
-      <li>ZIP, 7z, RAR 4 and 5, TAR, XZ, Zstandard, CAB, ISO 9660 and 20 more formats</li>
+      <li>ZIP, 7z, RAR 4 and 5, TAR, XZ, Zstandard, CAB, ISO 9660, UDF, WIM, SquashFS and 20 more formats</li>
       <li>Encrypted ZIP, 7z and RAR, including encrypted headers and multi-volume RAR</li>
       <li>No native library, no JNI, no dependency: runs wherever Java 8 runs</li>
       <li>Apache License 2.0, extensible with plugins</li>
@@ -171,6 +171,9 @@ Done.</pre>
             <tr><th scope="row">Cabinet</th><td class="yes">yes</td><td class="yes">yes</td><td><span class="hex">"MSCF"</span></td><td>Extracts stored, MSZIP and LZX; creates MSZIP.</td></tr>
             <tr><th scope="row">CPIO</th><td class="yes">yes</td><td class="no">no</td><td><span class="hex">"07070"</span></td><td>newc (SVR4) and odc.</td></tr>
             <tr><th scope="row">ISO 9660</th><td class="yes">yes</td><td class="no">no</td><td><span class="hex">"CD001"</span> at byte 32769</td><td>CD and DVD images.</td></tr>
+            <tr><th scope="row">UDF</th><td class="yes">yes</td><td class="no">no</td><td><span class="hex">"NSR02"</span> or <span class="hex">"NSR03"</span> from byte 32769</td><td>DVD, Blu-ray and Windows install images, UDF 1.02 to 2.60 (physical, sparable, virtual and metadata partitions). On discs that are both UDF and ISO 9660, the UDF side is read.</td></tr>
+            <tr><th scope="row">WIM</th><td class="yes">yes</td><td class="no">no</td><td><span class="hex">"MSWIM"</span></td><td>Windows Imaging Format: XPRESS, LZX, uncompressed and solid resources; one directory per image when there are several. Not supported: LZMS (most .esd files) and split .swm files.</td></tr>
+            <tr><th scope="row">SquashFS</th><td class="yes">yes</td><td class="no">no</td><td><span class="hex">"hsqs"</span></td><td>Version 4.0: gzip, LZMA, LZO, XZ, LZ4 and Zstandard. Linux live systems, Snap packages (.snap), firmware images.</td></tr>
             <tr><th scope="row">AR / Debian package</th><td class="yes">yes</td><td class="no">no</td><td><span class="hex">"!&lt;arch&gt;"</span></td><td>.a, .deb (contents unpacked, control files in <code>DEBIAN/</code>).</td></tr>
             <tr><th scope="row">RPM</th><td class="yes">yes</td><td class="no">no</td><td><span class="hex">ED AB EE DB</span></td><td>gzip, bzip2, xz and zstd payloads.</td></tr>
             <tr><th scope="row">XAR</th><td class="yes">yes</td><td class="no">no</td><td><span class="hex">"xar!"</span></td><td>Apple.</td></tr>
