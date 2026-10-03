@@ -8,6 +8,7 @@
 package be.stef.arcana.formats.cab;
 
 import java.io.Closeable;
+import be.stef.arcana.formats.lzx.LzxDecoder;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.RandomAccessFile;
@@ -214,7 +215,7 @@ public final class CabReader implements Closeable {
                 MszipDecoder.decompress(compData, compSize, uncompData, uncompSize, history);
                 history = uncompData;
             } else {
-                lzx.decompress(compData, compSize, uncompData, uncompSize);
+                lzx.decompress(compData, 0, compSize, uncompData, uncompSize);
             }
             nextDataPos = raf.getFilePointer();
             nextBlock++;

@@ -32,7 +32,7 @@ import java.io.InputStream;
  * {@link LhaCircularBuffer}; replaces {@code CompressorException} with
  * {@code IOException}.</p>
  */
-final class LhaDecoder extends FilterInputStream {
+public final class LhaDecoder extends FilterInputStream {
 
     // ---- Constants shared by all methods -----------------------------------
     private static final int COMMAND_DECODING_LENGTH_BITS          = 5;
@@ -66,6 +66,13 @@ final class LhaDecoder extends FilterInputStream {
     static LhaDecoder lh6(final InputStream in) throws IOException { return new LhaDecoder(in, 15, 5, 16); }
     /** Creates a decoder for LHA -lh7- (dict 64KB, 5-bit distance). */
     static LhaDecoder lh7(final InputStream in) throws IOException { return new LhaDecoder(in, 16, 5, 17); }
+    /**
+     * Creates a decoder for ARJ methods 1 to 3 (same coding as -lh7-, 26 KiB window).
+     * The stream does not end by itself: the caller stops at the original size.
+     *
+     * @since 1.0.4
+     */
+    public static LhaDecoder arj(final InputStream in) throws IOException { return new LhaDecoder(in, 16, 5, 17); }
 
     // ---- Constructor ---------------------------------------------------------
 

@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Arcana - pure-Java archive library and command-line tool</title>
-<meta name="description" content="Arcana extracts, creates, identifies and repairs ZIP, 7z, RAR, TAR, XZ, Zstandard, CAB, ISO, UDF, WIM, SquashFS and 20 more formats in pure Java 8. No native code, no dependencies, extensible with plugins.">
+<meta name="description" content="Arcana extracts, creates, identifies and repairs ZIP, 7z, RAR, TAR, XZ, Zstandard, CAB, MSI, CHM, ISO, UDF, WIM, SquashFS and 20 more formats in pure Java 8. No native code, no dependencies, extensible with plugins.">
 <meta property="og:title" content="Arcana - pure-Java archive library and command-line tool">
 <meta property="og:description" content="ZIP, 7z, RAR 4/5, TAR, XZ, Zstandard, CAB, ISO and more, in pure Java 8. No native code, no dependencies.">
 <meta property="og:type" content="website">
@@ -38,7 +38,7 @@
     <h1>Arcana</h1>
     <p class="lede">Open, create and repair archives from Java or from the command line. One JAR, written entirely in Java 8, with nothing else to install.</p>
     <ul class="facts">
-      <li>ZIP, 7z, RAR 4 and 5, TAR, XZ, Zstandard, CAB, ISO 9660, UDF, WIM, SquashFS and 20 more formats</li>
+      <li>ZIP, 7z, RAR 4 and 5, TAR, XZ, Zstandard, CAB, MSI, CHM, ISO 9660, UDF, WIM, SquashFS and 20 more formats</li>
       <li>Encrypted ZIP, 7z and RAR, including encrypted headers and multi-volume RAR</li>
       <li>No native library, no JNI, no dependency: runs wherever Java 8 runs</li>
       <li>Apache License 2.0, extensible with plugins</li>
@@ -167,8 +167,13 @@ Done.</pre>
             <tr><th scope="row">Snappy</th><td class="yes">yes</td><td class="no">no</td><td><span class="hex">FF 06 00 00 73 4E 61 50 70 59</span></td><td>Framing format.</td></tr>
             <tr><th scope="row">Brotli</th><td class="yes">yes</td><td class="no">no</td><td>none</td><td>.br, recognized by its extension.</td></tr>
             <tr><th scope="row">Unix compress</th><td class="yes">yes</td><td class="no">no</td><td><span class="hex">1F 9D</span></td><td>.Z (LZW)</td></tr>
+            <tr><th scope="row">MS compress (SZDD)</th><td class="yes">yes</td><td class="no">no</td><td><span class="hex">"SZDD"</span></td><td>Files packed by COMPRESS.EXE on old setup disks (.ex_, .dl_...); the original name is restored.</td></tr>
             <tr><th scope="row">LHA / LZH</th><td class="yes">yes</td><td class="yes">yes</td><td><span class="hex">"-lh"</span> at byte 2</td><td>Extracts -lh0-, -lh4- to -lh7-; creates -lh5- (default), -lh6-, -lh7-.</td></tr>
+            <tr><th scope="row">ARJ</th><td class="yes">yes</td><td class="no">no</td><td><span class="hex">60 EA</span></td><td>Methods 0 to 4. Not supported: encrypted (garbled) entries and files split across volumes.</td></tr>
             <tr><th scope="row">Cabinet</th><td class="yes">yes</td><td class="yes">yes</td><td><span class="hex">"MSCF"</span></td><td>Extracts stored, MSZIP and LZX; creates MSZIP.</td></tr>
+            <tr><th scope="row">Windows Installer</th><td class="yes">yes</td><td class="no">no</td><td><span class="hex">D0 CF 11 E0 A1 B1 1A E1</span></td><td>.msi: the installed files with their real names and folders (File, Component and Directory tables, embedded cabinets); the other streams go to <code>[streams]/</code>.</td></tr>
+            <tr><th scope="row">OLE compound file</th><td class="yes">yes</td><td class="no">no</td><td><span class="hex">D0 CF 11 E0 A1 B1 1A E1</span></td><td>.msp, Office 97-2003 documents (.doc, .xls, .ppt), Outlook .msg: storages and streams.</td></tr>
+            <tr><th scope="row">Compiled HTML Help</th><td class="yes">yes</td><td class="no">no</td><td><span class="hex">"ITSF"</span></td><td>.chm (LZX): the pages, images and scripts of the help file.</td></tr>
             <tr><th scope="row">CPIO</th><td class="yes">yes</td><td class="no">no</td><td><span class="hex">"07070"</span></td><td>newc (SVR4) and odc.</td></tr>
             <tr><th scope="row">ISO 9660</th><td class="yes">yes</td><td class="no">no</td><td><span class="hex">"CD001"</span> at byte 32769</td><td>CD and DVD images.</td></tr>
             <tr><th scope="row">UDF</th><td class="yes">yes</td><td class="no">no</td><td><span class="hex">"NSR02"</span> or <span class="hex">"NSR03"</span> from byte 32769</td><td>DVD, Blu-ray and Windows install images, UDF 1.02 to 2.60 (physical, sparable, virtual and metadata partitions). On discs that are both UDF and ISO 9660, the UDF side is read.</td></tr>

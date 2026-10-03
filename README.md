@@ -1,7 +1,7 @@
 # Arcana
 
 **Pure-Java archive library and command-line tool.**
-ZIP, 7z, RAR 4 and 5, TAR, GZIP, BZIP2, XZ, LZMA, LZ4, Zstandard, Snappy, Brotli, Unix compress, LHA, CAB, CPIO, ISO 9660, UDF, WIM, SquashFS, AR / DEB, RPM, XAR, self-extracting archives, and more through plugins.
+ZIP, 7z, RAR 4 and 5, TAR, GZIP, BZIP2, XZ, LZMA, LZ4, Zstandard, Snappy, Brotli, Unix compress, LHA, ARJ, CAB, MSI and OLE compound files, CHM, CPIO, ISO 9660, UDF, WIM, SquashFS, AR / DEB, RPM, XAR, self-extracting archives, and more through plugins.
 
 No native libraries. No JNI. No external dependencies. Runs on Java 8 or later.
 
@@ -50,8 +50,13 @@ No native libraries. No JNI. No external dependencies. Runs on Java 8 or later.
 | Snappy | yes | - | - |
 | Brotli | yes | - | - |
 | Unix compress (.Z) | yes | - | - |
+| MS compress.exe (SZDD: .ex_, .dl_...) | yes | - | - |
 | LHA / LZH | yes | yes (-lh5-, -lh6-, -lh7-) | - |
+| ARJ (methods 0 to 4) | yes | - | - |
 | Microsoft Cabinet (.cab) | yes (stored, MSZIP, LZX) | yes (MSZIP) | - |
+| Windows Installer (.msi: installed file tree) | yes | - | - |
+| OLE compound file (.msp, Office 97-2003, .msg: streams) | yes | - | - |
+| Compiled HTML Help (.chm) | yes | - | - |
 | CPIO (newc, odc) | yes | - | - |
 | ISO 9660 | yes | - | - |
 | UDF (DVD, Blu-ray, Windows media; revisions 1.02 to 2.60) | yes | - | - |

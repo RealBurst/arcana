@@ -9,7 +9,7 @@
   "use strict";
 
   var REPO = "RealBurst/arcana";
-  var FALLBACK = { version: "1.0.3", date: "" }; // used when the GitHub API cannot be reached: update it at each release
+  var FALLBACK = { version: "1.0.2", date: "" }; // used when the GitHub API cannot be reached: update it at each release
   var REPO_URL = "https://github.com/" + REPO;
 
   /* ------------------------------------------------------------------ release and stars */
@@ -247,6 +247,10 @@
     if (b.length > 5 && b[2] === 0x2D && b[3] === 0x6C && b[4] === 0x68) return { off: 2, len: 3, title: "LHA / LZH archive", how: "x" };
     if (at(b, 257, ascii("ustar"))) return { off: 257, len: 5, title: "TAR archive", how: "x" };
     if (at(b, 0, ascii("MSWIM"))) return { off: 0, len: 5, title: "Windows Imaging Format (WIM)", how: "x" };
+    if (at(b, 0, ascii("ITSF"))) return { off: 0, len: 4, title: "Compiled HTML Help (CHM)", how: "x" };
+    if (at(b, 0, bytes("53 5A 44 44 88 F0 27 33"))) return { off: 0, len: 8, title: "File packed by MS COMPRESS.EXE (SZDD)", how: "x" };
+    if (at(b, 0, bytes("60 EA")) && b.length > 10 && b[10] === 2) return { off: 0, len: 2, title: "ARJ archive", how: "x" };
+    if (at(b, 0, bytes("D0 CF 11 E0 A1 B1 1A E1"))) return { off: 0, len: 8, title: e === ".msi" ? "Windows Installer package" : "OLE compound file (legacy Office document, MSI, Outlook message...)", how: "x" };
     if (at(b, 0, ascii("hsqs"))) return { off: 0, len: 4, title: "SquashFS file system", how: "x" };
     for (var s = 16; s < 32; s++) {
       // UDF volume recognition sequence: a "NSR02" or "NSR03" descriptor, also on UDF + ISO 9660 discs
@@ -269,7 +273,6 @@
     if (at(b, 0, ascii("RIFF")) && at(b, 8, ascii("WEBP"))) return { off: 0, len: 4, title: "WebP image", how: "i" };
     if (at(b, 0, ascii("%PDF"))) return { off: 0, len: 4, title: "PDF document", how: "i" };
     if (at(b, 0, ascii("SQLite format 3"))) return { off: 0, len: 15, title: "SQLite database", how: "i" };
-    if (at(b, 0, bytes("D0 CF 11 E0 A1 B1 1A E1"))) return { off: 0, len: 8, title: "OLE2 compound file (legacy Office document, MSI...)", how: "i" };
     if (at(b, 0, bytes("CA FE BA BE"))) return { off: 0, len: 4, title: "Java class file", how: "i" };
     if (at(b, 0, bytes("00 61 73 6D"))) return { off: 0, len: 4, title: "WebAssembly module", how: "i" };
     if (at(b, 4, ascii("ftyp"))) return { off: 4, len: 4, title: "MP4 / ISO media file", how: "i" };

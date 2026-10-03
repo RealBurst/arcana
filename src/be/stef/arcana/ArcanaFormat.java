@@ -103,6 +103,18 @@ public enum ArcanaFormat {
     /** SquashFS 4.0 file system (.sqfs, .squashfs, .snap). gzip, LZMA, LZO, XZ, LZ4 and Zstandard. */
     SQUASHFS("SquashFS", new String[]{"sqfs", "squashfs", "snap"}),
 
+    /** OLE compound file: Windows Installer package (.msi, real file tree), .msp, legacy Office documents, Outlook messages. */
+    OLE("OLE compound file", new String[]{"msi", "msp", "doc", "xls", "ppt", "msg"}),
+
+    /** Microsoft Compiled HTML Help (.chm). LZX. */
+    CHM("CHM", new String[]{"chm", "chi", "chq", "chw"}),
+
+    /** ARJ archive (.arj). Methods 0 to 4, extraction only. */
+    ARJ("ARJ", new String[]{"arj"}),
+
+    /** Microsoft COMPRESS.EXE single file ("SZDD": .ex_, .dl_, ...). Extraction only. */
+    MSLZ("MS compress (SZDD)", new String[]{}),
+
     /** LHA/LZH archive (.lzh, .lha). Extraction: -lh0- to -lh7-. Compression: -lh5-. */
     LHA("LHA/LZH", new String[]{"lzh", "lha"}),
 

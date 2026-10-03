@@ -72,6 +72,10 @@ public final class ArchiveDetector {
     private static final byte[] MAGIC_CAB       = {0x4D, 0x53, 0x43, 0x46};             // "MSCF"
     private static final byte[] MAGIC_WIM       = {0x4D, 0x53, 0x57, 0x49, 0x4D, 0x00, 0x00, 0x00}; // "MSWIM\0\0\0"
     private static final byte[] MAGIC_SQUASHFS  = {0x68, 0x73, 0x71, 0x73};             // "hsqs" (SquashFS 4, little-endian)
+    private static final byte[] MAGIC_CHM       = {0x49, 0x54, 0x53, 0x46};             // "ITSF"
+    private static final byte[] MAGIC_SZDD      = {0x53, 0x5A, 0x44, 0x44, (byte) 0x88, (byte) 0xF0, 0x27, 0x33}; // "SZDD"
+    private static final byte[] MAGIC_ARJ       = {0x60, (byte) 0xEA};
+    private static final byte[] MAGIC_OLE       = {(byte) 0xD0, (byte) 0xCF, 0x11, (byte) 0xE0, (byte) 0xA1, (byte) 0xB1, 0x1A, (byte) 0xE1};
 
     /** Number of bytes to read for magic-byte detection (must cover TAR offset 257+5). */
     private static final int PROBE_SIZE = 264;
@@ -197,6 +201,14 @@ public final class ArchiveDetector {
         if (startsWith(probe, MAGIC_CAB))   return ArcanaFormat.CAB;
         if (startsWith(probe, MAGIC_WIM))   return ArcanaFormat.WIM;
         if (startsWith(probe, MAGIC_SQUASHFS)) return ArcanaFormat.SQUASHFS;
+        if (startsWith(probe, MAGIC_OLE))   return ArcanaFormat.OLE;
+        if (startsWith(probe, MAGIC_CHM))   return ArcanaFormat.CHM;
+        if (startsWith(probe, MAGIC_SZDD))  return ArcanaFormat.MSLZ;
+        // ARJ: 60 EA, basic header size 1..2600, archive header type 2 at offset 10
+        if (startsWith(probe, MAGIC_ARJ) && probe.length > 10) {
+            final int size = (probe[2] & 0xff) | (probe[3] & 0xff) << 8;
+            if (size > 0 && size <= 2600 && probe[10] == 2) return ArcanaFormat.ARJ;
+        }
         // LHA: bytes[2..4] = '-','l','h' (0x2D 0x6C 0x68)
         if (probe.length > 4
                 && probe[2] == (byte) 0x2D
@@ -259,12 +271,15 @@ public final class ArchiveDetector {
         if (lower.endsWith(".rpm"))                                         return ArcanaFormat.RPM;
         if (lower.endsWith(".xar"))                                         return ArcanaFormat.XAR;
         if (lower.endsWith(".lzh") || lower.endsWith(".lha"))               return ArcanaFormat.LHA;
+        if (lower.endsWith(".arj"))                                          return ArcanaFormat.ARJ;
         if (lower.endsWith(".cab"))                                         return ArcanaFormat.CAB;
         if (lower.endsWith(".br"))                                          return ArcanaFormat.BROTLI;
         if (lower.endsWith(".iso"))                                         return ArcanaFormat.ISO;
         if (lower.endsWith(".udf"))                                         return ArcanaFormat.UDF;
         if (lower.endsWith(".wim") || lower.endsWith(".swm") || lower.endsWith(".esd")) return ArcanaFormat.WIM;
         if (lower.endsWith(".sqfs") || lower.endsWith(".squashfs") || lower.endsWith(".snap")) return ArcanaFormat.SQUASHFS;
+        if (lower.endsWith(".msi") || lower.endsWith(".msp"))              return ArcanaFormat.OLE;
+        if (lower.endsWith(".chm"))                                         return ArcanaFormat.CHM;
         return ArcanaFormat.UNKNOWN;
     }
 
