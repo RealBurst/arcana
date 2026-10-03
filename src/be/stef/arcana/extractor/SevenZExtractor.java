@@ -18,6 +18,7 @@ import be.stef.arcana.ArcanaFormat;
 import be.stef.arcana.exceptions.ArcanaCorruptedException;
 import be.stef.arcana.exceptions.ArcanaUnsupportedFormatException;
 import be.stef.arcana.formats.sevenz.SevenZEntry;
+import be.stef.arcana.formats.sevenz.MultiVolumeChannel;
 import be.stef.arcana.formats.sevenz.SevenZFile;
 import be.stef.arcana.util.ArcanaConcurrency;
 import be.stef.arcana.util.IOHelper;
@@ -56,6 +57,16 @@ public class SevenZExtractor implements ArchiveExtractor {
     private String sevenZipPassword() { return password == null ? null : new String(password, StandardCharsets.UTF_8); }
 
     private SevenZFile open(final File archive) throws IOException {
+        // split archive (x.7z.001, x.7z.002...): the volumes are read as one file
+        final MultiVolumeChannel volumes = MultiVolumeChannel.open(archive);
+        if (volumes != null) {
+            try {
+                return SevenZFile.builder().setSeekableByteChannel(volumes).setDefaultName(archive.getName()).setPassword(sevenZipPassword()).setMaxMemoryLimitKiB(memoryLimitKiB).get();
+            } catch (final IOException | RuntimeException e) {
+                volumes.close();
+                throw e;
+            }
+        }
         return SevenZFile.builder().setFile(archive).setPassword(sevenZipPassword()).setMaxMemoryLimitKiB(memoryLimitKiB).get();
     }
 
@@ -203,7 +214,7 @@ public class SevenZExtractor implements ArchiveExtractor {
     @Override
     public List<ArcanaEntry> list(File archive) throws IOException {
         List<ArcanaEntry> result = new ArrayList<>();
-        try (SevenZFile sz = SevenZFile.builder().setFile(archive).setPassword(sevenZipPassword()).setMaxMemoryLimitKiB(memoryLimitKiB).get()) {
+        try (SevenZFile sz = open(archive)) {
             for (SevenZEntry e : sz.getEntries()) {
                 result.add(new ArcanaEntry.Builder(e.getName())
                     .compressedSize(e.getCompressedSize()).uncompressedSize(e.getSize())

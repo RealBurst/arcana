@@ -57,6 +57,9 @@ public class Lz77Decompressor implements Rar4Decompressor {
     private static final int FILTER_E8    = 1;
     private static final int FILTER_E8E9  = 2;
     private static final int FILTER_DELTA = 6;
+    private static final int FILTER_ITANIUM = 3;
+    private static final int FILTER_RGB   = 4;
+    private static final int FILTER_AUDIO = 5;
     private static final int X86_FILE_SIZE = 0x1000000;
 
     private final byte[] window = new byte[WIN_SIZE];
@@ -514,11 +517,11 @@ public class Lz77Decompressor implements Rar4Decompressor {
     private static final int[][] STD_FILTER_SIGS = {
         {53,  0xad576887, FILTER_E8},
         {57,  0x3cd7e57e, FILTER_E8E9},
-        {120, 0x3769893f, 3},          // ITANIUM (not applied)
+        {120, 0x3769893f, FILTER_ITANIUM},
         {29,  0x0e06077d, FILTER_DELTA},
-        {149, 0x1c2c5dc8, 4},          // RGB (not applied)
-        {216, 0xbc85e701, 5},          // AUDIO (not applied)
-        {40,  0x46b9c560, 7}           // UPCASE (not applied)
+        {149, 0x1c2c5dc8, FILTER_RGB},
+        {216, 0xbc85e701, FILTER_AUDIO},
+        {40,  0x46b9c560, 7}           // UPCASE
     };
 
     private static int identifyStandardFilter(byte[] code) {
@@ -600,7 +603,7 @@ public class Lz77Decompressor implements Rar4Decompressor {
             if (filtPos < oldFilterLengths.size()) oldFilterLengths.get(filtPos)[0] = blockLength;
         }
 
-        pendingFilters.addLast(new int[]{type, blockStart, blockLength, initR[0], initR[6]});
+        pendingFilters.addLast(new int[]{type, blockStart, blockLength, initR[0], initR[1]});
     }
 
     // -------------------------------------------------------------------------
@@ -622,7 +625,7 @@ public class Lz77Decompressor implements Rar4Decompressor {
                     }
                     int availAtBlock = (writePos - bs) & WIN_MASK;
                     if (bl <= availAtBlock || finalFlush) {
-                        applyStandardFilter(f[0], bs, bl, f[3], f[4]);
+                        applyStandardFilter(f[0], bs, bl, f[3], f[4], written);
                         writeRaw(bs, bl);
                         flushPos = (bs + bl) & WIN_MASK;
                         pendingFilters.pollFirst();
@@ -654,9 +657,17 @@ public class Lz77Decompressor implements Rar4Decompressor {
         written += n;
     }
 
-    private void applyStandardFilter(int type, int bs, int bl, int channels, int fileOffsetR6) throws IOException {
+    /**
+     * Runs a standard RAR 3 VM filter on window[bs, bs + bl).
+     *
+     * @param r0         VM register R0 (channels for DELTA and AUDIO, width for RGB)
+     * @param r1         VM register R1 (position of the red byte for RGB)
+     * @param filePos    position of the block in the file: the VM gets it in R6
+     */
+    private void applyStandardFilter(int type, int bs, int bl, int r0, int r1, long filePos) throws IOException {
+        final int channels = r0;
         if (type == FILTER_E8 || type == FILTER_E8E9) {
-            long fileOffset = fileOffsetR6 & 0xFFFFFFFFL;
+            long fileOffset = filePos & 0xFFFFFFFFL;
             byte cmp2 = (byte) ((type == FILTER_E8E9) ? 0xE9 : 0xE8);
             for (int curPos = 0; curPos < bl - 4; ) {
                 byte cur = window[(bs + curPos) & WIN_MASK];
@@ -696,17 +707,175 @@ public class Lz77Decompressor implements Rar4Decompressor {
                byte b = window[idx];
                if (b >= 'a' && b <= 'z') window[idx] = (byte) (b - 0x20);
            }
+        } else if (type == FILTER_RGB) {
+            filterRgb(bs, bl, r0, r1);
+        } else if (type == FILTER_AUDIO) {
+            filterAudio(bs, bl, channels);
+        } else if (type == FILTER_ITANIUM) {
+            filterItanium(bs, bl, filePos);
         } else {
-          // ITANIUM / RGB / AUDIO: not implemented (rare) - the output would be wrong, so fail loudly
-          String name;
-          switch (type) {
-              case 3:  name = "ITANIUM"; break;
-              case 4:  name = "RGB";     break;
-              case 5:  name = "AUDIO";   break;
-              default: name = "unknown VM code"; break;
-          }
-          throw new IOException("RAR4: " + name + " filter not supported");
-       }
+            // a filter program that is not one of the standard ones: running it would need the full RAR VM
+            throw new IOException("RAR4: unknown VM filter code not supported");
+        }
+    }
+
+    /** Copies window[bs, bs + bl) to a new array. */
+    private byte[] block(int bs, int bl) {
+        byte[] b = new byte[bl];
+        for (int i = 0; i < bl; i++) b[i] = window[(bs + i) & WIN_MASK];
+        return b;
+    }
+
+    private void store(int bs, byte[] b) {
+        for (int i = 0; i < b.length; i++) window[(bs + i) & WIN_MASK] = b[i];
+    }
+
+    /**
+     * RGB filter (24-bit images): each colour channel is predicted from the
+     * left, upper and upper-left pixels (Paeth predictor), then green is added
+     * back to red and blue.
+     */
+    private void filterRgb(int bs, int bl, int widthR0, int posR) throws IOException {
+        final int width = widthR0 - 3;
+        if (bl < 3 || width < 0 || width > bl || posR < 0 || posR > 2) throw new IOException("RAR4: invalid RGB filter parameters");
+        final byte[] src = block(bs, bl);
+        final byte[] dst = new byte[bl];
+        int s = 0;
+        for (int ch = 0; ch < 3; ch++) {
+            int prev = 0;
+            for (int i = ch; i < bl; i += 3) {
+                int predicted;
+                if (i >= width + 3) {
+                    final int upper = dst[i - width] & 0xFF;
+                    final int upperLeft = dst[i - width - 3] & 0xFF;
+                    predicted = prev + upper - upperLeft;
+                    final int pa = Math.abs(predicted - prev);
+                    final int pb = Math.abs(predicted - upper);
+                    final int pc = Math.abs(predicted - upperLeft);
+                    if (pa <= pb && pa <= pc) predicted = prev;
+                    else if (pb <= pc) predicted = upper;
+                    else predicted = upperLeft;
+                } else {
+                    predicted = prev;
+                }
+                prev = (predicted - (src[s++] & 0xFF)) & 0xFF;
+                dst[i] = (byte) prev;
+            }
+        }
+        for (int i = posR, border = bl - 2; i < border; i += 3) {
+            final byte g = dst[i + 1];
+            dst[i] = (byte) (dst[i] + g);
+            dst[i + 2] = (byte) (dst[i + 2] + g);
+        }
+        store(bs, dst);
+    }
+
+    /**
+     * AUDIO filter: per channel, an adaptive linear predictor of order 3 whose
+     * coefficients K1-K3 are adjusted every 32 samples.
+     */
+    private void filterAudio(int bs, int bl, int channels) throws IOException {
+        if (channels <= 0 || channels > 128) throw new IOException("RAR4: invalid AUDIO filter parameters");
+        final byte[] src = block(bs, bl);
+        final byte[] dst = new byte[bl];
+        int s = 0;
+        for (int ch = 0; ch < channels; ch++) {
+            int prevByte = 0;
+            int prevDelta = 0;
+            final int[] dif = new int[7];
+            int d1 = 0;
+            int d2 = 0;
+            int d3;
+            int k1 = 0;
+            int k2 = 0;
+            int k3 = 0;
+            for (int i = ch, count = 0; i < bl; i += channels, count++) {
+                d3 = d2;
+                d2 = prevDelta - d1;
+                d1 = prevDelta;
+                // 32-bit unsigned arithmetic, as in the reference filter
+                int predicted = 8 * prevByte + k1 * d1 + k2 * d2 + k3 * d3;
+                predicted = (predicted >>> 3) & 0xFF;
+                final int cur = src[s++] & 0xFF;
+                predicted -= cur;
+                dst[i] = (byte) predicted;
+                prevDelta = (byte) (predicted - prevByte);
+                prevByte = predicted;
+                final int d = ((byte) cur) << 3;
+                dif[0] += Math.abs(d);
+                dif[1] += Math.abs(d - d1);
+                dif[2] += Math.abs(d + d1);
+                dif[3] += Math.abs(d - d2);
+                dif[4] += Math.abs(d + d2);
+                dif[5] += Math.abs(d - d3);
+                dif[6] += Math.abs(d + d3);
+                if ((count & 0x1F) == 0) {
+                    long minDif = dif[0] & 0xFFFFFFFFL;
+                    int numMinDif = 0;
+                    dif[0] = 0;
+                    for (int j = 1; j < 7; j++) {
+                        if ((dif[j] & 0xFFFFFFFFL) < minDif) {
+                            minDif = dif[j] & 0xFFFFFFFFL;
+                            numMinDif = j;
+                        }
+                        dif[j] = 0;
+                    }
+                    switch (numMinDif) {
+                        case 1: if (k1 >= -16) k1--; break;
+                        case 2: if (k1 < 16) k1++; break;
+                        case 3: if (k2 >= -16) k2--; break;
+                        case 4: if (k2 < 16) k2++; break;
+                        case 5: if (k3 >= -16) k3--; break;
+                        case 6: if (k3 < 16) k3++; break;
+                        default: break;
+                    }
+                }
+            }
+        }
+        store(bs, dst);
+    }
+
+    /** IA-64 filter: in 16-byte bundles, the 20-bit targets of branch slots go back from absolute to relative. */
+    private void filterItanium(int bs, int bl, long filePos) throws IOException {
+        if (bl < 21) return;
+        final byte[] data = block(bs, bl);
+        int fileOffset = (int) (filePos >>> 4);
+        for (int pos = 0; pos < bl - 21; pos += 16, fileOffset++) {
+            final int b = (data[pos] & 0x1F) - 0x10;
+            if (b < 0) continue;
+            final int mask = ITANIUM_MASKS[b];
+            if (mask == 0) continue;
+            for (int i = 0; i <= 2; i++) {
+                if ((mask & (1 << i)) == 0) continue;
+                final int start = i * 41 + 5;
+                if (itaniumGet(data, pos, start + 37, 4) == 5) {
+                    final int offset = itaniumGet(data, pos, start + 13, 20);
+                    itaniumSet(data, pos, (offset - fileOffset) & 0xFFFFF, start + 13, 20);
+                }
+            }
+        }
+        store(bs, data);
+    }
+
+    private static final int[] ITANIUM_MASKS = {4, 4, 6, 6, 0, 0, 7, 7, 4, 4, 0, 0, 4, 4, 0, 0};
+
+    private static int itaniumGet(byte[] d, int base, int bitPos, int bitCount) {
+        final int p = base + bitPos / 8;
+        int v = (d[p] & 0xFF) | (d[p + 1] & 0xFF) << 8 | (d[p + 2] & 0xFF) << 16 | (d[p + 3] & 0xFF) << 24;
+        v >>>= (bitPos & 7);
+        return v & (0xFFFFFFFF >>> (32 - bitCount));
+    }
+
+    private static void itaniumSet(byte[] d, int base, int value, int bitPos, int bitCount) {
+        final int p = base + bitPos / 8;
+        final int shift = bitPos & 7;
+        int andMask = ~((0xFFFFFFFF >>> (32 - bitCount)) << shift);
+        int bits = value << shift;
+        for (int i = 0; i < 4; i++) {
+            d[p + i] = (byte) ((d[p + i] & andMask) | bits);
+            andMask = (andMask >>> 8) | 0xFF000000;
+            bits >>>= 8;
+        }
     }
 
     private void put(int p, int v) {

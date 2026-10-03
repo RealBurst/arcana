@@ -124,7 +124,35 @@ public enum SevenZMethod {
      *
      * @since 1.1
      */
-    BCJ2_FILTER(new byte[] { 0x03, 0x03, 0x01, 0x1B });
+    BCJ2_FILTER(new byte[] { 0x03, 0x03, 0x01, 0x1B }),
+
+    /**
+     * ARM64 branch converter (7-Zip 23 and later apply it to ARM64 executables).
+     *
+     * @since 1.0.3
+     */
+    ARM64_FILTER(new byte[] { 0x0A }),
+
+    /**
+     * RISC-V branch converter (7-Zip 24 and later).
+     *
+     * @since 1.0.3
+     */
+    RISCV_FILTER(new byte[] { 0x0B }),
+
+    /**
+     * Byte swap of 16-bit words.
+     *
+     * @since 1.0.3
+     */
+    SWAP2_FILTER(new byte[] { 0x02, 0x03, 0x02 }),
+
+    /**
+     * Byte swap of 32-bit words.
+     *
+     * @since 1.0.3
+     */
+    SWAP4_FILTER(new byte[] { 0x02, 0x03, 0x04 });
 
     static SevenZMethod byId(final byte[] id) {
         for (final SevenZMethod method : SevenZMethod.class.getEnumConstants()) {

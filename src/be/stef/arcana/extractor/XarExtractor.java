@@ -11,6 +11,7 @@ import be.stef.arcana.util.ExtractionGuard;
 import be.stef.arcana.ArcanaEntry;
 import be.stef.arcana.ArcanaFormat;
 import be.stef.arcana.exceptions.ArcanaCorruptedException;
+import be.stef.arcana.exceptions.ArcanaUnsupportedFormatException;
 import be.stef.arcana.util.IOHelper;
 import be.stef.arcana.util.SafePathBuilder;
 
@@ -23,10 +24,18 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.io.RandomAccessFile;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.zip.InflaterInputStream;
+import be.stef.arcana.formats.bzip2.BZip2InputStream;
+import be.stef.arcana.formats.xz.LZMAInputStream;
+import be.stef.arcana.formats.xz.XZInputStream;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import org.w3c.dom.Document;
@@ -61,13 +70,17 @@ public class XarExtractor implements ArchiveExtractor {
         final Xar xar = Xar.open(archive);
         try (RandomAccessFile raf = new RandomAccessFile(archive, "r")) {
             final Element toc = firstChild(xar.toc.getDocumentElement(), "toc");
-            if (toc != null) extractEntries(toc, "", destination, raf, xar.heapOffset);
+            if (toc != null) {
+                final Map<String, Element> dataById = new HashMap<String, Element>();
+                collectData(toc, dataById);
+                extractEntries(toc, "", destination, raf, xar.heapOffset, dataById);
+            }
         }
     }
 
     @Override
     public void extract(final InputStream in, final File destination) throws IOException {
-        throw new UnsupportedOperationException("XAR extraction requires seekable file");
+        throw new ArcanaUnsupportedFormatException("XAR requires random file access - use extract(File,File).");
     }
 
     // ---- traversal ----
@@ -90,7 +103,20 @@ public class XarExtractor implements ArchiveExtractor {
         }
     }
 
-    private static void extractEntries(final Element parent, final String path, final File dest, final RandomAccessFile raf, final long heapOffset) throws IOException {
+    /** Data of every file by id: a hard link refers to the file holding the data ("link" attribute of its type). */
+    private static void collectData(final Element parent, final Map<String, Element> out) {
+        final NodeList children = parent.getChildNodes();
+        for (int i = 0; i < children.getLength(); i++) {
+            final Node n = children.item(i);
+            if (!(n instanceof Element) || !"file".equals(((Element) n).getTagName())) continue;
+            final Element el = (Element) n;
+            final Element data = firstChild(el, "data");
+            if (data != null && el.hasAttribute("id")) out.put(el.getAttribute("id"), data);
+            collectData(el, out);
+        }
+    }
+
+    private static void extractEntries(final Element parent, final String path, final File dest, final RandomAccessFile raf, final long heapOffset, final Map<String, Element> dataById) throws IOException {
         final NodeList children = parent.getChildNodes();
         for (int i=0;i<children.getLength();i++) {
             final Node n = children.item(i);
@@ -105,30 +131,136 @@ public class XarExtractor implements ArchiveExtractor {
                 IOHelper.mkdirs(outFile);
             } else {
                 IOHelper.mkdirs(outFile.getParentFile());
-                final Element data = firstChild(el,"data");
-                if (data!=null) {
-                    final String offStr=childText(data,"offset"), lenStr=childText(data,"length");
-                    if (offStr!=null&&lenStr!=null) {
-                        raf.seek(heapOffset+Long.parseLong(offStr.trim()));
-                        final long compLen = Long.parseLong(lenStr.trim());
-                        final byte[] buf = new byte[(int)compLen]; raf.readFully(buf,0,(int)compLen);
-                        try (InputStream src = wrapEncoding(new ByteArrayInputStream(buf), childText(data,"encoding"));
-                             BufferedOutputStream bos = new BufferedOutputStream(ExtractionGuard.open(outFile))) {
-                            IOHelper.copy(src, bos);
-                        }
-                    }
+                Element data = firstChild(el,"data");
+                final Element type = firstChild(el, "type");
+                if (data == null && type != null && "hardlink".equals(type.getTextContent().trim())) data = dataById.get(type.getAttribute("link"));
+                try (BufferedOutputStream bos = new BufferedOutputStream(ExtractionGuard.open(outFile), 65536)) {
+                    // no data: empty file, symbolic link (written empty, like TAR and CPIO)
+                    if (data != null) copyData(data, raf, heapOffset, bos, fullPath);
                 }
             }
-            extractEntries(el, fullPath, dest, raf, heapOffset);
+            extractEntries(el, fullPath, dest, raf, heapOffset, dataById);
         }
     }
 
-    private static InputStream wrapEncoding(final InputStream in, final String enc) throws IOException {
-        if (enc==null||enc.contains("octet-stream")) return in;
-        if (enc.contains("gzip")||enc.contains("zlib")) return new InflaterInputStream(in, new java.util.zip.Inflater(false));
-        if (enc.contains("bzip2")) return new be.stef.arcana.formats.bzip2.BZip2InputStream(in);
-        if (enc.contains("xz"))    return new be.stef.arcana.formats.xz.XZInputStream(in);
-        return in;
+    /**
+     * Copies the data of a file: heap range "offset"/"length", decoded according to
+     * the "style" attribute of "encoding", checked against "extracted-checksum".
+     */
+    private static void copyData(final Element data, final RandomAccessFile raf, final long heapOffset, final OutputStream out, final String name) throws IOException {
+        final String offStr = childText(data, "offset");
+        final String lenStr = childText(data, "length");
+        final String sizeStr = childText(data, "size");
+        if (offStr == null || lenStr == null) throw new ArcanaCorruptedException("XAR data without offset or length: " + name);
+        final long offset;
+        final long length;
+        try {
+            offset = Long.parseLong(offStr.trim());
+            length = Long.parseLong(lenStr.trim());
+        } catch (final NumberFormatException e) {
+            throw new ArcanaCorruptedException("Invalid XAR data location: " + name);
+        }
+        if (offset < 0 || length < 0 || heapOffset + offset + length > raf.length()) throw new ArcanaCorruptedException("XAR data outside the archive: " + name);
+        final Element checksum = firstChild(data, "extracted-checksum");
+        MessageDigest digest = null;
+        if (checksum != null) {
+            final String alg = checksum.getAttribute("style").trim().toLowerCase();
+            try {
+                if (alg.equals("sha1")) digest = MessageDigest.getInstance("SHA-1");
+                else if (alg.equals("md5")) digest = MessageDigest.getInstance("MD5");
+                else if (alg.equals("sha256")) digest = MessageDigest.getInstance("SHA-256");
+                else if (alg.equals("sha512")) digest = MessageDigest.getInstance("SHA-512");
+            } catch (final NoSuchAlgorithmException e) {
+                digest = null;
+            }
+        }
+        long written = 0;
+        try (InputStream src = decode(new RangeInputStream(raf, heapOffset + offset, length), encoding(data), name)) {
+            final byte[] buf = new byte[65536];
+            int n;
+            while ((n = src.read(buf)) > 0) {
+                out.write(buf, 0, n);
+                if (digest != null) digest.update(buf, 0, n);
+                written += n;
+            }
+        }
+        if (sizeStr != null) {
+            try {
+                if (Long.parseLong(sizeStr.trim()) != written) throw new ArcanaCorruptedException("XAR size mismatch: " + name);
+            } catch (final NumberFormatException ignored) {
+                // size not checked
+            }
+        }
+        if (digest != null && !toHex(digest.digest()).equalsIgnoreCase(checksum.getTextContent().trim())) throw new ArcanaCorruptedException("XAR checksum mismatch: " + name);
+    }
+
+    /** The encoding is given by the "style" attribute: {@code <encoding style="application/x-gzip"/>}. */
+    private static String encoding(final Element data) {
+        final Element e = firstChild(data, "encoding");
+        if (e == null) return "application/octet-stream";
+        final String style = e.getAttribute("style").trim();
+        return style.isEmpty() ? e.getTextContent().trim() : style;
+    }
+
+    private static InputStream decode(final InputStream in, final String enc, final String name) throws IOException {
+        if (enc.isEmpty() || enc.equals("application/octet-stream")) return in;
+        // "application/x-gzip" is a zlib stream (with the zlib header), not a gzip file
+        if (enc.equals("application/x-gzip") || enc.equals("application/zlib")) return new InflaterInputStream(in, new java.util.zip.Inflater(false), 65536);
+        if (enc.equals("application/x-bzip2")) return new BZip2InputStream(in);
+        if (enc.equals("application/x-xz")) return new XZInputStream(in);
+        if (enc.equals("application/x-lzma")) {
+            // xar writes an .xz stream under this name; older writers used the .lzma ("alone") format
+            final BufferedInputStream b = new BufferedInputStream(in, 65536);
+            b.mark(6);
+            final byte[] head = new byte[6];
+            int n = 0;
+            while (n < 6) {
+                final int k = b.read(head, n, 6 - n);
+                if (k < 0) break;
+                n += k;
+            }
+            b.reset();
+            final boolean xz = n == 6 && (head[0] & 0xff) == 0xFD && head[1] == '7' && head[2] == 'z' && head[3] == 'X' && head[4] == 'Z' && head[5] == 0;
+            return xz ? new XZInputStream(b) : new LZMAInputStream(b);
+        }
+        throw new ArcanaUnsupportedFormatException("XAR encoding '" + enc + "' is not supported (" + name + ")");
+    }
+
+    private static String toHex(final byte[] b) {
+        final StringBuilder sb = new StringBuilder(b.length * 2);
+        for (final byte x : b) sb.append(Character.forDigit((x >> 4) & 15, 16)).append(Character.forDigit(x & 15, 16));
+        return sb.toString();
+    }
+
+    /** Sequential view of [pos, pos + len) of the archive. */
+    private static final class RangeInputStream extends InputStream {
+        private final RandomAccessFile raf;
+        private long pos;
+        private long left;
+
+        RangeInputStream(final RandomAccessFile raf, final long pos, final long len) {
+            this.raf = raf;
+            this.pos = pos;
+            this.left = len;
+        }
+
+        @Override
+        public int read() throws IOException {
+            final byte[] one = new byte[1];
+            return read(one, 0, 1) < 0 ? -1 : one[0] & 0xff;
+        }
+
+        @Override
+        public int read(final byte[] b, final int off, final int len) throws IOException {
+            if (left <= 0) return -1;
+            raf.seek(pos);
+            final int n = raf.read(b, off, (int) Math.min(len, left));
+            if (n > 0) {
+                pos += n;
+                left -= n;
+            }
+            return n;
+        }
     }
 
     // ---- XML helpers ----
@@ -155,7 +287,12 @@ public class XarExtractor implements ArchiveExtractor {
             try (InputStream in = new BufferedInputStream(new FileInputStream(f))) {
                 final byte[] hdr = new byte[HDR_SIZE]; readFully(in, hdr);
                 for(int i=0;i<4;i++) if((hdr[i]&0xFF)!=MAGIC[i]) throw new ArcanaCorruptedException("Not a XAR archive");
+                // header size (bytes 4-5): 28, or more when a checksum algorithm name follows
+                final int hdrSize = (hdr[4] & 0xFF) << 8 | (hdr[5] & 0xFF);
+                if (hdrSize < HDR_SIZE || hdrSize > 4096) throw new ArcanaCorruptedException("Invalid XAR header size " + hdrSize);
+                for (int skip = hdrSize - HDR_SIZE; skip > 0; skip--) if (in.read() < 0) throw new ArcanaCorruptedException("XAR header truncated");
                 final long tocCLen = readLong8BE(hdr,8);
+                if (tocCLen <= 0 || tocCLen > 256L * 1024 * 1024 || tocCLen > f.length()) throw new ArcanaCorruptedException("Invalid XAR table of contents size");
                 final byte[] tocBuf = new byte[(int)tocCLen]; readFully(in, tocBuf);
                 final ByteArrayOutputStream baos = new ByteArrayOutputStream();
                 try (InflaterInputStream zlib = new InflaterInputStream(new ByteArrayInputStream(tocBuf), new java.util.zip.Inflater(false))) {
@@ -165,7 +302,7 @@ public class XarExtractor implements ArchiveExtractor {
                 dbf.setFeature("http://apache.org/xml/features/disallow-doctype-decl",true);
                 final DocumentBuilder db = dbf.newDocumentBuilder();
                 final Document doc = db.parse(new ByteArrayInputStream(baos.toByteArray()));
-                return new Xar(doc, HDR_SIZE+tocCLen);
+                return new Xar(doc, hdrSize+tocCLen);
             } catch (javax.xml.parsers.ParserConfigurationException|org.xml.sax.SAXException e) {
                 throw new ArcanaCorruptedException("Failed to parse XAR TOC: "+e.getMessage());
             }

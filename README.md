@@ -32,7 +32,7 @@ No native libraries. No JNI. No external dependencies. Runs on Java 8 or later.
 | Format | Extract | Compress | Encryption |
 |--------|:-------:|:--------:|------------|
 | ZIP (also JAR, WAR, EAR) | yes | yes | ZipCrypto, WinZip AES (AES-256 when compressing) |
-| 7-Zip (.7z) | yes | yes (LZMA2) | AES-256 |
+| 7-Zip (.7z, split .7z.001) | yes | yes (LZMA2) | AES-256 |
 | RAR 4 / RAR 5 (also .cbr) | yes | - | AES-128 (RAR 4), AES-256 (RAR 5) |
 | TAR (also .gem) | yes | yes | - |
 | TAR+GZIP (.tar.gz, .tgz) | yes | yes | - |

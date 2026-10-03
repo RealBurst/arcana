@@ -65,7 +65,8 @@ public final class ExtractionGuard {
 
     /** Starts an extraction scope for an archive file (nested scopes join the outer one). */
     public static Scope begin(final File archive) {
-        return begin(archive != null && archive.isFile() ? archive.length() : 0L);
+        // a split 7z archive (x.7z.001...) counts all its volumes
+        return begin(archive != null && archive.isFile() ? be.stef.arcana.formats.sevenz.MultiVolumeChannel.totalSize(archive) : 0L);
     }
 
     /** Starts an extraction scope; {@code archiveSize} 0 = unknown (ratio not checked). */

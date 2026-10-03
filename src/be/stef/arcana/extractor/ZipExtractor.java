@@ -17,6 +17,7 @@ import be.stef.arcana.formats.bzip2.BZip2InputStream;
 import be.stef.arcana.formats.deflate64.Deflate64InputStream;
 import be.stef.arcana.formats.xz.LZMAInputStream;
 import be.stef.arcana.formats.xz.XZInputStream;
+import be.stef.arcana.formats.ppmd.Ppmd8;
 import be.stef.arcana.formats.zip.AesZipInputStream;
 import be.stef.arcana.formats.zip.ZipArchiveReader;
 import be.stef.arcana.formats.zip.ZipCryptoInputStream;
@@ -27,6 +28,7 @@ import be.stef.arcana.util.ParallelRunner;
 import be.stef.arcana.util.ProgressOutputStream;
 import be.stef.arcana.util.SafePathBuilder;
 
+import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.EOFException;
 import java.io.File;
@@ -229,6 +231,7 @@ public class ZipExtractor implements ArchiveExtractor {
             case METHOD_LZMA:     return openLzma(raw, e);
             case METHOD_ZSTD:     return new ZstdInputStream(raw);
             case METHOD_XZ:       return new XZInputStream(raw);
+            case METHOD_PPMD:     return openPpmd(raw, e);
             default:              throw new ArcanaUnsupportedFormatException("ZIP compression method " + method + methodName(method) + " not supported (entry '" + e.getName() + "')");
         }
     }
@@ -246,6 +249,52 @@ public class ZipExtractor implements ArchiveExtractor {
         final int dictSize = (props[1] & 0xFF) | ((props[2] & 0xFF) << 8) | ((props[3] & 0xFF) << 16) | ((props[4] & 0xFF) << 24);
         final long uncompSize = (e.getFlags() & 0x02) != 0 ? -1L : e.getSize();
         return new LZMAInputStream(raw, uncompSize, props[0], dictSize);
+    }
+
+    /**
+     * ZIP PPMd (method 98): PPMd variant I revision 2. A 16-bit little-endian
+     * header gives the model order (bits 0-3, + 1), the memory in MB (bits 4-11,
+     * + 1) and the restore method (bits 12-15), then the range-coded data.
+     */
+    private static InputStream openPpmd(final InputStream raw, final ZipArchiveReader.Entry e) throws IOException {
+        final byte[] h = IOHelper.readExactly(raw, 2);
+        final int v = (h[0] & 0xFF) | ((h[1] & 0xFF) << 8);
+        final int order = (v & 0x0F) + 1;
+        final int memMb = ((v >>> 4) & 0xFF) + 1;
+        final int restore = v >>> 12;
+        if (order < Ppmd8.MIN_ORDER || restore > Ppmd8.RESTORE_CUT_OFF) throw new ArcanaUnsupportedFormatException("ZIP PPMd parameters not supported (order " + order + ", restore method " + restore + ") for entry '" + e.getName() + "'");
+        final Ppmd8 model = new Ppmd8(new BufferedInputStream(raw, 65536), order, memMb << 20, restore);
+        final long size = e.getSize();
+        return new InputStream() {
+            private long left = size;
+
+            @Override
+            public int read() throws IOException {
+                if (left <= 0) return -1;
+                final int c = model.decodeSymbol();
+                if (c < 0) throw new ArcanaCorruptedException("PPMd data error in entry '" + e.getName() + "'");
+                left--;
+                return c;
+            }
+
+            @Override
+            public int read(final byte[] b, final int off, final int len) throws IOException {
+                if (left <= 0) return -1;
+                final int n = (int) Math.min(len, left);
+                for (int i = 0; i < n; i++) {
+                    final int c = model.decodeSymbol();
+                    if (c < 0) throw new ArcanaCorruptedException("PPMd data error in entry '" + e.getName() + "'");
+                    b[off + i] = (byte) c;
+                }
+                left -= n;
+                return n;
+            }
+
+            @Override
+            public void close() throws IOException {
+                raw.close();
+            }
+        };
     }
 
     private static String methodName(final int method) {

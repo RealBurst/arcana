@@ -318,6 +318,11 @@ public final class Arcana {
                 SfxExtractor.locate(archive);
                 return ArcanaFormat.SFX;
             } catch (final ArcanaUnsupportedFormatException e) {
+                final java.util.regex.Matcher volume = java.util.regex.Pattern.compile("(?i)(.*\\.7z\\.)(\\d+)").matcher(archive.getName());
+                if (volume.matches() && !volume.group(2).matches("0*[01]")) {
+                    final String first = String.format("%0" + volume.group(2).length() + "d", 1);
+                    throw new ArcanaUnsupportedFormatException("Volume of a split 7z archive: open the first volume, " + volume.group(1) + first);
+                }
                 throw new ArcanaUnsupportedFormatException("Cannot detect archive format for: " + archive.getName());
             }
         }

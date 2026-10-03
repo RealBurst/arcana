@@ -36,12 +36,15 @@ import be.stef.arcana.formats.bzip2.BZip2InputStream;
 import be.stef.arcana.formats.deflate64.Deflate64InputStream;
 import be.stef.arcana.formats.ppmd.Ppmd7Decoder;
 import be.stef.arcana.formats.sevenz.SevenZMemoryLimitException;
+import be.stef.arcana.formats.xz.ARM64Options;
 import be.stef.arcana.formats.xz.ARMOptions;
 import be.stef.arcana.formats.xz.ARMThumbOptions;
 import be.stef.arcana.formats.xz.FilterOptions;
 import be.stef.arcana.formats.xz.IA64Options;
 import be.stef.arcana.formats.xz.PowerPCOptions;
+import be.stef.arcana.formats.xz.RISCVOptions;
 import be.stef.arcana.formats.xz.SPARCOptions;
+import be.stef.arcana.formats.xz.UnsupportedOptionsException;
 import be.stef.arcana.formats.xz.X86Options;
 
 final class Coders {
@@ -67,6 +70,102 @@ final class Coders {
         @Override
         OutputStream encode(final OutputStream out, final Object options) throws IOException {
             throw new IOException("BCJ encoding not supported in JUnpack (decode only)");
+        }
+    }
+
+    /** ARM64 and RISC-V filters: optional 4-byte property = start offset (little-endian). */
+    static final class OffsetBCJDecoder extends AbstractCoder {
+        private final boolean arm64;
+
+        OffsetBCJDecoder(final boolean arm64) {
+            this.arm64 = arm64;
+        }
+
+        @Override
+        InputStream decode(final String archiveName, final InputStream in, final long uncompressedLength, final Coder coder, final byte[] password,
+                final int maxMemoryLimitKiB) throws IOException {
+            final byte[] p = coder.properties;
+            final int start = p != null && p.length >= 4 ? (p[0] & 0xFF) | (p[1] & 0xFF) << 8 | (p[2] & 0xFF) << 16 | (p[3] & 0xFF) << 24 : 0;
+            try {
+                if (arm64) {
+                    final ARM64Options o = new ARM64Options();
+                    o.setStartOffset(start);
+                    return o.getInputStream(in);
+                }
+                final RISCVOptions o = new RISCVOptions();
+                o.setStartOffset(start);
+                return o.getInputStream(in);
+            } catch (final UnsupportedOptionsException e) {
+                throw new IOException("Invalid " + (arm64 ? "ARM64" : "RISC-V") + " filter start offset in " + archiveName, e);
+            }
+        }
+
+        @Override
+        OutputStream encode(final OutputStream out, final Object options) throws IOException {
+            throw new IOException("BCJ encoding not supported (decode only)");
+        }
+    }
+
+    /** Swap2 / Swap4: reverses the byte order of every 2- or 4-byte word (a trailing partial word is copied). */
+    static final class SwapDecoder extends AbstractCoder {
+        private final int width;
+
+        SwapDecoder(final int width) {
+            this.width = width;
+        }
+
+        @Override
+        InputStream decode(final String archiveName, final InputStream in, final long uncompressedLength, final Coder coder, final byte[] password,
+                final int maxMemoryLimitKiB) {
+            return new InputStream() {
+                private final byte[] word = new byte[width];
+                private int pos;
+                private int len;
+
+                @Override
+                public int read() throws IOException {
+                    if (pos == len) {
+                        len = 0;
+                        pos = 0;
+                        while (len < width) {
+                            final int k = in.read(word, len, width - len);
+                            if (k < 0) break;
+                            len += k;
+                        }
+                        if (len == 0) return -1;
+                        if (len == width) {
+                            for (int i = 0, j = width - 1; i < j; i++, j--) {
+                                final byte t = word[i];
+                                word[i] = word[j];
+                                word[j] = t;
+                            }
+                        }
+                    }
+                    return word[pos++] & 0xFF;
+                }
+
+                @Override
+                public int read(final byte[] b, final int off, final int n) throws IOException {
+                    int done = 0;
+                    while (done < n) {
+                        final int c = read();
+                        if (c < 0) return done == 0 ? -1 : done;
+                        b[off + done++] = (byte) c;
+                        if (pos == len && done > 0 && in.available() == 0) break;
+                    }
+                    return done;
+                }
+
+                @Override
+                public void close() throws IOException {
+                    in.close();
+                }
+            };
+        }
+
+        @Override
+        OutputStream encode(final OutputStream out, final Object options) throws IOException {
+            throw new IOException("Swap encoding not supported (decode only)");
         }
     }
 
@@ -233,6 +332,10 @@ final class Coders {
             put(SevenZMethod.BCJ_ARM_THUMB_FILTER, new BCJDecoder(new ARMThumbOptions()));
             put(SevenZMethod.BCJ_SPARC_FILTER, new BCJDecoder(new SPARCOptions()));
             put(SevenZMethod.DELTA_FILTER, new DeltaDecoder());
+            put(SevenZMethod.ARM64_FILTER, new OffsetBCJDecoder(true));
+            put(SevenZMethod.RISCV_FILTER, new OffsetBCJDecoder(false));
+            put(SevenZMethod.SWAP2_FILTER, new SwapDecoder(2));
+            put(SevenZMethod.SWAP4_FILTER, new SwapDecoder(4));
         }
     };
 

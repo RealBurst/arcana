@@ -147,8 +147,8 @@ Done.</pre>
         <table class="formats">
           <thead><tr><th scope="col">Format</th><th scope="col">Extract</th><th scope="col">Create</th><th scope="col">Signature</th><th scope="col">Notes</th></tr></thead>
           <tbody>
-            <tr><th scope="row">ZIP</th><td class="yes">yes</td><td class="yes">yes</td><td><span class="hex">50 4B 03 04</span></td><td>Also JAR, WAR, EAR. Decrypts ZipCrypto and WinZip AES; encrypts with AES-256 (ZipCrypto from the Java API). Deflate64 supported.</td></tr>
-            <tr><th scope="row">7-Zip</th><td class="yes">yes</td><td class="yes">yes</td><td><span class="hex">37 7A BC AF 27 1C</span></td><td>LZMA, LZMA2, PPMd, BZip2, Deflate, Deflate64; BCJ, BCJ2, ARM, ARM-Thumb, PowerPC, SPARC, IA-64 and Delta filters. AES-256, encrypted headers. Creates LZMA2, levels 0 to 9.</td></tr>
+            <tr><th scope="row">ZIP</th><td class="yes">yes</td><td class="yes">yes</td><td><span class="hex">50 4B 03 04</span></td><td>Also JAR, WAR, EAR. Decrypts ZipCrypto and WinZip AES; encrypts with AES-256 (ZipCrypto from the Java API). Extracts Deflate, Deflate64, BZip2, LZMA, XZ, Zstandard and PPMd.</td></tr>
+            <tr><th scope="row">7-Zip</th><td class="yes">yes</td><td class="yes">yes</td><td><span class="hex">37 7A BC AF 27 1C</span></td><td>LZMA, LZMA2, PPMd, BZip2, Deflate, Deflate64; BCJ, BCJ2, ARM, ARM-Thumb, ARM64, RISC-V, PowerPC, SPARC, IA-64, Delta and Swap filters. AES-256, encrypted headers, split archives (.7z.001). Creates LZMA2, levels 0 to 9.</td></tr>
             <tr><th scope="row">RAR 5</th><td class="yes">yes</td><td class="no">no</td><td><span class="hex">52 61 72 21 1A 07 01 00</span></td><td>AES-256, encrypted headers, multi-volume, solid archives. Also .cbr.</td></tr>
             <tr><th scope="row">RAR 4</th><td class="yes">yes</td><td class="no">no</td><td><span class="hex">52 61 72 21 1A 07 00</span></td><td>AES-128, encrypted headers, multi-volume, solid archives, VM filters.</td></tr>
             <tr><th scope="row">TAR</th><td class="yes">yes</td><td class="yes">yes</td><td><span class="hex">"ustar"</span> at byte 257</td><td>Also .gem.</td></tr>
