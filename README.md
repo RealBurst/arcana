@@ -60,7 +60,7 @@ No native libraries. No JNI. No external dependencies. Runs on Java 8 or later.
 | CPIO (newc, odc) | yes | - | - |
 | ISO 9660 | yes | - | - |
 | UDF (DVD, Blu-ray, Windows media; revisions 1.02 to 2.60) | yes | - | - |
-| WIM (XPRESS, LZX; not LZMS) | yes | - | - |
+| WIM / ESD (XPRESS, LZX, LZMS; not split .swm) | yes | - | - |
 | SquashFS 4.0 (gzip, LZMA, LZO, XZ, LZ4, Zstandard) | yes | - | - |
 | AR / Debian package (.a, .deb) | yes | - | - |
 | RPM (gzip, bzip2, xz, zstd payload) | yes | - | - |

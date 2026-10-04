@@ -27,11 +27,12 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
- * Extractor for Windows Imaging Format files (.wim, .esd): XPRESS, LZX or no
- * compression, including solid resources; LZMS is not supported.
+ * Extractor for Windows Imaging Format files (.wim, .esd): XPRESS, LZX, LZMS or no
+ * compression, including solid resources (LZMS: .esd files).
  *
  * <p>When the file holds several images, each one is extracted to a
  * directory named after its number ("1/", "2/"...), like 7-Zip. Reparse
@@ -53,21 +54,24 @@ public class WimExtractor implements ArchiveExtractor {
     public void extract(final File archive, final File destination) throws IOException {
         IOHelper.mkdirs(destination);
         try (WimReader reader = new WimReader(archive)) {
+            final List<WimReader.Entry> files = new ArrayList<WimReader.Entry>();
             reader.walk(new WimReader.Visitor() {
                 @Override
                 public void visit(final WimReader.Entry e) throws IOException {
-                    final File target = SafePathBuilder.buildSafePath(destination, e.path);
-                    if (e.directory) {
-                        IOHelper.mkdirs(target);
-                        return;
-                    }
-                    IOHelper.mkdirs(target.getParentFile());
-                    try (BufferedOutputStream out = new BufferedOutputStream(ExtractionGuard.open(target), 65536)) {
-                        reader.copyFile(e, out);
-                    }
-                    if (e.mtime > 0) target.setLastModified(e.mtime * 1000L);
+                    if (e.directory) IOHelper.mkdirs(SafePathBuilder.buildSafePath(destination, e.path));
+                    else files.add(e);
                 }
             });
+            // in the order of the data: each compressed chunk is decompressed once
+            Collections.sort(files, WimReader.DATA_ORDER);
+            for (final WimReader.Entry e : files) {
+                final File target = SafePathBuilder.buildSafePath(destination, e.path);
+                IOHelper.mkdirs(target.getParentFile());
+                try (BufferedOutputStream out = new BufferedOutputStream(ExtractionGuard.open(target), 65536)) {
+                    reader.copyFile(e, out);
+                }
+                if (e.mtime > 0) target.setLastModified(e.mtime * 1000L);
+            }
         }
     }
 

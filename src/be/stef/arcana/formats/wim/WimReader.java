@@ -19,10 +19,12 @@ import be.stef.arcana.exceptions.ArcanaCorruptedException;
 import be.stef.arcana.exceptions.ArcanaUnsupportedFormatException;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FilterOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.RandomAccessFile;
 import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -43,7 +45,7 @@ import java.util.Set;
  * <p>Compressed resources are split in chunks (32 KiB by default) compressed
  * separately with XPRESS (Huffman) or LZX, preceded by a table of chunk
  * offsets. Version 3584 files may group several streams in "solid"
- * resources. LZMS (used by most .esd files) is not supported.</p>
+ * resources, usually compressed with LZMS (.esd files).</p>
  *
  * @author Stef
  * @since 1.0.3
@@ -110,6 +112,11 @@ public final class WimReader implements AutoCloseable {
     private final List<Resource> metadata = new ArrayList<Resource>();
     private final Map<String, Resource> byHash = new HashMap<String, Resource>();
     private XpressHuffmanDecoder xpress;
+    private LzmsDecoder lzms;
+    /** Last decompressed chunk (position of its compressed data), reused when the next file is in the same chunk. */
+    private byte[] cachedChunk;
+    private long cachedChunkPos = -1;
+    private byte[] chunkBuffer;
     private final Map<Integer, WimLzxDecoder> lzx = new HashMap<Integer, WimLzxDecoder>();
 
     /** A resource: a stream stored alone, or a part of a solid resource. */
@@ -121,6 +128,8 @@ public final class WimReader implements AutoCloseable {
         /** For a stream inside solid resources: the group and the offset in its uncompressed data. */
         SolidGroup group;
         long groupOffset;
+        /** SHA-1 of the uncompressed data (hex), checked after extraction. */
+        String hash;
     }
 
     /** Consecutive solid resources whose uncompressed data are concatenated. */
@@ -221,7 +230,10 @@ public final class WimReader implements AutoCloseable {
                 r.size = r.storedSize;
             }
             if ((r.flags & RES_METADATA) != 0) metadata.add(r);
-            else byHash.put(hash, r);
+            else {
+                r.hash = hash;
+                byHash.put(hash, r);
+            }
         }
     }
 
@@ -294,10 +306,51 @@ public final class WimReader implements AutoCloseable {
     // Data
     // =========================================================================
 
+    /**
+     * Order of the file data in the WIM: extracting in this order decompresses
+     * each chunk once (important for the large LZMS chunks of solid resources).
+     */
+    public static final java.util.Comparator<Entry> DATA_ORDER = new java.util.Comparator<Entry>() {
+        @Override
+        public int compare(final Entry a, final Entry b) {
+            final int c = Long.compare(start(a), start(b));
+            return c != 0 ? c : Long.compare(inside(a), inside(b));
+        }
+
+        private long start(final Entry e) {
+            if (e.data == null) return -1;
+            return e.data.group != null ? e.data.group.parts.get(0).offset : e.data.offset;
+        }
+
+        private long inside(final Entry e) {
+            return e.data != null && e.data.group != null ? e.data.groupOffset : 0;
+        }
+    };
+
     /** Writes the content of a file entry (nothing for directories and reparse points). */
     public void copyFile(final Entry e, final OutputStream out) throws IOException {
         if (e.data == null) return;
-        copy(e.data, 0, e.data.size, out);
+        final MessageDigest sha1;
+        try {
+            sha1 = MessageDigest.getInstance("SHA-1");
+        } catch (final java.security.NoSuchAlgorithmException ex) {
+            copy(e.data, 0, e.data.size, out);
+            return;
+        }
+        copy(e.data, 0, e.data.size, new FilterOutputStream(out) {
+            @Override
+            public void write(final int b) throws IOException {
+                sha1.update((byte) b);
+                out.write(b);
+            }
+
+            @Override
+            public void write(final byte[] b, final int off, final int len) throws IOException {
+                sha1.update(b, off, len);
+                out.write(b, off, len);
+            }
+        });
+        if (e.data.hash != null && !e.data.hash.equals(hex(sha1.digest(), 0, 20))) throw new ArcanaCorruptedException("WIM data corrupted (SHA-1 mismatch): " + e.path);
     }
 
     private byte[] readResource(final Resource r, final long from, final int len) throws IOException {
@@ -329,9 +382,8 @@ public final class WimReader implements AutoCloseable {
      * chunks instead.
      */
     private void copyChunked(final long start, final long stored, final long size, final int chunk, final int type, final int solidHeader, final long from, final long len, final OutputStream out) throws IOException {
-        if (type == CT_LZMS) throw new ArcanaUnsupportedFormatException("WIM LZMS compression (.esd files) is not supported");
-        if (type != CT_XPRESS && type != CT_LZX) throw new ArcanaUnsupportedFormatException("Unknown WIM compression " + type);
-        if (chunk > (1 << 21)) throw new ArcanaCorruptedException("WIM chunk size too large: " + chunk);
+        if (type != CT_XPRESS && type != CT_LZX && type != CT_LZMS) throw new ArcanaUnsupportedFormatException("Unknown WIM compression " + type);
+        if (chunk > (type == CT_LZMS ? 1 << 26 : 1 << 21)) throw new ArcanaCorruptedException("WIM chunk size too large: " + chunk);
         final long chunks = (size + chunk - 1) / chunk;
         if (chunks > Integer.MAX_VALUE / 8) throw new ArcanaCorruptedException("Invalid WIM chunk count");
         final boolean solid = solidHeader > 0;
@@ -348,7 +400,6 @@ public final class WimReader implements AutoCloseable {
             for (int i = 1; i < chunks; i++) offsets[i] = entry == 8 ? le64(table, (i - 1) * 8) : le32(table, (i - 1) * 4) & 0xffffffffL;
             offsets[(int) chunks] = dataEnd - dataStart;
         }
-        final byte[] buf = new byte[chunk];
         long pos = from;
         long left = len;
         while (left > 0) {
@@ -358,13 +409,20 @@ public final class WimReader implements AutoCloseable {
             final long cpos = dataStart + offsets[index];
             final long clen = offsets[index + 1] - offsets[index];
             if (clen <= 0 || clen > usize || cpos + clen > dataEnd) throw new ArcanaCorruptedException("Invalid WIM chunk " + index);
-            final byte[] raw = read(cpos, (int) clen);
-            byte[] data;
-            if (clen == usize) {
-                data = raw;
+            final byte[] data;
+            if (cpos == cachedChunkPos && cachedChunk != null) {
+                data = cachedChunk; // several small files of the same (solid) chunk
             } else {
-                decompress(type, raw, buf, usize, chunk);
-                data = buf;
+                final byte[] raw = read(cpos, (int) clen);
+                if (clen == usize) {
+                    data = raw;
+                } else {
+                    if (chunkBuffer == null || chunkBuffer.length < chunk) chunkBuffer = new byte[chunk];
+                    decompress(type, raw, chunkBuffer, usize, chunk);
+                    data = chunkBuffer;
+                }
+                cachedChunk = data;
+                cachedChunkPos = cpos;
             }
             final int n = (int) Math.min(left, usize - inChunk);
             out.write(data, inChunk, n);
@@ -414,7 +472,9 @@ public final class WimReader implements AutoCloseable {
                 d.decompress(raw, 0, raw.length, dst, usize);
                 return;
             case CT_LZMS:
-                throw new ArcanaUnsupportedFormatException("WIM LZMS compression (.esd files) is not supported");
+                if (lzms == null) lzms = new LzmsDecoder();
+                lzms.decompress(raw, 0, raw.length, dst, usize);
+                return;
             default:
                 throw new ArcanaUnsupportedFormatException("Unknown WIM compression " + type);
         }

@@ -13,6 +13,28 @@
       "summary": "NSIS installers"
     },
     {
+      "name": "arcana-plugin-innosetup",
+      "url": "https://github.com/RealBurst/arcana/tree/main/plugins/arcana-plugin-innosetup",
+      "description": "Extracts the files of Inno Setup installers (setup data 5.4.2 to 7.x; LZMA, LZMA2, zlib, bzip2; solid or not; setup-1.bin data files; encrypted installers with the password). Requires Arcana 1.0.4.",
+      "files": "Windows installers (.exe), by content",
+      "capabilities": "extract, identify",
+      "author": "Stephane Bury",
+      "license": "Apache-2.0",
+      "jar": "arcana-plugin-innosetup.jar",
+      "summary": "Inno Setup installers"
+    },
+    {
+      "name": "arcana-plugin-installshield",
+      "url": "https://github.com/RealBurst/arcana/tree/main/plugins/arcana-plugin-installshield",
+      "description": "InstallShield cabinet sets (data1.hdr, data1.cab...) and the files embedded in InstallShield setup.exe launchers. Requires Arcana 1.0.4.",
+      "files": "data1.hdr, data1.cab, setup.exe, by content",
+      "capabilities": "extract, identify",
+      "author": "Stephane Bury",
+      "license": "Apache-2.0",
+      "jar": "arcana-plugin-installshield.jar",
+      "summary": "InstallShield cabinets and setups"
+    },
+    {
       "name": "arcana-plugin-pak",
       "url": "https://github.com/RealBurst/arcana/tree/main/plugins/arcana-plugin-pak",
       "description": "Quake PAK archives (id Software, 1996)",

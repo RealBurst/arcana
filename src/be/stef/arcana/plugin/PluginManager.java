@@ -245,6 +245,9 @@ public final class PluginManager {
         return p != null ? p : detect(file, false);
     }
 
+    /** Largest probe read for the plugins (4 MiB: the Inno Setup loader table can lie after the first MiB). */
+    private static final int MAX_PROBE = 4 << 20;
+
     /**
      * Same as {@link #detect(File)} restricted to the plugins with a priority
      * greater than 0 ({@code priority = true}) or to the others.
@@ -261,7 +264,7 @@ public final class PluginManager {
         int probe = 0;
         for (final ArcanaPlugin p : list) {
             try {
-                probe = Math.max(probe, Math.min(1 << 20, Math.max(0, p.getProbeSize())));
+                probe = Math.max(probe, Math.min(MAX_PROBE, Math.max(0, p.getProbeSize())));
             } catch (final RuntimeException ignored) { /* default below */ }
         }
         final byte[] head = new byte[(int) Math.min(probe, file.length())];

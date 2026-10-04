@@ -209,7 +209,7 @@ public class SfxExtractor implements ArchiveExtractor {
             if (inside != null) return inside;
             // 3. Nothing: name the installer type if possible
             final String kind = installerKind(s);
-            if (kind != null) throw new ArcanaUnsupportedFormatException(exe.getName() + " is a " + kind + " installer: its proprietary format is not supported (no standard archive inside)");
+            if (kind != null) throw new ArcanaUnsupportedFormatException(exe.getName() + " is a " + kind + " installer: its proprietary format is not supported (no standard archive inside)" + pluginHint(kind));
             throw new ArcanaUnsupportedFormatException("No archive found in " + exe.getName() + " (not a self-extracting archive)");
         }
     }
@@ -256,6 +256,14 @@ public class SfxExtractor implements ArchiveExtractor {
             pos += n;
         }
         return best;
+    }
+
+    /** The plugin that extracts an installer type, as a hint in the error message. */
+    private static String pluginHint(final String kind) {
+        if (kind.startsWith("NSIS")) return " - the arcana-plugin-nsis plugin extracts it";
+        if ("Inno Setup".equals(kind)) return " - the arcana-plugin-innosetup plugin extracts it";
+        if ("InstallShield".equals(kind)) return " - the arcana-plugin-installshield plugin extracts its embedded files";
+        return "";
     }
 
     /** Known proprietary installers, recognized by strings of their stubs / data. */

@@ -75,7 +75,7 @@ public interface ArcanaPlugin {
     /** File extensions of the format, without dot, lower case (e.g. {"pak"}). Used by -f / -t and by detection. */
     String[] getExtensions();
 
-    /** Number of bytes of the file start passed to {@link #matches}. */
+    /** Number of bytes of the file start passed to {@link #matches} (at most 4 MiB are read). */
     default int getProbeSize() {
         return 512;
     }
