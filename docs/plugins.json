@@ -35,6 +35,17 @@
       "summary": "InstallShield cabinets and setups"
     },
     {
+      "name": "arcana-plugin-jexepack",
+      "url": "https://github.com/RealBurst/arcana/tree/main/plugins/arcana-plugin-jexepack",
+      "description": "Java programs packed into an executable by JexePack (Duckware): extracts the jar files, DLLs, bootstrap class and settings, to check what the program contains.",
+      "files": "Windows executables (.exe), by content",
+      "capabilities": "extract, identify",
+      "author": "Stephane Bury",
+      "license": "Apache-2.0",
+      "jar": "arcana-plugin-jexepack.jar",
+      "summary": "JexePack Java executables"
+    },    
+    {
       "name": "arcana-plugin-pak",
       "url": "https://github.com/RealBurst/arcana/tree/main/plugins/arcana-plugin-pak",
       "description": "Quake PAK archives (id Software, 1996)",
