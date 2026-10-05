@@ -29,6 +29,8 @@ No native libraries. No JNI. No external dependencies. Runs on Java 8 or later.
 
 ## Supported formats
 
+Each format has a technical page (detection, file layout, methods, limits, sources) in [doc/formats](doc/formats/README.md).
+
 | Format | Extract | Compress | Encryption |
 |--------|:-------:|:--------:|------------|
 | ZIP (also JAR, WAR, EAR) | yes | yes | ZipCrypto, WinZip AES (AES-256 when compressing) |
