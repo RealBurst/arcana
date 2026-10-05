@@ -176,6 +176,17 @@ On **every** run, before anything else, Arcana prints on the error output:
 
 Nothing is printed when every plugin loaded correctly. `arcana plugins` gives the details (directories searched, SHA-256 of each JAR, capabilities).
 
+### Windows Explorer context menu
+
+The `windows/` folder adds three entries to the right-click menu of every file in Windows Explorer:
+**Arcana Unpack ...** (extracts into `<name>_extracted` next to the file), **Arcana List ...** and **Arcana Info ...**.
+
+1. Put `arcana-explorer.cmd`, `install-context-menu.cmd` and `uninstall-context-menu.cmd` in the folder of `Arcana-vX.Y.Z.jar` (plugins in its `plugins` subfolder).
+2. Run `install-context-menu.cmd` (current user only, no administrator rights; run it again if the folder moves).
+3. `uninstall-context-menu.cmd` removes the entries.
+
+Java must be on the `PATH` (or `JAVA_HOME` set). On Windows 11 the entries are under **Show more options** (Shift+F10).
+
 ---
 
 ## Library API
