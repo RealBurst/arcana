@@ -480,6 +480,10 @@ public final class Arcana {
 
                 if (cmd.equals("l")) {
                     final List<ArcanaEntry> entries = arcana.list(archive);
+                    if (entries.isEmpty()) {
+                        System.out.println("Nothing to list: " + archive.getName() + " is empty.");
+                        return;
+                    }
                     System.out.printf("%-12s  %-19s  %s%n", "Size", "Modified", "Name");
                     System.out.println("------------  -------------------  ----------------------------------------");
                     for (final ArcanaEntry e : entries) {

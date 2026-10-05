@@ -26,7 +26,13 @@ if "%~2"=="" (
 )
 if /i "%~1"=="x" goto unpack
 
-"%JAVA%" -jar "%JAR%" %~1 "%~f2"
+rem The output goes through a file so that an empty result still shows a message
+set "OUTFILE=%TEMP%\arcana-%RANDOM%%RANDOM%.txt"
+"%JAVA%" -jar "%JAR%" %~1 "%~f2" > "%OUTFILE%" 2>&1
+chcp 1252 >nul
+for %%A in ("%OUTFILE%") do if %%~zA==0 echo Nothing here: Arcana has nothing to show for "%~nx2".
+type "%OUTFILE%"
+del /f /q "%OUTFILE%" >nul 2>&1
 echo.
 pause
 exit /b
