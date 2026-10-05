@@ -96,7 +96,19 @@ arcana x schema.dia -o ./schema
 Download `Arcana-vX.Y.Z.jar` from the [Releases](https://github.com/RealBurst/arcana/releases) page.
 It is both the command-line tool and the library: add it to your class path to use the Java API.
 
-Publication on Maven Central (`io.github.realburst:arcana`) is planned.
+Or get it from Maven Central (`io.github.realburst:arcana`):
+
+```xml
+<dependency>
+  <groupId>io.github.realburst</groupId>
+  <artifactId>arcana</artifactId>
+  <version>1.0.6</version>
+</dependency>
+```
+
+```
+implementation 'io.github.realburst:arcana:1.0.6'
+```
 
 ---
 

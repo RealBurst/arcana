@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Metadata of the Maven Central artifact io.github.realburst:arcana.
+  Arcana is not built with Maven (see build.bat / build.sh): this file only describes the
+  artifact. The version is set by the "Publish to Maven Central" job of .github/workflows/build.yml.
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>io.github.realburst</groupId>
+  <artifactId>arcana</artifactId>
+  <version>${project.version}</version>
+  <packaging>jar</packaging>
+
+  <name>Arcana</name>
+  <description>Pure Java archive library and command-line tool, no dependencies: ZIP, 7z, RAR 4/5, TAR, GZIP, BZIP2, XZ, LZMA, Zstandard, LZ4, Brotli, CAB, MSI, CHM, ISO, UDF, WIM, SquashFS, CPIO, AR/DEB, RPM, XAR, ARJ, LHA and more; self-extracting executables and installers</description>
+  <url>https://github.com/RealBurst/arcana</url>
+
+  <licenses>
+    <license>
+      <name>Apache License 2.0</name>
+      <url>https://www.apache.org/licenses/LICENSE-2.0</url>
+    </license>
+  </licenses>
+
+  <developers>
+    <developer>
+      <id>RealBurst</id>
+      <name>Stephane Bury</name>
+      <url>https://github.com/RealBurst</url>
+    </developer>
+  </developers>
+
+  <scm>
+    <connection>scm:git:git://github.com/RealBurst/arcana.git</connection>
+    <developerConnection>scm:git:ssh://git@github.com/RealBurst/arcana.git</developerConnection>
+    <url>https://github.com/RealBurst/arcana</url>
+  </scm>
+
+  <properties>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
+  </properties>
+</project>

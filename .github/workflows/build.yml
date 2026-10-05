@@ -2,7 +2,11 @@ name: Build
 
 # - push / pull request on main: compile Arcana and the plugins with Java 8 and Java 21, run the smoke test,
 #   keep the JARs as a downloadable artifact of the run (Actions tab);
-# - release published on GitHub (tag vX.Y.Z): same build, then the JARs and their SHA-256 are attached to the release.
+# - release published on GitHub (tag vX.Y.Z): same build, then the JARs and their SHA-256 are attached to the release,
+#   and the core library is published to Maven Central (io.github.realburst:arcana);
+# - manual run (workflow_dispatch) with a tag: publishes that release to Maven Central (to retry or catch up).
+# Maven Central needs the repository secrets GPG_PRIVATE_KEY, CENTRAL_USERNAME and CENTRAL_PASSWORD
+# (the same values as for unrar5j: Central Portal user token and the GPG key used to sign).
 
 on:
   push:
@@ -13,6 +17,11 @@ on:
   release:
     types: [ published ]
   workflow_dispatch:
+    inputs:
+      maven_central_tag:
+        description: 'Publish this release tag (e.g. v1.0.6) to Maven Central; leave empty for a normal build'
+        required: false
+        default: ''
 
 permissions:
   contents: read
@@ -104,3 +113,91 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: gh release upload "${{ github.event.release.tag_name }}" upload/* --clobber --repo "${{ github.repository }}"
+
+  maven-central:
+    name: Publish to Maven Central
+    if: github.event_name == 'release' || (github.event_name == 'workflow_dispatch' && inputs.maven_central_tag != '')
+    needs: build
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: release
+    steps:
+      - name: Checkout the workflow commit (pom.xml)
+        uses: actions/checkout@v4
+        with:
+          path: meta
+
+      - name: Checkout the release tag
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.release.tag_name || inputs.maven_central_tag }}
+          path: release
+
+      - name: Set up Java 8
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '8'
+
+      - name: Check that the tag matches the VERSION file
+        id: version
+        run: |
+          VERSION="$(head -n 1 VERSION | tr -d ' \t\r\n')"
+          TAG="${{ github.event.release.tag_name || inputs.maven_central_tag }}"
+          if [ "$TAG" != "v$VERSION" ]; then
+            echo "::error::Tag '$TAG' does not match the VERSION file (expected 'v$VERSION')"
+            exit 1
+          fi
+          echo "VERSION=$VERSION" >> "$GITHUB_OUTPUT"
+
+      - name: Build Arcana
+        run: bash build.sh arcana
+
+      - name: Create the JAR, sources JAR, javadoc JAR and POM
+        run: |
+          VERSION="${{ steps.version.outputs.VERSION }}"
+          DIR="io/github/realburst/arcana/$VERSION"
+          mkdir -p "$DIR"
+          cp "jar/Arcana-v$VERSION.jar" "$DIR/arcana-$VERSION.jar"
+          jar cf "$DIR/arcana-$VERSION-sources.jar" -C src .
+          javadoc -quiet -Xdoclint:none -encoding UTF-8 -sourcepath src -subpackages be.stef.arcana -d javadoc
+          test -f javadoc/index.html
+          jar cf "$DIR/arcana-$VERSION-javadoc.jar" -C javadoc .
+          # pom.xml of the workflow commit: releases made before the POM existed can be published too
+          sed "s|\${project.version}|$VERSION|" ../meta/pom.xml > "$DIR/arcana-$VERSION.pom"
+          grep -q "<version>$VERSION</version>" "$DIR/arcana-$VERSION.pom"
+          ls -l "$DIR"
+
+      - name: Sign, add checksums and make the bundle
+        env:
+          GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
+        run: |
+          if [ -z "$GPG_PRIVATE_KEY" ]; then
+            echo "::error::Repository secret GPG_PRIVATE_KEY is missing (Settings > Secrets and variables > Actions)"
+            exit 1
+          fi
+          echo "$GPG_PRIVATE_KEY" | gpg --batch --import
+          VERSION="${{ steps.version.outputs.VERSION }}"
+          DIR="io/github/realburst/arcana/$VERSION"
+          for f in "$DIR"/arcana-"$VERSION".jar "$DIR"/arcana-"$VERSION"-sources.jar "$DIR"/arcana-"$VERSION"-javadoc.jar "$DIR"/arcana-"$VERSION".pom; do
+            gpg --batch --yes --pinentry-mode loopback --armor --detach-sign "$f"
+            md5sum "$f" | awk '{print $1}' > "$f.md5"
+            sha1sum "$f" | awk '{print $1}' > "$f.sha1"
+          done
+          zip -r bundle.zip io/
+          unzip -l bundle.zip
+
+      - name: Upload to the Central Portal
+        env:
+          CENTRAL_USERNAME: ${{ secrets.CENTRAL_USERNAME }}
+          CENTRAL_PASSWORD: ${{ secrets.CENTRAL_PASSWORD }}
+        run: |
+          if [ -z "$CENTRAL_USERNAME" ] || [ -z "$CENTRAL_PASSWORD" ]; then
+            echo "::error::Repository secrets CENTRAL_USERNAME / CENTRAL_PASSWORD are missing (Settings > Secrets and variables > Actions)"
+            exit 1
+          fi
+          TOKEN="$(printf '%s:%s' "$CENTRAL_USERNAME" "$CENTRAL_PASSWORD" | base64 -w 0)"
+          curl --fail-with-body --request POST --header "Authorization: Bearer $TOKEN" --form bundle=@bundle.zip "https://central.sonatype.com/api/v1/publisher/upload?name=arcana-${{ steps.version.outputs.VERSION }}&publishingType=AUTOMATIC"
+          echo
+          echo "Uploaded: follow the deployment on https://central.sonatype.com/publishing/deployments"
