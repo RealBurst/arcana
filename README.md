@@ -54,7 +54,7 @@ No native libraries. No JNI. No external dependencies. Runs on Java 8 or later.
 | LHA / LZH | yes | yes (-lh5-, -lh6-, -lh7-) | - |
 | ARJ (methods 0 to 4) | yes | - | - |
 | Microsoft Cabinet (.cab) | yes (stored, MSZIP, LZX) | yes (MSZIP) | - |
-| Windows Installer (.msi: installed file tree) | yes | - | - |
+| Windows Installer (.msi: installed file tree, embedded or external cabinets) | yes | - | - |
 | OLE compound file (.msp, Office 97-2003, .msg: streams) | yes | - | - |
 | Compiled HTML Help (.chm) | yes | - | - |
 | CPIO (newc, odc) | yes | - | - |
@@ -65,7 +65,7 @@ No native libraries. No JNI. No external dependencies. Runs on Java 8 or later.
 | AR / Debian package (.a, .deb) | yes | - | - |
 | RPM (gzip, bzip2, xz, zstd payload) | yes | - | - |
 | XAR | yes | - | - |
-| Self-extracting archive (.exe: ZIP, RAR, 7z, CAB / IExpress inside) | yes | - | - |
+| Self-extracting archive (.exe: ZIP, RAR, 7z, CAB / IExpress inside, MSI in the resources) | yes | - | - |
 
 A TAR or CPIO inside any single-file compressor is unpacked automatically (`.cpio.gz`, `.cpio.xz`, `.tar.lzma`...).
 

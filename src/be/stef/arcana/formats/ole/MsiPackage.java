@@ -40,8 +40,9 @@ import java.util.Set;
  *
  * <p>The files of the package are in cabinets stored as streams (Media table,
  * Cabinet "#name"); inside a cabinet, a file is named after its key in the
- * File table. Files in external cabinets or next to the package are reported
- * but cannot be extracted.</p>
+ * File table. Files in external cabinets give the cabinet name
+ * ({@link InstalledFile#externalCabinet}) so that the caller can find it;
+ * uncompressed files next to the package are reported but not extracted.</p>
  *
  * @author Stef
  * @since 1.0.4
@@ -63,12 +64,15 @@ public final class MsiPackage {
         public final String key;
         /** Cabinet stream holding the file, or null when it is outside the package. */
         public final CompoundFile.Node cabinet;
+        /** Name of the external cabinet holding the file (Media table), or null. */
+        public final String externalCabinet;
 
-        InstalledFile(final String path, final long size, final String key, final CompoundFile.Node cabinet) {
+        InstalledFile(final String path, final long size, final String key, final CompoundFile.Node cabinet, final String externalCabinet) {
             this.path = path;
             this.size = size;
             this.key = key;
             this.cabinet = cabinet;
+            this.externalCabinet = externalCabinet;
         }
     }
 
@@ -291,6 +295,7 @@ public final class MsiPackage {
         // media: last sequence -> embedded cabinet
         final List<long[]> media = new ArrayList<long[]>();
         final List<CompoundFile.Node> mediaCab = new ArrayList<CompoundFile.Node>();
+        final List<String> mediaExternal = new ArrayList<String>();
         for (final Map<String, Object> r : table("Media")) {
             final Object last = r.get("LastSequence");
             final String cab = (String) r.get("Cabinet");
@@ -298,6 +303,7 @@ public final class MsiPackage {
             if (cab != null && cab.startsWith("#")) node = streams.get(cab.substring(1));
             media.add(new long[] {last == null ? 0 : (Long) last, media.size()});
             mediaCab.add(node);
+            mediaExternal.add(cab != null && !cab.isEmpty() && !cab.startsWith("#") ? cab : null);
             if (node != null) cabinets.add(node);
         }
         media.sort((a, b) -> Long.compare(a[0], b[0]));
@@ -313,16 +319,18 @@ public final class MsiPackage {
             String path = dir.isEmpty() ? fileName : dir + "/" + fileName;
             if (!used.add(path.toLowerCase())) path = unique(path, used);
             CompoundFile.Node cab = null;
+            String external = null;
             if (seqObj != null) {
                 final long seq = (Long) seqObj;
                 for (final long[] m : media) {
                     if (seq <= m[0]) {
                         cab = mediaCab.get((int) m[1]);
+                        external = mediaExternal.get((int) m[1]);
                         break;
                     }
                 }
             }
-            files.add(new InstalledFile(path, sizeObj == null ? -1 : (Long) sizeObj, key, cab));
+            files.add(new InstalledFile(path, sizeObj == null ? -1 : (Long) sizeObj, key, cab, cab == null ? external : null));
         }
     }
 

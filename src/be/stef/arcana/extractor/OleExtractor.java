@@ -36,6 +36,7 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * Extractor for OLE compound files: Windows Installer packages (.msi) and
@@ -43,8 +44,10 @@ import java.util.Map;
  *
  * <p>An installation package is extracted as the tree of the files it
  * installs, with their real names and folders (read from the File, Component
- * and Directory tables, data taken from the embedded cabinets); its other
- * streams (Binary and Icon tables, custom actions) go to "[streams]/". Any
+ * and Directory tables, data taken from the embedded cabinets, or from the
+ * external cabinets found by a {@link CabinetResolver}: by default, a file of
+ * that name next to the package); its other streams (Binary and Icon tables,
+ * custom actions) go to "[streams]/". Any
  * other compound file, or a package whose tables cannot be read, is extracted
  * as its storages (folders) and streams (files); control characters in names
  * become "[n]", like 7-Zip ("[5]SummaryInformation").</p>
@@ -55,6 +58,28 @@ import java.util.Map;
 public class OleExtractor implements ArchiveExtractor {
 
     private static final String STREAMS = "[streams]";
+
+    /** Finds the external cabinet of an installation package. */
+    public interface CabinetResolver {
+        /**
+         * @param cabinet name given by the Media table
+         * @param keys names of the files expected inside (File table keys)
+         * @return the cabinet file, or null if it is not available
+         */
+        File resolve(String cabinet, Set<String> keys) throws IOException;
+    }
+
+    private final CabinetResolver resolver;
+
+    /** External cabinets are searched next to the package. */
+    public OleExtractor() {
+        this(null);
+    }
+
+    /** External cabinets are given by {@code resolver} (null: next to the package). */
+    public OleExtractor(final CabinetResolver resolver) {
+        this.resolver = resolver;
+    }
 
     @Override
     public boolean supportsStream() {
@@ -70,23 +95,28 @@ public class OleExtractor implements ArchiveExtractor {
                 extractStorage(cf, cf.getRoot(), "", destination, isInstaller(cf));
                 return;
             }
-            // installed files, cabinet by cabinet
-            final Map<CompoundFile.Node, Map<String, List<String>>> byCab = new LinkedHashMap<CompoundFile.Node, Map<String, List<String>>>();
+            // installed files, cabinet by cabinet (stream of the package or name of an external cabinet)
+            final Map<Object, Map<String, List<String>>> byCab = new LinkedHashMap<Object, Map<String, List<String>>>();
             for (final MsiPackage.InstalledFile f : msi.getFiles()) {
-                if (f.cabinet == null) continue; // external file: not in the package
-                Map<String, List<String>> m = byCab.get(f.cabinet);
-                if (m == null) byCab.put(f.cabinet, m = new HashMap<String, List<String>>());
+                final Object key = f.cabinet != null ? f.cabinet : f.externalCabinet;
+                if (key == null) continue; // uncompressed file next to the package: not available
+                Map<String, List<String>> m = byCab.get(key);
+                if (m == null) byCab.put(key, m = new HashMap<String, List<String>>());
                 List<String> paths = m.get(f.key);
                 if (paths == null) m.put(f.key, paths = new ArrayList<String>());
                 paths.add(f.path);
             }
-            for (final Map.Entry<CompoundFile.Node, Map<String, List<String>>> e : byCab.entrySet()) {
-                final File tmp = File.createTempFile("arcana-msi-", ".cab");
+            for (final Map.Entry<Object, Map<String, List<String>>> e : byCab.entrySet()) {
+                final boolean embedded = e.getKey() instanceof CompoundFile.Node;
+                final File cabFile = embedded ? File.createTempFile("arcana-msi-", ".cab") : external(archive, (String) e.getKey(), e.getValue().keySet());
+                if (cabFile == null) continue; // external cabinet not available
                 try {
-                    try (OutputStream out = new BufferedOutputStream(new FileOutputStream(tmp), 65536)) {
-                        cf.copy(e.getKey(), out);
+                    if (embedded) {
+                        try (OutputStream out = new BufferedOutputStream(new FileOutputStream(cabFile), 65536)) {
+                            cf.copy((CompoundFile.Node) e.getKey(), out);
+                        }
                     }
-                    try (CabReader cab = new CabReader(tmp.getPath())) {
+                    try (CabReader cab = new CabReader(cabFile.getPath())) {
                         for (final CabEntry ce : cab.getEntries()) {
                             final List<String> paths = e.getValue().get(ce.getName());
                             if (paths == null) continue;
@@ -100,7 +130,7 @@ public class OleExtractor implements ArchiveExtractor {
                         }
                     }
                 } finally {
-                    if (!tmp.delete()) tmp.deleteOnExit();
+                    if (embedded && !cabFile.delete()) cabFile.deleteOnExit();
                 }
             }
             for (final Map.Entry<String, CompoundFile.Node> s : msi.getOtherStreams().entrySet()) {
@@ -111,6 +141,22 @@ public class OleExtractor implements ArchiveExtractor {
                 }
             }
         }
+    }
+
+    /** External cabinet: given by the resolver, or a file of that name next to the package. */
+    private File external(final File archive, final String cabinet, final Set<String> keys) throws IOException {
+        if (resolver != null) return resolver.resolve(cabinet, keys);
+        final File dir = archive.getAbsoluteFile().getParentFile();
+        if (dir == null || cabinet.indexOf('/') >= 0 || cabinet.indexOf('\\') >= 0) return null;
+        final File f = new File(dir, cabinet);
+        if (f.isFile()) return f;
+        final File[] all = dir.listFiles();
+        if (all != null) {
+            for (final File c : all) {
+                if (c.isFile() && c.getName().equalsIgnoreCase(cabinet)) return c;
+            }
+        }
+        return null;
     }
 
     private static void extractStorage(final CompoundFile cf, final CompoundFile.Node storage, final String prefix, final File destination, final boolean msiNames) throws IOException {
