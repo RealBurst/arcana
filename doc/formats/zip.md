@@ -6,7 +6,7 @@
 | Signature | `50 4B 03 04` ("PK\3\4") at offset 0; the end of central directory record `50 4B 05 06` near the end of the file is what the reader really needs |
 | Arcana support | list, extract (ZipCrypto and WinZip AES), create (Deflate, optional WinZip AES-256 or ZipCrypto) |
 | Main classes | `be.stef.arcana.formats.zip.ZipArchiveReader`, `be.stef.arcana.extractor.ZipExtractor`, `be.stef.arcana.formats.zip.ZipCryptoInputStream`, `be.stef.arcana.formats.zip.AesZipInputStream`, `be.stef.arcana.formats.zip.WinZipAesCtr`, `be.stef.arcana.formats.deflate64.Deflate64InputStream`, `be.stef.arcana.compressor.ZipCompressor`, `be.stef.arcana.formats.zip.AesZipOutputStream`, `be.stef.arcana.formats.zip.ZipCryptoOutputStream` |
-| Test samples | `test/samples/zip/` (`store.zip`, `deflate.zip`, `deflate64.zip`, `bzip2.zip`, `lzma.zip`, `zipcrypto.zip`, `aes256.zip`, `names-utf8.zip`) |
+| Test samples | `test/samples/zip/` (`store.zip`, `deflate.zip`, `deflate64.zip`, `bzip2.zip`, `lzma.zip`, `zipcrypto.zip`, `aes256.zip`, `aes256-tampered.zip`, `aes256-utf8-password.zip`, `names-utf8.zip`) |
 
 ## Overview
 
@@ -153,10 +153,21 @@ Creation, `ZipCompressor` (`arcana c <source> out.zip [-p password]`):
   `ZipCompressor.compressEncrypted` (`AesZipOutputStream` writes a
   `SecureRandom` salt, the verifier, the CTR data and the HMAC-SHA1 code
   truncated to 10 bytes). The CRC field is 0, as AE-2 requires. Directories
-  are stored, empty and not encrypted. Verified with 7-Zip 16.02 (`7z t`).
+  are stored, empty and not encrypted. Each file is streamed (file, CRC-32,
+  raw Deflate, encryption, archive): the local header has flags `0x809`
+  (encrypted + data descriptor + UTF-8) and zero sizes, and a data
+  descriptor follows the data. ZIP64 is written when needed: a ZIP64 extra
+  field in the local header (and 8-byte sizes in the data descriptor) for a
+  file of about 4 GiB or more, ZIP64 values in the central directory for
+  sizes and offsets of 4 GiB or more, and a ZIP64 end of central directory
+  record and locator for 65535 entries or more or a central directory beyond
+  4 GiB. Verified with 7-Zip 25.01 (`7zz t`), including a 70000-entry
+  archive, a 4.4 GB file and a 4.3 GB archive.
 - ZipCrypto creation (`ZipCompressor.ENCRYPT_ZIPCRYPTO`) is available from
   the API only. `ZipCryptoOutputStream` fills the 12-byte header with
-  `java.util.Random` and puts the high byte of the CRC-32 in its last byte.
+  `SecureRandom`; as the entry has a data descriptor, the last header byte
+  is the high byte of the DOS time (APPNOTE 6.1.6). Verified with 7-Zip and
+  Info-ZIP `unzip -t`.
 
 ## Variants and versions
 
@@ -182,8 +193,13 @@ Creation, `ZipCompressor` (`arcana c <source> out.zip [-p password]`):
 - Samples: `store.zip` (method 0), `deflate.zip` (8, with flag bit 1 set by
   the writer), `deflate64.zip` (9), `bzip2.zip` (12), `lzma.zip` (14 with end
   marker), `zipcrypto.zip` (ZipCrypto + Deflate), `aes256.zip` (AE-2,
-  AES-256). The incompressible `bin/random.bin` is stored (method 0) in most
-  of them. PPMd (98) and Deflate64 archives written by 7-Zip 16.02 were also
+  AES-256), `aes256-tampered.zip` (`aes256.zip` with one encrypted byte of
+  `bin/random.bin` flipped: "Authentication code mismatch"),
+  `aes256-utf8-password.zip` (AE-2 written by a Python script with the
+  password "cafe" with an acute e, UTF-8 `63 61 66 C3 A9`, accepted by
+  `7zz t`; 7-Zip refuses non-ASCII passwords when it creates a ZIP). The
+  incompressible `bin/random.bin` is stored (method 0) in most of them.
+  PPMd (98) and Deflate64 archives written by 7-Zip 16.02 were also
   extracted correctly while writing this page.
 
 ## Limits
@@ -198,18 +214,12 @@ Creation, `ZipCompressor` (`arcana c <source> out.zip [-p password]`):
   (entry '...')".
 - PKWARE strong encryption and central directory encryption are not
   supported.
-- The WinZip AES authentication code is not checked (see Implementation
-  notes): with AE-2, where there is no CRC either, modified encrypted data is
-  not detected.
-- Non-ASCII passwords for WinZip AES do not match other tools (see
-  Implementation notes); ASCII passwords work.
 - File times, permissions, symbolic links (Unix mode in the external
   attributes) and comments are not restored; links become regular files
   holding the link target.
-- Encrypted creation reads every file fully into memory (one `byte[]`, so
-  less than 2 GiB per file) and writes no ZIP64 records: more than 65535
-  entries, an entry of 4 GiB or more, or an archive larger than 4 GiB give an
-  invalid archive. Plain creation through the JDK has no such limit.
+- Encrypted creation decides from the file length, before compressing it,
+  whether the entry gets a ZIP64 local header: a file that grows to 4 GiB or
+  more while it is being read stops the creation with an `IOException`.
 - Common extraction limits apply through `ExtractionGuard` (see
   `ExtractionLimits`).
 
@@ -241,14 +251,23 @@ Creation, `ZipCompressor` (`arcana c <source> out.zip [-p password]`):
   extracts as `._/evil.txt`).
 - Stream input (`extract(InputStream, File)`) is first copied to a
   temporary file, because the central directory is at the end.
-- WinZip AES password handling: `AesZipInputStream` and `AesZipOutputStream`
-  turn each password byte into one `char` (`bytesToChars`) and pass it to
-  `PBEKeySpec`; the JDK PBKDF2 then encodes these chars as UTF-8. The CLI
-  password is already UTF-8, so every non-ASCII character is encoded twice.
-  Archives written and read by Arcana agree with each other, but 7-Zip
-  rejects the password of an AES archive made by Arcana with a password
-  holding accented letters (checked with Python: the stored verifier matches
-  PBKDF2 over the doubly encoded password, not over its UTF-8 bytes).
+- WinZip AES password handling: PBKDF2-HMAC-SHA1 is computed by
+  `AesZipInputStream.pbkdf2HmacSha1` with `javax.crypto.Mac` over the raw
+  password bytes (UTF-8 from the CLI, as WinZip and 7-Zip use), not with the
+  JDK `PBKDF2WithHmacSHA1`, which takes a `char[]` and would encode a UTF-8
+  password a second time. Checked both ways with 7-Zip 25.01 and the password
+  "cafe" with an acute e (`aes256-utf8-password.zip`, and an Arcana archive
+  tested with `7zz t`). Versions before this fix encoded such passwords
+  twice: their AES archives with non-ASCII passwords no longer open with the
+  same password.
+- WinZip AES authentication code: `AesZipInputStream` updates an HMAC-SHA1
+  (key = the second part of the PBKDF2 output) with the encrypted bytes as it
+  reads them. At the end of the entry, `EntryCheckInputStream` calls
+  `isAuthentic()`, which reads the encrypted bytes left by the decoder, then
+  the 10-byte code, and compares; a mismatch gives `ArcanaCorruptedException`
+  "Authentication code mismatch for ZIP entry '...'". Modified data that also
+  breaks the compressed stream is reported by the decoder first (for example
+  "invalid code lengths set" for Deflate).
 - Damaged archives can be scanned header by header with the recovery mode
   (`ZipRecovery`, see [recovery.md](recovery.md)).
 

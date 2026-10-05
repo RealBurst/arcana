@@ -4,9 +4,9 @@
 |---|---|
 | Extensions | `.rar`, `.cbr`; volumes `.partN.rar` |
 | Signature | RAR 5: `52 61 72 21 1A 07 01 00` ("Rar!" 1A 07 01 00); RAR 4 (1.5 to 4.x): `52 61 72 21 1A 07 00`, at offset 0 |
-| Arcana support | list, extract (solid, volumes, AES encryption, encrypted headers for RAR 5); no creation |
+| Arcana support | list, extract (solid, volumes, AES encryption, encrypted headers); no creation |
 | Main classes | `be.stef.arcana.extractor.RarExtractor`, `be.stef.arcana.formats.rar.Unrar5j`; RAR 5: `rar5.Rar5Reader`, `rar5.Rar5Extractor`, `rar5.Rar5HeaderDecryptor`, `rar5.crypto.Rar5Crypto`, `rar5.decompress.Rar5LZDecoder`, `util.Blake2sp`; RAR 4: `rar4.Rar4HeaderParser`, `rar4.Rar4Extractor`, `rar4.crypto.Rar4Crypto`, `rar4.decompress.Lz77Decompressor` (all under `be.stef.arcana.formats.rar`) |
-| Test samples | `test/samples/rar/` (`rar5.rar`, `rar5-solid.rar`, `rar5-encrypted.rar`, `rar5-encrypted-headers.rar`, `rar4.rar`, `rar4-solid.rar`, `rar4-encrypted.rar`, `names-utf8.rar`, `volumes/rar5-volumes.part1.rar` to `part5.rar`), `test/samples/damaged/flipped.rar`, `test/samples/damaged/truncated-rar4.rar` |
+| Test samples | `test/samples/rar/` (`rar5.rar`, `rar5-solid.rar`, `rar5-encrypted.rar`, `rar5-encrypted-headers.rar`, `rar4.rar`, `rar4-solid.rar`, `rar4-encrypted.rar`, `rar4-encrypted-headers.rar`, `names-utf8.rar`, `volumes/rar5-volumes.part1.rar` to `part5.rar`), `test/samples/damaged/flipped.rar`, `test/samples/damaged/truncated-rar4.rar`, `test/samples/damaged/wrong-password-rar5.rar` and `wrong-password-rar4.rar` (encrypted headers, wrong password) |
 
 ## Overview
 
@@ -101,7 +101,7 @@ File header (`Rar4FileBlock`):
 | 25 | 1 | method | 0x30 store to 0x35 best |
 | 26 | 2 | name size | |
 | 28 | 4 | attributes | |
-| 32 | 4 + 4 | high packed / unpacked size | if flag 0x0100 |
+| 32 | 4 + 4 | high packed / unpacked size | if flag 0x0100 (LHD_LARGE); also used to find the next header |
 | ... | n | name | flag 0x0200: ASCII part, zero byte, then the RAR Unicode encoding (decoded by `decodeUnicodeName`); else ISO-8859-1 |
 | ... | 8 | salt | if flag 0x0400 (encrypted file) |
 
@@ -152,12 +152,15 @@ RAR 5 encryption (`Rar5Crypto`, `Rar5ExtraCrypto`):
   (`Rar5Crypto.verifyCrcWithHMAC`). BLAKE2sp values are always compared
   without this step.
 - Encrypted headers (`rar -hp`): the first block after the signature is the
-  archive encryption header (type 4). `Rar5Extractor` checks the password
-  against its check value, then `Rar5HeaderDecryptor.decryptToFile` decrypts
-  every header (IV + padded AES-256-CBC
-  header) and writes a temporary copy of the archive with plain headers and
-  still encrypted data, which `Rar5Reader` then reads; the copy is deleted at
-  the end.
+  archive encryption header (type 4). `Rar5Extractor.decryptHeadersToTemp`
+  (used by extraction and listing) checks the password against its check
+  value, then `Rar5HeaderDecryptor.decryptToFile` decrypts every header (IV +
+  padded AES-256-CBC header) and writes a temporary copy of the archive with
+  plain headers and still encrypted data, which `Rar5Reader` then reads; the
+  copy is deleted at the end. No password gives `ArcanaEncryptedException`
+  "RAR archive has encrypted headers and no password was provided", a wrong
+  password "Wrong password for RAR archive with encrypted headers" (list and
+  extract).
 
 RAR 4 encryption (`Rar4Crypto`, files with flag 0x0004 and a salt): AES-128
 in CBC mode. The key comes from SHA-1 run 2^18 times over password (2 bytes
@@ -166,7 +169,13 @@ intermediate digest every 2^14 rounds. There is no password check: a wrong
 password shows as CRC or decoding errors (on `rar4-encrypted.rar`: "CRC32
 mismatch ... (corrupted data or wrong password)" and "RAR4: corrupted PPMd
 data"). Encrypted RAR 4 headers (flag 0x0080): each header is preceded by an
-8-byte salt and padded to 16 bytes (`Rar4HeaderParser.readEncryptedBlock`).
+8-byte salt and padded to 16 bytes (`Rar4HeaderParser.readEncryptedBlock`);
+listing and extraction decrypt them with the password. Without a password
+the archive is reported as encrypted (`ArcanaEncryptedException`). As there is
+no check value, a wrong password is recognized when no file header and no
+end-of-archive header could be decrypted (`Rar4Extractor.isWrongHeaderPassword`:
+header CRC error on the first encrypted header) and reported as "Wrong
+password for RAR archive with encrypted headers".
 
 Integrity: CRC32 of every file (RAR 4 and RAR 5) and BLAKE2sp when the
 RAR 5 hash record is present (`util.Blake2sp`, `Blake2spOutputStream`).
@@ -186,7 +195,10 @@ RAR 5 hash record is present (`util.Blake2sp`, `Blake2spOutputStream`).
   names (`.rar`, `.r00`, `.r01`) are not searched. Listing a volume lists the
   headers of that volume only.
 - Encryption: `rar5-encrypted.rar` (data only, names visible),
-  `rar5-encrypted-headers.rar` (`-hp`), `rar4-encrypted.rar` (data only).
+  `rar5-encrypted-headers.rar` (`-hp`), `rar4-encrypted.rar` (data only),
+  `rar4-encrypted-headers.rar` (`-ma4 -hp`); `damaged/wrong-password-rar5.rar`
+  and `damaged/wrong-password-rar4.rar` are copies of the `-hp` samples whose
+  reference uses the password `wrong`.
 - `names-utf8.rar` was made by `rar` in a non-UTF-8 locale: the stored name
   of the accented file is already wrong (private-use characters), and Arcana
   and 7-Zip both show it as stored.
@@ -202,26 +214,16 @@ RAR 5 hash record is present (`util.Blake2sp`, `Blake2spOutputStream`).
   without a salt (RAR 2.x encryption) give "Encrypted file without salt".
 - RAR 4 passwords are converted with ISO-8859-1 before being spread to 2
   bytes per character, so characters above U+00FF do not give the RAR key.
-- RAR 4 empty files (packed and unpacked size 0) are skipped and not
-  created: `rar4.rar` extracts 5 items, without `docs/empty.txt`, while the
-  other samples extract 6.
-- RAR 4 with encrypted headers (code reading, no sample): `Rar4Extractor`
-  and the listing parse the headers without the password, so the archive is
-  not reported as encrypted and lists empty.
-- RAR 5 with encrypted headers: listing returns nothing even with the
-  password ("Nothing to list: rar5-encrypted-headers.rar is empty"), because
-  `Unrar5j.listFiles` does not decrypt the headers; extraction works. With a
-  wrong password the CLI prints "ERROR: Wrong password for encrypted
-  archive!" and then "Done.": nothing is extracted and no error is raised.
-  `Rar5HeaderDecryptor` reads the whole archive into memory
+- RAR 5 with encrypted headers: `Rar5HeaderDecryptor` reads the whole
+  archive into memory
   (`Files.readAllBytes`), so such archives are limited to less than 2 GiB
   and need that much heap.
 - RAR 5 dictionary: `setDecoderProperties` refuses sizes above 2 GiB (its
   message says "max 4GB"); the window is one `byte[]` allocated from the
   header value, with no memory limit (unlike 7z).
-- RAR 4 headers: the high 32 bits of the packed size (flag 0x0100) are used
-  for the file size but not to find the next header, so a RAR 4 entry of
-  4 GiB packed or more breaks the parsing of the following headers.
+- RAR 4 entries of 4 GiB or more (flag 0x0100): handled by code reading
+  only, there is no sample (the high 32 bits give the packed size, the
+  unpacked size and the position of the next header).
 - Links (extra record 5), file times, attributes, owners, NTFS streams and
   comments are not restored. Recovery records are not used.
 - Existing files are never overwritten: `formats.rar.util.SafePathBuilder`
@@ -235,8 +237,13 @@ RAR 5 hash record is present (`util.Blake2sp`, `Blake2spOutputStream`).
   `ArcanaEncryptedException` "RAR archive is encrypted and no password was
   provided" (RAR 5: first block is the encryption header; RAR 4: encrypted
   headers or first file encrypted). Errors collected in `ExtractionResult`
-  are turned into `ArcanaEncryptedException`, `ArcanaLimitExceededException`
-  or one `ArcanaCorruptedException` listing every failed file.
+  are turned into `ArcanaEncryptedException` (an archive-level password
+  error keeps its own message), `ArcanaLimitExceededException` or one
+  `ArcanaCorruptedException` listing every failed file. A file without a
+  RAR signature at offset 0 is an error ("Unknown or unsupported archive
+  format"), not an empty result.
+- Empty files (RAR 4 entries with packed and unpacked size 0) are created
+  without running a decoder (`Rar4Extractor.createEmptyFile`).
 - Header damage is collected as "problems" (header CRC error, truncated
   header, data beyond the end of file, missing end-of-archive block for
   RAR 5) and reported as errors; files before the damage are still

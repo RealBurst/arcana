@@ -6,7 +6,7 @@
 | Signature | `53 5A 44 44 88 F0 27 33` ("SZDD" + 4 bytes) at offset 0 |
 | Arcana support | list, extract |
 | Main classes | `be.stef.arcana.extractor.MsLzExtractor` |
-| Test samples | `test/samples/szdd/notes.tx_` |
+| Test samples | `test/samples/szdd/notes.tx_`, `test/samples/szdd/UPPER.TX_` (same file, upper-case name) |
 
 ## Overview
 
@@ -92,7 +92,8 @@ spaces) and whose third item copies 6 bytes from position 4080.
 - No checksum: corruption that keeps the stream decodable gives wrong data
   without error.
 - A stream that ends before the declared size fails with "SZDD data
-  truncated (written of size bytes)"; the partial output stays on disk.
+  truncated (written of size bytes)"; the partial output file is deleted
+  (`MsLzExtractor.decompressTo`).
 - A file shorter than 14 bytes fails with "SZDD header truncated" (for `l`
   too).
 - The modification date is not stored: `l` shows `-`. The size shown by `l`
@@ -103,20 +104,19 @@ spaces) and whose third item copies 6 bytes from position 4080.
 
 - Output name (`MsLzExtractor.outputName`):
   - name ending in `_` and a printable missing character (`21`-`7E`, not
-    `/`, `\` or `:`): the `_` is replaced by that character, lower-cased
-    when the name contains lower-case letters (`notes.tx_` + `t` gives
-    `notes.txt`). The character is kept as stored otherwise: `UPPER.TX_`
-    with the sample header gives `UPPER.TXt`.
+    `/`, `\`, `:` or `_`): the `_` is replaced by that character,
+    lower-cased when the name contains lower-case letters (`notes.tx_` + `t`
+    gives `notes.txt`), upper-cased when it contains upper-case letters only
+    (`UPPER.TX_` + `t` gives `UPPER.TXT`), kept as stored when it has no
+    letter.
   - name ending in `_` and no usable character: the `_` is dropped, and a
-    `.` left at the end too (`dot._` + 0 would give `dot`).
-  - name not ending in `_`: kept unchanged; an empty name or one ending in
-    `.` gets `out` appended.
+    `.` left at the end too (`dot._` + 0 gives `dot`); a name left empty
+    becomes `output`.
+  - name not ending in `_`: `.out` is appended (`big.bin` gives
+    `big.bin.out`); an empty name or one ending in `.` gets `out` appended.
+    The output therefore never replaces the archive, even when extracting
+    into its own directory (verified).
   - the stream API (`extract(InputStream, File)`) writes `output`.
-- Because a name without `_` is kept unchanged, extracting such a file into
-  its own directory writes over the archive while it is being read. Up to
-  64 KiB (the input buffer) this happens to work; a 112 KB file renamed
-  `big.bin` was truncated to 58241 bytes and the extraction failed with
-  "SZDD data truncated (58241 of 100000 bytes)" (verified).
 - The output path goes through `SafePathBuilder.buildSafePath`.
 - Errors are `ArcanaCorruptedException`, except the unsupported mode.
 

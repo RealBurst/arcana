@@ -23,7 +23,6 @@
  * falls back to pure-Java array reads on JDKs where Unsafe is inaccessible.
  */
 package be.stef.arcana.formats.zstd;
-import static be.stef.arcana.formats.zstd.MemoryAccess.BASE;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -31,12 +30,7 @@ import java.io.OutputStream;
 
 
 /**
- * Facade for Zstandard decompression within the unrar5j pipeline.
- *
- * <p>This is the <strong>only class</strong> that {@code Rar5Extractor} should reference
- * in the {@code be.stef.arcana.formats.zstd} package. All other classes in this package are
- * implementation details of the ported aircompressor engine and may be replaced
- * at any time without affecting callers.</p>
+ * Facade for Zstandard decompression of a whole stream.
  *
  * <h3>Usage</h3>
  * <pre>
@@ -44,107 +38,47 @@ import java.io.OutputStream;
  * </pre>
  *
  * <h3>Internals</h3>
- * <p>The engine works by reading the entire compressed payload into a {@code byte[]}
- * buffer, then decompressing it in one shot into a second buffer, and finally
- * streaming the result to the output. This is consistent with how RAR7 stores
- * Zstd-compressed data: each file entry is an independent, self-contained Zstd
- * frame - there is no cross-file streaming state to maintain (unlike the LZ decoder).</p>
- *
- * <p>The internal {@link ZstdFrameDecompressor} instance is not thread-safe and
- * must not be shared across threads. Since {@code Rar5Extractor} is single-threaded
- * per extraction session, one instance per call is sufficient.</p>
+ * <p>The data is decoded by {@link ZstdInputStream}, block by block, and copied
+ * to the output as it is produced: memory is bounded by the window size of
+ * the frames, not by the size of the file. Several frames and skippable
+ * frames (anywhere in the stream) are accepted, like the zstd tool does.</p>
  *
  * @author Stef
  * @since 2.0
  */
 public final class ZstdHelper
 {
-    /** Read buffer size for streaming input into the compressed byte array. */
-    private static final int READ_BUFFER_SIZE = 65536;
+    /** Copy buffer size. */
+    private static final int COPY_BUFFER_SIZE = 65536;
 
     private ZstdHelper() {}
 
     /**
-     * Decompresses a Zstandard-compressed stream and writes the result to {@code out}.
+     * Decompresses a Zstandard stream (one or more frames) and writes the result to {@code out}.
      *
-     * <p>The method reads exactly {@code compressedSize} bytes from {@code in} (the
-     * entire packed data area of a RAR7 file entry), decompresses them, and writes
-     * the result to {@code out}. The caller is responsible for bounding {@code in}
-     * (e.g. via {@code BoundedInputStream}) so that only the packed data is consumed.</p>
+     * <p>The method reads {@code in} until its end. The caller is responsible for
+     * bounding {@code in} when the Zstandard data is followed by other data.</p>
      *
-     * @param in             bounded input stream containing the compressed Zstd frame
+     * @param in             input stream positioned at the first frame
      * @param out            output stream receiving the decompressed bytes
-     * @param unpackedSize   expected decompressed size in bytes (from the RAR file header)
+     * @param unpackedSize   expected decompressed size in bytes, or -1 when unknown
+     * @return the number of bytes written
      * @throws IOException   if reading, decompressing, or writing fails
-     * @throws ZstdMalformedInputException if the Zstd frame is corrupt or malformed
+     * @throws ZstdMalformedInputException if a Zstd frame is corrupt or malformed
      */
-    public static void decompress(InputStream in, OutputStream out, long unpackedSize) throws IOException
+    public static long decompress(InputStream in, OutputStream out, long unpackedSize) throws IOException
     {
-        // --- Step 1: read the entire compressed payload into memory ---
-        // RAR7 Zstd entries are independent frames; we need the full frame before decompressing.
-        byte[] compressed = readFully(in);
-
-        // --- Step 2: allocate output buffer ---
-        // unpackedSize comes from the RAR file header; it is trusted at this point
-        // (Rar5Extractor already validated it against the compression ratio guard).
-        if (unpackedSize > Integer.MAX_VALUE) {
-            throw new IOException("Zstd unpacked size too large for a single-pass decompress: " + unpackedSize);
+        ZstdInputStream zin = new ZstdInputStream(in);
+        byte[] buf = new byte[COPY_BUFFER_SIZE];
+        long total = 0;
+        int n;
+        while ((n = zin.read(buf, 0, buf.length)) > 0) {
+            out.write(buf, 0, n);
+            total += n;
         }
-        int outSize = (int) unpackedSize;
-        byte[] decompressed = new byte[outSize];
-
-        // --- Step 3: decompress ---
-        // Address arithmetic matches the convention used throughout ZstdFrameDecompressor:
-        //   address = BASE + array_index
-        long inputAddress  = BASE;
-        long inputLimit    = BASE + compressed.length;
-        long outputAddress = BASE;
-        long outputLimit   = BASE + outSize;
-
-        ZstdFrameDecompressor decompressor = new ZstdFrameDecompressor();
-        int written = decompressor.decompress(
-                compressed,  inputAddress,  inputLimit,
-                decompressed, outputAddress, outputLimit);
-
-        if (written != outSize) {
-            throw new IOException("Zstd decompression size mismatch: expected " + outSize + " bytes, got " + written);
+        if (unpackedSize >= 0 && total != unpackedSize) {
+            throw new IOException("Zstd decompression size mismatch: expected " + unpackedSize + " bytes, got " + total);
         }
-
-        // --- Step 4: write to output stream ---
-        out.write(decompressed, 0, written);
-    }
-
-    /**
-     * Reads all bytes from {@code in} until EOF and returns them as a {@code byte[]}.
-     *
-     * <p>Uses a growing buffer strategy to avoid over-allocating when the compressed
-     * size is not known in advance. In practice the caller uses a {@code BoundedInputStream},
-     * so the total is bounded by the packed data size from the RAR header.</p>
-     *
-     * @param in source stream
-     * @return all bytes read
-     * @throws IOException on read error
-     */
-    private static byte[] readFully(InputStream in) throws IOException
-    {
-        byte[] buf = new byte[READ_BUFFER_SIZE];
-        int totalRead = 0;
-        int read;
-        while ((read = in.read(buf, totalRead, buf.length - totalRead)) != -1) {
-            totalRead += read;
-            if (totalRead == buf.length) {
-                // Grow buffer
-                byte[] newBuf = new byte[buf.length * 2];
-                System.arraycopy(buf, 0, newBuf, 0, totalRead);
-                buf = newBuf;
-            }
-        }
-        // Trim to actual size
-        if (totalRead == buf.length) {
-            return buf;
-        }
-        byte[] result = new byte[totalRead];
-        System.arraycopy(buf, 0, result, 0, totalRead);
-        return result;
+        return total;
     }
 }

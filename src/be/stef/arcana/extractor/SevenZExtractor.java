@@ -208,7 +208,7 @@ public class SevenZExtractor implements ArchiveExtractor {
 
     @Override
     public void extract(InputStream in, File destination) throws IOException {
-        throw new ArcanaUnsupportedFormatException("7z requires random file access \u2014 use extract(File,File).");
+        throw new ArcanaUnsupportedFormatException("7z requires random file access - use extract(File,File).");
     }
 
     @Override

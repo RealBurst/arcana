@@ -6,7 +6,7 @@
 | Signature | `4D 53 43 46` ("MSCF") at offset 0 |
 | Arcana support | list, extract (stored, MSZIP, LZX), create (MSZIP, one folder) |
 | Main classes | `be.stef.arcana.formats.cab.CabReader`, `be.stef.arcana.formats.cab.CabWriter`, `be.stef.arcana.formats.cab.MszipDecoder`, `be.stef.arcana.formats.lzx.LzxDecoder`, `be.stef.arcana.extractor.CabExtractor`, `be.stef.arcana.compressor.CabCompressor` |
-| Test samples | `test/samples/cab/stored.cab`, `test/samples/cab/mszip.cab` (both made by `gcab`), `test/samples/damaged/truncated.cab` |
+| Test samples | `test/samples/cab/stored.cab`, `test/samples/cab/mszip.cab` (both made by `gcab`), `test/samples/cab/arcana-created.cab` (made by `arcana c` from the test payload), `test/samples/damaged/truncated.cab` |
 
 ## Overview
 
@@ -142,10 +142,20 @@ to the source directory (or to the parent of a single file) with `\` as
 separator. `CabWriter` then builds the whole cabinet in memory:
 
 - one folder, method MSZIP, version 1.3, flags 0, setID 1, iCabinet 0;
-- every file is cut into blocks of at most 32768 bytes; each block is deflated
-  independently (`Deflater.DEFAULT_COMPRESSION`, no shared history) and gets
-  the "CK" prefix; a new file always starts a new block; an empty file has no
-  block; an empty cabinet gets one empty block;
+- the data of all files is concatenated into the folder stream and cut into
+  blocks of 32768 bytes; only the last block of the folder is shorter (a file
+  may start or end anywhere in a block, an empty file takes no space); an
+  empty cabinet gets one empty block;
+- each block is "CK" followed by a complete raw Deflate stream
+  (`Deflater.DEFAULT_COMPRESSION`, final block bit set), compressed with the
+  uncompressed data of the previous block as preset dictionary
+  (`setDictionary`): the Deflate history goes on across the blocks of the
+  folder, as MS-ZIP defines it and as the reader expects;
+- range checks before writing: at most 65535 files, at most 65535 blocks (so
+  at most 65535 x 32768 bytes of data in the folder), and a cabinet of less
+  than 4 GB; beyond, an `IOException` ("CAB: too many files (n, maximum
+  65535)", "CAB: too much data for one folder (...)", "CAB: cabinet larger
+  than 4 GB (...)") is thrown before anything is written;
 - the checksum of every block is written (same function as the reader);
 - attributes 0x20 (archive), plus 0x80 when the name is not pure ASCII (the
   name is then written in UTF-8);
@@ -190,13 +200,13 @@ The `-l` level is not used for CAB.
 - No stream extraction: `extract(InputStream, File)` throws "CAB extraction
   requires random access; use extract(File, File) instead."
 - Creation: a single folder, MSZIP only, no directory entries, no
-  multi-cabinet sets. Counts and sizes are written without range check
-  (`cFiles` and `cCFData` are 16-bit, offsets 32-bit), and every input file
-  and the whole cabinet are held in memory.
-- Interoperability of created cabinets: because each file starts a new block,
-  a folder holding several files has blocks of less than 32768 bytes that are
-  not the last one. `gcab` extracts such cabinets, but 7-Zip 23.01 reports
-  "Data Error" for the files that follow such a short block.
+  multi-cabinet sets, so at most 65535 files and about 2 GB of data (65535
+  blocks of 32 KiB); every input file and all compressed blocks are held in
+  memory. Created cabinets are checked with 7-Zip (`7zz t`, `x`) and `gcab`
+  (`-t`, `-x`): same files as the source, also for a folder of 30 files of
+  0 to 70000 bytes crossing block boundaries. (Before October 2026 every file
+  started a new block, which left short blocks inside the folder: 7-Zip
+  reported "Data Error" for the files after the first one.)
 - No recovery strategy beyond normal extraction (see [recovery.md](recovery.md)).
 
 ## Implementation notes

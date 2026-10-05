@@ -107,8 +107,10 @@ final class WimLzxDecoder {
                 }
                 if (size <= 0 || size > outLen - out) size = outLen - out;
                 if (type == UNCOMPRESSED) {
-                    // align to a 16-bit boundary, then 3 recent offsets and the raw bytes
-                    if (count >= 16) pos -= 2 * (count / 16);
+                    // 1 to 16 bits of padding up to a 16-bit boundary (a whole word when the stream is
+                    // already aligned, as in wimlib and Cabinet LZX), then 3 recent offsets and the raw
+                    // bytes. The buffer holds count unread bits: give back the whole words after the padding.
+                    pos -= 2 * ((count - 1) >> 4);
                     buf = 0;
                     count = 0;
                     r0 = le32();

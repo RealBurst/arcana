@@ -23,17 +23,19 @@ import java.io.InputStream;
 /**
  * Streaming Zstandard decompressor.
  *
- * <p>Reads a Zstd stream frame by frame. Each frame is fully buffered in
- * memory (compressed form only), decompressed via {@link ZstdFrameDecompressor},
- * and then consumed byte by byte. Only one frame is held in memory at a time,
- * so archives of arbitrary size can be decompressed without exhausting the
- * heap as long as individual frames are of reasonable size (typically 1-128 MB
- * for files produced by standard tooling).</p>
+ * <p>Reads a Zstd stream block by block: each block (at most 128 KB compressed)
+ * is read from the underlying stream, decoded by {@link ZstdFrameDecompressor}
+ * into a history buffer, and then consumed. The history buffer keeps the last
+ * window-size bytes of the frame (matches can reach that far back) and slides
+ * when it is full, so memory is bounded by the window size of the frame (at
+ * most 128 MB, window log 27, like the zstd tool's default decoding limit),
+ * not by the content size. Frames without a content size (written by zstd
+ * when it reads from a pipe) are handled the same way.</p>
  *
  * <p>Zstd skippable frames (magic 0x184D2A5x) are silently consumed and
- * skipped. Multi-frame streams (concatenated Zstd frames) are handled
- * correctly -- each frame is decompressed independently, and the decompressed
- * output is the concatenation of all frame outputs.</p>
+ * skipped wherever they appear. Multi-frame streams (concatenated Zstd frames)
+ * are handled correctly -- each frame is decompressed independently, and the
+ * decompressed output is the concatenation of all frame outputs.</p>
  *
  * @author Stef
  * @since 1.1
@@ -41,21 +43,34 @@ import java.io.InputStream;
 public final class ZstdInputStream extends InputStream {
 
     private static final int ZSTD_MAGIC         = 0xFD2FB528;
+    private static final int ZSTD_V07_MAGIC     = 0xFD2FB527;
     private static final int SKIPPABLE_MAGIC_MIN = 0x184D2A50;
     private static final int SKIPPABLE_MAGIC_MAX = 0x184D2A5F;
     private static final int SIZE_OF_BLOCK_HEADER = 3;
     private static final int SIZE_OF_INT = 4;
-    /** Initial frame read buffer size (grows if a single frame is larger). */
-    private static final int INITIAL_FRAME_BUFFER = 4 * 1024 * 1024; // 4 MB
+    /** Largest frame header after the magic: descriptor, window, dictionary ID (4), content size (8). */
+    private static final int MAX_FRAME_HEADER = 1 + 1 + 4 + 8;
+    /** Extra room in the block buffer so that the decoder may read a few bytes past the block. */
+    private static final int BLOCK_PADDING = 16;
 
     private final InputStream in;
     private final ZstdFrameDecompressor decompressor = new ZstdFrameDecompressor();
+    private final byte[] block = new byte[Constants.MAX_BLOCK_SIZE + BLOCK_PADDING];
 
-    /** Decompressed bytes of the current frame, ready to be consumed. */
-    private byte[] frameOut;
-    private int frameOutPos;
-    private int frameOutLen;
+    /** History buffer of the current frame: decoded bytes [0, winPos), of which [outPos, winPos) are not yet consumed. */
+    private byte[] window = new byte[0];
+    private int winPos;
+    private int outPos;
     private boolean eof;
+
+    // Current frame state
+    private boolean inFrame;
+    private boolean lastBlock;
+    private int historySize;
+    private int capacity;
+    private long contentSize;
+    private long produced;
+    private XxHash64 hasher;
 
     public ZstdInputStream(final InputStream in) {
         this.in = in;
@@ -74,13 +89,14 @@ public final class ZstdInputStream extends InputStream {
 
     @Override
     public int read(final byte[] buf, final int off, final int len) throws IOException {
+        if (len == 0) return 0;
         if (eof) return -1;
-        while (frameOut == null || frameOutPos >= frameOutLen) {
-            if (!readNextFrame()) return -1;
+        while (outPos >= winPos) {
+            if (!decodeNextBlock()) { eof = true; return -1; }
         }
-        final int n = Math.min(len, frameOutLen - frameOutPos);
-        System.arraycopy(frameOut, frameOutPos, buf, off, n);
-        frameOutPos += n;
+        final int n = Math.min(len, winPos - outPos);
+        System.arraycopy(window, outPos, buf, off, n);
+        outPos += n;
         return n;
     }
 
@@ -90,106 +106,152 @@ public final class ZstdInputStream extends InputStream {
     }
 
     // =========================================================================
-    // Frame reading
+    // Frame and block reading
     // =========================================================================
 
     /**
-     * Reads, decompresses and stores the next Zstd frame.
+     * Decodes the next block of the stream, starting a new frame when needed.
      * Returns false on end of stream.
      */
-    private boolean readNextFrame() throws IOException {
-        // Read 4-byte magic
-        final byte[] magicBytes = new byte[4];
-        final int n = readFully(magicBytes, 0, 4, false);
-        if (n == 0) { eof = true; return false; }
-        if (n < 4) throw new IOException("Zstd stream truncated in magic number");
-
-        final int magic = ((magicBytes[0] & 0xFF)) | ((magicBytes[1] & 0xFF) << 8) | ((magicBytes[2] & 0xFF) << 16) | ((magicBytes[3] & 0xFF) << 24);
-
-        if (magic >= SKIPPABLE_MAGIC_MIN && magic <= SKIPPABLE_MAGIC_MAX) {
-            // Skippable frame: read 4-byte size and skip content
-            final byte[] szBuf = new byte[4];
-            readFully(szBuf, 0, 4, true);
-            final int skipSize = (szBuf[0] & 0xFF) | ((szBuf[1] & 0xFF) << 8) | ((szBuf[2] & 0xFF) << 16) | ((szBuf[3] & 0xFF) << 24);
-            skipFully(skipSize);
-            return readNextFrame(); // tail-recurse to get the real frame
+    private boolean decodeNextBlock() throws IOException {
+        while (!inFrame || lastBlock) {
+            if (inFrame) endFrame();
+            if (!startFrame()) return false;
         }
 
-        if (magic != ZSTD_MAGIC) throw new IOException("Not a Zstd stream (magic 0x" + Integer.toHexString(magic) + ")");
+        readFully(block, 0, SIZE_OF_BLOCK_HEADER, true);
+        final int header24 = (block[0] & 0xFF) | ((block[1] & 0xFF) << 8) | ((block[2] & 0xFF) << 16);
+        lastBlock = (header24 & 1) != 0;
+        final int blockType = (header24 >>> 1) & 0x03;
+        final int blockSize = (header24 >>> 3) & 0x1FFFFF;
+        if (blockType == 3) throw new IOException("Zstd reserved block type encountered");
+        if (blockSize > Constants.MAX_BLOCK_SIZE) throw new IOException("Zstd block too large: " + blockSize);
 
-        // Read the frame incrementally into a growing buffer
-        // Strategy: read byte by byte to track block boundaries, then decompress in one call
-        final java.io.ByteArrayOutputStream frameData = new java.io.ByteArrayOutputStream(INITIAL_FRAME_BUFFER);
-        frameData.write(magicBytes); // include magic in the frame buffer
+        final int rawBytes = (blockType == Constants.RLE_BLOCK) ? 1 : blockSize;
+        readFully(block, 0, rawBytes, true);
+        java.util.Arrays.fill(block, rawBytes, rawBytes + BLOCK_PADDING, (byte) 0);
 
-        // Read frame header descriptor to determine header size
+        final int decodedMax = (blockType == Constants.COMPRESSED_BLOCK) ? Constants.MAX_BLOCK_SIZE : blockSize;
+        makeRoom(decodedMax);
+
+        final long output = BASE + winPos;
+        final long outputLimit = BASE + window.length;
+        final int decoded;
+        switch (blockType) {
+            case Constants.RAW_BLOCK:
+                decoded = ZstdFrameDecompressor.decodeRawBlock(block, BASE, blockSize, window, output, outputLimit);
+                break;
+            case Constants.RLE_BLOCK:
+                decoded = ZstdFrameDecompressor.decodeRleBlock(blockSize, block, BASE, window, output, outputLimit);
+                break;
+            default:
+                decoded = decompressor.decodeCompressedBlock(block, BASE, blockSize, window, output, outputLimit, historySize, BASE);
+                break;
+        }
+        if (hasher != null && decoded > 0) hasher.update(window, winPos, decoded);
+        winPos += decoded;
+        produced += decoded;
+        return true;
+    }
+
+    /**
+     * Makes sure that {@code need} bytes can be decoded after {@code winPos}:
+     * grows the history buffer up to the frame capacity, then slides it so
+     * that only the last {@code historySize} bytes are kept. All the bytes
+     * before {@code winPos} have been consumed when this is called.
+     */
+    private void makeRoom(final int need) {
+        if ((long) winPos + need <= window.length) return;
+        if (window.length < capacity) {
+            final long wanted = Math.max(2L * window.length, (long) winPos + need);
+            final byte[] grown = new byte[(int) Math.min(capacity, Math.max(wanted, 65536L))];
+            System.arraycopy(window, 0, grown, 0, winPos);
+            window = grown;
+            return;
+        }
+        if (winPos > historySize) {
+            final int keep = historySize;
+            System.arraycopy(window, winPos - keep, window, 0, keep);
+            winPos = keep;
+            outPos = keep;
+        }
+        // Otherwise the block can only fit if it is smaller than announced; the decoder checks the limit.
+    }
+
+    /**
+     * Reads the next frame header, skipping skippable frames.
+     * Returns false on end of stream.
+     */
+    private boolean startFrame() throws IOException {
+        while (true) {
+            final byte[] magicBytes = new byte[4];
+            final int n = readFully(magicBytes, 0, 4, false);
+            if (n == 0) return false;
+            if (n < 4) throw new IOException("Zstd stream truncated in magic number");
+
+            final int magic = ((magicBytes[0] & 0xFF)) | ((magicBytes[1] & 0xFF) << 8) | ((magicBytes[2] & 0xFF) << 16) | ((magicBytes[3] & 0xFF) << 24);
+
+            if (magic >= SKIPPABLE_MAGIC_MIN && magic <= SKIPPABLE_MAGIC_MAX) {
+                // Skippable frame: read 4-byte size and skip content
+                final byte[] szBuf = new byte[4];
+                readFully(szBuf, 0, 4, true);
+                final long skipSize = ((szBuf[0] & 0xFF) | ((szBuf[1] & 0xFF) << 8) | ((szBuf[2] & 0xFF) << 16) | ((szBuf[3] & 0xFF) << 24)) & 0xFFFFFFFFL;
+                skipFully(skipSize);
+                continue;
+            }
+            if (magic == ZSTD_V07_MAGIC) throw new IOException("Data encoded in unsupported ZSTD v0.7 format");
+            if (magic != ZSTD_MAGIC) throw new IOException("Not a Zstd stream (magic 0x" + Integer.toHexString(magic) + ")");
+            break;
+        }
+
+        // Frame header: descriptor, then window descriptor, dictionary ID and content size
+        final byte[] hdr = new byte[MAX_FRAME_HEADER + 8];
         final int fhd = readRequired();
-        frameData.write(fhd);
+        hdr[0] = (byte) fhd;
         final boolean singleSegment = (fhd & 0x20) != 0;
         final int dictDesc = fhd & 0x03;
         final int csDesc = (fhd >>> 6) & 0x03;
-        final boolean hasChecksum = (fhd & 0x04) != 0;
+        final int rest = (singleSegment ? 0 : 1) + ((dictDesc == 0) ? 0 : (1 << (dictDesc - 1))) + ((csDesc == 0) ? (singleSegment ? 1 : 0) : (1 << csDesc));
+        readFully(hdr, 1, rest, true);
+        final FrameHeader fh = ZstdFrameDecompressor.readFrameHeader(hdr, BASE, BASE + 1 + rest);
 
-        int windowSize = -1;
-        if (!singleSegment) {
-            final int wd = readRequired();
-            frameData.write(wd);
-            final int exp = (wd >>> 3) & 0x1F;
-            final int mant = wd & 0x07;
-            windowSize = (1 << (Constants.MIN_WINDOW_LOG + exp)) + ((1 << (Constants.MIN_WINDOW_LOG + exp)) / 8) * mant;
+        contentSize = fh.contentSize;
+        if (fh.windowSize >= 0) {
+            historySize = fh.windowSize;
+        } else {
+            // Single segment: the window is the whole content
+            if (contentSize < 0 || contentSize > ZstdFrameDecompressor.MAX_WINDOW_SIZE) throw new IOException("Zstd window size too large: " + contentSize + " bytes (maximum " + ZstdFrameDecompressor.MAX_WINDOW_SIZE + ")");
+            historySize = (int) contentSize;
         }
+        // Room for the history plus the new blocks: a larger margin means fewer slides
+        final int margin = Math.max(4 * Constants.MAX_BLOCK_SIZE, historySize >= (1 << 24) ? historySize / 2 : historySize);
+        long cap = (fh.windowSize >= 0) ? (long) historySize + margin : historySize;
+        if (contentSize >= 0 && contentSize < cap) cap = contentSize;
+        capacity = (int) cap;
 
-        // Dictionary id
-        final int dictBytes = (dictDesc == 0) ? 0 : (1 << (dictDesc - 1));
-        readAndWrite(frameData, dictBytes);
-
-        // Content size
-        final int csBytes = (csDesc == 0) ? (singleSegment ? 1 : 0) : (1 << csDesc);
-        final byte[] csField = new byte[csBytes];
-        readFully(csField, 0, csBytes, true);
-        frameData.write(csField, 0, csBytes);
-        long contentSize = -1L;
-        if (csBytes > 0) {
-            contentSize = 0;
-            for (int i = 0; i < csBytes; i++) contentSize |= (csField[i] & 0xFFL) << (8 * i);
-            if (csDesc == 1) contentSize += 256; // spec
-        }
-        if (windowSize < 0 && contentSize >= 0) windowSize = (int) Math.min(contentSize, Integer.MAX_VALUE);
-        if (windowSize < 0) windowSize = 1 << 17; // 128 KB safe default
-
-        // Read blocks until LAST_BLOCK
-        while (true) {
-            final byte[] bh = new byte[SIZE_OF_BLOCK_HEADER];
-            readFully(bh, 0, SIZE_OF_BLOCK_HEADER, true);
-            frameData.write(bh);
-            final int header24 = (bh[0] & 0xFF) | ((bh[1] & 0xFF) << 8) | ((bh[2] & 0xFF) << 16);
-            final boolean lastBlock = (header24 & 1) != 0;
-            final int blockType = (header24 >>> 1) & 0x03;
-            final int blockSize = (header24 >>> 3) & 0x1FFFFF;
-            if (blockType == 3) throw new IOException("Zstd reserved block type encountered");
-            final int rawBytes = (blockType == 1) ? 1 : blockSize; // RLE_BLOCK has 1 byte payload
-            readAndWrite(frameData, rawBytes);
-            if (lastBlock) break;
-        }
-
-        // Optional content checksum
-        if (hasChecksum) readAndWrite(frameData, SIZE_OF_INT);
-
-        // Decompress the complete frame
-        final byte[] compressed = frameData.toByteArray();
-        final int outCapacity = contentSize >= 0 ? (int) contentSize : windowSize;
-        final byte[] out = new byte[outCapacity > 0 ? outCapacity : windowSize];
-
-        final int written = decompressor.decompress(
-                compressed, BASE,
-                BASE + compressed.length,
-                out, BASE,
-                BASE + out.length);
-
-        frameOut = out;
-        frameOutPos = 0;
-        frameOutLen = written;
+        decompressor.reset();
+        hasher = fh.hasChecksum ? new XxHash64() : null;
+        if (window.length > capacity) window = new byte[0];
+        winPos = 0;
+        outPos = 0;
+        produced = 0;
+        lastBlock = false;
+        inFrame = true;
         return true;
+    }
+
+    /** Checks the content size and the checksum of the frame that has just been decoded. */
+    private void endFrame() throws IOException {
+        inFrame = false;
+        if (contentSize >= 0 && produced != contentSize) throw new IOException("Zstd frame content size mismatch: expected " + contentSize + " bytes, got " + produced);
+        if (hasher != null) {
+            final byte[] cs = new byte[SIZE_OF_INT];
+            readFully(cs, 0, SIZE_OF_INT, true);
+            final int checksum = (cs[0] & 0xFF) | ((cs[1] & 0xFF) << 8) | ((cs[2] & 0xFF) << 16) | ((cs[3] & 0xFF) << 24);
+            final int hash = (int) hasher.hash();
+            if (checksum != hash) throw new ZstdMalformedInputException(produced, "Bad checksum. Expected: " + Integer.toHexString(checksum) + ", actual: " + Integer.toHexString(hash));
+            hasher = null;
+        }
     }
 
     // =========================================================================
@@ -200,13 +262,6 @@ public final class ZstdInputStream extends InputStream {
         final int b = in.read();
         if (b < 0) throw new IOException("Unexpected end of Zstd stream");
         return b;
-    }
-
-    private void readAndWrite(final java.io.ByteArrayOutputStream buf, final int len) throws IOException {
-        if (len <= 0) return;
-        final byte[] tmp = new byte[len];
-        readFully(tmp, 0, len, true);
-        buf.write(tmp, 0, len);
     }
 
     private int readFully(final byte[] buf, final int off, final int len, final boolean required) throws IOException {

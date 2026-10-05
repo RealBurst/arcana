@@ -61,9 +61,10 @@ import java.util.List;
  *   <li>inside the executable: IExpress packages (Microsoft CAB stored in the
  *       resources), 7z / ZIP / RAR stored as resources.</li>
  * </ol>
- * <p>The archive is then extracted by the usual extractor of its format. A ZIP is
- * read in place (ZIP readers handle the offset of an SFX stub); the other formats
- * are first copied to a temporary file.</p>
+ * <p>The archive is then extracted by the usual extractor of its format. A ZIP that
+ * ends at the end of the file is read in place (ZIP readers handle the offset of an
+ * SFX stub); a ZIP followed by other data is copied with the bytes before it, up to
+ * its end of central directory; the other formats are copied to a temporary file.</p>
  *
  * <p>Also used for any file whose format is not recognized but which contains an
  * archive after a prefix (e.g. a shell script followed by a ZIP).</p>
@@ -125,11 +126,11 @@ public class SfxExtractor implements ArchiveExtractor {
             }
             return;
         }
-        if (p.format == ArcanaFormat.ZIP) {
+        if (p.format == ArcanaFormat.ZIP && zipAtEnd(archive, p)) {
             factory.create(ArcanaFormat.ZIP).extract(archive, destination); // the ZIP reader skips the stub itself
             return;
         }
-        final File tmp = copyPayload(archive, p);
+        final File tmp = copyPayload(archive, zipRange(p));
         try {
             factory.create(p.format).extract(tmp, destination);
         } finally {
@@ -160,8 +161,8 @@ public class SfxExtractor implements ArchiveExtractor {
                 return r.list();
             }
         }
-        if (p.format == ArcanaFormat.ZIP) return factory.create(ArcanaFormat.ZIP).list(archive);
-        final File tmp = copyPayload(archive, p);
+        if (p.format == ArcanaFormat.ZIP && zipAtEnd(archive, p)) return factory.create(ArcanaFormat.ZIP).list(archive);
+        final File tmp = copyPayload(archive, zipRange(p));
         try {
             return factory.create(p.format).list(tmp);
         } finally {
@@ -516,6 +517,22 @@ public class SfxExtractor implements ArchiveExtractor {
             }
             source.close();
         }
+    }
+
+    /** True if the ZIP payload ends at the end of the file: the ZIP reader then finds its end of central directory in place. */
+    private static boolean zipAtEnd(final File exe, final Payload p) {
+        return p.offset + p.length >= exe.length();
+    }
+
+    /**
+     * Range to copy for a payload. A ZIP followed by other data (stored inside the image, or before
+     * a certificate) is copied from the start of the file to its end of central directory: the ZIP
+     * reader looks for that record at the end of the file only, and keeping the bytes before the ZIP
+     * keeps working both for offsets relative to the ZIP and for offsets relative to the file.
+     */
+    private static Payload zipRange(final Payload p) {
+        if (p.format != ArcanaFormat.ZIP) return p;
+        return new Payload(p.format, 0, p.offset + p.length, p.description);
     }
 
     private static File copyPayload(final File exe, final Payload p) throws IOException {

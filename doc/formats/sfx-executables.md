@@ -6,7 +6,7 @@
 | Signature | `4D 5A` at offset 0 ("MZ") or `7F 45 4C 46` at offset 0 ("\x7FELF"); otherwise an archive found after an unrecognized prefix |
 | Arcana support | list, extract, recover (through the embedded archive); identify (`arcana i`) |
 | Main classes | `be.stef.arcana.extractor.SfxExtractor`, `be.stef.arcana.formats.carve.PeImage`, `be.stef.arcana.formats.carve.PeResources`, `be.stef.arcana.formats.carve.DotNetBundle`, `be.stef.arcana.formats.carve.FileCarver`, `be.stef.arcana.analyze.ExecutableAnalyzer` |
-| Test samples | `test/samples/plugins/upx/` (ELF packed by UPX, no archive inside); references of real executables in `test/corpus/msi/jinstall-unpacked.exe.txt`, `test/corpus/upx/`, `test/corpus/jexepack/`, `test/corpus/innosetup/` |
+| Test samples | `test/samples/sfx/zip-inside-image.exe` (synthetic PE, ZIP inside the image), `test/samples/plugins/upx/` (ELF packed by UPX, no archive inside); references of real executables in `test/corpus/msi/jinstall-unpacked.exe.txt`, `test/corpus/upx/`, `test/corpus/jexepack/`, `test/corpus/innosetup/` |
 
 ## Overview
 
@@ -166,8 +166,14 @@ libraries are checked to start with "MZ" or "\x7FE".
 
 ## Compression and encryption
 
-`SfxExtractor` decodes nothing itself. A ZIP payload is read in place: the
-whole executable is given to the ZIP extractor, which skips the stub. Other
+`SfxExtractor` decodes nothing itself. A ZIP payload that ends at the end of
+the file is read in place: the whole executable is given to the ZIP
+extractor, which skips the stub. A ZIP followed by other data (found inside
+the image, or followed by an overlay or a certificate) is copied to a
+temporary file from offset 0 to the end of its end of central directory
+record (`SfxExtractor.zipRange`), so that the ZIP reader finds that record at
+the end of the file; keeping the bytes before the ZIP works for offsets
+relative to the ZIP and for offsets relative to the file (`zip -A`). Other
 payloads are copied to a temporary file (first extension of the format) and
 extracted by the extractor of their format. `FormatRegistry` builds the
 extractor as `new SfxExtractor(f -> builtin(f).createExtractor(pw))`, so the
@@ -201,10 +207,8 @@ and `arcana l` lists the content of the 7z.
 
 - Only one archive is used: the first one in the overlay, or the first
   package, or the largest one in the image.
-- A ZIP payload is always read in place from the whole file, also when it was
-  found inside the image (step 4). The ZIP reader looks for the end of central
-  directory in the last 65557 bytes of the file only, so such a ZIP fails
-  ("end of central directory not found") when more than about 64 KiB follow it.
+- A ZIP that does not end at the end of the file is copied with everything
+  before it to a temporary file (up to the size of the executable).
 - The proprietary installer formats (NSIS, Inno Setup, InstallShield, WiX
   Burn) and executable packers (UPX) need plugins. WiX Burn has no plugin hint.
 - `installerKind` only looks at the first 64 MiB.
@@ -219,6 +223,17 @@ and `arcana l` lists the content of the 7z.
 
 ## Implementation notes
 
+- ZIP payload not at the end of the file (`zipAtEnd`, `zipRange`): before
+  October 2026 the whole file was always given to the ZIP reader, which looks
+  for the end of central directory in the last 65557 bytes only: a ZIP inside
+  the image followed by more than about 64 KiB failed ("end of central
+  directory not found"), and an end record found in the overlay was taken
+  instead of the one of the ZIP. `test/samples/sfx/zip-inside-image.exe` is a
+  minimal PE (no code) whose section holds a ZIP of the test payload, then
+  padding, then an overlay of text ending with the 22-byte end record of an
+  empty ZIP (formerly listed as an empty archive). Also checked on the same
+  PE with 100000 bytes of padding after the ZIP, and on a stub + ZIP with
+  file-relative offsets (`zip -A`) followed by 76800 bytes of data.
 - The overlay search relies on `FileCarver.scan`, which never looks inside a
   recognized piece: the PE at offset 0 is a single piece and the scan resumes
   after it. Archives stored inside the image are therefore only found by step 4.

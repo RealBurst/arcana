@@ -19,8 +19,11 @@ import java.util.zip.Deflater;
 /**
  * Writes a Microsoft Cabinet ({@code .cab}) archive using MSZIP compression (type 0x0001).
  *
- * <p>Each CFDATA block covers at most 32 768 bytes of uncompressed data.
- * The payload starts with the 2-byte MSZIP signature "CK" followed by raw DEFLATE data.</p>
+ * <p>All files go into one folder: their data is concatenated and cut into CFDATA blocks of
+ * 32 768 bytes of uncompressed data (only the last block is shorter). Each block starts with the
+ * 2-byte MSZIP signature "CK" followed by a complete raw DEFLATE stream, compressed with the
+ * previous block as preset dictionary (MS-ZIP history). Counts and offsets are checked against
+ * the 16-bit and 32-bit fields of the format.</p>
  *
  * <p>Call {@link #close()} to finalise and flush the complete Cabinet structure.
  * The output stream is NOT closed by this class.</p>
@@ -75,47 +78,62 @@ public final class CabWriter implements Closeable {
     // =========================================================================
 
     private void write() throws IOException {
-        // Phase 1: compress all data into CFDATA blocks
+        // Phase 1: the data of all files is one folder stream, cut into CFDATA blocks of 32768 bytes
+        // (only the last block may be shorter: 7-Zip rejects a short block that is not the last one).
+        // MSZIP keeps the deflate history across the blocks of a folder, so each block is compressed
+        // with the previous 32 KB of uncompressed data as preset dictionary.
+        if (pending.size() > 0xFFFF) throw new IOException("CAB: too many files (" + pending.size() + ", maximum 65535)");
+        long totalSize = 0;
+        for (PendingEntry e : pending) totalSize += e.data.length;
+        if ((totalSize + MSZIP_BLOCK_SIZE - 1) / MSZIP_BLOCK_SIZE > 0xFFFF) throw new IOException("CAB: too much data for one folder (" + totalSize + " bytes, maximum 65535 blocks of 32768 bytes)");
         List<byte[]>  compBlocks  = new ArrayList<byte[]>();
         List<Integer> uncompSizes = new ArrayList<Integer>();
         List<long[]>  fileInfo    = new ArrayList<long[]>();  // [folderOffset, size]
 
+        byte[] block   = new byte[MSZIP_BLOCK_SIZE];
+        byte[] history = null;
+        int    fill    = 0;
         long folderOffset = 0;
         for (PendingEntry e : pending) {
-            long entryStart = folderOffset;
+            fileInfo.add(new long[]{folderOffset, e.data.length});
             int offset = 0;
             while (offset < e.data.length) {
-                int take     = Math.min(MSZIP_BLOCK_SIZE, e.data.length - offset);
-                byte[] block = compressBlock(e.data, offset, take);
-                compBlocks.add(block);
-                uncompSizes.add(take);
+                int take = Math.min(MSZIP_BLOCK_SIZE - fill, e.data.length - offset);
+                System.arraycopy(e.data, offset, block, fill, take);
+                fill         += take;
                 offset       += take;
                 folderOffset += take;
+                if (fill == MSZIP_BLOCK_SIZE) {
+                    compBlocks.add(compressBlock(block, fill, history));
+                    uncompSizes.add(fill);
+                    history = block.clone();
+                    fill    = 0;
+                }
             }
-            fileInfo.add(new long[]{entryStart, e.data.length});
         }
-        // Treat empty archive: add one empty block
-        if (compBlocks.isEmpty()) { compBlocks.add(compressBlock(new byte[0], 0, 0)); uncompSizes.add(0); }
+        // Last (short) block; an empty archive gets one empty block
+        if (fill > 0 || compBlocks.isEmpty()) { compBlocks.add(compressBlock(block, fill, history)); uncompSizes.add(fill); }
 
         // Phase 2: compute sizes and offsets
-        int cfFilesSize = 0;
+        long cfFilesSize = 0;
         for (PendingEntry e : pending) cfFilesSize += 16 + e.name.getBytes("UTF-8").length + 1;
         int headerSize  = 36;
         int folderSize  = 8;
         int coffFiles   = headerSize + folderSize;
-        int coffData    = coffFiles + cfFilesSize;
+        long coffData   = coffFiles + cfFilesSize;
 
-        int totalDataSize = 0;
-        for (byte[] block : compBlocks) totalDataSize += 8 + block.length;
-        int cabinetSize = coffData + totalDataSize;
+        long totalDataSize = 0;
+        for (byte[] b : compBlocks) totalDataSize += 8 + b.length;
+        long cabinetSize = coffData + totalDataSize;
+        if (cabinetSize > 0xFFFFFFFFL) throw new IOException("CAB: cabinet larger than 4 GB (" + cabinetSize + " bytes)");
 
-        // Phase 3: write
-        ByteArrayOutputStream buf = new ByteArrayOutputStream(cabinetSize);
+        // Phase 3: write the header, folder and file entries, then the data blocks
+        ByteArrayOutputStream buf = new ByteArrayOutputStream((int) coffData);
 
         // CFHEADER (36 bytes)
         writeInt32LE(buf, 0x4643534D); // "MSCF" (bytes 4D 53 43 46 read as little-endian int)
         writeInt32LE(buf, 0);
-        writeInt32LE(buf, cabinetSize);
+        writeInt32LE(buf, (int) cabinetSize);
         writeInt32LE(buf, 0);
         writeInt32LE(buf, coffFiles);
         writeInt32LE(buf, 0);
@@ -127,7 +145,7 @@ public final class CabWriter implements Closeable {
         writeInt16LE(buf, 0);       // iCabinet: number of this cabinet in the set (CFHEADER is 36 bytes)
 
         // CFFOLDER (8 bytes)
-        writeInt32LE(buf, coffData);
+        writeInt32LE(buf, (int) coffData);
         writeInt16LE(buf, compBlocks.size());
         writeInt16LE(buf, COMPRESS_MSZIP);
 
@@ -147,24 +165,31 @@ public final class CabWriter implements Closeable {
             buf.write(nameBytes);
             buf.write(0);
         }
+        dest.write(buf.toByteArray());
 
         // CFDATA blocks
         for (int i = 0; i < compBlocks.size(); i++) {
             byte[] comp = compBlocks.get(i);
             int uncomp  = uncompSizes.get(i);
+            byte[] head = new byte[8];
             byte[] sizes = { (byte) comp.length, (byte) (comp.length >>> 8), (byte) uncomp, (byte) (uncomp >>> 8) };
-            writeInt32LE(buf, CabReader.checksum(sizes, 0, 4, CabReader.checksum(comp, 0, comp.length, 0))); // lets readers detect corruption
-            writeInt16LE(buf, comp.length);
-            writeInt16LE(buf, uncomp);
-            buf.write(comp);
+            int csum = CabReader.checksum(sizes, 0, 4, CabReader.checksum(comp, 0, comp.length, 0)); // lets readers detect corruption
+            head[0] = (byte) csum; head[1] = (byte) (csum >>> 8); head[2] = (byte) (csum >>> 16); head[3] = (byte) (csum >>> 24);
+            System.arraycopy(sizes, 0, head, 4, 4);
+            dest.write(head);
+            dest.write(comp);
         }
-
-        dest.write(buf.toByteArray());
     }
 
-    private static byte[] compressBlock(byte[] data, int off, int len) throws IOException {
+    /**
+     * Compresses one CFDATA block: "CK" + a complete raw deflate stream (final block bit set).
+     *
+     * @param history uncompressed data of the previous block of the folder (preset dictionary), or null
+     */
+    private static byte[] compressBlock(byte[] data, int len, byte[] history) throws IOException {
         Deflater def = new Deflater(Deflater.DEFAULT_COMPRESSION, true);
-        def.setInput(data, off, len);
+        if (history != null) def.setDictionary(history);
+        def.setInput(data, 0, len);
         def.finish();
         ByteArrayOutputStream bos = new ByteArrayOutputStream(len / 2 + 4);
         bos.write(0x43); // "C"
@@ -175,6 +200,8 @@ public final class CabWriter implements Closeable {
             if (n > 0) bos.write(tmp, 0, n);
         }
         def.end();
+        // cbData is 16-bit; MS-ZIP requires at most 32768 + 12 bytes of compressed data per block
+        if (bos.size() > 0xFFFF) throw new IOException("CAB: compressed block too large (" + bos.size() + " bytes)");
         return bos.toByteArray();
     }
 

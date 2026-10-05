@@ -15,12 +15,15 @@
  */
 package be.stef.arcana.formats.iso;
 
+import java.io.EOFException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.zip.DataFormatException;
 import java.util.zip.Inflater;
 import be.stef.arcana.exceptions.ArcanaCorruptedException;
@@ -73,6 +76,12 @@ public final class IsoReader implements AutoCloseable {
         long zisofsSize = -1;                                 // uncompressed size, -1 = not zisofs
     }
 
+    /** Largest directory extent read in memory (a real directory is a few sectors). */
+    private static final long MAX_DIRECTORY_SIZE = 64L * 1024 * 1024;
+
+    /** Deepest directory level walked (ISO 9660 allows 8, Rock Ridge relocation or deep trees more). */
+    private static final int MAX_DEPTH = 256;
+
     private static final byte[] ZISOFS_MAGIC = { (byte) 0x37, (byte) 0xE4, (byte) 0x53, (byte) 0x96, (byte) 0xC9, (byte) 0xDB, (byte) 0xD6, (byte) 0x07 };
 
     // Primary volume (ISO 9660)
@@ -104,7 +113,12 @@ public final class IsoReader implements AutoCloseable {
         boolean foundPrimary = false;
 
         while (true) {
-            byte[] vd = readSector(sector);
+            byte[] vd;
+            try {
+                vd = readSector(sector);
+            } catch (EOFException e) {
+                throw new ArcanaCorruptedException("ISO: image truncated inside the volume descriptors (sector " + sector + ")", e);
+            }
             int type = vd[0] & 0xff;
 
             // Verify standard identifier "CD001" at offset 1
@@ -176,10 +190,11 @@ public final class IsoReader implements AutoCloseable {
         // Decide which tree to traverse. We prefer the primary tree if Rock Ridge
         // is present (detected lazily during traversal), otherwise Joliet.
         boolean useJoliet = hasJoliet && !primaryHasRockRidge();
+        Set<Long> visited = new HashSet<Long>();
         if (useJoliet) {
-            walkDirectory(jolietRootExtentLba, jolietRootDataLength, "", visitor, true);
+            walkDirectory(jolietRootExtentLba, jolietRootDataLength, "", visitor, true, visited, 0);
         } else {
-            walkDirectory(rootExtentLba, rootDataLength, "", visitor, false);
+            walkDirectory(rootExtentLba, rootDataLength, "", visitor, false, visited, 0);
         }
     }
 
@@ -202,7 +217,7 @@ public final class IsoReader implements AutoCloseable {
             if (rec.systemUseLength > 0) {
                 int su = rec.systemUseOffset;
                 // look for "SP", "RR", or "NM" signatures
-                for (int i = su; i + 2 <= su + rec.systemUseLength && i + 2 <= dir.length; ) {
+                for (int i = su; i + 4 <= su + rec.systemUseLength && i + 4 <= dir.length; ) {
                     int el = dir[i + 2] & 0xff;
                     if (el < 4) break;
                     int c0 = dir[i] & 0xff, c1 = dir[i + 1] & 0xff;
@@ -218,7 +233,13 @@ public final class IsoReader implements AutoCloseable {
     }
 
     private void walkDirectory(long extentLba, long dataLength, String parentPath,
-                               IsoVisitor visitor, boolean joliet) throws IOException {
+                               IsoVisitor visitor, boolean joliet, Set<Long> visited, int depth) throws IOException {
+        if (!visited.add(extentLba)) {
+            return; // directory already walked: loop (or shared extent) in a crafted image, skip it
+        }
+        if (depth > MAX_DEPTH) {
+            throw new ArcanaCorruptedException("ISO: directory tree deeper than " + MAX_DEPTH + " levels at " + parentPath);
+        }
         byte[] dir = readExtent(extentLba, dataLength);
         int pos = 0;
         List<long[]> subdirs = new ArrayList<long[]>();       // {lba, length}
@@ -241,10 +262,16 @@ public final class IsoReader implements AutoCloseable {
             if (!isDot) {
                 String name = resolveName(rec, joliet);
                 String path = parentPath.isEmpty() ? name : parentPath + "/" + name;
+                // Rock Ridge relocation: CL = placeholder file standing for a directory moved to rr_moved
+                long clLba = (joliet || rec.isDirectory()) ? -1 : relocatedLba(rec);
 
-                if (rec.isDirectory()) {
-                    visitor.visit(path, true, rec.extentLba, 0L, rec.recordingEpochSeconds);
-                    subdirs.add(new long[]{rec.extentLba, rec.dataLength});
+                if (rec.isDirectory() && !joliet && (hasRrEntry(rec, 'R', 'E') || isRelocationDir(rec, parentPath, name))) {
+                    // relocated directory (RE) or the rr_moved folder itself: reached through its CL placeholder
+                } else if (rec.isDirectory() || clLba >= 0) {
+                    long lba = clLba >= 0 ? clLba : rec.extentLba;
+                    long len = clLba >= 0 ? selfLength(clLba) : rec.dataLength;
+                    visitor.visit(path, true, lba, 0L, rec.recordingEpochSeconds);
+                    subdirs.add(new long[]{lba, len});
                     subdirPaths.add(path);
                 } else if (rec.isMultiExtent()) {
                     // not the last extent: the following record(s) of the same file continue it
@@ -273,8 +300,66 @@ public final class IsoReader implements AutoCloseable {
         // Recurse into subdirectories after finishing the current level
         for (int i = 0; i < subdirs.size(); i++) {
             long[] sd = subdirs.get(i);
-            walkDirectory(sd[0], sd[1], subdirPaths.get(i), visitor, joliet);
+            walkDirectory(sd[0], sd[1], subdirPaths.get(i), visitor, joliet, visited, depth + 1);
         }
+    }
+
+    // =========================================================================
+    // Rock Ridge directory relocation (CL / RE, rr_moved)
+    // =========================================================================
+
+    private boolean hasRrEntry(IsoDirectoryRecord rec, char c0, char c1) throws IOException {
+        return RockRidgeParser.findEntry(rec, new RockRidgeParser.SectorReader() {
+            public byte[] readBytes(long lba, long offset, int length) throws IOException {
+                return readBytesAt(lba, offset, length);
+            }
+        }, c0, c1) != null;
+    }
+
+    /** Sector of the relocated directory named by a "CL" entry, -1 if absent. */
+    private long relocatedLba(IsoDirectoryRecord rec) throws IOException {
+        byte[] cl = RockRidgeParser.findEntry(rec, new RockRidgeParser.SectorReader() {
+            public byte[] readBytes(long lba, long offset, int length) throws IOException {
+                return readBytesAt(lba, offset, length);
+            }
+        }, 'C', 'L');
+        if (cl == null || cl.length < 8) return -1;
+        return IsoDirectoryRecord.readUint32LE(cl, 4);
+    }
+
+    /** Directory length taken from the "." record at the start of the directory at {@code lba}. */
+    private long selfLength(long lba) throws IOException {
+        byte[] first = readBytesAt(lba, 0, IsoConstants.SECTOR_SIZE);
+        IsoDirectoryRecord dot = IsoDirectoryRecord.parse(first, 0);
+        if (dot == null) throw new ArcanaCorruptedException("ISO: Rock Ridge relocated directory at sector " + lba + " has no '.' record");
+        return dot.dataLength;
+    }
+
+    /**
+     * True for the "rr_moved" folder of the root (genisoimage, xorriso use "rr_moved" or
+     * ".rr_moved") when it holds relocated directories (RE) and nothing else: it is then hidden.
+     */
+    private boolean isRelocationDir(IsoDirectoryRecord rec, String parentPath, String name) throws IOException {
+        if (!parentPath.isEmpty() || !(name.equals("rr_moved") || name.equals(".rr_moved"))) return false;
+        byte[] dir = readExtent(rec.extentLba, rec.dataLength);
+        int pos = 0;
+        int relocated = 0;
+        while (pos < dir.length) {
+            IsoDirectoryRecord r = IsoDirectoryRecord.parse(dir, pos);
+            if (r == null) {
+                int next = ((pos / IsoConstants.SECTOR_SIZE) + 1) * IsoConstants.SECTOR_SIZE;
+                if (next <= pos) break;
+                pos = next;
+                continue;
+            }
+            boolean isDot = r.rawIdentifier.length == 1 && (r.rawIdentifier[0] == 0x00 || r.rawIdentifier[0] == 0x01);
+            if (!isDot) {
+                if (!r.isDirectory() || !hasRrEntry(r, 'R', 'E')) return false;
+                relocated++;
+            }
+            pos += r.recordLength;
+        }
+        return relocated > 0;
     }
 
     /**
@@ -309,7 +394,8 @@ public final class IsoReader implements AutoCloseable {
      * @return file bytes
      */
     public byte[] readFileData(long extentLba, long dataLength) throws IOException {
-        return readExtent(extentLba, dataLength);
+        if (dataLength < 0 || dataLength > Integer.MAX_VALUE - 8) throw new IOException("ISO: file of " + dataLength + " bytes too large to read in memory, use copyFileData");
+        return readBytesAt(extentLba, 0, (int) dataLength);
     }
 
     /**
@@ -439,17 +525,21 @@ public final class IsoReader implements AutoCloseable {
         return buf;
     }
 
+    /** Reads a directory extent; its length is checked against MAX_DIRECTORY_SIZE before allocation. */
     private byte[] readExtent(long extentLba, long dataLength) throws IOException {
-        int len = (int) dataLength;
-        byte[] buf = new byte[len];
-        raf.seek(extentLba * IsoConstants.SECTOR_SIZE);
-        raf.readFully(buf);
-        return buf;
+        if (dataLength < 0 || dataLength > MAX_DIRECTORY_SIZE) {
+            throw new ArcanaCorruptedException("ISO: directory at sector " + extentLba + " has an invalid length (" + dataLength + " bytes, limit " + MAX_DIRECTORY_SIZE + ")");
+        }
+        return readBytesAt(extentLba, 0, (int) dataLength);
     }
 
     private byte[] readBytesAt(long lba, long offset, int length) throws IOException {
+        long pos = lba * IsoConstants.SECTOR_SIZE + offset;
+        if (pos + length > raf.length()) {
+            throw new ArcanaCorruptedException("ISO: image truncated: " + length + " bytes at offset " + pos + " are past the end of the file (" + raf.length() + " bytes)");
+        }
         byte[] buf = new byte[length];
-        raf.seek(lba * IsoConstants.SECTOR_SIZE + offset);
+        raf.seek(pos);
         raf.readFully(buf);
         return buf;
     }

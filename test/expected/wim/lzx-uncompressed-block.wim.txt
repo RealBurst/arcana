@@ -1,0 +1,9 @@
+# Arcana regression reference (RegressionRunner --update)
+input: 8b7eca0ae3667133373ac269427becb8412f11e239859bb5231d396547bd8703 13388
+identify: archive | WIM - WIM archive
+list: 2 entries
+  a-aligned.bin 7065
+  b-unaligned.bin 6070
+extracted: 2 items
+  a-aligned.bin 7065 2b6d373cd5c7d63195018f35934fe2678cbc992b0f7e926c6d7f1f2ff25c450c
+  b-unaligned.bin 6070 0dbfb5b7b6902281a4db08b31976e71c44cce4f66dfbb2a7b5828c9339883ff1

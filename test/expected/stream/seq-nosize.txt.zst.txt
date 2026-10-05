@@ -1,0 +1,7 @@
+# Arcana regression reference (RegressionRunner --update)
+input: ae8b930c6791434e418288fa18d08146dec412fc112c5f4bfec4f0bb7b440b1d 25077
+identify: archive | Zstandard - Zstandard compressed stream
+list: 1 entries
+  seq-nosize.txt -1
+extracted: 1 items
+  seq-nosize.txt 60894 b9e5b7ae500b532291da8f0a1650e71d203253a37baa237f83696c5bcf3487bb

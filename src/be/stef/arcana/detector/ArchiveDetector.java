@@ -40,7 +40,7 @@ import be.stef.arcana.ArcanaFormat;
  *   ZIP   : 50 4B 03 04
  *   GZIP  : 1F 8B
  *   BZIP2 : 42 5A 68 ('B','Z','h')
- *   ZSTD  : FD 2F B5 28 (little-endian magic 0xFD2FB528)
+ *   ZSTD  : 28 B5 2F FD (little-endian magic 0xFD2FB528)
  *   TAR   : 75 73 74 61 72 at offset 257 ("ustar")
  * </pre>
  *
@@ -56,7 +56,7 @@ public final class ArchiveDetector {
     private static final byte[] MAGIC_GZIP  = {0x1F, (byte) 0x8B};
     private static final byte[] MAGIC_BZIP2 = {0x42, 0x5A, 0x68};
     private static final byte[] MAGIC_7Z    = {0x37, 0x7A, (byte)0xBC, (byte)0xAF, 0x27, 0x1C};
-    private static final byte[] MAGIC_ZSTD  = {(byte) 0xFD, 0x2F, (byte) 0xB5, 0x28};
+    private static final byte[] MAGIC_ZSTD  = {0x28, (byte) 0xB5, 0x2F, (byte) 0xFD}; // 0xFD2FB528 little-endian
     private static final byte[] MAGIC_TAR   = {0x75, 0x73, 0x74, 0x61, 0x72}; // "ustar" at offset 257
     private static final byte[] MAGIC_XZ    = {(byte) 0xFD, 0x37, 0x7A, 0x58, 0x5A, 0x00};
     private static final byte[] MAGIC_LZ4    = {0x04, 0x22, 0x4D, 0x18};

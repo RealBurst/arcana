@@ -6,7 +6,7 @@
 | Signature | `1F 9D` at offset 0 |
 | Arcana support | list, extract |
 | Main classes | `be.stef.arcana.extractor.ZExtractor` |
-| Test samples | `test/samples/stream/notes.txt.Z` |
+| Test samples | `test/samples/stream/notes.txt.Z`, `test/samples/stream/seq-b12.txt.Z` (CLEAR codes), `test/samples/damaged/truncated-notes.txt.Z` |
 
 ## Overview
 
@@ -54,8 +54,12 @@ LZW codes (`ZExtractor.decompress`):
 - There is no end marker: the stream ends with the file.
 
 The compressor writes codes in groups of 8 (so a group is n bytes for n-bit
-codes). After a CLEAR code it pads the rest of the group, and the decoder
-must skip to the next group boundary; see Limits.
+codes), counted from the start of the code data or from the last CLEAR or
+width change. After a CLEAR code it pads the rest of the group, and the
+decoder skips to the next group boundary before reading 9-bit codes again
+(`ZExtractor.skipGroupPadding`, the same rule as ncompress). The same skip is
+applied on a width change; there it is always empty, because a width lasts
+a multiple of 8 codes.
 
 ## Compression and encryption
 
@@ -68,9 +72,18 @@ must skip to the next group boundary; see Limits.
 
 - maxbits 9 to 16 are accepted; any other value gives "Invalid .Z maxbits:
   n" (verified with 8).
-- Files from `compress` (ncompress 5.0) with the default 16 bits decode
-  correctly as long as no CLEAR code was written: the sample and several test
-  files up to 4 MB were verified byte for byte.
+- Files from `compress` (ncompress 5.0) with `-b 10` to `-b 16`, with and
+  without CLEAR codes, decode correctly: `seq 1 200000` (1.2 MB), 200 KB of
+  random data, a text/random mix and the payload notes were verified byte for
+  byte at every width from 10 to 16 (`test/samples/stream/seq-b12.txt.Z`
+  holds several CLEAR codes).
+- maxbits 9: two incompatible conventions exist. compress 4.0, gzip and the
+  ncompress 5.0 decoder switch to 10-bit codes once the 9-bit table is full;
+  the ncompress sources after 5.0 (2021 fix "nine bits processing") and
+  7-Zip stay at 9 bits. Arcana stays at 9 bits (verified with a test encoder
+  following each rule). The `-b 9` output of ncompress 5.0 itself is broken
+  (it can add entry 512): `compress -d` and `gzip -d` reject it ("corrupt
+  input") and Arcana decodes it to wrong data without error.
 - Non-block-mode files (very old compress versions) are handled by the code
   path described above; not verified with a real file (ncompress 5.0 cannot
   write them).
@@ -78,32 +91,26 @@ must skip to the next group boundary; see Limits.
 
 ## Limits
 
-- CLEAR codes: `ZExtractor.decompress` resets the table on CLEAR but does not
-  skip the padding to the end of the current code group. Every file where
-  `compress` emitted a CLEAR fails with "Bad code in .Z stream: n" or, worse,
-  decodes to wrong data without error. compress emits CLEAR once the table
-  is full and the ratio drops, which happens soon with a small maxbits:
-  `compress -b 10` to `-b 15` on a 238 KB text file all failed with "Bad
-  code", `-b 9` gave wrong output reported as "Done.", and `-b 12` on 200 KB
-  of random data failed. A Python reference decoder with the group skip
-  decoded the same files correctly.
-- No checksum and no stored size: a truncated file extracts without error
-  (a 2000-byte prefix of the sample gave 11183 bytes and "Done.").
+- No checksum and no stored size, so truncation is only partly detected:
+  compress writes the last code on as few bytes as possible, so a whole
+  unused byte at the end, or a stream that ends inside the padding after a
+  CLEAR, gives "Truncated .Z stream" (`test/samples/damaged/truncated-notes.txt.Z`,
+  2002 bytes of the sample). Other cuts still extract a shorter file
+  without error: about one cut in three was detected on a 12-bit and a
+  16-bit test file (the 2000-byte prefix of the sample still gives 11183
+  bytes and "Done.").
 - `l` does not decode anything: it shows one entry with size `?` and date
   `-`, even for a damaged file.
-- On an error, the part already written stays on disk (up to the last
-  64 KiB block flushed).
+- On an error, the partial output file is deleted (`ZExtractor.decompressTo`).
 - Common extraction limits apply through `ExtractionGuard`.
 
 ## Implementation notes
 
-- Output name (`ZExtractor.stripExt`): the suffix `.Z` is removed; the test
-  is case-sensitive. Any other name is kept unchanged. The stream API writes
-  `output`.
-- Because the name is kept unchanged, extracting `file.z` (lower case) or a
-  renamed `.Z` file into its own directory targets the archive itself:
-  `ExtractionGuard.open` truncates it before it is read, and the archive is
-  lost ("Not a .Z file (bad magic)" and a 0-byte file, verified).
+- Output name (`ZExtractor.stripExt`): the suffix `.Z` or `.z` is removed
+  (case-insensitive test). Any other name gets `.out` appended (`file` gives
+  `file.out`, as `BrotliExtractor` does), so the output never replaces the
+  archive, even when extracting into its own directory (verified with
+  `low.z` and `plain`). The stream API writes `output`.
 - Errors are thrown as `ArcanaCorruptedException`.
 - Output goes through a 64 KiB buffer inside the decoder and a
   `BufferedOutputStream`.

@@ -1,0 +1,18 @@
+# Arcana regression reference (RegressionRunner --update)
+input: 5c6a65d7a0a3580c04ddfcb008ae1b270bf551d5c5085fb67083cb7718e2bcd1 13958
+identify: executable | PE32 - PE32 EXE x86
+  kind: EXE (application)
+  architecture: x86 (32-bit)
+  subsystem: Windows GUI
+list: 5 entries
+  bin/random.bin 4096
+  deep/a/b/c/leaf.txt 5
+  docs/empty.txt 0
+  docs/notes.txt 29490
+  readme.txt 1520
+extracted: 5 items
+  bin/random.bin 4096 8fe774a9e65a6c63fc7df534a66e2bafb44a73813a37b2abcc178749b237552e
+  deep/a/b/c/leaf.txt 5 26d0bac9f0c7a35b2f3322a0f4ad4517265f56b2c0f4b2ed7cb5cbd30c5868e2
+  docs/empty.txt 0 e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+  docs/notes.txt 29490 d7e02c884850cdfa9d78d1e322269a120fdce78e1178469a980945b2d27d0c66
+  readme.txt 1520 ba2f1014c1181c953f32737172808623ce8dd59ba7c7598d2d73730ea4f6217c

@@ -47,10 +47,10 @@ import be.stef.arcana.util.SafePathBuilder;
  * stream; the output file name is derived by stripping the {@code .zst} or
  * {@code .zstd} extension.</p>
  *
- * <p>The decompressor requires the full compressed payload before it can
- * start producing output (single-shot decompression).  Very large files may
- * therefore require significant heap space.  If memory is constrained, stream
- * the archive in chunks using the underlying {@link ZstdHelper} API directly.</p>
+ * <p>The data is decoded block by block by
+ * {@link be.stef.arcana.formats.zstd.ZstdInputStream} and written as it is
+ * produced: memory is bounded by the window size, not by the file size.
+ * Several frames and skippable frames are accepted.</p>
  *
  * @author Stef
  * @since 1.0
@@ -72,11 +72,9 @@ public class ZstdExtractor implements ArchiveExtractor {
         String outputName = deriveOutputName(archive.getName());
         File target = SafePathBuilder.buildSafePath(destination, outputName);
 
-        long unpackedSize = estimateUnpackedSize(archive);
-
         try (InputStream in = new BufferedInputStream(new FileInputStream(archive), 65536);
              BufferedOutputStream out = new BufferedOutputStream(ExtractionGuard.open(target), 65536)) {
-            decompress(in, out, unpackedSize);
+            decompress(in, out);
         }
     }
 
@@ -90,10 +88,7 @@ public class ZstdExtractor implements ArchiveExtractor {
         File target = SafePathBuilder.buildSafePath(destination, "output");
 
         try (BufferedOutputStream out = new BufferedOutputStream(ExtractionGuard.open(target), 65536)) {
-            // Unknown uncompressed size from stream - read fully to determine
-            byte[] compressed = IOHelper.readFully(in);
-            long unpackedSize = peekUnpackedSize(compressed);
-            decompress(new java.io.ByteArrayInputStream(compressed), out, unpackedSize);
+            decompress(in, out);
         }
     }
 
@@ -137,65 +132,11 @@ public class ZstdExtractor implements ArchiveExtractor {
     // Internal helpers
     // =========================================================================
 
-    private void decompress(InputStream in, java.io.OutputStream out, long unpackedSize) throws IOException {
+    private void decompress(InputStream in, java.io.OutputStream out) throws IOException {
         try {
-            ZstdHelper.decompress(in, out, unpackedSize);
+            ZstdHelper.decompress(in, out, -1L);
         } catch (ZstdMalformedInputException e) {
             throw new ArcanaCorruptedException("Corrupted Zstandard stream: " + e.getMessage(), e);
-        }
-    }
-
-    /**
-     * Reads the Zstd frame header to obtain the Frame Content Size when available.
-     * Returns a conservative default when the size is not present in the header.
-     *
-     * <p>Zstd frame header layout (simplified):</p>
-     * <pre>
-     *   [4] magic  0xFD2FB528 LE
-     *   [1] FHD    bits 5 = single_segment, bits 6-7 = fcs_flag
-     *   [?] FCS    1/2/4/8 bytes based on fcs_flag
-     * </pre>
-     */
-    private long estimateUnpackedSize(File archive) throws IOException {
-        byte[] header = new byte[18]; // magic(4) + FHD(1) + window(1) + FCS(8) max
-        int read;
-        try (InputStream in = new FileInputStream(archive)) {
-            read = in.read(header);
-        }
-        return peekUnpackedSize(header);
-    }
-
-    private long peekUnpackedSize(byte[] data) {
-        if (data == null || data.length < 6) return -1L;
-        // Check magic
-        long magic = (data[0] & 0xFFL) | ((data[1] & 0xFFL) << 8) | ((data[2] & 0xFFL) << 16) | ((data[3] & 0xFFL) << 24);
-        if (magic != 0xFD2FB528L) return -1L;
-
-        int fhd = data[4] & 0xFF;
-        boolean singleSegment = (fhd & 0x20) != 0;
-        int fcsFlag = (fhd >> 6) & 0x03;
-
-        int offset = 5;
-        if (!singleSegment) offset++; // skip window descriptor byte
-
-        if (offset >= data.length) return -1L;
-
-        switch (fcsFlag) {
-            case 0:
-                return singleSegment && offset < data.length ? (data[offset] & 0xFFL) : -1L;
-            case 1:
-                if (offset + 1 >= data.length) return -1L;
-                return 256L + ((data[offset] & 0xFFL) | ((data[offset + 1] & 0xFFL) << 8));
-            case 2:
-                if (offset + 3 >= data.length) return -1L;
-                return (data[offset] & 0xFFL) | ((data[offset + 1] & 0xFFL) << 8) | ((data[offset + 2] & 0xFFL) << 16) | ((data[offset + 3] & 0xFFL) << 24);
-            case 3:
-                if (offset + 7 >= data.length) return -1L;
-                long lo = (data[offset] & 0xFFL) | ((data[offset + 1] & 0xFFL) << 8) | ((data[offset + 2] & 0xFFL) << 16) | ((data[offset + 3] & 0xFFL) << 24);
-                long hi = (data[offset + 4] & 0xFFL) | ((data[offset + 5] & 0xFFL) << 8) | ((data[offset + 6] & 0xFFL) << 16) | ((data[offset + 7] & 0xFFL) << 24);
-                return lo | (hi << 32);
-            default:
-                return -1L;
         }
     }
 

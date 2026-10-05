@@ -94,6 +94,8 @@ public class RarExtractor implements ArchiveExtractor {
             // Check if any error is due to encryption
             for (ExtractionError error : result.errors) {
                 if (error.isEncryptedBlock) {
+                    // archive-level password error (no password, wrong password for encrypted headers): keep its message
+                    if (error.exception instanceof ArcanaEncryptedException) throw (ArcanaEncryptedException) error.exception;
                     throw new ArcanaEncryptedException("Encrypted RAR entry could not be decrypted: " + error.fileName);
                 }
             }
@@ -117,7 +119,7 @@ public class RarExtractor implements ArchiveExtractor {
 
     @Override
     public void extract(InputStream in, File destination) throws IOException {
-        throw new ArcanaUnsupportedFormatException("RAR extraction from an InputStream is not supported \u2014 RAR requires random file access. Use extract(File, File) instead.");
+        throw new ArcanaUnsupportedFormatException("RAR extraction from an InputStream is not supported - RAR requires random file access. Use extract(File, File) instead.");
     }
 
     // =========================================================================

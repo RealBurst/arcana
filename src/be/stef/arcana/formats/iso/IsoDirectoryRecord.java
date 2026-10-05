@@ -17,6 +17,7 @@ package be.stef.arcana.formats.iso;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import be.stef.arcana.exceptions.ArcanaCorruptedException;
 
 /**
  * A single ISO 9660 Directory Record.
@@ -87,11 +88,15 @@ final class IsoDirectoryRecord {
      * @param offset start offset of the record
      * @return the parsed record, or {@code null} if the record length is 0
      *         (which marks the end of records in the current sector)
+     * @throws ArcanaCorruptedException if the record or its identifier does not fit in the buffer
      */
-    static IsoDirectoryRecord parse(byte[] buf, int offset) {
+    static IsoDirectoryRecord parse(byte[] buf, int offset) throws ArcanaCorruptedException {
         int len = buf[offset] & 0xff;
         if (len == 0) {
             return null; // end of records in this sector
+        }
+        if (len < 34 || offset + len > buf.length) {
+            throw new ArcanaCorruptedException("ISO: bad directory record length " + len + " at offset " + offset + " (" + (buf.length - offset) + " bytes left)");
         }
         int earLen = buf[offset + 1] & 0xff;
         long lba = readUint32LE(buf, offset + 2);   // both-endian: LE part first
@@ -99,6 +104,9 @@ final class IsoDirectoryRecord {
         long epoch = parseDirDateTime(buf, offset + 18);
         int flags = buf[offset + 25] & 0xff;
         int idLen = buf[offset + 32] & 0xff;
+        if (idLen == 0 || 33 + idLen > len) {
+            throw new ArcanaCorruptedException("ISO: directory record at offset " + offset + " has a name of " + idLen + " bytes in a record of " + len + " bytes");
+        }
 
         byte[] id = new byte[idLen];
         System.arraycopy(buf, offset + 33, id, 0, idLen);

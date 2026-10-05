@@ -6,7 +6,7 @@
 | Signature | `4D 53 57 49 4D 00 00 00` ("MSWIM\0\0\0") at offset 0 |
 | Arcana support | list, extract (uncompressed, XPRESS, LZX, LZMS, solid LZMS resources) |
 | Main classes | `be.stef.arcana.formats.wim.WimReader`, `be.stef.arcana.formats.wim.XpressHuffmanDecoder`, `be.stef.arcana.formats.wim.WimLzxDecoder`, `be.stef.arcana.formats.wim.LzmsDecoder`, `be.stef.arcana.extractor.WimExtractor` |
-| Test samples | `test/samples/wim/` (`none.wim`, `xpress.wim`, `lzx.wim`, `lzms.wim`, `solid-lzms.wim`), `test/samples/damaged/flipped.wim` |
+| Test samples | `test/samples/wim/` (`none.wim`, `xpress.wim`, `lzx.wim`, `lzms.wim`, `solid-lzms.wim`, `lzx-uncompressed-block.wim`), `test/samples/damaged/flipped.wim` |
 
 ## Overview
 
@@ -165,6 +165,11 @@ there is no E8 header bit and the E8 call translation is always undone with
 a translation size of 12000000; a block size is either the bit "1" (32768)
 or 16 bits, plus 8 more bits when the window is 64 KiB or more. Code lengths
 are reset to 0 at the start of each chunk and the three recent offsets to 1.
+An uncompressed block is aligned as in CAB: when its header ends on a 16-bit
+boundary, a whole 16-bit word of padding follows (wimlib's decompressor
+requires it). wimlib never writes uncompressed blocks (incompressible chunks
+are stored as is instead); `lzx-uncompressed-block.wim` holds two hand-made
+LZX chunks with one, built by `test/tools/make-samples.sh`.
 
 ## LZMS
 

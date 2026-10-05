@@ -36,9 +36,13 @@ import javax.crypto.CipherInputStream;
 import javax.crypto.CipherOutputStream;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.IvParameterSpec;
+import be.stef.arcana.exceptions.ArcanaUnsupportedFormatException;
 import be.stef.arcana.formats.sevenz.SevenZPasswordRequiredException;
 
 final class AES256SHA256Decoder extends AbstractCoder {
+
+    /** Highest NumCyclesPower accepted, as in 7-Zip's decoder (7zAes.cpp); 0x3F (no hashing) is also accepted. */
+    static final int MAX_NUM_CYCLES_POWER = 24;
 
     private static final class AES256SHA256DecoderInputStream extends InputStream {
         private final InputStream in;
@@ -85,6 +89,10 @@ final class AES256SHA256Decoder extends AbstractCoder {
             final byte[] iv = new byte[16];
             System.arraycopy(coder.properties, 2 + saltSize, iv, 0, ivSize);
 
+            // 7-Zip writes 19 and its own decoder refuses more than 24 (0x3F = no hashing): a hostile value would hash for ages
+            if (numCyclesPower > MAX_NUM_CYCLES_POWER && numCyclesPower != 0x3f) {
+                throw new ArcanaUnsupportedFormatException("7z AES key derivation with 2^" + numCyclesPower + " SHA-256 rounds is not supported (7-Zip allows at most 2^" + MAX_NUM_CYCLES_POWER + ") in " + archiveName);
+            }
             if (passwordBytes == null) {
                 throw new SevenZPasswordRequiredException(archiveName);
             }

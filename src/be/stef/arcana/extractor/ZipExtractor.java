@@ -58,7 +58,8 @@ import java.util.zip.InflaterInputStream;
  * <p>Supported encryption: ZipCrypto and WinZip AES-128/192/256 (method 99), with any
  * of the methods above underneath. Supply a password via {@link #ZipExtractor(byte[])};
  * without one, encrypted entries throw {@link ArcanaEncryptedException}. The size and
- * the CRC-32 of every entry are verified (CRC except WinZip AE-2, which stores none).</p>
+ * the CRC-32 of every entry are verified (CRC except WinZip AE-2, which stores none),
+ * and so is the authentication code of WinZip AES entries.</p>
  */
 public class ZipExtractor implements ArchiveExtractor {
 
@@ -72,7 +73,6 @@ public class ZipExtractor implements ArchiveExtractor {
     private static final int METHOD_PPMD     = 98;
     private static final int METHOD_AES      = 99;
 
-    private static final int AES_AUTH_LENGTH = 10;
     private static final int BUFFER_SIZE     = 65536;
 
     private final byte[] password;
@@ -194,13 +194,15 @@ public class ZipExtractor implements ArchiveExtractor {
     private InputStream openEntry(final ZipArchiveReader zip, final ZipArchiveReader.Entry e) throws IOException {
         int method = e.getMethod();
         InputStream raw;
+        AesZipInputStream aes = null;
         if (e.isEncrypted()) {
             if (password == null) throw new ArcanaEncryptedException("Encrypted ZIP entry '" + e.getName() + "' - supply a password");
             if (e.isStrongEncryption()) throw new ArcanaUnsupportedFormatException("PKWARE strong encryption is not supported (entry '" + e.getName() + "')");
             if (method == METHOD_AES) {
                 if (!e.isAes()) throw new ArcanaCorruptedException("AES entry without AES extra field: '" + e.getName() + "'");
                 try {
-                    raw = new AesZipInputStream(zip.openRaw(e, AES_AUTH_LENGTH), password, e.getAesStrength());
+                    aes = new AesZipInputStream(zip.openRaw(e, 0), password, e.getAesStrength(), e.getCompressedSize());
+                    raw = aes;
                 } catch (final GeneralSecurityException gse) {
                     throw new IOException("AES setup failed: " + gse.getMessage(), gse);
                 } catch (final IOException ioe) {
@@ -219,7 +221,7 @@ public class ZipExtractor implements ArchiveExtractor {
         }
         final InputStream data = decompress(method, raw, e);
         final boolean checkCrc = !(e.isAes() && e.getAesVendorVersion() == 2); // AE-2: CRC field is 0 by design
-        return new EntryCheckInputStream(data, checkCrc, e.getCrc(), e.getSize(), e.getName());
+        return new EntryCheckInputStream(data, checkCrc, e.getCrc(), e.getSize(), e.getName(), aes);
     }
 
     private static InputStream decompress(final int method, final InputStream raw, final ZipArchiveReader.Entry e) throws IOException {
@@ -342,7 +344,8 @@ public class ZipExtractor implements ArchiveExtractor {
     /**
      * Checks the entry against its central directory record: never more bytes than the
      * declared size (checked while reading, so a lying header cannot inflate the output),
-     * exactly that size at end of stream, and the CRC-32.
+     * exactly that size at end of stream, the CRC-32 and, for WinZip AES, the
+     * authentication code (AE-2 has no CRC: the code is its only integrity check).
      */
     private static final class EntryCheckInputStream extends FilterInputStream {
         private final CRC32 crc = new CRC32();
@@ -350,11 +353,13 @@ public class ZipExtractor implements ArchiveExtractor {
         private final long expectedCrc;
         private final long expectedSize;
         private final String name;
+        private final AesZipInputStream aes; // null when the entry is not AES-encrypted
         private long count;
         private boolean checked;
 
-        EntryCheckInputStream(final InputStream in, final boolean checkCrc, final long expectedCrc, final long expectedSize, final String name) {
+        EntryCheckInputStream(final InputStream in, final boolean checkCrc, final long expectedCrc, final long expectedSize, final String name, final AesZipInputStream aes) {
             super(in);
+            this.aes = aes;
             this.checkCrc = checkCrc;
             this.expectedCrc = expectedCrc;
             this.expectedSize = expectedSize;
@@ -382,11 +387,12 @@ public class ZipExtractor implements ArchiveExtractor {
             if (b == null) crc.update(single); else crc.update(b, off, n);
         }
 
-        private void check() throws ArcanaCorruptedException {
+        private void check() throws IOException {
             if (checked) return;
             checked = true;
             if ((count & 0xFFFFFFFFL) != (expectedSize & 0xFFFFFFFFL)) throw new ArcanaCorruptedException("ZIP entry '" + name + "' has " + count + " bytes instead of " + expectedSize);
             if (checkCrc && crc.getValue() != expectedCrc) throw new ArcanaCorruptedException("CRC mismatch for ZIP entry '" + name + "' (expected " + Long.toHexString(expectedCrc) + ", got " + Long.toHexString(crc.getValue()) + ")");
+            if (aes != null && !aes.isAuthentic()) throw new ArcanaCorruptedException("Authentication code mismatch for ZIP entry '" + name + "' (wrong data or modified archive)");
         }
     }
 }

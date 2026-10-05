@@ -1,0 +1,5 @@
+# Arcana regression reference (RegressionRunner --update)
+input: 282806b2ea019ab12c6317c2eee94dd51dc32739468bfa8c14bb182d20add545 40960
+identify: archive | ISO 9660 - ISO 9660 archive
+list: ERROR ArcanaCorruptedException: ISO: directory record at offset 108 has a name of 200 bytes in a record of 40 bytes
+extract: ERROR ArcanaCorruptedException: ISO: directory record at offset 108 has a name of 200 bytes in a record of 40 bytes

@@ -67,16 +67,16 @@ final class RockRidgeParser {
         }
         boolean found = false;
         int pos = offset;
-        int end = offset + length;
+        int end = Math.min(offset + length, buf.length);
         while (pos + 4 <= end) {
             int sig0 = buf[pos] & 0xff;
             int sig1 = buf[pos + 1] & 0xff;
             int entryLen = buf[pos + 2] & 0xff;
-            if (entryLen < 4) {
-                break; // malformed or padding
+            if (entryLen < 4 || pos + entryLen > end) {
+                break; // malformed, padding, or entry running past the area
             }
 
-            if (sig0 == 'N' && sig1 == 'M') {
+            if (sig0 == 'N' && sig1 == 'M' && entryLen >= 5) {
                 // NM: offset+3 version, offset+4 flags, offset+5.. name bytes
                 int flags = buf[pos + 4] & 0xff;
                 int nameLen = entryLen - 5;
@@ -85,7 +85,7 @@ final class RockRidgeParser {
                     found = true;
                 }
                 // If NM_FLAG_CONTINUE is set, the next NM entry appends more of the name
-            } else if (sig0 == 'C' && sig1 == 'E') {
+            } else if (sig0 == 'C' && sig1 == 'E' && entryLen >= 28) {
                 // CE: continuation area. Follow it.
                 // offset+4  block location (both-endian uint32) -> LE part at +4
                 // offset+12 offset within block (both-endian uint32) -> LE at +12

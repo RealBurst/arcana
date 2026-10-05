@@ -1,0 +1,5 @@
+# Arcana regression reference (RegressionRunner --update)
+input: 8a4174c8eaae6de5e7d2df7a7045dcab14605256407332411a7dec9883eec893 33000
+identify: archive | ISO 9660 - ISO 9660 archive
+list: ERROR ArcanaCorruptedException: ISO: image truncated inside the volume descriptors (sector 16)
+extract: ERROR ArcanaCorruptedException: ISO: image truncated inside the volume descriptors (sector 16)

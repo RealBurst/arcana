@@ -31,6 +31,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Extractor for files compressed by the Microsoft COMPRESS.EXE tool
@@ -69,9 +70,7 @@ public class MsLzExtractor implements ArchiveExtractor {
         try (InputStream in = new BufferedInputStream(new FileInputStream(archive), 65536)) {
             final byte[] h = header(in);
             final File target = SafePathBuilder.buildSafePath(destination, outputName(archive.getName(), h[9]));
-            try (OutputStream out = new BufferedOutputStream(ExtractionGuard.open(target), 65536)) {
-                decompress(in, out, le32(h, 10) & 0xffffffffL);
-            }
+            decompressTo(in, target, le32(h, 10) & 0xffffffffL);
         }
     }
 
@@ -79,8 +78,18 @@ public class MsLzExtractor implements ArchiveExtractor {
     public void extract(final InputStream in, final File destination) throws IOException {
         IOHelper.mkdirs(destination);
         final byte[] h = header(in);
-        try (OutputStream out = new BufferedOutputStream(ExtractionGuard.open(new File(destination, "output")), 65536)) {
-            decompress(in, out, le32(h, 10) & 0xffffffffL);
+        decompressTo(in, new File(destination, "output"), le32(h, 10) & 0xffffffffL);
+    }
+
+    /** Decodes into {@code target}; the partial file is removed when decoding fails. */
+    private static void decompressTo(final InputStream in, final File target, final long size) throws IOException {
+        final OutputStream fos = ExtractionGuard.open(target);
+        boolean ok = false;
+        try (OutputStream out = new BufferedOutputStream(fos, 65536)) {
+            decompress(in, out, size);
+            ok = true;
+        } finally {
+            if (!ok && target.exists() && !target.delete()) target.deleteOnExit();
         }
     }
 
@@ -99,16 +108,22 @@ public class MsLzExtractor implements ArchiveExtractor {
         return h;
     }
 
-    /** "setup.ex_" + 'e' gives "setup.exe"; without the character the '_' is dropped. */
+    /**
+     * "setup.ex_" + 'e' gives "setup.exe", "SETUP.EX_" gives "SETUP.EXE"; without the
+     * character the '_' is dropped. A name without '_' gets ".out" so that the output
+     * never replaces the archive.
+     */
     static String outputName(final String packed, final byte missing) {
-        if (!packed.endsWith("_")) return packed.endsWith(".") || packed.isEmpty() ? packed + "out" : packed;
+        if (!packed.endsWith("_")) return packed.endsWith(".") || packed.isEmpty() ? packed + "out" : packed + ".out";
         final String base = packed.substring(0, packed.length() - 1);
         final int c = missing & 0xff;
-        if (c > 0x20 && c < 0x7f && c != '/' && c != '\\' && c != ':') {
-            final boolean lower = !base.equals(base.toUpperCase());
-            return base + (lower ? Character.toLowerCase((char) c) : (char) c);
+        if (c > 0x20 && c < 0x7f && c != '/' && c != '\\' && c != ':' && c != '_') {
+            final boolean lower = !base.equals(base.toUpperCase(Locale.ROOT));
+            final boolean upper = !base.equals(base.toLowerCase(Locale.ROOT));
+            return base + (lower ? Character.toLowerCase((char) c) : upper ? Character.toUpperCase((char) c) : (char) c);
         }
-        return base.endsWith(".") ? base.substring(0, base.length() - 1) : base;
+        final String name = base.endsWith(".") ? base.substring(0, base.length() - 1) : base;
+        return name.isEmpty() ? "output" : name;
     }
 
     private static void decompress(final InputStream in, final OutputStream out, final long size) throws IOException {

@@ -1,0 +1,5 @@
+# Arcana regression reference (RegressionRunner --update)
+input: f39b4789f63a3dbcf0da82e05fb2b2e9f0bbcb2234e996725e52f24bd24a0edb 43008
+identify: archive | ISO 9660 - ISO 9660 archive
+list: ERROR ArcanaCorruptedException: ISO: directory at sector 20 has an invalid length (4294965248 bytes, limit 67108864)
+extract: ERROR ArcanaCorruptedException: ISO: directory at sector 20 has an invalid length (4294965248 bytes, limit 67108864)

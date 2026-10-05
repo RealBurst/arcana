@@ -1,0 +1,6 @@
+# Arcana regression reference (RegressionRunner --update)
+input: dc7f734c6cda3a11f2d9688ffbfaefb491a76ba7d501a8faadfadeb5f9d6aa53 2002
+identify: archive | compress - Unix compress (.Z) stream
+list: 1 entries
+  truncated-notes.txt -1
+extract: ERROR ArcanaCorruptedException: Truncated .Z stream

@@ -6,7 +6,7 @@
 | Signature | none; selected by the container: CAB folder method 3, CHM "MSCompressed" section ("LZXC" control data), WIM compression flag 0x40000 |
 | Arcana support | decode only |
 | Main classes | `be.stef.arcana.formats.lzx.LzxDecoder` (CAB, CHM), `be.stef.arcana.formats.wim.WimLzxDecoder` (WIM) |
-| Test samples | `test/samples/chm/help.chm` (64 KiB window, reset every 2 frames), `test/samples/wim/lzx.wim`; no LZX cabinet in `test/samples/cab` |
+| Test samples | `test/samples/chm/help.chm` (64 KiB window, reset every 2 frames), `test/samples/wim/lzx.wim`, `test/samples/wim/lzx-uncompressed-block.wim` (hand-made chunks with an uncompressed block); no LZX cabinet in `test/samples/cab` |
 
 ## Overview
 
@@ -189,6 +189,17 @@ data; neither decoder supports it (`LzxDecoder` refuses window sizes outside
   32-bit buffer after the header: none left means a whole 16-bit word of
   padding is skipped; more than 16 means one word was read ahead and is given
   back; otherwise the rest of the current word is the padding.
+  `WimLzxDecoder` applies the same rule with its 64-bit buffer (`count` bits
+  left: `(count - 1) >> 4` whole words are given back, so a header ending on
+  a 16-bit boundary is followed by one word of padding). WIM uses the same
+  rule as CAB: wimlib's decompressor (`lzx_read_block_header`: "if the stream
+  is *already* aligned, the correct thing to do is to throw away the next 16
+  bits") rejects a chunk without that word, and 7-Zip agrees. wimlib's
+  compressor never writes uncompressed blocks, so ordinary wimlib files do
+  not contain any; `test/samples/wim/lzx-uncompressed-block.wim` has two
+  hand-made chunks (header ending on a boundary or not) accepted by
+  `wimlib-imagex verify` and 7-Zip. Before October 2026 `WimLzxDecoder` did
+  not skip that word and decoded such a chunk wrongly (SHA-1 mismatch).
 - `LzxDecoder` and `WimLzxDecoder` share the same tree and slot logic but are
   separate classes; a fix in one must be checked in the other.
 

@@ -24,6 +24,8 @@ import java.util.Date;
 import java.util.List;
 import be.stef.arcana.ArcanaEntry;
 import be.stef.arcana.ArcanaFormat;
+import be.stef.arcana.exceptions.ArcanaCorruptedException;
+import be.stef.arcana.exceptions.ArcanaEncryptedException;
 import be.stef.arcana.formats.rar.rar4.Rar4Extractor;
 import be.stef.arcana.formats.rar.rar4.Rar4HeaderParser;
 import be.stef.arcana.formats.rar.rar4.blocks.Rar4FileBlock;
@@ -116,7 +118,8 @@ public class Unrar5j {
             default:
                 ExtractionResult unknown = new ExtractionResult();
                 unknown.archiveName = archivePath;
-                System.err.println("Unknown or unsupported archive format: " + archivePath);
+                unknown.errors.add(new ExtractionError(new File(archivePath).getName(), "Unknown or unsupported archive format (no RAR 4 or RAR 5 signature at offset 0)"));
+                unknown.errorCount++;
                 return unknown;
         }
     }
@@ -160,7 +163,7 @@ public class Unrar5j {
             case FORMAT_RAR5:
                 return listRar5(archivePath, password);
             case FORMAT_RAR4:
-                return listRar4(archivePath);
+                return listRar4(archivePath, password);
             default:
                 return new ArrayList<ArcanaEntry>();
         }
@@ -169,7 +172,17 @@ public class Unrar5j {
     private static List<ArcanaEntry> listRar5(String archivePath, String password) throws IOException {
         List<ArcanaEntry> result = new ArrayList<ArcanaEntry>();
         Rar5Reader reader = password != null ? new Rar5Reader(password) : new Rar5Reader();
-        if (!reader.read(new File(archivePath))) return result;
+        // Encrypted headers (rar -hp): decrypted to a temporary copy, as for extraction (no or wrong password: ArcanaEncryptedException)
+        File source = new File(archivePath);
+        File tempFile = Rar5Extractor.isEncrypted(archivePath) ? Rar5Extractor.decryptHeadersToTemp(archivePath, password) : null;
+        try {
+            if (!reader.read(tempFile != null ? tempFile : source)) {
+                if (tempFile != null) throw new ArcanaCorruptedException("Cannot read the decrypted RAR5 headers of " + source.getName());
+                return result;
+            }
+        } finally {
+            if (tempFile != null) tempFile.delete();
+        }
         for (Rar5FileBlock f : reader.getFileBlocks()) {
             result.add(new ArcanaEntry.Builder(f.getFileName())
                     .uncompressedSize(f.isDirectory() ? -1L : f.getUnpackedSize())
@@ -181,10 +194,16 @@ public class Unrar5j {
         return result;
     }
 
-    private static List<ArcanaEntry> listRar4(String archivePath) throws IOException {
+    private static List<ArcanaEntry> listRar4(String archivePath, String password) throws IOException {
         List<ArcanaEntry> result = new ArrayList<ArcanaEntry>();
         Rar4HeaderParser parser = new Rar4HeaderParser();
-        if (!parser.parse(new File(archivePath))) return result;
+        String name = new File(archivePath).getName();
+        // Encrypted headers (flag 0x0080) are decrypted by the parser when a password is given
+        if (!parser.parse(new File(archivePath), password)) {
+            if (parser.hasEncryptedHeaders()) throw new ArcanaEncryptedException("RAR archive has encrypted headers and no password was provided: " + name);
+            return result;
+        }
+        if (Rar4Extractor.isWrongHeaderPassword(parser)) throw new ArcanaEncryptedException("Wrong password for RAR archive with encrypted headers: " + name);
         for (Rar4FileBlock f : parser.getFileBlocks()) {
             result.add(new ArcanaEntry.Builder(f.getFileName())
                     .uncompressedSize(f.isDirectory() ? -1L : f.getUnpackedSize())

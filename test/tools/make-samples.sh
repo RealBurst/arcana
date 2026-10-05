@@ -1,19 +1,33 @@
 #!/bin/bash
-# Builds the committed test samples (test/samples) with the official tools of
-# each format, from a small generated payload. Run on Linux; the samples are
-# committed, so this script is only needed to add or rebuild samples.
+# Optional Linux tool: rebuilds the test samples (test/samples) with the
+# official tools of each format, from a small generated payload. The samples
+# are committed, so this script is only needed to add or rebuild samples; the
+# regression tests themselves (build.sh test / build.bat test) never need it.
 #
 # Usage: test/tools/make-samples.sh [output folder]   (default: test/samples)
+# Build first (./build.sh test): the hand-made samples come from test/bin.
 #
 # Tools: zip, 7zz (or 7z), rar, tar, gzip, bzip2, xz, lz4, zstd, brotli,
 # compress, arj, gcab, cpio, genisoimage, wimlib-imagex, mksquashfs, ar,
-# dpkg-deb, rpmbuild, xar, wixl, chmcmd, python3. A missing tool only skips
-# its samples. RAR, XAR and SEVENZ may point to the binaries.
+# dpkg-deb, rpmbuild, xar, wixl, chmcmd, gcc, upx, java. A missing tool only
+# skips its samples. RAR, XAR, SEVENZ and UPX may point to the binaries.
+#
+# The payload and the hand-made samples (crafted or patched files: SZDD, PAK,
+# SFX, damaged files, WinZip AES variants, Zstandard skippable frames, LZX
+# uncompressed block...) come from be.stef.arcana.test.SampleGenerator (pure
+# Java, test/src; it also runs on Windows). No Python is needed.
+# test/samples/cab/arcana-created.cab is made by Arcana itself (arcana c) and
+# is not rebuilt here.
 #
 # After a rebuild: java ... RegressionRunner --update, then check the diff.
 
 set -u
 ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
+if [ ! -f "$ROOT/test/bin/be/stef/arcana/test/SampleGenerator.class" ]; then
+    echo "build first: ./build.sh test"
+    exit 1
+fi
+GEN=(java -cp "$ROOT/bin:$ROOT/test/bin" be.stef.arcana.test.SampleGenerator)
 OUT="${1:-$ROOT/test/samples}"
 mkdir -p "$OUT"
 OUT="$(cd "$OUT" && pwd)"
@@ -34,21 +48,7 @@ mk() { mkdir -p "$OUT/$1"; }
 # Payload: text, compressible text, random bytes, empty file, deep tree, empty folder
 # ---------------------------------------------------------------------------
 P="$WORK/payload"
-python3 - "$P" <<'PY'
-import os, random, sys
-p = sys.argv[1]
-os.makedirs(p + "/docs", exist_ok=True)
-os.makedirs(p + "/bin", exist_ok=True)
-os.makedirs(p + "/deep/a/b/c", exist_ok=True)
-os.makedirs(p + "/empty-dir", exist_ok=True)
-open(p + "/readme.txt", "w", newline="\n").write("Arcana regression payload.\nEvery archive of test/samples holds these files.\n" * 20)
-lines = ["%05d The quick brown fox jumps over the lazy dog, line %d of the notes.\n" % (i, i) for i in range(400)]
-open(p + "/docs/notes.txt", "w", newline="\n").write("".join(lines))
-open(p + "/docs/empty.txt", "w").close()
-r = random.Random(20240102)
-open(p + "/bin/random.bin", "wb").write(bytes(r.getrandbits(8) for _ in range(4096)))
-open(p + "/deep/a/b/c/leaf.txt", "w", newline="\n").write("leaf\n")
-PY
+"${GEN[@]}" payload "$P" || exit 1
 N="$WORK/names"
 mkdir -p "$N"
 printf 'accented name\n' > "$N/$(printf 'caf\xc3\xa9 \xc3\xa0 la cr\xc3\xa8me.txt')"
@@ -71,6 +71,10 @@ if have "$SEVENZ"; then
     "$SEVENZ" a -bso0 -tzip -mm=Deflate64 "$OUT/zip/deflate64.zip" . >/dev/null
     "$SEVENZ" a -bso0 -tzip -mem=AES256 -p"$PASSWORD" "$OUT/zip/aes256.zip" . >/dev/null
 else skip "zip (7-Zip methods)"; fi
+# WinZip AES: tampered data (only the authentication code detects it) and a UTF-8 password
+# (7-Zip refuses non-ASCII passwords when it creates a ZIP: written by SampleGenerator)
+[ -f "$OUT/zip/aes256.zip" ] && "${GEN[@]}" zip-aes-tampered "$OUT" || skip "zip aes256-tampered"
+"${GEN[@]}" zip-aes-utf8 "$P" "$OUT/zip/aes256-utf8-password.zip" || skip "zip aes256-utf8-password"
 
 # ---------------------------------------------------------------------------
 # 7z
@@ -104,6 +108,7 @@ if have "$RAR"; then
     "$RAR" a -idq -r -ma4 "$OUT/rar/rar4.rar" . >/dev/null
     "$RAR" a -idq -r -ma4 -s "$OUT/rar/rar4-solid.rar" . >/dev/null
     "$RAR" a -idq -r -ma4 -p"$PASSWORD" "$OUT/rar/rar4-encrypted.rar" . >/dev/null
+    "$RAR" a -idq -r -ma4 -hp"$PASSWORD" "$OUT/rar/rar4-encrypted-headers.rar" . >/dev/null
     mkdir -p "$OUT/rar/volumes"
     "$RAR" a -idq -r -m0 -v8k "$OUT/rar/volumes/rar5-volumes.rar" . >/dev/null
     (cd "$N" && "$RAR" a -idq -r "$OUT/rar/names-utf8.rar" . >/dev/null)
@@ -134,6 +139,17 @@ have zstd && zstd -q -c "$F" > "$OUT/stream/notes.txt.zst"
 have lz4 && lz4 -q -c "$F" > "$OUT/stream/notes.txt.lz4"
 have brotli && brotli -c "$F" > "$OUT/stream/notes.txt.br"
 have compress && compress -c "$F" > "$OUT/stream/notes.txt.Z"
+have compress && seq 1 10000 | compress -b 12 -c > "$OUT/stream/seq-b12.txt.Z"
+# Zstandard: frames without content size larger than the window (small window
+# forced with wlog=10), concatenated frames, skippable frames, detection by content
+if have zstd; then
+    tar "${TAROPT[@]}" -cf - . | zstd -q -19 --zstd=wlog=10 > "$OUT/tar/payload-pipe.tar.zst"
+    seq 1 12000 | zstd -q -19 --zstd=wlog=10 > "$OUT/stream/seq-nosize.txt.zst"
+    { zstd -q -c "$F"; zstd -q -c < "$F"; } > "$OUT/stream/two-frames.txt.zst"
+    zstd -q -c --zstd=wlog=10 < "$F" > "$WORK/notes-pipe.zst"
+    "${GEN[@]}" zstd-skippable "$WORK/notes-pipe.zst" "$OUT/stream/skippable.txt.zst"
+    cp "$OUT/stream/notes.txt.zst" "$OUT/stream/zstd-no-extension.bin"
+else skip "zstd (window, frames)"; fi
 
 # ---------------------------------------------------------------------------
 # ARJ, CAB, CPIO, AR / DEB
@@ -147,7 +163,7 @@ else skip "arj"; fi
 
 if have gcab; then
     mk cab
-    rm -f "$OUT"/cab/*.cab
+    rm -f "$OUT"/cab/stored.cab "$OUT"/cab/mszip.cab
     gcab -c "$OUT/cab/stored.cab" readme.txt docs/notes.txt bin/random.bin
     gcab -c -z "$OUT/cab/mszip.cab" readme.txt docs/notes.txt bin/random.bin
 else skip "cab"; fi
@@ -203,6 +219,13 @@ if have genisoimage; then
     genisoimage -quiet -o "$OUT/iso/joliet-rr.iso" -J -R -V ARCANA . 2>/dev/null
     genisoimage -quiet -o "$OUT/iso/level1.iso" -V ARCANA . 2>/dev/null
     genisoimage -quiet -o "$OUT/iso/udf-bridge.iso" -udf -J -R -V ARCANA . 2>/dev/null
+    D="$WORK/rr-deep"
+    mkdir -p "$D/d1/d2/d3/d4/d5/d6/d7/d8/d9/d10"
+    printf 'top\n' > "$D/top.txt"
+    printf 'mid\n' > "$D/d1/d2/d3/d4/d5/d6/d7/d8/mid.txt"
+    printf 'leaf\n' > "$D/d1/d2/d3/d4/d5/d6/d7/d8/d9/d10/leaf.txt"
+    find "$D" -exec touch -h -d "$STAMP" {} +
+    genisoimage -quiet -o "$OUT/iso/rr-deep.iso" -R -V ARCANA "$D" 2>/dev/null
 else skip "iso"; fi
 
 if have wimlib-imagex; then
@@ -210,6 +233,8 @@ if have wimlib-imagex; then
     rm -f "$OUT"/wim/*.wim
     for c in none xpress lzx lzms; do wimlib-imagex capture . "$OUT/wim/$c.wim" "Arcana" --compress=$c >/dev/null; done
     wimlib-imagex capture . "$OUT/wim/solid-lzms.wim" "Arcana" --solid >/dev/null
+    # LZX chunks with an uncompressed block (wimlib never writes one)
+    "${GEN[@]}" wim-lzx-uncompressed "$WORK" "$OUT/wim/lzx-uncompressed-block.wim"
 else skip "wim"; fi
 
 if have mksquashfs; then
@@ -267,69 +292,21 @@ if have chmcmd; then
 else skip "chm"; fi
 
 mk szdd
-python3 - "$P/docs/notes.txt" "$OUT/szdd/notes.tx_" <<'PY'
 # SZDD (Microsoft COMPRESS.EXE): LZSS, 4 KiB window starting at 4096-16 filled with spaces
-import sys
-data = open(sys.argv[1], "rb").read()
-win = bytearray(b" " * 4096)
-pos = 4096 - 16
-out = bytearray(b"SZDD\x88\xf0\x27\x33A" + b"t" + len(data).to_bytes(4, "little"))
-i = 0
-heads = {}
-while i < len(data):
-    flags, chunk = 0, bytearray()
-    for bit in range(8):
-        if i >= len(data):
-            break
-        best_len, best_off = 0, 0
-        for j in reversed(heads.get(data[i:i + 3], [])[-32:]):
-            back = i - j
-            if back > 4096 - 18:
-                break
-            n = 0
-            while n < 18 and i + n < len(data) and data[j + n] == data[i + n]:
-                n += 1
-            if n > best_len:
-                best_len, best_off = n, (pos - back) & 0xFFF
-                if n == 18:
-                    break
-        if best_len >= 3:
-            chunk += bytes([best_off & 0xFF, ((best_off >> 4) & 0xF0) | (best_len - 3)])
-            step = best_len
-        else:
-            flags |= 1 << bit
-            chunk.append(data[i])
-            step = 1
-        for k in range(step):
-            heads.setdefault(data[i + k:i + k + 3], []).append(i + k)
-            win[pos] = data[i + k]
-            pos = (pos + 1) & 0xFFF
-        i += step
-    out.append(flags)
-    out += chunk
-open(sys.argv[2], "wb").write(out)
-PY
+"${GEN[@]}" szdd "$P/docs/notes.txt" "$OUT/szdd/notes.tx_"
+cp "$OUT/szdd/notes.tx_" "$OUT/szdd/UPPER.TX_"
+
+# ---------------------------------------------------------------------------
+# SFX: minimal PE whose section holds a ZIP that does not end at the end of the file
+# ---------------------------------------------------------------------------
+mk sfx
+"${GEN[@]}" sfx-zip-inside "$P" "$OUT/sfx/zip-inside-image.exe"
 
 # ---------------------------------------------------------------------------
 # Plugins: Quake PAK, UPX (needs gcc and upx; UPX=path of the upx binary)
 # ---------------------------------------------------------------------------
 mk plugins/pak
-python3 - "$P" "$OUT/plugins/pak/payload.pak" <<'PY'
-# PACK, directory offset, directory length; entries of 64 bytes: name (56), offset, size
-import os, sys
-root, out = sys.argv[1], sys.argv[2]
-files = []
-for d, _, names in sorted(os.walk(root)):
-    for n in sorted(names):
-        full = os.path.join(d, n)
-        files.append((os.path.relpath(full, root).replace(os.sep, "/"), open(full, "rb").read()))
-body, entries, pos = bytearray(), bytearray(), 12
-for name, data in files:
-    entries += name.encode("ascii").ljust(56, b"\0") + pos.to_bytes(4, "little") + len(data).to_bytes(4, "little")
-    body += data
-    pos += len(data)
-open(out, "wb").write(b"PACK" + pos.to_bytes(4, "little") + len(entries).to_bytes(4, "little") + body + entries)
-PY
+"${GEN[@]}" pak "$P" "$OUT/plugins/pak/payload.pak"
 UPX="${UPX:-$(command -v upx || true)}"
 if have "$UPX" && have gcc; then
     mk plugins/upx
@@ -342,31 +319,14 @@ else skip "upx"; fi
 # Damaged samples: Arcana must report an error, never hang or crash
 # ---------------------------------------------------------------------------
 mk damaged
-python3 - "$OUT" <<'PY'
-import os, sys
-out = sys.argv[1]
-def src(p):
-    p = os.path.join(out, p)
-    return open(p, "rb").read() if os.path.exists(p) else None
-def put(name, data):
-    if data is not None:
-        open(os.path.join(out, "damaged", name), "wb").write(data)
-def flip(d, at):
-    if d is None: return None
-    b = bytearray(d); b[at % len(b)] ^= 0x55; return bytes(b)
-z = src("zip/deflate.zip"); put("truncated.zip", z[: len(z) // 2] if z else None); put("bad-crc.zip", flip(z, 1000))
-s = src("7z/lzma2.7z"); put("flipped.7z", flip(s, 64)); put("truncated.7z", s[: len(s) - 40] if s else None)
-r = src("rar/rar5.rar"); put("flipped.rar", flip(r, len(r) // 2) if r else None)
-r4 = src("rar/rar4.rar"); put("truncated-rar4.rar", r4[: len(r4) * 2 // 3] if r4 else None)
-g = src("stream/notes.txt.gz"); put("bad-crc.gz", flip(g, len(g) - 6) if g else None)
-x = src("stream/notes.txt.xz"); put("flipped.xz", flip(x, len(x) // 2) if x else None)
-b = src("stream/notes.txt.bz2"); put("flipped.bz2", flip(b, len(b) // 2) if b else None)
-t = src("tar/ustar.tar"); put("truncated.tar", t[:2560] if t else None)
-c = src("cab/mszip.cab"); put("truncated.cab", c[: len(c) // 2] if c else None)
-w = src("wim/lzx.wim"); put("flipped.wim", flip(w, 1000) if w else None)
-q = src("squashfs/xz.sqfs"); put("flipped.sqfs", flip(q, 300) if q else None)
-put("empty.zip", b"")
-put("garbage.bin", bytes((i * 37 + 11) & 0xFF for i in range(3000)))
-PY
+# flipped and truncated copies of the samples above, empty.zip, garbage.bin, crafted ISO images
+"${GEN[@]}" damaged "$OUT"
+cp "$OUT/rar/rar5-encrypted-headers.rar" "$OUT/damaged/wrong-password-rar5.rar" 2>/dev/null || skip "wrong-password-rar5.rar"
+cp "$OUT/rar/rar4-encrypted-headers.rar" "$OUT/damaged/wrong-password-rar4.rar" 2>/dev/null || skip "wrong-password-rar4.rar"
+if have "$SEVENZ"; then
+    rm -f "$WORK/aes-rounds.7z"
+    "$SEVENZ" a -bso0 -p"$PASSWORD" -mhc=off "$WORK/aes-rounds.7z" readme.txt >/dev/null
+    "${GEN[@]}" 7z-aes-rounds "$WORK/aes-rounds.7z" "$OUT/damaged/7z-aes-rounds.7z"
+else skip "7z-aes-rounds.7z"; fi
 
 echo "Samples written to $OUT"

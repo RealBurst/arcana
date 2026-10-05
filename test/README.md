@@ -64,8 +64,10 @@ Always check the diff of `test/expected` / `test/corpus` before committing an
 
 ### test/samples (committed)
 
-Small files built with the official tool of each format by
-`test/tools/make-samples.sh` (Linux): ZIP (store, deflate, deflate64, bzip2,
+Small files, committed with the project: the tests never rebuild them. They
+were built with the official tool of each format by
+`test/tools/make-samples.sh`, an optional Linux tool only needed to add or
+rebuild samples: ZIP (store, deflate, deflate64, bzip2,
 LZMA, ZipCrypto, AES-256, UTF-8 names), 7z (LZMA, LZMA2, PPMd, BZip2, Deflate,
 Copy, Delta, encrypted, encrypted headers), RAR 4 and 5 (solid, encrypted,
 encrypted headers, volumes), TAR (ustar, GNU, PAX) and its compressed forms,
@@ -77,9 +79,26 @@ byte, bad CRC, garbage): Arcana must report an error, never hang or crash.
 
 The password of the encrypted samples is `secret`.
 
-To add a sample: add it to `make-samples.sh` (or drop the file in
-`test/samples/<format>/` if it cannot be built), run `build.bat test --update`,
-check the new reference.
+The payload held by every archive and the hand-made samples (SZDD, PAK, SFX,
+damaged and crafted files, WinZip AES variants, Zstandard skippable frames,
+WIM with an LZX uncompressed block...) come from
+`be.stef.arcana.test.SampleGenerator` (`test/src`, pure Java, no dependency):
+`make-samples.sh` calls it, and it runs on Windows too. It is compiled by
+`build.bat test` / `./build.sh test`; run it without arguments for the list of
+generators:
+
+```
+java -cp bin;test/bin be.stef.arcana.test.SampleGenerator payload C:\tmp\payload
+java -cp bin;test/bin be.stef.arcana.test.SampleGenerator szdd C:\tmp\payload\docs\notes.txt C:\tmp\notes.tx_
+java -cp bin:test/bin be.stef.arcana.test.SampleGenerator damaged /tmp/samples      (Linux)
+```
+
+`make-samples.sh [output folder]` (default `test/samples`) needs a build first
+(`./build.sh test`); a missing official tool only skips its samples.
+
+To add a sample: add it to `make-samples.sh` (or to `SampleGenerator` for a
+hand-made file, or drop the file in `test/samples/<format>/` if it cannot be
+built), run `build.bat test --update`, check the new reference.
 
 ### The corpus (not committed)
 

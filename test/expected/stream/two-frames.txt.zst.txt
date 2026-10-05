@@ -1,0 +1,7 @@
+# Arcana regression reference (RegressionRunner --update)
+input: 671e7958d17d41ed1c54e594fe3a5abcd1bf5230fb491545cfc590853bf49dd0 1789
+identify: archive | Zstandard - Zstandard compressed stream
+list: 1 entries
+  two-frames.txt -1
+extracted: 1 items
+  two-frames.txt 58980 07273edc11c64de44ad999a486c4fa3c1e369825e725313398d8c1a563277a53

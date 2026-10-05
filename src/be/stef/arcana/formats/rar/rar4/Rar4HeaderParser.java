@@ -128,7 +128,7 @@ public class Rar4HeaderParser {
                    // From the next block onward, headers are encrypted if applicable
                    if (mainBlock.hasEncryptedHeaders()) {
                        if (password == null || password.isEmpty()) {
-                           System.err.println("Password required: encrypted headers");
+                           // reported by the caller (hasEncryptedHeaders() stays true)
                            return false;
                        }
                        encryptedHeaders = true;
@@ -190,6 +190,7 @@ public class Rar4HeaderParser {
                         | ((headerBuf[9]  & 0xFFL) << 16)
                         | ((headerBuf[10] & 0xFFL) << 24);
             }
+            addSize |= highPackSize(headerBuf, type, flags, headerSize);
 
             // Instantiate correct block type
             Rar4Block block = createBlock(type);
@@ -278,6 +279,7 @@ public class Rar4HeaderParser {
                         | ((headerBuf[9]  & 0xFFL) << 16)
                         | ((headerBuf[10] & 0xFFL) << 24);
             }
+            addSize |= highPackSize(headerBuf, type, flags, headerSize);
 
             Rar4Block block = createBlock(type);
             if (block == null) {
@@ -311,6 +313,19 @@ public class Rar4HeaderParser {
         }
      }
     
+    /**
+     * HIGH_PACK_SIZE (offset 32) of file and service headers with flag 0x0100 (LHD_LARGE),
+     * shifted to the high 32 bits: the data of an entry of 4 GiB packed or more ends there.
+     *
+     * @return the high part of the data size, already shifted, or 0
+     */
+    private static long highPackSize(byte[] header, int type, int flags, int headerSize) {
+        if ((flags & Rar4Constants.FILE_FLAG_HIGH_SIZE) == 0 || headerSize < 36) return 0;
+        if (type != Rar4Constants.BLOCK_TYPE_FILE && type != Rar4Constants.BLOCK_TYPE_NEWSUBBLOCK) return 0;
+        long high = (header[32] & 0xFFL) | ((header[33] & 0xFFL) << 8) | ((header[34] & 0xFFL) << 16) | ((header[35] & 0xFFL) << 24);
+        return high << 32;
+    }
+
     /**
      * HEAD_CRC = low 16 bits of the CRC32 of the header from HEAD_TYPE to its end.
      * Checked for main, file and service headers (the other types use other rules).

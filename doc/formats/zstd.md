@@ -6,7 +6,7 @@
 | Signature | `28 B5 2F FD` at offset 0 (frame magic 0xFD2FB528, little-endian) |
 | Arcana support | list, extract |
 | Main classes | `be.stef.arcana.formats.zstd.ZstdInputStream`, `be.stef.arcana.formats.zstd.ZstdFrameDecompressor`, `be.stef.arcana.formats.zstd.ZstdHelper`, `be.stef.arcana.extractor.ZstdExtractor`, `be.stef.arcana.extractor.CompressedStreamExtractor` |
-| Test samples | `test/samples/stream/notes.txt.zst`, `test/samples/tar/payload.tar.zst` |
+| Test samples | `test/samples/stream/notes.txt.zst`, `seq-nosize.txt.zst`, `two-frames.txt.zst`, `skippable.txt.zst`, `zstd-no-extension.bin`; `test/samples/tar/payload.tar.zst`, `payload-pipe.tar.zst` |
 
 ## Overview
 
@@ -19,12 +19,12 @@ systems. A `.zst` file is one or more frames and holds a single file.
 ## Detection
 
 `ArchiveDetector.detectByMagic` compares the start of the file with
-`MAGIC_ZSTD = {FD, 2F, B5, 28}`. Files begin with the little-endian encoding
-of 0xFD2FB528, i.e. `28 B5 2F FD` (see the samples), so this test never
-matches: `.zst` files are recognized by the extension fallback (`.zst` /
-`.zstd` map to `ZSTD`, `.tar.zst` / `.tzst` to `TAR_ZSTD`). A sample renamed
-`renamed.bin` gives "Cannot detect archive format", while `i` (which tests
-`28 B5 2F FD` in `ArchiveAnalyzer`) reports "Zstandard compressed stream".
+`MAGIC_ZSTD = {28, B5, 2F, FD}`, the little-endian encoding of 0xFD2FB528, so
+a `.zst` renamed without extension is recognized by content
+(`zstd-no-extension.bin`). The extension fallback (`.zst` / `.zstd` map to
+`ZSTD`, `.tar.zst` / `.tzst` to `TAR_ZSTD`) remains for files that start
+with a skippable frame (its magic `50..5F 2A 4D 18` is shared with LZ4 and is
+not used for detection; `i` reports such a file as unrecognized data).
 `Arcana.resolveFormat` promotes `ZSTD` to `TAR_ZSTD` when the name ends with
 `.tar.zst` or `.tzst` (`TarZstdExtractor`).
 
@@ -43,7 +43,7 @@ again by `ZstdFrameDecompressor.readFrameHeader`:
 | 0 | 4 | magic | `28 B5 2F FD` |
 | 4 | 1 | frame header descriptor | bits 6-7: content size field size (0, 2, 4, 8 bytes; 0 means 1 byte when single segment); bit 5: single segment; bit 2: content checksum; bits 0-1: dictionary ID size (0, 1, 2, 4 bytes) |
 | 5 | 0 or 1 | window descriptor | absent when single segment; window = 2^(10 + exponent) + mantissa/8 of that |
-| ... | 0-4 | dictionary ID | any value present is rejected |
+| ... | 0-4 | dictionary ID | 0 (no dictionary) is accepted, any other value is rejected |
 | ... | 0-8 | content size | the 2-byte form adds 256 |
 
 Then blocks, each with a 3-byte header (24-bit little-endian):
@@ -74,58 +74,45 @@ content size (29490), checksum.
 
 ## Compression and encryption
 
-- Decompression: `ZstdFrameDecompressor` does the actual decoding, on whole
-  frames in memory. `MemoryAccess` reads memory through `sun.misc.Unsafe`
-  (reached by reflection) when available and falls back to plain array
-  access otherwise; it throws `ZstdIncompatibleJvmException` on big-endian
-  platforms.
-- Two front ends feed it:
-  - `ZstdInputStream` (TAR/CPIO path of `CompressedStreamExtractor`,
-    `TarZstdExtractor`, and also ZIP method 93, RPM payloads and SquashFS):
-    reads one frame at a time by walking its block headers, then decodes it
-    into a buffer of content-size bytes, or of window-size bytes when the
-    content size is absent.
-  - `ZstdHelper.decompress` (single-file path, `ZstdExtractor`): reads the
-    whole file and decodes it in one call into a buffer whose size is the
-    content size of the first frame.
+- Decompression: `ZstdFrameDecompressor` does the actual decoding (its
+  whole-frame `decompress` method is no longer used by Arcana; the stream
+  calls its block decoders). `MemoryAccess` reads memory through
+  `sun.misc.Unsafe` (reached by reflection) when available and falls back to
+  plain array access otherwise; it throws `ZstdIncompatibleJvmException` on
+  big-endian platforms.
+- `ZstdInputStream` is the only front end: the TAR/CPIO path of
+  `CompressedStreamExtractor`, `TarZstdExtractor`, ZIP method 93, RPM
+  payloads, SquashFS, and the single-file path (`ZstdExtractor` through
+  `ZstdHelper.decompress`, which copies the stream to the output file and
+  optionally checks the expected size). It decodes one block (at most
+  128 KiB) at a time into a history buffer, see Implementation notes.
 - No compressor: `arcana c file out.zst` answers "Arcana cannot create
   Zstandard archives (extraction only)". No encryption.
 
 ## Variants and versions
 
 - Content checksum present or absent: both handled.
-- Large windows in single-segment frames (`--ultra -22`, `--long=27` on a
-  file with known size) are decoded: the window limit is only checked for
-  frames that have a window descriptor.
-- Concatenated frames and skippable frames are skipped or chained by
-  `ZstdInputStream`, so they work on the TAR/CPIO path (verified with a
-  trailing skippable frame after a TAR). On the single-file path see Limits.
+- Windows up to 128 MiB (window log 27, the default decoding limit of the
+  zstd tool): `--long=27`, `--ultra -22`, with or without a content size.
+  For single-segment frames the window is the content size and the same
+  limit applies in `ZstdInputStream`.
+- Frames without a content size (zstd reading from a pipe, `tar --zstd`,
+  `tar cf - dir | zstd`) are decoded whatever their size
+  (`seq-nosize.txt.zst`, `payload-pipe.tar.zst`: 1 KiB window).
+- Concatenated frames and skippable frames anywhere in the stream (before,
+  between or after frames) are chained or skipped, on every path
+  (`two-frames.txt.zst`, `skippable.txt.zst`).
 - Frames in the old v0.7 format (magic 0xFD2FB527) are rejected with "Data
   encoded in unsupported ZSTD v0.7 format".
 
 ## Limits
 
-- Frames without a content size (written when zstd reads from a pipe, for
-  example `tar --zstd` or `tar cf - dir | zstd`) are decoded by
-  `ZstdInputStream` into a window-sized buffer. When the frame decompresses
-  to more than the window, it fails with "Output buffer too small": a 4 MB
-  file piped through `zstd` (2 MiB window) and a 4 MB `.tar.zst` made by
-  `tar --zstd` both fail, in `l` and `x`.
-- Single-file path (`ZstdExtractor`, content not TAR or CPIO):
-  - without a content size in the first frame, `ZstdHelper` allocates
-    `new byte[-1]` and fails with "Error: -1" (a 29 KB file piped through
-    `zstd`, or a file starting with a skippable frame);
-  - with several frames, the buffer is sized for the first one only:
-    two copies of `notes.txt.zst` concatenated fail with "Output buffer too
-    small";
-  - a trailing skippable frame fails with "Invalid magic prefix: 184d2a50";
-  - the whole compressed file and the whole output are held in memory, and
-    sizes above 2^31 - 1 bytes are rejected.
-- Non-single-segment frames with a window above 8 MiB fail with "Window size
-  too large (not yet supported)" (`MAX_WINDOW_SIZE`; verified with
-  `--ultra -22 --no-content-size`, 32 MiB window).
-- Dictionaries are not supported: a frame with a dictionary ID field fails
-  with "Custom dictionaries not supported".
+- Windows above 128 MiB (`--long=28` and more, which the zstd tool itself
+  only decodes with `--memory`) fail with "Window size too large: N bytes
+  (maximum 134217728)"; single-segment frames whose content size exceeds
+  128 MiB give "Zstd window size too large".
+- Dictionaries are not supported: a frame with a non-zero dictionary ID
+  fails with "Zstandard dictionaries are not supported (dictionary ID N)".
 - Trailing data that is not a frame fails ("Not a Zstd stream (magic ...)").
 - `l` shows `?` and the archive file date; the content size is not used for
   listing.
@@ -139,11 +126,27 @@ content size (29490), checksum.
 - `ZstdExtractor` rethrows `ZstdMalformedInputException` as
   `ArcanaCorruptedException` ("Corrupted Zstandard stream: ..."). Errors found
   while `CompressedStreamExtractor` decodes the start of the stream are
-  reported as they are; a sample with one flipped bit gives "Input is
-  corrupted: offset=532".
-- `ZstdInputStream` holds one compressed frame and its output at a time; the
-  zstd tool writes one frame per file, so in practice the whole file is in
-  memory.
+  reported as they are; a sample with one flipped bit gives for example
+  "Input is corrupted: offset=522". The offset of decoder errors is counted
+  from the start of the block being decoded (plus a constant base on JVMs
+  where `MemoryAccess` uses `Unsafe`), not from the start of the file; for
+  "Bad checksum" it is the decoded size of the frame.
+- `ZstdInputStream` reads each block (3-byte header and payload) into a
+  128 KiB buffer and decodes it into a history buffer with
+  `ZstdFrameDecompressor.decodeRawBlock` / `decodeRleBlock` /
+  `decodeCompressedBlock` (the decoder state - repeat offsets, Huffman and
+  FSE tables - is kept for the whole frame and reset by `reset()` at each
+  frame). The frame header is parsed by `ZstdFrameDecompressor.readFrameHeader`.
+  The history buffer grows on demand up to the window size plus a margin
+  (the window, or half of it from 16 MiB, at least 512 KiB), or up to the
+  content size when it is smaller; when it is full, the last window-size
+  bytes are moved to its start. Memory is therefore bounded by about twice
+  the window (1.5 times from 16 MiB), never by the content size, and the
+  compressed data is never buffered beyond one block.
+- The XXH64 checksum is computed incrementally (`XxHash64.update`) and
+  checked at the end of each frame ("Bad checksum"); when the frame has a
+  content size, the decoded size is checked too ("Zstd frame content size
+  mismatch").
 - `Rar5ZstdTestArchiveBuilder`, a generator of RAR5 test archives with
   hand-built Zstandard frames, lives in the same package.
 

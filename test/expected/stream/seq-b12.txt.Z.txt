@@ -1,0 +1,7 @@
+# Arcana regression reference (RegressionRunner --update)
+input: c6dd1eb7a98a71c145cdb171eee58d0eb5c79ba356426410b4bb3a8a2ddd6c8b 23278
+identify: archive | compress - Unix compress (.Z) stream
+list: 1 entries
+  seq-b12.txt -1
+extracted: 1 items
+  seq-b12.txt 48894 8060aa0ac20a3e5db2b67325c98a0122f2d09a612574458225dcb9a086f87cc3

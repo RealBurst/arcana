@@ -1,0 +1,12 @@
+# Arcana regression reference (RegressionRunner --update)
+input: bc9461d2d0e13f86de00275453f388685f282c60286ead6b6940680aa7fc5825 43008
+identify: archive | ISO 9660 - ISO 9660 archive
+list: 4 entries
+  B.TXT 6
+  a.txt 6
+  sub (folder)
+  sub/c.txt 6
+extracted: 3 items
+  B.TXT 6 5891b5b522d5df086d0ff0b110fbd9d21bb4fc7163af34d08286a2e846f6be03
+  a.txt 6 5891b5b522d5df086d0ff0b110fbd9d21bb4fc7163af34d08286a2e846f6be03
+  sub/c.txt 6 5891b5b522d5df086d0ff0b110fbd9d21bb4fc7163af34d08286a2e846f6be03

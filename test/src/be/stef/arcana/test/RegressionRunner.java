@@ -284,7 +284,7 @@ public final class RegressionRunner {
     private static String firstDifference(final String expected, final String actual) {
         final String[] a = expected.split("\n", -1);
         final String[] b = actual.split("\n", -1);
-        if (a.length > 1 && b.length > 1 && !a[1].equals(b[1])) {
+        if (a.length > 2 && b.length > 2 && !a[1].equals(b[1])) {
             final String restA = expected.substring(expected.indexOf('\n', expected.indexOf('\n') + 1));
             final String restB = actual.substring(actual.indexOf('\n', actual.indexOf('\n') + 1));
             return "the sample file changed (" + (restA.equals(restB) ? "same results" : "results differ too: " + firstDifference(restA, restB)) + ")";

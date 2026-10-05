@@ -10,7 +10,7 @@ package be.stef.arcana.formats.zip;
 import java.io.FilterOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.util.Random;
+import java.security.SecureRandom;
 
 /**
  * Encrypts a stream using ZipCrypto (PKWare traditional encryption).
@@ -73,7 +73,7 @@ public final class ZipCryptoOutputStream extends FilterOutputStream {
         super(out);
         for (final byte b : password) updateKeys(b & 0xFF);
         final byte[] header = new byte[12];
-        new Random().nextBytes(header);
+        new SecureRandom().nextBytes(header);
         header[11] = (byte) crc32High;
         for (int i = 0; i < 12; i++) out.write(encryptByte(header[i] & 0xFF));
     }

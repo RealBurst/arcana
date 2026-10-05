@@ -9,15 +9,12 @@ package be.stef.arcana.formats.zip;
 
 import javax.crypto.Mac;
 import javax.crypto.SecretKey;
-import javax.crypto.SecretKeyFactory;
-import javax.crypto.spec.PBEKeySpec;
 import javax.crypto.spec.SecretKeySpec;
 import java.io.FilterOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.security.GeneralSecurityException;
 import java.security.SecureRandom;
-import java.security.spec.KeySpec;
 
 /**
  * Encrypts a stream using WinZip AES encryption (AE-2 variant, no CRC in header).
@@ -61,7 +58,7 @@ public final class AesZipOutputStream extends FilterOutputStream {
      * Creates an AesZipOutputStream. Writes salt + verification bytes to the underlying stream.
      *
      * @param out      underlying stream
-     * @param password ZIP password (raw bytes)
+     * @param password ZIP password (raw bytes, used as is by PBKDF2: UTF-8 for WinZip and 7-Zip)
      * @param strength {@link #AES_128}, {@link #AES_192}, or {@link #AES_256}
      */
     public AesZipOutputStream(final OutputStream out, final byte[] password, final int strength) throws IOException, GeneralSecurityException {
@@ -72,8 +69,7 @@ public final class AesZipOutputStream extends FilterOutputStream {
         new SecureRandom().nextBytes(salt);
 
         final int derivedLen = keyLen * 2 + VERIFY_LEN;
-        final KeySpec spec   = new PBEKeySpec(bytesToChars(password), salt, ITERATIONS, derivedLen * 8);
-        final byte[] derived = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1").generateSecret(spec).getEncoded();
+        final byte[] derived = AesZipInputStream.pbkdf2HmacSha1(password, salt, ITERATIONS, derivedLen);
 
         out.write(salt);
         out.write(derived, derivedLen - VERIFY_LEN, VERIFY_LEN);
@@ -110,11 +106,5 @@ public final class AesZipOutputStream extends FilterOutputStream {
             final byte[] auth = hmac.doFinal();
             out.write(auth, 0, AUTH_LENGTH);
         } catch (final Exception e) { throw new IOException("AES-CTR finish error: " + e.getMessage(), e); }
-    }
-
-    private static char[] bytesToChars(final byte[] b) {
-        final char[] c = new char[b.length];
-        for (int i = 0; i < b.length; i++) c[i] = (char)(b[i] & 0xFF);
-        return c;
     }
 }

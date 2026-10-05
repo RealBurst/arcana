@@ -60,7 +60,8 @@ class ZstdFrameDecompressor
 
     private static final int V07_MAGIC_NUMBER = 0xFD2FB527;
 
-    static final int MAX_WINDOW_SIZE = 1 << 23;
+    /** Largest window accepted (window log 27, the default decoding limit of the zstd tool). */
+    static final int MAX_WINDOW_SIZE = 1 << 27;
 
     private static final int[] LITERALS_LENGTH_BASE = {
             0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15,
@@ -298,7 +299,7 @@ class ZstdFrameDecompressor
                 throw fail(input, "Invalid literals block encoding type");
         }
 
-        verify(windowSize <= MAX_WINDOW_SIZE, input, "Window size too large (not yet supported)");
+        verify(windowSize <= MAX_WINDOW_SIZE, input, "Window size too large");
 
         return decompressSequences(
                 inputBase, input, inputAddress + blockSize,
@@ -898,8 +899,10 @@ class ZstdFrameDecompressor
             int exponent = windowDescriptor >>> 3;
             int mantissa = windowDescriptor & 0b111;
 
-            int base = 1 << (MIN_WINDOW_LOG + exponent);
-            windowSize = base + (base / 8) * mantissa;
+            long base = 1L << (MIN_WINDOW_LOG + exponent);
+            long window = base + (base / 8) * mantissa;
+            verify(window <= MAX_WINDOW_SIZE, input, "Window size too large: " + window + " bytes (maximum " + MAX_WINDOW_SIZE + ")");
+            windowSize = (int) window;
         }
 
         // decode dictionary id
@@ -918,7 +921,7 @@ class ZstdFrameDecompressor
                 input += SIZE_OF_INT;
                 break;
         }
-        verify(dictionaryId == -1, input, "Custom dictionaries not supported");
+        verify(dictionaryId <= 0, input, "Zstandard dictionaries are not supported (dictionary ID " + dictionaryId + ")");
 
         // decode content size
         long contentSize = -1;

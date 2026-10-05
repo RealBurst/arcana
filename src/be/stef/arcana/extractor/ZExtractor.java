@@ -50,17 +50,26 @@ public class ZExtractor implements ArchiveExtractor {
     public void extract(final File archive, final File destination) throws IOException {
         IOHelper.mkdirs(destination);
         final File out = SafePathBuilder.buildSafePath(destination, stripExt(archive.getName(), ".Z"));
-        try (InputStream in = new BufferedInputStream(new FileInputStream(archive));
-             BufferedOutputStream bos = new BufferedOutputStream(ExtractionGuard.open(out))) {
-            decompress(in, bos);
+        try (InputStream in = new BufferedInputStream(new FileInputStream(archive))) {
+            decompressTo(in, out);
         }
     }
 
     @Override
     public void extract(final InputStream in, final File destination) throws IOException {
         IOHelper.mkdirs(destination);
-        try (BufferedOutputStream bos = new BufferedOutputStream(ExtractionGuard.open(new File(destination, "output")))) {
+        decompressTo(in, new File(destination, "output"));
+    }
+
+    /** Decodes into {@code out}; the partial file is removed when decoding fails. */
+    private static void decompressTo(final InputStream in, final File out) throws IOException {
+        final OutputStream fos = ExtractionGuard.open(out);
+        boolean ok = false;
+        try (BufferedOutputStream bos = new BufferedOutputStream(fos)) {
             decompress(in, bos);
+            ok = true;
+        } finally {
+            if (!ok && out.exists() && !out.delete()) out.deleteOnExit();
         }
     }
 
@@ -84,21 +93,30 @@ public class ZExtractor implements ArchiveExtractor {
         byte finChar = 0;
         long bitBuf = 0;
         int bitsLeft = 0;
+        int codeCount = 0; // codes read at the current width since the last CLEAR or width change
         final byte[] outBuf = new byte[65536];
         int outLen = 0;
 
         while (true) {
             while (bitsLeft < nbits) {
                 final int b = in.read();
-                if (b < 0) { if (outLen > 0) out.write(outBuf, 0, outLen); return; }
+                if (b < 0) {
+                    if (outLen > 0) out.write(outBuf, 0, outLen);
+                    // compress flushes the last code on the next byte: a whole unused byte means the file was cut
+                    if (bitsLeft >= 8) throw new ArcanaCorruptedException("Truncated .Z stream");
+                    return;
+                }
                 bitBuf |= ((long) b) << bitsLeft;
                 bitsLeft += 8;
             }
             final int code = (int) (bitBuf & ((1 << nbits) - 1));
             bitBuf >>>= nbits;
             bitsLeft -= nbits;
+            codeCount++;
 
             if (block && code == CLEAR_CODE) {
+                if (!skipGroupPadding(in, codeCount, nbits, bitsLeft)) throw new ArcanaCorruptedException("Truncated .Z stream");
+                bitBuf = 0; bitsLeft = 0; codeCount = 0;
                 for (int i = 256; i < maxcode; i++) tab[i] = null;
                 freeEnt = FIRST_CODE; nbits = 9; limit = (1 << 9) - 1; oldCode = -1; continue;
             }
@@ -132,11 +150,32 @@ public class ZExtractor implements ArchiveExtractor {
                 tab[freeEnt++] = entry;
             }
             oldCode = code;
-            if (freeEnt > limit && nbits < maxbits) { nbits++; limit = nbits == maxbits ? maxcode - 1 : (1 << nbits) - 1; }
+            if (freeEnt > limit && nbits < maxbits) {
+                // the end of the stream inside this padding is a normal end: the next read finds no byte
+                skipGroupPadding(in, codeCount, nbits, bitsLeft);
+                bitBuf = 0; bitsLeft = 0; codeCount = 0;
+                nbits++; limit = nbits == maxbits ? maxcode - 1 : (1 << nbits) - 1;
+            }
         }
     }
 
+    /**
+     * compress writes its codes in groups of 8 (nbits bytes) and, after a CLEAR or a
+     * width change, pads the rest of the group (as ncompress reads it). A group always
+     * ends on a byte boundary, so the padding is the buffered bits plus whole bytes.
+     * Returns false if the stream ends inside the padding.
+     */
+    private static boolean skipGroupPadding(final InputStream in, final int codeCount, final int nbits, final int bitsLeft) throws IOException {
+        final int padBytes = (((8 - (codeCount & 7)) & 7) * nbits - bitsLeft) >> 3;
+        for (int i = 0; i < padBytes; i++) {
+            if (in.read() < 0) return false;
+        }
+        return true;
+    }
+
+    /** Removes the suffix (any case); otherwise appends ".out" so that the output never replaces the archive. */
     private static String stripExt(final String name, final String ext) {
-        return name.endsWith(ext) ? name.substring(0, name.length() - ext.length()) : name;
+        final int n = name.length() - ext.length();
+        return n > 0 && name.regionMatches(true, n, ext, 0, ext.length()) ? name.substring(0, n) : name + ".out";
     }
 }

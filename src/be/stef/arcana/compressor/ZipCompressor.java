@@ -13,17 +13,20 @@ import be.stef.arcana.util.IOHelper;
 import be.stef.arcana.util.ProgressInputStream;
 
 import java.io.BufferedOutputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FilterOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.security.GeneralSecurityException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.zip.CRC32;
+import java.util.zip.CheckedInputStream;
 import java.util.zip.Deflater;
+import java.util.zip.DeflaterOutputStream;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
@@ -64,13 +67,21 @@ public final class ZipCompressor implements ArchiveCompressor {
     private static final int SIGN_CDH  = 0x02014b50;
     // ZIP end of central directory signature
     private static final int SIGN_EOCD = 0x06054b50;
+    // Data descriptor, ZIP64 end of central directory record and locator signatures
+    private static final int SIGN_DD     = 0x08074b50;
+    private static final int SIGN_EOCD64 = 0x06064b50;
+    private static final int SIGN_LOC64  = 0x07064b50;
+
+    private static final long ZIP64_MAGIC = 0xFFFFFFFFL;
 
     private static final int METHOD_DEFLATE  = 8;
     private static final int METHOD_AES      = 99;   // WinZip AES
     private static final int VERSION_DEFLATE = 20;
+    private static final int VERSION_ZIP64   = 45;   // ZIP64 extensions
     private static final int VERSION_AES     = 51;   // requires ZIP 5.1+
 
     private static final int GP_ENCRYPTED = 0x0001;
+    private static final int GP_DESCRIPTOR = 0x0008;
     private static final int GP_UTF8      = 0x0800;
 
     private final byte[] password;
@@ -146,8 +157,9 @@ public final class ZipCompressor implements ArchiveCompressor {
 
     // =========================================================================
     // Encrypted mode: raw ZIP writer
-    //   For each entry: read to memory -> deflate -> encrypt -> write raw headers
-    //   The buffering avoids two-pass reading (needed to know sizes before header).
+    //   For each entry: local header -> file streamed through deflate and
+    //   encryption -> data descriptor (CRC and sizes are only known at the end).
+    //   ZIP64 records are written when sizes, offsets or the entry count need them.
     // =========================================================================
 
     /** Central directory entry, collected while writing local records. */
@@ -177,9 +189,7 @@ public final class ZipCompressor implements ArchiveCompressor {
         collectFiles(abs, files);
 
         final List<CDRecord> cdRecords = new ArrayList<CDRecord>();
-        long currentOffset = 0;
-
-        final BufferedOutputStream bos = new BufferedOutputStream(out);
+        final CountingOutputStream bos = new CountingOutputStream(new BufferedOutputStream(out)); // bos.count = current offset
 
         for (final File file : files) {
             final String name      = relativePath(base, file);
@@ -187,7 +197,7 @@ public final class ZipCompressor implements ArchiveCompressor {
                 // Directory entry: stored, empty, never encrypted (keeps empty directories)
                 final byte[] dirName = (name + "/").getBytes("UTF-8");
                 final int[] dirTime = toDosDateTime(file.lastModified());
-                final long dirOffset = currentOffset;
+                final long dirOffset = bos.count;
                 writeInt(bos, SIGN_LFH);
                 writeShort(bos, VERSION_DEFLATE);
                 writeShort(bos, GP_UTF8);
@@ -200,110 +210,176 @@ public final class ZipCompressor implements ArchiveCompressor {
                 writeShort(bos, dirName.length);
                 writeShort(bos, 0);
                 bos.write(dirName);
-                currentOffset += 30L + dirName.length;
                 cdRecords.add(new CDRecord(dirOffset, 0L, 0L, 0L, dirTime[0], dirTime[1], 0, GP_UTF8, VERSION_DEFLATE, dirName, new byte[0]));
                 continue;
             }
             final byte[] nameBytes = name.getBytes("UTF-8");
             final byte[] extraBytes = encryptMode == ENCRYPT_AES256 ? buildAesExtra() : new byte[0];
-
-            // Step 1: read uncompressed data, compute CRC32
-            final byte[] uncompressed = readFile(file);
-            final long   crc32        = computeCrc32(uncompressed);
-
-            // Step 2: deflate (raw, no zlib wrapper)
-            final byte[] compressed = deflateRaw(uncompressed);
-
-            // Step 3: encrypt
-            final byte[] encryptedData;
-            if (encryptMode == ENCRYPT_AES256) {
-                final ByteArrayOutputStream aesOut = new ByteArrayOutputStream();
-                try {
-                    final AesZipOutputStream aes = new AesZipOutputStream(aesOut, password, AES_STRENGTH);
-                    aes.write(compressed);
-                    aes.finish();
-                } catch (final Exception e) { throw new IOException("AES-256 encryption failed: " + e.getMessage(), e); }
-                encryptedData = aesOut.toByteArray();
-            } else {
-                // ENCRYPT_ZIPCRYPTO: ZipCryptoOutputStream writes 12-byte header then encrypted data
-                final ByteArrayOutputStream cryptoOut = new ByteArrayOutputStream();
-                final int checkByte = (int)((crc32 >>> 24) & 0xFF);
-                final ZipCryptoOutputStream crypto = new ZipCryptoOutputStream(cryptoOut, password, checkByte);
-                crypto.write(compressed);
-                crypto.flush();
-                encryptedData = cryptoOut.toByteArray();
-            }
-
-            final long compressedSize   = encryptedData.length;
-            final long uncompressedSize = uncompressed.length;
-
-            final int gpFlags = GP_ENCRYPTED | GP_UTF8;
-            final int method  = encryptMode == ENCRYPT_AES256 ? METHOD_AES     : METHOD_DEFLATE;
-            final int version = encryptMode == ENCRYPT_AES256 ? VERSION_AES    : VERSION_DEFLATE;
-            // AE-2: CRC field in local header is 0 (integrity via HMAC only)
-            final long headerCrc = encryptMode == ENCRYPT_AES256 ? 0L : crc32;
-
             final int[] dosDateTime = toDosDateTime(file.lastModified());
 
-            // Write local file header
-            final long localOffset = currentOffset;
+            // ZIP64 sizes when the entry may reach 4 GiB (deflate and encryption add a little to incompressible data)
+            final long fileLength = file.length();
+            final boolean zip64Entry = fileLength + (fileLength >>> 10) + 1024 >= ZIP64_MAGIC;
+            // Local ZIP64 extra field: both sizes, 0 here (the real values are in the data descriptor)
+            final byte[] localExtra = zip64Entry ? concat(zip64Extra(new long[]{0L, 0L}), extraBytes) : extraBytes;
+
+            final int gpFlags = GP_ENCRYPTED | GP_DESCRIPTOR | GP_UTF8;
+            final int method  = encryptMode == ENCRYPT_AES256 ? METHOD_AES     : METHOD_DEFLATE;
+            final int version = encryptMode == ENCRYPT_AES256 ? VERSION_AES    : zip64Entry ? VERSION_ZIP64 : VERSION_DEFLATE;
+
+            // Write local file header (CRC and sizes follow the data, in the data descriptor)
+            final long localOffset = bos.count;
             writeInt(bos, SIGN_LFH);
             writeShort(bos, version);
             writeShort(bos, gpFlags);
             writeShort(bos, method);
             writeShort(bos, dosDateTime[0]);
             writeShort(bos, dosDateTime[1]);
-            writeInt(bos, (int) headerCrc);
-            writeInt(bos, (int) compressedSize);
-            writeInt(bos, (int) uncompressedSize);
+            writeInt(bos, 0);
+            writeInt(bos, zip64Entry ? (int) ZIP64_MAGIC : 0);
+            writeInt(bos, zip64Entry ? (int) ZIP64_MAGIC : 0);
             writeShort(bos, nameBytes.length);
-            writeShort(bos, extraBytes.length);
+            writeShort(bos, localExtra.length);
             bos.write(nameBytes);
-            bos.write(extraBytes);
-            bos.write(encryptedData);
+            bos.write(localExtra);
 
-            currentOffset += 30L + nameBytes.length + extraBytes.length + compressedSize;
+            // Stream: file -> CRC-32 -> raw deflate -> encryption -> archive
+            final long dataStart = bos.count;
+            final OutputStream encrypted;
+            AesZipOutputStream aes = null;
+            if (encryptMode == ENCRYPT_AES256) {
+                try {
+                    aes = new AesZipOutputStream(bos, password, AES_STRENGTH);
+                } catch (final GeneralSecurityException e) { throw new IOException("AES-256 encryption failed: " + e.getMessage(), e); }
+                encrypted = aes;
+            } else {
+                // ENCRYPT_ZIPCRYPTO with a data descriptor: the check byte is the high byte of the DOS time
+                encrypted = new ZipCryptoOutputStream(bos, password, (dosDateTime[0] >>> 8) & 0xFF);
+            }
+            final Deflater def = new Deflater(Deflater.DEFAULT_COMPRESSION, true); // nowrap=true: raw deflate
+            final long crc32;
+            final long uncompressedSize;
+            try {
+                final DeflaterOutputStream dos = new DeflaterOutputStream(encrypted, def, IOHelper.BUFFER_SIZE);
+                try (final ProgressInputStream pis = new ProgressInputStream(new FileInputStream(file), fileLength, file.getName())) {
+                    final CheckedInputStream cis = new CheckedInputStream(pis, new CRC32());
+                    IOHelper.copy(cis, dos);
+                    pis.finish();
+                    crc32 = cis.getChecksum().getValue();
+                }
+                dos.finish(); // not close(): the archive stream stays open
+                if (aes != null) aes.finish();
+                uncompressedSize = def.getBytesRead();
+            } finally {
+                def.end();
+            }
+            final long compressedSize = bos.count - dataStart;
+            if (!zip64Entry && (compressedSize >= ZIP64_MAGIC || uncompressedSize >= ZIP64_MAGIC)) throw new IOException("File '" + name + "' grew to 4 GiB or more while it was compressed: archive not usable");
+
+            // AE-2: CRC field is 0 (integrity via HMAC only)
+            final long headerCrc = encryptMode == ENCRYPT_AES256 ? 0L : crc32;
+
+            // Data descriptor (8-byte sizes when the local header has a ZIP64 extra field)
+            writeInt(bos, SIGN_DD);
+            writeInt(bos, (int) headerCrc);
+            if (zip64Entry) {
+                writeLong(bos, compressedSize);
+                writeLong(bos, uncompressedSize);
+            } else {
+                writeInt(bos, (int) compressedSize);
+                writeInt(bos, (int) uncompressedSize);
+            }
 
             cdRecords.add(new CDRecord(localOffset, headerCrc, compressedSize, uncompressedSize, dosDateTime[0], dosDateTime[1], method, gpFlags, version, nameBytes, extraBytes));
         }
 
         // Write central directory
-        final long cdOffset = currentOffset;
-        long cdSize = 0;
+        final long cdOffset = bos.count;
         for (final CDRecord r : cdRecords) {
+            // ZIP64 extra field: only the values that do not fit, in the order of the specification
+            final boolean bigU = r.uncompressedSize >= ZIP64_MAGIC;
+            final boolean bigC = r.compressedSize >= ZIP64_MAGIC;
+            final boolean bigO = r.localOffset >= ZIP64_MAGIC;
+            final List<Long> big = new ArrayList<Long>();
+            if (bigU) big.add(r.uncompressedSize);
+            if (bigC) big.add(r.compressedSize);
+            if (bigO) big.add(r.localOffset);
+            final long[] values = new long[big.size()];
+            for (int i = 0; i < values.length; i++) values[i] = big.get(i);
+            final byte[] extra = values.length == 0 ? r.extra : concat(zip64Extra(values), r.extra);
+            final int version = values.length == 0 ? r.versionNeeded : Math.max(r.versionNeeded, VERSION_ZIP64);
+
             writeInt(bos, SIGN_CDH);
-            writeShort(bos, r.versionNeeded);  // version made by
-            writeShort(bos, r.versionNeeded);  // version needed
+            writeShort(bos, version);  // version made by
+            writeShort(bos, version);  // version needed
             writeShort(bos, r.gpFlags);
             writeShort(bos, r.method);
             writeShort(bos, r.dosTime);
             writeShort(bos, r.dosDate);
             writeInt(bos, (int) r.crc32);
-            writeInt(bos, (int) r.compressedSize);
-            writeInt(bos, (int) r.uncompressedSize);
+            writeInt(bos, bigC ? (int) ZIP64_MAGIC : (int) r.compressedSize);
+            writeInt(bos, bigU ? (int) ZIP64_MAGIC : (int) r.uncompressedSize);
             writeShort(bos, r.name.length);
-            writeShort(bos, r.extra.length);
+            writeShort(bos, extra.length);
             writeShort(bos, 0);   // comment length
             writeShort(bos, 0);   // disk number start
             writeShort(bos, 0);   // internal attributes
             writeInt(bos, 0);     // external attributes
-            writeInt(bos, (int) r.localOffset);
+            writeInt(bos, bigO ? (int) ZIP64_MAGIC : (int) r.localOffset);
             bos.write(r.name);
-            bos.write(r.extra);
-            cdSize += 46L + r.name.length + r.extra.length;
+            bos.write(extra);
+        }
+        final long cdSize = bos.count - cdOffset;
+        final int  count  = cdRecords.size();
+
+        // ZIP64 end of central directory record and locator, when a value does not fit the classic record
+        final boolean zip64End = count >= 0xFFFF || cdSize >= ZIP64_MAGIC || cdOffset >= ZIP64_MAGIC;
+        if (zip64End) {
+            final long eocd64Offset = bos.count;
+            writeInt(bos, SIGN_EOCD64);
+            writeLong(bos, 44L);                   // size of the remaining record
+            writeShort(bos, VERSION_ZIP64);        // version made by
+            writeShort(bos, VERSION_ZIP64);        // version needed
+            writeInt(bos, 0);                      // disk number
+            writeInt(bos, 0);                      // disk with start of CD
+            writeLong(bos, count);                 // entries on disk
+            writeLong(bos, count);                 // total entries
+            writeLong(bos, cdSize);
+            writeLong(bos, cdOffset);
+            writeInt(bos, SIGN_LOC64);
+            writeInt(bos, 0);                      // disk with the ZIP64 end record
+            writeLong(bos, eocd64Offset);
+            writeInt(bos, 1);                      // total number of disks
         }
 
-        // Write end of central directory
+        // Write end of central directory (0xFFFF / 0xFFFFFFFF: see the ZIP64 record)
         writeInt(bos, SIGN_EOCD);
         writeShort(bos, 0);                    // disk number
         writeShort(bos, 0);                    // disk with start of CD
-        writeShort(bos, cdRecords.size());     // entries on disk
-        writeShort(bos, cdRecords.size());     // total entries
-        writeInt(bos, (int) cdSize);
-        writeInt(bos, (int) cdOffset);
+        writeShort(bos, Math.min(count, 0xFFFF));     // entries on disk
+        writeShort(bos, Math.min(count, 0xFFFF));     // total entries
+        writeInt(bos, cdSize >= ZIP64_MAGIC ? (int) ZIP64_MAGIC : (int) cdSize);
+        writeInt(bos, cdOffset >= ZIP64_MAGIC ? (int) ZIP64_MAGIC : (int) cdOffset);
         writeShort(bos, 0);                    // comment length
 
         bos.flush(); // flush without closing the underlying stream
+    }
+
+    /** ZIP64 extended information extra field (tag 0x0001) holding the given 8-byte values. */
+    private static byte[] zip64Extra(final long[] values) {
+        final byte[] extra = new byte[4 + 8 * values.length];
+        extra[0] = 0x01; extra[1] = 0x00;                        // tag 0x0001 (LE)
+        extra[2] = (byte) (8 * values.length); extra[3] = 0x00;  // data size
+        for (int i = 0; i < values.length; i++) {
+            for (int b = 0; b < 8; b++) extra[4 + 8 * i + b] = (byte) (values[i] >>> (8 * b));
+        }
+        return extra;
+    }
+
+    private static byte[] concat(final byte[] a, final byte[] b) {
+        final byte[] r = Arrays.copyOf(a, a.length + b.length);
+        System.arraycopy(b, 0, r, a.length, b.length);
+        return r;
     }
 
     /**
@@ -337,35 +413,6 @@ public final class ZipCompressor implements ArchiveCompressor {
         }
     }
 
-    private static byte[] readFile(final File file) throws IOException {
-        final ByteArrayOutputStream baos = new ByteArrayOutputStream((int) Math.min(file.length(), Integer.MAX_VALUE));
-        try (final ProgressInputStream pis = new ProgressInputStream(new FileInputStream(file), file.length(), file.getName())) {
-            IOHelper.copy(pis, baos);
-            pis.finish();
-        }
-        return baos.toByteArray();
-    }
-
-    private static byte[] deflateRaw(final byte[] data) throws IOException {
-        final Deflater def = new Deflater(Deflater.DEFAULT_COMPRESSION, true); // nowrap=true: raw deflate
-        def.setInput(data);
-        def.finish();
-        final ByteArrayOutputStream baos = new ByteArrayOutputStream(data.length / 2 + 64);
-        final byte[] buf = new byte[8192];
-        while (!def.finished()) {
-            final int n = def.deflate(buf);
-            if (n > 0) baos.write(buf, 0, n);
-        }
-        def.end();
-        return baos.toByteArray();
-    }
-
-    private static long computeCrc32(final byte[] data) {
-        final CRC32 crc = new CRC32();
-        crc.update(data);
-        return crc.getValue();
-    }
-
     private static String relativePath(final File base, final File file) {
         final String basePath = base.getAbsolutePath().replace('\\', '/');
         final String filePath = file.getAbsolutePath().replace('\\', '/');
@@ -383,6 +430,20 @@ public final class ZipCompressor implements ArchiveCompressor {
         os.write((v >> 8) & 0xFF);
         os.write((v >> 16) & 0xFF);
         os.write((v >> 24) & 0xFF);
+    }
+
+    private static void writeLong(final OutputStream os, final long v) throws IOException {
+        writeInt(os, (int) v);
+        writeInt(os, (int) (v >>> 32));
+    }
+
+    /** Counts the bytes written (offsets of the raw writer); never closes the target stream. */
+    private static final class CountingOutputStream extends FilterOutputStream {
+        long count;
+        CountingOutputStream(final OutputStream out) { super(out); }
+        @Override public void write(final int b) throws IOException { out.write(b); count++; }
+        @Override public void write(final byte[] b, final int off, final int len) throws IOException { out.write(b, off, len); count += len; }
+        @Override public void close() throws IOException { flush(); }
     }
 
     private static int[] toDosDateTime(final long millis) {

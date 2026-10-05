@@ -2,7 +2,19 @@
 input: 7ad9cdf39b73b690dc7261bd998592ebb0dba0e8847abc5b25eb14c73a15f938 6734
 password: secret
 identify: archive | RAR 5 - RAR archive, version 5.0
-list: 0 entries
+list: 12 entries
+  bin (folder)
+  bin/random.bin 4096
+  deep (folder)
+  deep/a (folder)
+  deep/a/b (folder)
+  deep/a/b/c (folder)
+  deep/a/b/c/leaf.txt 5
+  docs (folder)
+  docs/empty.txt 0
+  docs/notes.txt 29490
+  empty-dir (folder)
+  readme.txt 1520
 extracted: 6 items
   bin/random.bin 4096 8fe774a9e65a6c63fc7df534a66e2bafb44a73813a37b2abcc178749b237552e
   deep/a/b/c/leaf.txt 5 26d0bac9f0c7a35b2f3322a0f4ad4517265f56b2c0f4b2ed7cb5cbd30c5868e2

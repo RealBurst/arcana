@@ -16,6 +16,7 @@
 package be.stef.arcana.formats.rar.rar4;
 
 import be.stef.arcana.util.ExtractionGuard;
+import be.stef.arcana.exceptions.ArcanaEncryptedException;
 import be.stef.arcana.exceptions.ArcanaLimitExceededException;
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -86,7 +87,15 @@ public class Rar4Extractor {
             // Parse headers
             Rar4HeaderParser parser = new Rar4HeaderParser();
             if (!parser.parse(archiveFile, password)) {
-                result.errors.add(new ExtractionError(archivePath, "Failed to parse RAR4 headers (corrupted archive, or encrypted headers without password)"));
+                if (parser.hasEncryptedHeaders()) {
+                    result.errors.add(new ExtractionError(archiveFile.getName(), -1, -1, false, false, true, "RAR archive has encrypted headers and no password was provided", new ArcanaEncryptedException("RAR archive has encrypted headers and no password was provided: " + archiveFile.getName())));
+                    return result;
+                }
+                result.errors.add(new ExtractionError(archivePath, "Failed to parse RAR4 headers (corrupted archive)"));
+                return result;
+            }
+            if (isWrongHeaderPassword(parser)) {
+                result.errors.add(new ExtractionError(archiveFile.getName(), -1, -1, false, false, true, "Wrong password for RAR archive with encrypted headers", new ArcanaEncryptedException("Wrong password for RAR archive with encrypted headers: " + archiveFile.getName())));
                 return result;
             }
             
@@ -114,8 +123,10 @@ public class Rar4Extractor {
                             continue;
                         }
                         
-                        // Also skip entries with packedSize=0 and unpackedSize=0
+                        // Empty file (no data): created without running a decoder
                         if (file.getPackedSize() == 0 && file.getUnpackedSize() == 0) {
+                            createEmptyFile(file);
+                            result.successCount++;
                             continue;
                         }
                         
@@ -246,7 +257,11 @@ public class Rar4Extractor {
                   result.successCount++;
                   continue;
               }
-              if (lf.unpackedSize == 0) continue;
+              if (lf.unpackedSize == 0) {
+                  createEmptyFile(head);
+                  result.successCount++;
+                  continue;
+              }
 
               File outputFile = pathBuilder.buildSafePath(head.getFileName());
               if (outputFile == null) { result.errors.add(new ExtractionError(head.getFileName(), "Unsafe path")); continue; }
@@ -356,6 +371,13 @@ public class Rar4Extractor {
     // Utilities
     // -------------------------------------------------------------------------
 
+    private static void createEmptyFile(Rar4FileBlock file) throws IOException {
+       File outputFile = pathBuilder.buildSafePath(file.getFileName());
+       if (outputFile == null) throw new IOException("Unsafe path rejected");
+       if (outputFile.getParentFile() != null) outputFile.getParentFile().mkdirs();
+       ExtractionGuard.open(outputFile).close();
+    }
+
     private static void createDirectory(Rar4FileBlock file, File outDir) throws IOException {
        // buildSafeDirPath: no collision renaming - the directory usually already exists
        // (created by mkdirs() for the files it contains, which RAR stores before it)
@@ -365,12 +387,27 @@ public class Rar4Extractor {
     }
     
     /**
+     * RAR 4 has no password check value: with encrypted headers, a wrong password shows as a
+     * header CRC error (or a random block type) on the first encrypted header, so no file
+     * header and no end-of-archive header could be read.
+     *
+     * @param parser a parser that returned true
+     * @return true if the headers are encrypted and none of them could be decrypted
+     */
+    public static boolean isWrongHeaderPassword(Rar4HeaderParser parser) {
+        if (!parser.hasEncryptedHeaders() || !parser.getFileBlocks().isEmpty()) return false;
+        List<be.stef.arcana.formats.rar.rar4.blocks.Rar4Block> blocks = parser.getBlocks();
+        return blocks.isEmpty() || !(blocks.get(blocks.size() - 1) instanceof be.stef.arcana.formats.rar.rar4.blocks.Rar4EndBlock);
+    }
+
+    /**
      * Checks if an archive requires a password (encrypted headers or first file encrypted).
      */
     public static boolean isEncrypted(String archivePath) {
         try {
             Rar4HeaderParser parser = new Rar4HeaderParser();
-            if (!parser.parse(new File(archivePath))) return false;
+            // without a password, parse() stops (false) after the main header when the headers are encrypted
+            if (!parser.parse(new File(archivePath))) return parser.hasEncryptedHeaders();
             if (parser.hasEncryptedHeaders()) return true;
             List<Rar4FileBlock> files = parser.getFileBlocks();
             return !files.isEmpty() && files.get(0).isEncrypted();

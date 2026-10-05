@@ -1,0 +1,7 @@
+# Arcana regression reference (RegressionRunner --update)
+input: 9c575dd38361b06513b6ca604bc7c17654e40cffc638b3366e6fbb1d92ef73f0 242
+password: secret
+identify: archive | 7-Zip 0.04 - 7-Zip archive (format version 0.04)
+list: 1 entries
+  readme.txt 1520
+extract: ERROR ArcanaUnsupportedFormatException: 7z AES key derivation with 2^30 SHA-256 rounds is not supported (7-Zip allows at most 2^24) in <sample>

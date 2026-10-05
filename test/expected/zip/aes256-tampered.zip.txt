@@ -1,0 +1,19 @@
+# Arcana regression reference (RegressionRunner --update)
+input: 672cb2cd5b38bc4258479b9da3c979a12c2534f5e83d5cf6f4e76a8be0faffe9 7950
+password: secret
+identify: archive | ZIP - ZIP archive
+  minimum version to extract: 2.0
+list: 12 entries
+  bin/ (folder)
+  bin/random.bin 4096
+  deep/ (folder)
+  deep/a/ (folder)
+  deep/a/b/ (folder)
+  deep/a/b/c/ (folder)
+  deep/a/b/c/leaf.txt 5
+  docs/ (folder)
+  docs/empty.txt 0
+  docs/notes.txt 29490
+  empty-dir/ (folder)
+  readme.txt 1520
+extract: ERROR ArcanaCorruptedException: Authentication code mismatch for ZIP entry 'bin/random.bin' (wrong data or modified archive)

@@ -29,6 +29,7 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.zip.CRC32;
+import be.stef.arcana.exceptions.ArcanaEncryptedException;
 import be.stef.arcana.exceptions.RarCorruptedDataException;
 import be.stef.arcana.exceptions.RarDecryptException;
 import be.stef.arcana.formats.rar.ExtractionError;
@@ -159,7 +160,8 @@ public class Rar5Extractor {
         try {
             File archiveFile = new File(archivePath);
             if (!archiveFile.exists()) {
-               System.out.println("Archive ["+archiveFile.getCanonicalPath()+"] not found !");
+                result.errors.add(new ExtractionError(archivePath, "Archive not found"));
+                result.errorCount++;
                 return result;
             }
             
@@ -174,30 +176,16 @@ public class Rar5Extractor {
             // Step 1: Decrypt headers if needed
             if (isEncrypted(archivePath)) {
                isEncryptedArchive = true;
-                if (password == null || password.isEmpty()) {
+                // No password or wrong password: reported as an encrypted-block error (ArcanaEncryptedException for RarExtractor)
+                try {
+                    tempFile = decryptHeadersToTemp(archivePath, password);
+                } catch (ArcanaEncryptedException e) {
+                    if (password != null && !password.isEmpty()) result.passwordStatus = 2;
+                    result.errors.add(new ExtractionError(archiveFile.getName(), -1, -1, false, false, true, e.getMessage(), e));
+                    result.errorCount++;
                     return result;
                 }
-                
-                // Verify password BEFORE creating temp file
-                Rar5ExtraCrypto archiveCrypto = readArchiveEncryptionInfo(archivePath);
-                if (archiveCrypto != null && archiveCrypto.hasPasswordCheck()) {
-                    try {
-                        boolean passwordOk = Rar5Crypto.verifyPassword(password, archiveCrypto);
-                        result.passwordStatus = passwordOk ? 1 : 2;
-                        if (!passwordOk) {
-                            System.out.println("ERROR: Wrong password for encrypted archive!");
-                            return result;
-                        }
-                    } catch (Exception e) {
-                        // Password verification failed, continue anyway
-                    }
-                }
-                
-                tempFile = File.createTempFile("unrar5j_dec_", ".rar");
-                tempFile.deleteOnExit();
-                Rar5HeaderDecryptor decryptor = new Rar5HeaderDecryptor(password);
-                decryptor.decryptToFile(archivePath, tempFile.getAbsolutePath());
-
+                result.passwordStatus = 1;
                 archiveFile = tempFile;
             }
          
@@ -399,8 +387,44 @@ public class Rar5Extractor {
         } catch (Exception e) {
             return null;
         }
-    }    
-    
+    }
+
+    /**
+     * Decrypts the headers of an archive made with encrypted headers (rar -hp) into a
+     * temporary copy (file data stays encrypted), readable by {@link Rar5Reader}.
+     * Used by extraction and by the listing. The caller deletes the returned file.
+     *
+     * @param archivePath archive whose first block is the archive encryption header
+     * @param password    password, or null
+     * @return the temporary archive with plain headers
+     * @throws ArcanaEncryptedException no password, or the password check value does not match
+     * @throws IOException the headers cannot be decrypted
+     */
+    public static File decryptHeadersToTemp(String archivePath, String password) throws IOException {
+        String name = new File(archivePath).getName();
+        if (password == null || password.isEmpty()) throw new ArcanaEncryptedException("RAR archive has encrypted headers and no password was provided: " + name);
+        // Verify the password BEFORE creating the temp file
+        Rar5ExtraCrypto archiveCrypto = readArchiveEncryptionInfo(archivePath);
+        if (archiveCrypto != null && archiveCrypto.hasPasswordCheck()) {
+            boolean passwordOk;
+            try {
+                passwordOk = Rar5Crypto.verifyPassword(password, archiveCrypto);
+            } catch (Exception e) {
+                throw new IOException("RAR5 password check failed: " + e.getMessage(), e);
+            }
+            if (!passwordOk) throw new ArcanaEncryptedException("Wrong password for RAR archive with encrypted headers: " + name);
+        }
+        File tempFile = File.createTempFile("unrar5j_dec_", ".rar");
+        tempFile.deleteOnExit();
+        try {
+            new Rar5HeaderDecryptor(password).decryptToFile(archivePath, tempFile.getAbsolutePath());
+        } catch (RarDecryptException e) {
+            tempFile.delete();
+            throw new IOException("RAR5 header decryption failed: " + e.getMessage(), e);
+        }
+        return tempFile;
+    }
+
     /**
      * Extracts a single file from the archive.
      */
