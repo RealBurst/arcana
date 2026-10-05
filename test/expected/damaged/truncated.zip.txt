@@ -1,0 +1,6 @@
+# Arcana regression reference (RegressionRunner --update)
+input: 62a8b97cbbea0b386fe768cb35086fffd42a600a2fcef08a0e7bf10fd757f06a 3730
+identify: archive | ZIP - ZIP archive
+  minimum version to extract: 2.0
+list: ERROR ArcanaCorruptedException: Not a ZIP archive (end of central directory not found): truncated.zip
+extract: ERROR ArcanaCorruptedException: Not a ZIP archive (end of central directory not found): truncated.zip

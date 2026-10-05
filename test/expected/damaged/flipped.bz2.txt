@@ -1,0 +1,6 @@
+# Arcana regression reference (RegressionRunner --update)
+input: 938547c1a01112e6e82e91784d8c5b6162ecc192ecc5abed89f7c04b5d4298e9 1099
+identify: archive | bzip2 - bzip2 compressed stream
+  block size: 900 KB
+list: ERROR IOException: BZip2 BZip2CRC error
+extract: ERROR IOException: BZip2 BZip2CRC error

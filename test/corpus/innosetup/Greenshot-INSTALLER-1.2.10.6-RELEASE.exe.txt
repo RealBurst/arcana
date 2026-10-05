@@ -1,0 +1,523 @@
+# Arcana regression reference (RegressionRunner --update)
+input: 1687311b4e7a3720be20490e8ed6cc772a32336a7bed8896e475b8ec616c6b81 1783200
+identify: archive | Inno Setup 5.5.7 Unicode - Inno Setup installer of Greenshot 1.2.10.6 (LZMA2)
+  application: Greenshot 1.2.10.6
+  compression: LZMA2
+  files: 257
+  encryption: none
+list: 257 entries
+  Greenshot.exe 527792
+  Greenshot.exe.config 423
+  GreenshotPlugin.dll 458160
+  Languages/Plugins/GreenshotBoxPlugin/language_boxplugin-cs-CZ.xml 1477
+  Languages/Plugins/GreenshotBoxPlugin/language_boxplugin-de-DE.xml 837
+  Languages/Plugins/GreenshotBoxPlugin/language_boxplugin-en-US.xml 826
+  Languages/Plugins/GreenshotBoxPlugin/language_boxplugin-fr-FR.xml 988
+  Languages/Plugins/GreenshotBoxPlugin/language_boxplugin-id-ID.xml 831
+  Languages/Plugins/GreenshotBoxPlugin/language_boxplugin-it-IT.xml 880
+  Languages/Plugins/GreenshotBoxPlugin/language_boxplugin-kab-DZ.xml 876
+  Languages/Plugins/GreenshotBoxPlugin/language_boxplugin-ko-KR.xml 830
+  Languages/Plugins/GreenshotBoxPlugin/language_boxplugin-lv-LV.xml 953
+  Languages/Plugins/GreenshotBoxPlugin/language_boxplugin-pl-PL.xml 818
+  Languages/Plugins/GreenshotBoxPlugin/language_boxplugin-pt-PT.xml 879
+  Languages/Plugins/GreenshotBoxPlugin/language_boxplugin-ru-RU.xml 984
+  Languages/Plugins/GreenshotBoxPlugin/language_boxplugin-sr-RS.xml 981
+  Languages/Plugins/GreenshotBoxPlugin/language_boxplugin-sv-SE.xml 834
+  Languages/Plugins/GreenshotBoxPlugin/language_boxplugin-uk-UA.xml 1018
+  Languages/Plugins/GreenshotBoxPlugin/language_boxplugin-zh-CN.xml 793
+  Languages/Plugins/GreenshotBoxPlugin/language_boxplugin-zh-TW.xml 783
+  Languages/Plugins/GreenshotConfluencePlugin/language_confluenceplugin-cs-CZ.xml 1806
+  Languages/Plugins/GreenshotConfluencePlugin/language_confluenceplugin-de-DE.xml 1935
+  Languages/Plugins/GreenshotConfluencePlugin/language_confluenceplugin-en-US.xml 1940
+  Languages/Plugins/GreenshotConfluencePlugin/language_confluenceplugin-fr-FR.xml 1882
+  Languages/Plugins/GreenshotConfluencePlugin/language_confluenceplugin-id-ID.xml 1822
+  Languages/Plugins/GreenshotConfluencePlugin/language_confluenceplugin-it-IT.xml 2059
+  Languages/Plugins/GreenshotConfluencePlugin/language_confluenceplugin-kab-DZ.xml 1693
+  Languages/Plugins/GreenshotConfluencePlugin/language_confluenceplugin-ko-KR.xml 1956
+  Languages/Plugins/GreenshotConfluencePlugin/language_confluenceplugin-lv-LV.xml 2011
+  Languages/Plugins/GreenshotConfluencePlugin/language_confluenceplugin-nl-NL.xml 1877
+  Languages/Plugins/GreenshotConfluencePlugin/language_confluenceplugin-pl-PL.xml 1842
+  Languages/Plugins/GreenshotConfluencePlugin/language_confluenceplugin-pt-PT.xml 1987
+  Languages/Plugins/GreenshotConfluencePlugin/language_confluenceplugin-ru-RU.xml 2303
+  Languages/Plugins/GreenshotConfluencePlugin/language_confluenceplugin-sr-RS.xml 2238
+  Languages/Plugins/GreenshotConfluencePlugin/language_confluenceplugin-sv-SE.xml 1866
+  Languages/Plugins/GreenshotConfluencePlugin/language_confluenceplugin-uk-UA.xml 2374
+  Languages/Plugins/GreenshotConfluencePlugin/language_confluenceplugin-zh-CN.xml 1766
+  Languages/Plugins/GreenshotConfluencePlugin/language_confluenceplugin-zh-TW.xml 1760
+  Languages/Plugins/GreenshotDropBoxPlugin/language_dropboxplugin-cs-CZ.xml 1736
+  Languages/Plugins/GreenshotDropBoxPlugin/language_dropboxplugin-de-DE.xml 957
+  Languages/Plugins/GreenshotDropBoxPlugin/language_dropboxplugin-en-US.xml 930
+  Languages/Plugins/GreenshotDropBoxPlugin/language_dropboxplugin-fr-FR.xml 916
+  Languages/Plugins/GreenshotDropBoxPlugin/language_dropboxplugin-id-ID.xml 925
+  Languages/Plugins/GreenshotDropBoxPlugin/language_dropboxplugin-it-IT.xml 987
+  Languages/Plugins/GreenshotDropBoxPlugin/language_dropboxplugin-kab-DZ.xml 832
+  Languages/Plugins/GreenshotDropBoxPlugin/language_dropboxplugin-ko-KR.xml 933
+  Languages/Plugins/GreenshotDropBoxPlugin/language_dropboxplugin-lv-LV.xml 1061
+  Languages/Plugins/GreenshotDropBoxPlugin/language_dropboxplugin-pl-PL.xml 920
+  Languages/Plugins/GreenshotDropBoxPlugin/language_dropboxplugin-pt-PT.xml 978
+  Languages/Plugins/GreenshotDropBoxPlugin/language_dropboxplugin-ru-RU.xml 1104
+  Languages/Plugins/GreenshotDropBoxPlugin/language_dropboxplugin-sr-RS.xml 1119
+  Languages/Plugins/GreenshotDropBoxPlugin/language_dropboxplugin-sv-SE.xml 942
+  Languages/Plugins/GreenshotDropBoxPlugin/language_dropboxplugin-uk-UA.xml 1149
+  Languages/Plugins/GreenshotDropBoxPlugin/language_dropboxplugin-zh-CN.xml 896
+  Languages/Plugins/GreenshotDropBoxPlugin/language_dropboxplugin-zh-TW.xml 886
+  Languages/Plugins/GreenshotExternalCommandPlugin/language_externalcommandplugin-cs-CZ.xml 896
+  Languages/Plugins/GreenshotExternalCommandPlugin/language_externalcommandplugin-de-DE.xml 862
+  Languages/Plugins/GreenshotExternalCommandPlugin/language_externalcommandplugin-en-US.xml 883
+  Languages/Plugins/GreenshotExternalCommandPlugin/language_externalcommandplugin-fr-FR.xml 935
+  Languages/Plugins/GreenshotExternalCommandPlugin/language_externalcommandplugin-id-ID.xml 803
+  Languages/Plugins/GreenshotExternalCommandPlugin/language_externalcommandplugin-it-IT.xml 806
+  Languages/Plugins/GreenshotExternalCommandPlugin/language_externalcommandplugin-kab-DZ.xml 861
+  Languages/Plugins/GreenshotExternalCommandPlugin/language_externalcommandplugin-ko-KR.xml 844
+  Languages/Plugins/GreenshotExternalCommandPlugin/language_externalcommandplugin-lv-LV.xml 922
+  Languages/Plugins/GreenshotExternalCommandPlugin/language_externalcommandplugin-pl-PL.xml 796
+  Languages/Plugins/GreenshotExternalCommandPlugin/language_externalcommandplugin-pt-PT.xml 881
+  Languages/Plugins/GreenshotExternalCommandPlugin/language_externalcommandplugin-ru-RU.xml 921
+  Languages/Plugins/GreenshotExternalCommandPlugin/language_externalcommandplugin-sk-SK.xml 921
+  Languages/Plugins/GreenshotExternalCommandPlugin/language_externalcommandplugin-sr-RS.xml 888
+  Languages/Plugins/GreenshotExternalCommandPlugin/language_externalcommandplugin-sv-SE.xml 860
+  Languages/Plugins/GreenshotExternalCommandPlugin/language_externalcommandplugin-uk-UA.xml 927
+  Languages/Plugins/GreenshotExternalCommandPlugin/language_externalcommandplugin-zh-CN.xml 760
+  Languages/Plugins/GreenshotExternalCommandPlugin/language_externalcommandplugin-zh-TW.xml 767
+  Languages/Plugins/GreenshotFlickrPlugin/language_flickrplugin-cs-CZ.xml 1924
+  Languages/Plugins/GreenshotFlickrPlugin/language_flickrplugin-de-DE.xml 1161
+  Languages/Plugins/GreenshotFlickrPlugin/language_flickrplugin-en-US.xml 1139
+  Languages/Plugins/GreenshotFlickrPlugin/language_flickrplugin-fr-FR.xml 1196
+  Languages/Plugins/GreenshotFlickrPlugin/language_flickrplugin-id-ID.xml 1127
+  Languages/Plugins/GreenshotFlickrPlugin/language_flickrplugin-it-IT.xml 1221
+  Languages/Plugins/GreenshotFlickrPlugin/language_flickrplugin-kab-DZ.xml 1203
+  Languages/Plugins/GreenshotFlickrPlugin/language_flickrplugin-ko-KR.xml 1148
+  Languages/Plugins/GreenshotFlickrPlugin/language_flickrplugin-lv-LV.xml 1291
+  Languages/Plugins/GreenshotFlickrPlugin/language_flickrplugin-pl-PL.xml 1130
+  Languages/Plugins/GreenshotFlickrPlugin/language_flickrplugin-pt-PT.xml 1217
+  Languages/Plugins/GreenshotFlickrPlugin/language_flickrplugin-ru-RU.xml 1320
+  Languages/Plugins/GreenshotFlickrPlugin/language_flickrplugin-sr-RS.xml 1339
+  Languages/Plugins/GreenshotFlickrPlugin/language_flickrplugin-sv-SE.xml 1146
+  Languages/Plugins/GreenshotFlickrPlugin/language_flickrplugin-uk-UA.xml 1369
+  Languages/Plugins/GreenshotFlickrPlugin/language_flickrplugin-zh-CN.xml 1087
+  Languages/Plugins/GreenshotFlickrPlugin/language_flickrplugin-zh-TW.xml 1071
+  Languages/Plugins/GreenshotImgurPlugin/language_imgurplugin-cs-CZ.xml 1321
+  Languages/Plugins/GreenshotImgurPlugin/language_imgurplugin-de-DE.xml 1322
+  Languages/Plugins/GreenshotImgurPlugin/language_imgurplugin-en-US.xml 1354
+  Languages/Plugins/GreenshotImgurPlugin/language_imgurplugin-fr-FR.xml 1313
+  Languages/Plugins/GreenshotImgurPlugin/language_imgurplugin-id-ID.xml 1299
+  Languages/Plugins/GreenshotImgurPlugin/language_imgurplugin-it-IT.xml 1341
+  Languages/Plugins/GreenshotImgurPlugin/language_imgurplugin-kab-DZ.xml 1421
+  Languages/Plugins/GreenshotImgurPlugin/language_imgurplugin-ko-KR.xml 1305
+  Languages/Plugins/GreenshotImgurPlugin/language_imgurplugin-lv-LV.xml 1418
+  Languages/Plugins/GreenshotImgurPlugin/language_imgurplugin-nl-NL.xml 1342
+  Languages/Plugins/GreenshotImgurPlugin/language_imgurplugin-pl-PL.xml 1285
+  Languages/Plugins/GreenshotImgurPlugin/language_imgurplugin-pt-PT.xml 1371
+  Languages/Plugins/GreenshotImgurPlugin/language_imgurplugin-ru-RU.xml 1641
+  Languages/Plugins/GreenshotImgurPlugin/language_imgurplugin-sk-SK.xml 1375
+  Languages/Plugins/GreenshotImgurPlugin/language_imgurplugin-sr-RS.xml 1567
+  Languages/Plugins/GreenshotImgurPlugin/language_imgurplugin-sv-SE.xml 1330
+  Languages/Plugins/GreenshotImgurPlugin/language_imgurplugin-uk-UA.xml 1680
+  Languages/Plugins/GreenshotImgurPlugin/language_imgurplugin-zh-CN.xml 1282
+  Languages/Plugins/GreenshotImgurPlugin/language_imgurplugin-zh-TW.xml 1241
+  Languages/Plugins/GreenshotJiraPlugin/language_jiraplugin-cs-CZ.xml 1428
+  Languages/Plugins/GreenshotJiraPlugin/language_jiraplugin-de-DE.xml 1529
+  Languages/Plugins/GreenshotJiraPlugin/language_jiraplugin-en-US.xml 1504
+  Languages/Plugins/GreenshotJiraPlugin/language_jiraplugin-fr-FR.xml 1473
+  Languages/Plugins/GreenshotJiraPlugin/language_jiraplugin-id-ID.xml 1390
+  Languages/Plugins/GreenshotJiraPlugin/language_jiraplugin-it-IT.xml 1584
+  Languages/Plugins/GreenshotJiraPlugin/language_jiraplugin-ko-KR.xml 1466
+  Languages/Plugins/GreenshotJiraPlugin/language_jiraplugin-lv-LV.xml 1558
+  Languages/Plugins/GreenshotJiraPlugin/language_jiraplugin-nl-NL.xml 1674
+  Languages/Plugins/GreenshotJiraPlugin/language_jiraplugin-pl-PL.xml 1411
+  Languages/Plugins/GreenshotJiraPlugin/language_jiraplugin-pt-PT.xml 1509
+  Languages/Plugins/GreenshotJiraPlugin/language_jiraplugin-ru-RU.xml 1704
+  Languages/Plugins/GreenshotJiraPlugin/language_jiraplugin-sr-RS.xml 1680
+  Languages/Plugins/GreenshotJiraPlugin/language_jiraplugin-sv-SE.xml 1436
+  Languages/Plugins/GreenshotJiraPlugin/language_jiraplugin-uk-UA.xml 1756
+  Languages/Plugins/GreenshotJiraPlugin/language_jiraplugin-zh-CN.xml 1497
+  Languages/Plugins/GreenshotJiraPlugin/language_jiraplugin-zh-TW.xml 1357
+  Languages/Plugins/GreenshotOCRPlugin/language_ocrplugin-cs-CZ.xml 348
+  Languages/Plugins/GreenshotOCRPlugin/language_ocrplugin-de-DE.xml 345
+  Languages/Plugins/GreenshotOCRPlugin/language_ocrplugin-en-US.xml 345
+  Languages/Plugins/GreenshotOCRPlugin/language_ocrplugin-fr-FR.xml 351
+  Languages/Plugins/GreenshotOCRPlugin/language_ocrplugin-id-ID.xml 358
+  Languages/Plugins/GreenshotOCRPlugin/language_ocrplugin-it-IT.xml 328
+  Languages/Plugins/GreenshotOCRPlugin/language_ocrplugin-kab-DZ.xml 330
+  Languages/Plugins/GreenshotOCRPlugin/language_ocrplugin-ko-KR.xml 329
+  Languages/Plugins/GreenshotOCRPlugin/language_ocrplugin-lv-LV.xml 401
+  Languages/Plugins/GreenshotOCRPlugin/language_ocrplugin-nl-NL.xml 346
+  Languages/Plugins/GreenshotOCRPlugin/language_ocrplugin-pl-PL.xml 351
+  Languages/Plugins/GreenshotOCRPlugin/language_ocrplugin-pt-PT.xml 334
+  Languages/Plugins/GreenshotOCRPlugin/language_ocrplugin-ru-RU.xml 418
+  Languages/Plugins/GreenshotOCRPlugin/language_ocrplugin-sk-SK.xml 356
+  Languages/Plugins/GreenshotOCRPlugin/language_ocrplugin-sr-RS.xml 406
+  Languages/Plugins/GreenshotOCRPlugin/language_ocrplugin-sv-SE.xml 331
+  Languages/Plugins/GreenshotOCRPlugin/language_ocrplugin-uk-UA.xml 403
+  Languages/Plugins/GreenshotOCRPlugin/language_ocrplugin-zh-CN.xml 339
+  Languages/Plugins/GreenshotOCRPlugin/language_ocrplugin-zh-TW.xml 338
+  Languages/Plugins/GreenshotPhotobucketPlugin/language_photobucketplugin-cs-CZ.xml 926
+  Languages/Plugins/GreenshotPhotobucketPlugin/language_photobucketplugin-de-DE.xml 953
+  Languages/Plugins/GreenshotPhotobucketPlugin/language_photobucketplugin-en-US.xml 933
+  Languages/Plugins/GreenshotPhotobucketPlugin/language_photobucketplugin-fr_FR.xml 860
+  Languages/Plugins/GreenshotPhotobucketPlugin/language_photobucketplugin-id-ID.xml 909
+  Languages/Plugins/GreenshotPhotobucketPlugin/language_photobucketplugin-it-IT.xml 998
+  Languages/Plugins/GreenshotPhotobucketPlugin/language_photobucketplugin-kab-DZ.xml 777
+  Languages/Plugins/GreenshotPhotobucketPlugin/language_photobucketplugin-ko-KR.xml 922
+  Languages/Plugins/GreenshotPhotobucketPlugin/language_photobucketplugin-lv-LV.xml 1015
+  Languages/Plugins/GreenshotPhotobucketPlugin/language_photobucketplugin-nl-NL.xml 887
+  Languages/Plugins/GreenshotPhotobucketPlugin/language_photobucketplugin-pl-PL.xml 909
+  Languages/Plugins/GreenshotPhotobucketPlugin/language_photobucketplugin-pt-PT.xml 952
+  Languages/Plugins/GreenshotPhotobucketPlugin/language_photobucketplugin-ru-RU.xml 1118
+  Languages/Plugins/GreenshotPhotobucketPlugin/language_photobucketplugin-sv-SE.xml 908
+  Languages/Plugins/GreenshotPhotobucketPlugin/language_photobucketplugin-uk-UA.xml 1159
+  Languages/Plugins/GreenshotPhotobucketPlugin/language_photobucketplugin-zh-CN.xml 661
+  Languages/Plugins/GreenshotPhotobucketPlugin/language_photobucketplugin-zh-TW.xml 872
+  Languages/Plugins/GreenshotPicasaPlugin/language_picasaplugin-cs-CZ.xml 1927
+  Languages/Plugins/GreenshotPicasaPlugin/language_picasaplugin-de-DE.xml 849
+  Languages/Plugins/GreenshotPicasaPlugin/language_picasaplugin-en-US.xml 840
+  Languages/Plugins/GreenshotPicasaPlugin/language_picasaplugin-fr-FR.xml 910
+  Languages/Plugins/GreenshotPicasaPlugin/language_picasaplugin-id-ID.xml 852
+  Languages/Plugins/GreenshotPicasaPlugin/language_picasaplugin-it-IT.xml 875
+  Languages/Plugins/GreenshotPicasaPlugin/language_picasaplugin-kab-DZ.xml 828
+  Languages/Plugins/GreenshotPicasaPlugin/language_picasaplugin-ko-KR.xml 845
+  Languages/Plugins/GreenshotPicasaPlugin/language_picasaplugin-lv-LV.xml 965
+  Languages/Plugins/GreenshotPicasaPlugin/language_picasaplugin-pl-PL.xml 838
+  Languages/Plugins/GreenshotPicasaPlugin/language_picasaplugin-pt-PT.xml 890
+  Languages/Plugins/GreenshotPicasaPlugin/language_picasaplugin-ru-RU.xml 1002
+  Languages/Plugins/GreenshotPicasaPlugin/language_picasaplugin-sr-RS.xml 999
+  Languages/Plugins/GreenshotPicasaPlugin/language_picasaplugin-sv-SE.xml 849
+  Languages/Plugins/GreenshotPicasaPlugin/language_picasaplugin-uk-UA.xml 1030
+  Languages/Plugins/GreenshotPicasaPlugin/language_picasaplugin-zh-CN.xml 812
+  Languages/Plugins/GreenshotPicasaPlugin/language_picasaplugin-zh-TW.xml 801
+  Languages/help-de-DE.html 22821
+  Languages/help-en-US.html 23021
+  Languages/help-es-ES.html 21340
+  Languages/help-fr-FR.html 30683
+  Languages/help-hu-HU.html 16006
+  Languages/help-it-IT.html 22790
+  Languages/help-ko-KR.html 26499
+  Languages/help-nl-NL.html 24706
+  Languages/help-nn-NO.html 21426
+  Languages/help-pl-PL.html 17454
+  Languages/help-pt-PT.html 24071
+  Languages/help-ru-RU.html 30959
+  Languages/help-sv-SE.html 24098
+  Languages/help-tr-TR.html 17321
+  Languages/help-zh-CN.html 22095
+  Languages/language-ar-SY.xml 16480
+  Languages/language-ca-CA.xml 24122
+  Languages/language-cs-CZ.xml 23824
+  Languages/language-da-DK.xml 15742
+  Languages/language-de-DE.xml 24134
+  Languages/language-de-x-franconia.xml 20297
+  Languages/language-el-GR.xml 31204
+  Languages/language-en-US.xml 22727
+  Languages/language-es-ES.xml 20907
+  Languages/language-et-EE.xml 21887
+  Languages/language-fa-IR.xml 16818
+  Languages/language-fi-FI.xml 14264
+  Languages/language-fr-FR.xml 24964
+  Languages/language-fr-QC.xml 21051
+  Languages/language-he-IL.xml 15663
+  Languages/language-hu-HU.xml 14689
+  Languages/language-id-ID.xml 22589
+  Languages/language-it-IT.xml 24077
+  Languages/language-ja-JP.xml 26472
+  Languages/language-kab-DZ.xml 23048
+  Languages/language-ko-KR.xml 23493
+  Languages/language-lt-LT.xml 14127
+  Languages/language-lv-LV.xml 23111
+  Languages/language-nl-NL.xml 23197
+  Languages/language-nn-NO.xml 19149
+  Languages/language-pl-PL.xml 23014
+  Languages/language-pt-BR.xml 15189
+  Languages/language-pt-PT.xml 24177
+  Languages/language-ro-RO.xml 16319
+  Languages/language-ru-RU.xml 28835
+  Languages/language-sk-SK.xml 21148
+  Languages/language-sl-SI.xml 18507
+  Languages/language-sr-RS.xml 24466
+  Languages/language-sv-SE.xml 23130
+  Languages/language-tr-TR.xml 20134
+  Languages/language-uk-UA.xml 30103
+  Languages/language-vi-VN.xml 14193
+  Languages/language-zh-CN.xml 21647
+  Languages/language-zh-TW.xml 20960
+  LinqBridge.dll 74672
+  Plugins/GreenshotBoxPlugin/GreenshotBoxPlugin.gsp 44464
+  Plugins/GreenshotConfluencePlugin/GreenshotConfluencePlugin.gsp 93616
+  Plugins/GreenshotDropBoxPlugin/GreenshotDropboxPlugin.gsp 40368
+  Plugins/GreenshotExternalCommandPlugin/GreenshotExternalCommandPlugin.gsp 52656
+  Plugins/GreenshotFlickrPlugin/GreenshotFlickrPlugin.gsp 48560
+  Plugins/GreenshotImgurPlugin/GreenshotImgurPlugin.gsp 60848
+  Plugins/GreenshotJiraPlugin/GreenshotJiraPlugin.gsp 387504
+  Plugins/GreenshotOCRPlugin/GreenshotOCRCommand.exe 29104
+  Plugins/GreenshotOCRPlugin/GreenshotOCRCommand.exe.config 296
+  Plugins/GreenshotOCRPlugin/GreenshotOCRPlugin.gsp 40368
+  Plugins/GreenshotOfficePlugin/GreenshotOfficePlugin.gsp 105904
+  Plugins/GreenshotPhotobucketPlugin/GreenshotPhotobucketPlugin.gsp 48560
+  Plugins/GreenshotPicasaPlugin/GreenshotPicasaPlugin.gsp 48560
+  checksum.MD5 976
+  installer.txt 1975
+  license.txt 35800
+  log4net.dll 221184
+  log4net.xml 1038
+  readme.txt 35010
+  tmp/dutch.ini 1203
+  tmp/french3.ini 1261
+  tmp/german.ini 1315
+  tmp/isxdl.dll 124416
+extracted: 257 items
+  Greenshot.exe 527792 fdc3900da9cf5b4b7f4b461eb54f2f7abf2af104de8bfdd0b7f6a46f092f9cc6
+  Greenshot.exe.config 423 e1f91b7391b071117b03be8e8a21fb644e83a624bfa9ea76a4389e8f2ea7027c
+  GreenshotPlugin.dll 458160 697f06fe82a419c2a32d5f8819ff857e70c2052e253389780469ce114bd8efe7
+  Languages/Plugins/GreenshotBoxPlugin/language_boxplugin-cs-CZ.xml 1477 934453e0626a9d0e4e12bfe834b14b7e757219017ff023ee87becfd98ab0ef04
+  Languages/Plugins/GreenshotBoxPlugin/language_boxplugin-de-DE.xml 837 51cae4140a51f8c272dbdebe1706dddda7d7b1f9769b0cf8942534eb83acc531
+  Languages/Plugins/GreenshotBoxPlugin/language_boxplugin-en-US.xml 826 e0655468f017198446450d7aef03185ace03be27681098b054910c94aaf7c099
+  Languages/Plugins/GreenshotBoxPlugin/language_boxplugin-fr-FR.xml 988 29e108a62595fb9cda547610a9d03d2cbd9832321ab21be675f52afedcc4da52
+  Languages/Plugins/GreenshotBoxPlugin/language_boxplugin-id-ID.xml 831 0fcf1341dd0c48173f3a075d12a3044d22a1c0dedc13f1fc6e0dd9b74a9eb16d
+  Languages/Plugins/GreenshotBoxPlugin/language_boxplugin-it-IT.xml 880 d58c99e7c871d30ee507bda8c26318842cf680be776f63e55357380dbabf13dd
+  Languages/Plugins/GreenshotBoxPlugin/language_boxplugin-kab-DZ.xml 876 0ae11b78905df0feea86b433c398bf402c18c7e2d5a0b4e8bca711d240e4ae73
+  Languages/Plugins/GreenshotBoxPlugin/language_boxplugin-ko-KR.xml 830 2f0305a5410f4d011382ca43b8725c250b04ee722c5550ee1b9d7c0d72f2cc94
+  Languages/Plugins/GreenshotBoxPlugin/language_boxplugin-lv-LV.xml 953 50ea016bcc3e7640104d32bd117377835db18cec434f1aa49ca11f4612e409e5
+  Languages/Plugins/GreenshotBoxPlugin/language_boxplugin-pl-PL.xml 818 e0ebdb22913227ef364ed6c39b172bb98ed3cae39267155cbd5e9e66a278dc37
+  Languages/Plugins/GreenshotBoxPlugin/language_boxplugin-pt-PT.xml 879 62b67c344917bf9421b69bfa6f71a1ca6ceb6f00261ac09a9b10ab3e7742c4d0
+  Languages/Plugins/GreenshotBoxPlugin/language_boxplugin-ru-RU.xml 984 5ed053da2ed8dca0cab3736f9d8d5ad82a68c206b7f91d50a94aa3bc4786027d
+  Languages/Plugins/GreenshotBoxPlugin/language_boxplugin-sr-RS.xml 981 f29fa78b558df082e3577baf52727659a3861204d3f4fdbc91ae63bb2465b4f1
+  Languages/Plugins/GreenshotBoxPlugin/language_boxplugin-sv-SE.xml 834 ea1b3f5625589801605daf252eccb991c068c7cf15f3a7ab4214f96a0ac216c2
+  Languages/Plugins/GreenshotBoxPlugin/language_boxplugin-uk-UA.xml 1018 5cae7eacd630f3ddd7dcb59b21ecc3d00716b33f8492959a197f953bc06aae2d
+  Languages/Plugins/GreenshotBoxPlugin/language_boxplugin-zh-CN.xml 793 6f30934f2799aa14ca32b9861a856a65610e8c36d70f1af812ff1b2fce24ecc4
+  Languages/Plugins/GreenshotBoxPlugin/language_boxplugin-zh-TW.xml 783 3d305372db9f22f2db2601abfcd21ecf34e5b3621fb4b3afe4234ba45f7e3b31
+  Languages/Plugins/GreenshotConfluencePlugin/language_confluenceplugin-cs-CZ.xml 1806 8c3de8eaec780b3a8c9be5c366376274fca2f7f6ca1fc247af450aa2684dc7a3
+  Languages/Plugins/GreenshotConfluencePlugin/language_confluenceplugin-de-DE.xml 1935 f19c8d03558136d2b7d174c4c89bcd5b3063422d56f0173d19b9a24355261062
+  Languages/Plugins/GreenshotConfluencePlugin/language_confluenceplugin-en-US.xml 1940 6ed010c12dd4d5c90b7fa9a0925c65749449513f9571bf965b1ff78598c62997
+  Languages/Plugins/GreenshotConfluencePlugin/language_confluenceplugin-fr-FR.xml 1882 a9e5b6e333f5c108ac866d9f73245a44aac4fa39bab6c2bb55bcc9e1fe8a1dd3
+  Languages/Plugins/GreenshotConfluencePlugin/language_confluenceplugin-id-ID.xml 1822 b395cc9ff8d580f586248d9b31c00ab830aacb7e0a76c8c57faa6d79431fdbca
+  Languages/Plugins/GreenshotConfluencePlugin/language_confluenceplugin-it-IT.xml 2059 e28f3366530654d6b1b02c01af006fdf84b42e71f050c1abac01c347a2db0345
+  Languages/Plugins/GreenshotConfluencePlugin/language_confluenceplugin-kab-DZ.xml 1693 bd73ff2fe611cdd5e21b1ce9588f003f8bbceb2da43c619b4690814551f8e7ac
+  Languages/Plugins/GreenshotConfluencePlugin/language_confluenceplugin-ko-KR.xml 1956 b16ea1e11c22c7bd55a2407a5e700663b51b2d1dd6ebd69ef80311d69f607706
+  Languages/Plugins/GreenshotConfluencePlugin/language_confluenceplugin-lv-LV.xml 2011 5c41e9b710dc77e6298fb41f82cfd61c0921dee3945b1a8acadc525efa80c7bd
+  Languages/Plugins/GreenshotConfluencePlugin/language_confluenceplugin-nl-NL.xml 1877 2a0004268b413f93dccdd35da8bb84c1eaab4f6115436b85ef9785fb94d334fd
+  Languages/Plugins/GreenshotConfluencePlugin/language_confluenceplugin-pl-PL.xml 1842 cf1cc973afedd2806aa61c8f734195573efdd9285ffee888e91bbf707c13b0a7
+  Languages/Plugins/GreenshotConfluencePlugin/language_confluenceplugin-pt-PT.xml 1987 141bf2931390c9cd2ec5988ffc66e21c85378a14b55729568c8a994018e24998
+  Languages/Plugins/GreenshotConfluencePlugin/language_confluenceplugin-ru-RU.xml 2303 27be7ec468b0e3c97cc02f6f23dfdac6e1a79219b2ef3d82d9c4756c866e22e8
+  Languages/Plugins/GreenshotConfluencePlugin/language_confluenceplugin-sr-RS.xml 2238 76c6c3049db2001e5ccb2e5a17da92cdbb89300ad010383a4793d85539d9b503
+  Languages/Plugins/GreenshotConfluencePlugin/language_confluenceplugin-sv-SE.xml 1866 d68b0cdc50059cc9cc311ba35c5a6ed18099def73d4b8f1a318d4112269cbb0f
+  Languages/Plugins/GreenshotConfluencePlugin/language_confluenceplugin-uk-UA.xml 2374 f7a62821c1e2fc33f22c8818da60140e7e47f3e9535c232e633e5e097b76adab
+  Languages/Plugins/GreenshotConfluencePlugin/language_confluenceplugin-zh-CN.xml 1766 6af0d7cec2e7abd7fe944a75dbad6d0094057e11d47515884276012b6235f7cd
+  Languages/Plugins/GreenshotConfluencePlugin/language_confluenceplugin-zh-TW.xml 1760 e46610e612aa4c39efa62b9a06d6045005faef49ec5333e94b5ca57abbb873d1
+  Languages/Plugins/GreenshotDropBoxPlugin/language_dropboxplugin-cs-CZ.xml 1736 bfdc032ad46fc1e68b486388f1fa0e2a524674ad2e3755df96dde89b2e5d4e72
+  Languages/Plugins/GreenshotDropBoxPlugin/language_dropboxplugin-de-DE.xml 957 7d623c5f8569bfdcc28975e7d3ac5ac6e1a32a4f59e0447527bf592610ab7e57
+  Languages/Plugins/GreenshotDropBoxPlugin/language_dropboxplugin-en-US.xml 930 e1a2d27c1a26a0ae0ce80834120cfb5f89d72304a1a61772d0a4d7b9233c407d
+  Languages/Plugins/GreenshotDropBoxPlugin/language_dropboxplugin-fr-FR.xml 916 fce9a75afb08c4e75f571d4a857011653e0d0322f8e1fb3589e3d90a64a765b3
+  Languages/Plugins/GreenshotDropBoxPlugin/language_dropboxplugin-id-ID.xml 925 2db71a06da5253dd1fb16efd9a124703fb29256c5595b0050bf8884b65820e42
+  Languages/Plugins/GreenshotDropBoxPlugin/language_dropboxplugin-it-IT.xml 987 61d9e30542338ad21c29448f308c0cbb8a1c7f609422cba456b4595639ff273f
+  Languages/Plugins/GreenshotDropBoxPlugin/language_dropboxplugin-kab-DZ.xml 832 666430141f495c6d38494f8b816bfec8b99aa861122e64cccbff444b6d315a63
+  Languages/Plugins/GreenshotDropBoxPlugin/language_dropboxplugin-ko-KR.xml 933 0e48b80d3f56e9d5cd0c53eca42478b26829d6a3cb33e31a2a2f58775c0322cd
+  Languages/Plugins/GreenshotDropBoxPlugin/language_dropboxplugin-lv-LV.xml 1061 7044b0ce64ba9645dc44b20d7d9f7f8541809cc86856ff687272dd27c3efb270
+  Languages/Plugins/GreenshotDropBoxPlugin/language_dropboxplugin-pl-PL.xml 920 7f21a410d649b456d21a7b6e9e68e4ab2be9e1c38398aba1c6952ec97130a7dc
+  Languages/Plugins/GreenshotDropBoxPlugin/language_dropboxplugin-pt-PT.xml 978 0f6fe2da0770ebcc81a3f9be4989227465d2d3fdbd078aed2759d8e7a525eea5
+  Languages/Plugins/GreenshotDropBoxPlugin/language_dropboxplugin-ru-RU.xml 1104 da39fb3d0eb3ddb59f00be6e9ced491538891db636aed54e2953d36196296862
+  Languages/Plugins/GreenshotDropBoxPlugin/language_dropboxplugin-sr-RS.xml 1119 fbd791f65b58eaaeb9c625fe3969f32a9e5d7314640da3130602fe66d2b4e4b3
+  Languages/Plugins/GreenshotDropBoxPlugin/language_dropboxplugin-sv-SE.xml 942 1b0511645be00dee6e1716be3f0e8f269f4b6faf97e959f960819c931f1ec274
+  Languages/Plugins/GreenshotDropBoxPlugin/language_dropboxplugin-uk-UA.xml 1149 2e8da7f1415887de41dbcd2e394d2760256c8ecc2639b2c2087d85ae8d7ba3f2
+  Languages/Plugins/GreenshotDropBoxPlugin/language_dropboxplugin-zh-CN.xml 896 3865cabb01ce00377717ae3056170f59375d9dd3cc09829d43159642517635ba
+  Languages/Plugins/GreenshotDropBoxPlugin/language_dropboxplugin-zh-TW.xml 886 eb2da1009d40ef437ff2522c2ea8835112bc2b56e76562f6598d1e0d9bbc7335
+  Languages/Plugins/GreenshotExternalCommandPlugin/language_externalcommandplugin-cs-CZ.xml 896 8120d6fe3af1f1cb78893cea20e4803870dd91a4515fee1839871af118f42687
+  Languages/Plugins/GreenshotExternalCommandPlugin/language_externalcommandplugin-de-DE.xml 862 f9466336a0a928f047e5a958ce0fccbb3ba177c4f29f4e126a254fd9784b96a2
+  Languages/Plugins/GreenshotExternalCommandPlugin/language_externalcommandplugin-en-US.xml 883 05294e8492524ab887d8613282d36c975dc7ddd357a567e7bcfa4fb26b5f1324
+  Languages/Plugins/GreenshotExternalCommandPlugin/language_externalcommandplugin-fr-FR.xml 935 f97d27b0cffa6f0ada5a84bacefedcee6569b5cd86a730f145594067f6da3814
+  Languages/Plugins/GreenshotExternalCommandPlugin/language_externalcommandplugin-id-ID.xml 803 8af76f094fb533d3dc55348e179556098c0e6a6a78e00ff821a8becf9746102e
+  Languages/Plugins/GreenshotExternalCommandPlugin/language_externalcommandplugin-it-IT.xml 806 191faa573edb536ece8986f29c478f8fae6e1413ee9176d9bd44950f12d09d40
+  Languages/Plugins/GreenshotExternalCommandPlugin/language_externalcommandplugin-kab-DZ.xml 861 4894efa267cd7622e484871483a17fed9a82cc15f1e643069f709ffb61029716
+  Languages/Plugins/GreenshotExternalCommandPlugin/language_externalcommandplugin-ko-KR.xml 844 0c139fe97237e2c9ac1123b04676f51351f0c8f50e52ec946202ed7fcaefbb9c
+  Languages/Plugins/GreenshotExternalCommandPlugin/language_externalcommandplugin-lv-LV.xml 922 4746e00a61aced2acb7e0c65df5a0ff9c8152429eed9be7f09ea2849dc5d4eb9
+  Languages/Plugins/GreenshotExternalCommandPlugin/language_externalcommandplugin-pl-PL.xml 796 d2fa8fda180f7f1c4326f779b41f690310e73c8a40256cacc533f9b04bebbe13
+  Languages/Plugins/GreenshotExternalCommandPlugin/language_externalcommandplugin-pt-PT.xml 881 c0aaada93d98d2a0a6a1925045079be259a4e446714058a5db006eaf7b1ea62a
+  Languages/Plugins/GreenshotExternalCommandPlugin/language_externalcommandplugin-ru-RU.xml 921 939019cd36d7159dd50499b18792fe08653f929639146e954891240bb5e5151a
+  Languages/Plugins/GreenshotExternalCommandPlugin/language_externalcommandplugin-sk-SK.xml 921 bdb2db626f88b03f135f5161ec40b8c971e45cff9ab7e206b12cb68ea9e6b870
+  Languages/Plugins/GreenshotExternalCommandPlugin/language_externalcommandplugin-sr-RS.xml 888 2c8ea171b86daee5addfd998a775f538a5b7ee93395b85f0aba0fb175dcf5d85
+  Languages/Plugins/GreenshotExternalCommandPlugin/language_externalcommandplugin-sv-SE.xml 860 261d6b2237cf7f2cc2e66074def4bbebfb97c41c9f128d74fc906bdbf9fc7519
+  Languages/Plugins/GreenshotExternalCommandPlugin/language_externalcommandplugin-uk-UA.xml 927 dc633544419e5f630e0ebb759f0bfd6f06e68501e60387b3e60d2f24b6269f2f
+  Languages/Plugins/GreenshotExternalCommandPlugin/language_externalcommandplugin-zh-CN.xml 760 00750449195b4f5eab0532b497b3a52d6bae8d9937563e14439da9db245f5e4d
+  Languages/Plugins/GreenshotExternalCommandPlugin/language_externalcommandplugin-zh-TW.xml 767 d67d7a920afadc642082aac6de2b10638b5f3990cd716d4d813580ec926b4790
+  Languages/Plugins/GreenshotFlickrPlugin/language_flickrplugin-cs-CZ.xml 1924 9e5bb86e7b96733a5ba6f02c47151e2962d23d88cf1f9a3c5da1214a47455866
+  Languages/Plugins/GreenshotFlickrPlugin/language_flickrplugin-de-DE.xml 1161 1d4a5a4a458db453836c6d6e5a7f1d1a9a1db7b2fac9699a61b5e7a0c43bca5b
+  Languages/Plugins/GreenshotFlickrPlugin/language_flickrplugin-en-US.xml 1139 f675a77a8deac87ec7fbf0be507bd6e7c04651a4d1c11339cb0ee11dd5742bb0
+  Languages/Plugins/GreenshotFlickrPlugin/language_flickrplugin-fr-FR.xml 1196 9f3007f15cf38d9743ce37c7f6b5816111695b1836daf09f42ff5ff01077a2ff
+  Languages/Plugins/GreenshotFlickrPlugin/language_flickrplugin-id-ID.xml 1127 3de3c64bc298047d4517d4804e5bea5bf0093036efc6506fe15bde6dddaa9306
+  Languages/Plugins/GreenshotFlickrPlugin/language_flickrplugin-it-IT.xml 1221 3f3a1c2dc2142463b8880264842de42ec128d14ba7204491849d126fd213f6e2
+  Languages/Plugins/GreenshotFlickrPlugin/language_flickrplugin-kab-DZ.xml 1203 c4acf674832f3307d6cfa81d8b09934d64fd0e486872b86a2fe7396e2e8511ea
+  Languages/Plugins/GreenshotFlickrPlugin/language_flickrplugin-ko-KR.xml 1148 5dfa8541274b48f92ff19656ea36ae719e78bd5011e2ca391aa52fdd00dec726
+  Languages/Plugins/GreenshotFlickrPlugin/language_flickrplugin-lv-LV.xml 1291 aee6d7375374131e1aaa31504fca1cd900e002fb8f0b63f6b5617bee75472928
+  Languages/Plugins/GreenshotFlickrPlugin/language_flickrplugin-pl-PL.xml 1130 a07ffc1cced17ef66fa2fb43b587763d722dbd736fea1f72498b79676f468f1f
+  Languages/Plugins/GreenshotFlickrPlugin/language_flickrplugin-pt-PT.xml 1217 45f3fd4ef5c6b1175e793d9c32ee9a2ec4f6856bab3d061892501a2ad24a1cce
+  Languages/Plugins/GreenshotFlickrPlugin/language_flickrplugin-ru-RU.xml 1320 57cd9c0c722b8393710924f7eba49ff3cc4ce1b98ee36040a1d219a4f6e5bfb2
+  Languages/Plugins/GreenshotFlickrPlugin/language_flickrplugin-sr-RS.xml 1339 fad0951417815ded86927847a16490be7e924c24d2d94996fb210d40f2fd855b
+  Languages/Plugins/GreenshotFlickrPlugin/language_flickrplugin-sv-SE.xml 1146 50f1b70663e89355e7f5426bd55ec8d0a511383e21e63cbffdb676e8d7b45e4c
+  Languages/Plugins/GreenshotFlickrPlugin/language_flickrplugin-uk-UA.xml 1369 aacf1415cbbdc6137c70c874d70ca2eb38fb493ef6896dd23ed96289a88e8045
+  Languages/Plugins/GreenshotFlickrPlugin/language_flickrplugin-zh-CN.xml 1087 7849bd2eb75837c9198facd368b2db2502d5f2b73444d569b2768194d3d00154
+  Languages/Plugins/GreenshotFlickrPlugin/language_flickrplugin-zh-TW.xml 1071 b516831ce6b6b060f7aa1110830d49db728f1c11bbb054d8342fdf3e9922b672
+  Languages/Plugins/GreenshotImgurPlugin/language_imgurplugin-cs-CZ.xml 1321 443b33269c582f5755f2e2b875116f0aaaaa5c606fef273cfd3c55482cd324e1
+  Languages/Plugins/GreenshotImgurPlugin/language_imgurplugin-de-DE.xml 1322 3c5618eb974bcede2b69161fcb8e1fb74628b8b926c0888cd0d8a6be30ce1716
+  Languages/Plugins/GreenshotImgurPlugin/language_imgurplugin-en-US.xml 1354 067375fff0ed849c17ac326146faeb2b25611a669eae8315c2383e8a468879cd
+  Languages/Plugins/GreenshotImgurPlugin/language_imgurplugin-fr-FR.xml 1313 2b0d4b03896e7251d34f33fe46a38366def2df5e5d72e06e1d805ff627293542
+  Languages/Plugins/GreenshotImgurPlugin/language_imgurplugin-id-ID.xml 1299 4a152d918baf110b39e1715bc6eaf95d407e1e93ed6a367ef8ef17b778192b6e
+  Languages/Plugins/GreenshotImgurPlugin/language_imgurplugin-it-IT.xml 1341 ab9ea5b228102e8f3af214e32d0be0d8c79c28d2cf7c1065ea92ecee03ec4c44
+  Languages/Plugins/GreenshotImgurPlugin/language_imgurplugin-kab-DZ.xml 1421 c2c349468098bab3c536ce84a4c7b163e9183593342030d55516a1c98c7045e5
+  Languages/Plugins/GreenshotImgurPlugin/language_imgurplugin-ko-KR.xml 1305 8e3b0a871159168d040c2943f864acb0c2b562dffd9994ed589cd63a435c09cd
+  Languages/Plugins/GreenshotImgurPlugin/language_imgurplugin-lv-LV.xml 1418 d4461356c157cff302d788eb94629c52b767ca539c55994bcf9aeac3c0e7cb19
+  Languages/Plugins/GreenshotImgurPlugin/language_imgurplugin-nl-NL.xml 1342 78d29d7d46401ad3da1c918b09da03e1a74c8e36be27a1e854f97f8a45fac340
+  Languages/Plugins/GreenshotImgurPlugin/language_imgurplugin-pl-PL.xml 1285 5aab4007cfd82cdd00ad4fc89e9be0cde50bd0b0545b93e686c6d3ad3c8f09e1
+  Languages/Plugins/GreenshotImgurPlugin/language_imgurplugin-pt-PT.xml 1371 fdd9ad02d2436dd7249540e05cf83e73c77f4a204094f19961f0e9e094773fdf
+  Languages/Plugins/GreenshotImgurPlugin/language_imgurplugin-ru-RU.xml 1641 7a469fdce4c591a3b1a45a32841d83b38135cbac27b6fa0866d22ab11312f956
+  Languages/Plugins/GreenshotImgurPlugin/language_imgurplugin-sk-SK.xml 1375 b095099bddf2eaa9b18416aa75f73f8e92e4be36f7d7ecd806b645336b2cba29
+  Languages/Plugins/GreenshotImgurPlugin/language_imgurplugin-sr-RS.xml 1567 d3895bf7b1da2e4b6ccc23ed3fd871b43aa413e612a002920274a421fb9e3521
+  Languages/Plugins/GreenshotImgurPlugin/language_imgurplugin-sv-SE.xml 1330 7159f572b530138e59f520a8995b7ae4abd5160fe06c88f300fc128c641f7ba4
+  Languages/Plugins/GreenshotImgurPlugin/language_imgurplugin-uk-UA.xml 1680 5897667e99809a3d52035d2292d548ca3ab2eedf2005cb6106143cd1cb211462
+  Languages/Plugins/GreenshotImgurPlugin/language_imgurplugin-zh-CN.xml 1282 af5a101012bc3528a529e53264bfb8785bb47a2a67dec1e8b8cfda09a182e6dd
+  Languages/Plugins/GreenshotImgurPlugin/language_imgurplugin-zh-TW.xml 1241 ba9cc132d1986654c63a4d5df6128ebc6e43773115afca9bb32d4cf22333edca
+  Languages/Plugins/GreenshotJiraPlugin/language_jiraplugin-cs-CZ.xml 1428 b132e229456d8a766e21376824654715a78cb291c96de42578c46c5a93eb3ba9
+  Languages/Plugins/GreenshotJiraPlugin/language_jiraplugin-de-DE.xml 1529 6efeeef4475909088c78b54987d50b1f55e99531435e37702ee28a63b314a8e0
+  Languages/Plugins/GreenshotJiraPlugin/language_jiraplugin-en-US.xml 1504 5fd8071b43c73b650487319e17ce9277c232d79ce5158bf53b8ffd69208e113c
+  Languages/Plugins/GreenshotJiraPlugin/language_jiraplugin-fr-FR.xml 1473 7524ed7abf848c45ba82f8d17304364d5ec26e29113a4f3c8ac9e589ae683546
+  Languages/Plugins/GreenshotJiraPlugin/language_jiraplugin-id-ID.xml 1390 d89f3652629b058e7326c5eb0d360f8efb60a609793a0fc9c47f2956b463863f
+  Languages/Plugins/GreenshotJiraPlugin/language_jiraplugin-it-IT.xml 1584 410d02477747e5a11f41f234a5647fb92a7ccc3d2c6324eef9d6001068c29196
+  Languages/Plugins/GreenshotJiraPlugin/language_jiraplugin-ko-KR.xml 1466 3e622b52d8f27b8330261b71a41ada435768571620eaba9513231ed388579c35
+  Languages/Plugins/GreenshotJiraPlugin/language_jiraplugin-lv-LV.xml 1558 7867c63686c49f61d462a152ea92ff7f19f5c86875c42b0894078c69f1778026
+  Languages/Plugins/GreenshotJiraPlugin/language_jiraplugin-nl-NL.xml 1674 00ac5b42eb6eae23b7144c0ae334ce2dc3ffc6bc8ffb902c4aa597f12c08aa86
+  Languages/Plugins/GreenshotJiraPlugin/language_jiraplugin-pl-PL.xml 1411 ebe5f39891ff6fad2e875c241c0bf5e5189d24526cde5ee430333903bb68e7b1
+  Languages/Plugins/GreenshotJiraPlugin/language_jiraplugin-pt-PT.xml 1509 cbe3a96b9cb74cfefcec40bd3c1d7a01bc10c574f2db2b7ad1c720a4a89ccae3
+  Languages/Plugins/GreenshotJiraPlugin/language_jiraplugin-ru-RU.xml 1704 c0cd53464ad02f4bfde98f4c98549b06e13f4b2812db6c2d82d0bd7a89ccd6ca
+  Languages/Plugins/GreenshotJiraPlugin/language_jiraplugin-sr-RS.xml 1680 09c752b7bb40a2b63913b567babf1aa1e26f809ae2ca92f986831d68626f3bc7
+  Languages/Plugins/GreenshotJiraPlugin/language_jiraplugin-sv-SE.xml 1436 73c75185fc54c19d7c48857b60d6c5116e3f85957d2f301117d4efb9ec07d4fe
+  Languages/Plugins/GreenshotJiraPlugin/language_jiraplugin-uk-UA.xml 1756 9928ada0024118e46a812b117df49109f64737c9919275c31d83e3f6c35be672
+  Languages/Plugins/GreenshotJiraPlugin/language_jiraplugin-zh-CN.xml 1497 b85e1a38eba980ac153fce116c3f52e5d6498fe25e5d646a2d42699fe35258b2
+  Languages/Plugins/GreenshotJiraPlugin/language_jiraplugin-zh-TW.xml 1357 c9988617724195bb740f197c84244ffc312f875a94535bbfae49112580498214
+  Languages/Plugins/GreenshotOCRPlugin/language_ocrplugin-cs-CZ.xml 348 3f22753874f0474d2ecbb0bf1fd529fb330ec96c19df152ed078edbe4689d3d6
+  Languages/Plugins/GreenshotOCRPlugin/language_ocrplugin-de-DE.xml 345 c33b293b09131920f8386cc57265c2fef4cb270c502ed0d3b40d304f4d65a619
+  Languages/Plugins/GreenshotOCRPlugin/language_ocrplugin-en-US.xml 345 737960d75f02716312a7c8ca57164fbfb41766d08c37f669308ac0428b65d063
+  Languages/Plugins/GreenshotOCRPlugin/language_ocrplugin-fr-FR.xml 351 7b2e1adacf53f300f32296732c80edcf0a7d3f5cfbb97a2c59ab56b547a50afa
+  Languages/Plugins/GreenshotOCRPlugin/language_ocrplugin-id-ID.xml 358 ac8557488fc0772ceb290d0565282470cba7fad6550e72a96ad7b298635c8293
+  Languages/Plugins/GreenshotOCRPlugin/language_ocrplugin-it-IT.xml 328 9134b28ef79b31af5d71f8e0f28c469a97dffc284ef4ff86ccf56f5f4cbbeb55
+  Languages/Plugins/GreenshotOCRPlugin/language_ocrplugin-kab-DZ.xml 330 8afa1957b378653bbb24b346d8ddb81c617f537a12b17694e1bf98687a60cd40
+  Languages/Plugins/GreenshotOCRPlugin/language_ocrplugin-ko-KR.xml 329 90f3a7272b7e162b642eec9e06764a781e918a7238e4e0f206c65d9a6e74a9de
+  Languages/Plugins/GreenshotOCRPlugin/language_ocrplugin-lv-LV.xml 401 5c09cd3cda294c09e12556e9286cd5a896dabfcc3fad556cc64d01468735594a
+  Languages/Plugins/GreenshotOCRPlugin/language_ocrplugin-nl-NL.xml 346 399f3eb921eb9bbdc58a2339f5024232527a326bebc93655fd0a9820c6395b25
+  Languages/Plugins/GreenshotOCRPlugin/language_ocrplugin-pl-PL.xml 351 99c5161660cfcd9ba3a1deac17663f4c79ffc9b22699b980c2c518d989e82a8a
+  Languages/Plugins/GreenshotOCRPlugin/language_ocrplugin-pt-PT.xml 334 e8842024f28808a8a0087643777756b5e37054c9c2a64a363c63f8edb2efaff3
+  Languages/Plugins/GreenshotOCRPlugin/language_ocrplugin-ru-RU.xml 418 eaee1fd91eca977e8f94c5a0ff09a3a6b4165af15ade27a7079f34188d496d22
+  Languages/Plugins/GreenshotOCRPlugin/language_ocrplugin-sk-SK.xml 356 a87bdc85352f7287126724fb7437db997a3046f2bc9f63ecc0691120e5381596
+  Languages/Plugins/GreenshotOCRPlugin/language_ocrplugin-sr-RS.xml 406 067f0181462b3b61f3d4f8a93f1d0885c238bc680cb805b135e5f0e03d3d7b41
+  Languages/Plugins/GreenshotOCRPlugin/language_ocrplugin-sv-SE.xml 331 86b98a1b94577de4bcfae150ec8b3ae98744850cf8c0fee9a9402e6aefed804d
+  Languages/Plugins/GreenshotOCRPlugin/language_ocrplugin-uk-UA.xml 403 462fc25a246e499d76f30feb6ef5268af8de5608a966e4c19044c20ef6f71b02
+  Languages/Plugins/GreenshotOCRPlugin/language_ocrplugin-zh-CN.xml 339 01e1c86e219180870dc2dff6fe8e1676022620676f0569dae317f732e9467c8c
+  Languages/Plugins/GreenshotOCRPlugin/language_ocrplugin-zh-TW.xml 338 a6bdfe72bd3f7db3057b3413ce7d3fe41c57ed996a560300f44c196973ae956e
+  Languages/Plugins/GreenshotPhotobucketPlugin/language_photobucketplugin-cs-CZ.xml 926 6a9cf9c266c15de5d1756a2c6e9589625f6771750d4d395c28cf3de95e4c76f6
+  Languages/Plugins/GreenshotPhotobucketPlugin/language_photobucketplugin-de-DE.xml 953 6acc7a68e1650bfecfc8033e73fc54a8cfb978135f0696b6da4375ac17408b59
+  Languages/Plugins/GreenshotPhotobucketPlugin/language_photobucketplugin-en-US.xml 933 8c1e4cb36ba30960b7ecda162a685af167996df8f091711c2a37c782b1397199
+  Languages/Plugins/GreenshotPhotobucketPlugin/language_photobucketplugin-fr_FR.xml 860 345225279413290989b1fd8b6a458eab585d6a76909acf16b767f879d53596de
+  Languages/Plugins/GreenshotPhotobucketPlugin/language_photobucketplugin-id-ID.xml 909 d615b57c9876fa9918c8dc7b7ab3ed09b80b76ecab6ccf69c7451a7699dfec95
+  Languages/Plugins/GreenshotPhotobucketPlugin/language_photobucketplugin-it-IT.xml 998 5edee2b91c94bdff3a182abe1b03e0e4613837406cf5042af40b6852a31a3cb1
+  Languages/Plugins/GreenshotPhotobucketPlugin/language_photobucketplugin-kab-DZ.xml 777 a24f54d68b8b49c7a7e60180870deb912d348390933f68c9471ca6de71660ab8
+  Languages/Plugins/GreenshotPhotobucketPlugin/language_photobucketplugin-ko-KR.xml 922 0da5111f2600d0313fcc1f130507336cd9be97d711f3748ddf738e491bb772f2
+  Languages/Plugins/GreenshotPhotobucketPlugin/language_photobucketplugin-lv-LV.xml 1015 ef3f3bfb6564231021bb27ad27f7658251c2b9d446b99a6b507fa7fb296f34e9
+  Languages/Plugins/GreenshotPhotobucketPlugin/language_photobucketplugin-nl-NL.xml 887 77ba7200925d6f69b93934e5fe86a6bb114f91a582b9b700c121bd24245d02d2
+  Languages/Plugins/GreenshotPhotobucketPlugin/language_photobucketplugin-pl-PL.xml 909 c9dc3c7a104883423594dfb6770b5504e4f21d96379da5fdb3e5985091ba1bfe
+  Languages/Plugins/GreenshotPhotobucketPlugin/language_photobucketplugin-pt-PT.xml 952 91d3264301fb759b5653867b35eb6b8b24f8f50df26bec669b283183c554196d
+  Languages/Plugins/GreenshotPhotobucketPlugin/language_photobucketplugin-ru-RU.xml 1118 6a7ea7026a8c25c60dcfcf2a2dd151f719207347e25c13a81f7d37362d2f6d63
+  Languages/Plugins/GreenshotPhotobucketPlugin/language_photobucketplugin-sv-SE.xml 908 4d532e0659b9e98030b51e4c01d51d927fbaf075aefd2889c043504d465006de
+  Languages/Plugins/GreenshotPhotobucketPlugin/language_photobucketplugin-uk-UA.xml 1159 3677cf98a43ee23ba99bbf46dd2450485b3dfa675a7150769972017fafe38a02
+  Languages/Plugins/GreenshotPhotobucketPlugin/language_photobucketplugin-zh-CN.xml 661 511a8448dd3990b6093314f1b671f19f3e4d5e54b81c5aa133feb3a1cd4d1ce3
+  Languages/Plugins/GreenshotPhotobucketPlugin/language_photobucketplugin-zh-TW.xml 872 bbf22efdc9c6a88124c4d2b12c957de44aa88d5f358d4b59b2a7d614a9c53ab2
+  Languages/Plugins/GreenshotPicasaPlugin/language_picasaplugin-cs-CZ.xml 1927 e0c313c5ce365bd74fc523d72921378aa2c899c8d5af3e3a1a4328878be4050f
+  Languages/Plugins/GreenshotPicasaPlugin/language_picasaplugin-de-DE.xml 849 c85256a71e821bddaa1efa0030bc0abbb5558b5d8d309ed4237359a44ffd86df
+  Languages/Plugins/GreenshotPicasaPlugin/language_picasaplugin-en-US.xml 840 5a1040a075d9a999341d55a7cd1f7b695b30ea9208059f24d600181d553b238a
+  Languages/Plugins/GreenshotPicasaPlugin/language_picasaplugin-fr-FR.xml 910 1b5fb0308e8bed38fc1c673cec930c006d853a0cc3814c4448089388ba471fa7
+  Languages/Plugins/GreenshotPicasaPlugin/language_picasaplugin-id-ID.xml 852 41cc481e5912fbfb7317ac903c9c93b05a269140719f0673f460f7d74499c209
+  Languages/Plugins/GreenshotPicasaPlugin/language_picasaplugin-it-IT.xml 875 2f05f61e4d249cab75b50b4fdc78a6d66be811f9df09c5796bb7fe568d3825c1
+  Languages/Plugins/GreenshotPicasaPlugin/language_picasaplugin-kab-DZ.xml 828 9615545c02d4c56914557fa1183f8b71bf933fcc8ad47806afdaf24438bc43fa
+  Languages/Plugins/GreenshotPicasaPlugin/language_picasaplugin-ko-KR.xml 845 90425756698b6c396cc145b85b29f364ba12e45c20cfbd72921710515da98a28
+  Languages/Plugins/GreenshotPicasaPlugin/language_picasaplugin-lv-LV.xml 965 adc10977c933bda3f8dde6102cfba2bad135c31eb1a17aea2eafc06bc8bda34c
+  Languages/Plugins/GreenshotPicasaPlugin/language_picasaplugin-pl-PL.xml 838 e959f92f452e0bdf119afec865d3ea60f7485b6325109652d2835bf77b452976
+  Languages/Plugins/GreenshotPicasaPlugin/language_picasaplugin-pt-PT.xml 890 3a10b34aec05e93f62430d89ec8894f5244d37eb9185445bead013942613f32a
+  Languages/Plugins/GreenshotPicasaPlugin/language_picasaplugin-ru-RU.xml 1002 469c14f2383f4850f508fc0f102e80e0810a1e0f018d444d3bc4f7883dfc8774
+  Languages/Plugins/GreenshotPicasaPlugin/language_picasaplugin-sr-RS.xml 999 90aebab96ff3783ddd74c502d13f2723ded23f2954857c24e4fb6b9d19d66a47
+  Languages/Plugins/GreenshotPicasaPlugin/language_picasaplugin-sv-SE.xml 849 6ba03512b9badd41ea7d6152abc4a6629b302a11749b82d6bada83dffb5de795
+  Languages/Plugins/GreenshotPicasaPlugin/language_picasaplugin-uk-UA.xml 1030 b7464552f142efba7513c82d32473989aa153d4335a589181909d0e359e9cfeb
+  Languages/Plugins/GreenshotPicasaPlugin/language_picasaplugin-zh-CN.xml 812 154a21860391ad0d7a172aa6215eb6e0b910d49002f1a0f49e66de40d38b13b9
+  Languages/Plugins/GreenshotPicasaPlugin/language_picasaplugin-zh-TW.xml 801 9e956550f902be5142498c7fead59dcf79a81619dcc54aca07ee233b3de6e99d
+  Languages/help-de-DE.html 22821 b34fc7b4a3103487c9d6f78c03fed29bb06452623706666696a2ac8ada2a4945
+  Languages/help-en-US.html 23021 de46ab0152998ed105ba81a548ab7308704a8fd395abddbdc13d81f52c134c62
+  Languages/help-es-ES.html 21340 e63497b4670593dab7a88d53a3f8987f1cdbf795428b80de75579edee82204b5
+  Languages/help-fr-FR.html 30683 2a47cfc64dfe48c59761ab817292806f67fe983b194195f9d1102969b8daac76
+  Languages/help-hu-HU.html 16006 4e04a02f911fc5eab9ad0b041257b4aafc48c0fbd424236a8b46c508d1267ef2
+  Languages/help-it-IT.html 22790 0347523a4f373d13f3c5221cb773d162be786716e9420db13e8812ebaa40d812
+  Languages/help-ko-KR.html 26499 086e480f0d1efae125ceec34a0450c050e3b21cf1aa524f4550f93ae45923e8e
+  Languages/help-nl-NL.html 24706 a1bfda7f6685d90fe22d21ad60e1a4ee1847fee70597c2c2ec970ddcc5845681
+  Languages/help-nn-NO.html 21426 c9de8b77326b2a1a7fb7f56db88733d0422f94c355c657bec6fbd383cea789fe
+  Languages/help-pl-PL.html 17454 e1bc3cab0fd5c8dbb88c96baf21742dd227d2bc89386a770d213cf6ad0af5baf
+  Languages/help-pt-PT.html 24071 f0f934d8aa76b2d748c46c12c838ba42fa3127819bfa0e14885a4897721f50fd
+  Languages/help-ru-RU.html 30959 be1b17f1111c4ca572440afc1ef27ec8c801ef5cde086130a7d4b95a635bb9cb
+  Languages/help-sv-SE.html 24098 abbc34e722c4a8a12a465f3b939a8295cba6f47ec9466782eec0f4d938a2eb3f
+  Languages/help-tr-TR.html 17321 6089020d86dcd748628f4a94643db9663fc40478c5438f65e8b6d01c0bee0123
+  Languages/help-zh-CN.html 22095 4e916b2ba3d387d5f5003f602f3afe0a5c6dea2ccef677797b8f85dae2242f5f
+  Languages/language-ar-SY.xml 16480 0468ddbbf8eba303431e55a7d8620f7f1bc814af85708dc61a4499caedbefd52
+  Languages/language-ca-CA.xml 24122 84e804de2cc8b2ba423e68064240365cc6f414d5923b833cd5b4d811e755262a
+  Languages/language-cs-CZ.xml 23824 5af1ff26239c865e4a4138b870398b58b6580261e3daca26a781b60b5c333f38
+  Languages/language-da-DK.xml 15742 ba47453405aa95fb9caf76be2c1cb990516fd42fe24be4e3a3a69c0f36d83632
+  Languages/language-de-DE.xml 24134 fc84949780d112cbc2534868cc2a2f7c098d6d40753ada576411b0ece82a44d0
+  Languages/language-de-x-franconia.xml 20297 d392f0cf8a5f3561db1de36233f4919b87ca4c33646a9d95cc94aa4ed18a9eda
+  Languages/language-el-GR.xml 31204 2c5ee308bc670173d36d24eecc6ec7702d782db26c9c672747640dbfdd25f594
+  Languages/language-en-US.xml 22727 8713627e6eec1b09ecffa0d9e71d3d0d4ae99b75408ba0da8c1115a7cdca6114
+  Languages/language-es-ES.xml 20907 8af9e8b268a70515db95125f574328f3f28a79ebb7d3cf9eabb6889cc2c2bbf6
+  Languages/language-et-EE.xml 21887 20e984b968c8d1151336dad0587e9a6080763be206c9c022e100edcb1a8bfd24
+  Languages/language-fa-IR.xml 16818 a29edf00cd29ca5cca6b5e977bbf8476ae7d7aa167a22dbc43075702224799c3
+  Languages/language-fi-FI.xml 14264 242dfd58fc60643ee8b198ea01ad5b89995281ab67fe3bbbafb7309ceed8723c
+  Languages/language-fr-FR.xml 24964 acc0fbed10bf730ee7b2ff3d021cad87cb16547fdb9e37378ed6f32a5e12ab06
+  Languages/language-fr-QC.xml 21051 6dd06dd71713371b4c9d4b9f56bf9936e73ea9f5f36277e4dceb4549d3c73b1b
+  Languages/language-he-IL.xml 15663 c3779b1563207bf200d0e1b43be074c3de1cc489a0ad08457a6e7d5fae18cdca
+  Languages/language-hu-HU.xml 14689 22b5ba8eafc85d999aab29e595de0d9a038d3d89c751bcd6ac1c80f518a7d6f8
+  Languages/language-id-ID.xml 22589 0ad6c938e10a9af021b1078f4c2c6579daf2d6bccc124b836ad0ab7f2604708b
+  Languages/language-it-IT.xml 24077 26970125178c3cbc2d25fb3fd1d9e0660e25621fa9b2ac2631d8b519d7bdd7fa
+  Languages/language-ja-JP.xml 26472 23166717aef74e88e5a0fe4aa122486f8646663f191ccc4506cb310f9d989663
+  Languages/language-kab-DZ.xml 23048 d545d902b19ad9c2aaa5dd64de13e646893d43fed4fff94ccd913fb1a31e05ac
+  Languages/language-ko-KR.xml 23493 445f3fa19948c8d8c08fa6f198930945a8d5058888524ce5f6482830f50e65c4
+  Languages/language-lt-LT.xml 14127 160938e2f2fc2ed2373f39785a1ce55f44b408dae2cb3f97d9477f4f27dc4d9f
+  Languages/language-lv-LV.xml 23111 a8bc4edfc5bb1a0fcc8cc844e0b1abf6b8b27208b5ff58347b916b0e86a9d123
+  Languages/language-nl-NL.xml 23197 85230847998029548872f95ffa4e9a2018f1084a581939f8fc5d4346ea6db7ad
+  Languages/language-nn-NO.xml 19149 457f6d5419f1a5021f72c1fa79eb1e2be42ed5f963f713b27f25e68b8d65c80e
+  Languages/language-pl-PL.xml 23014 141d35031d6c775318baa1b885f9749f087669669093aca88e2fc27cf783f707
+  Languages/language-pt-BR.xml 15189 7447d7d7e49cb0cb04ece7b8f2cc3cdc40800713b4541baf7337b7e9d549fad9
+  Languages/language-pt-PT.xml 24177 2fccf54f077ffd406899ea68c1a61795ca455a8cdbf6f345526a6e21a3cbaf03
+  Languages/language-ro-RO.xml 16319 acb261a65f751f687961090fa3e0b9729a1ceb5c80fc2fb3778a1c30b14c45e1
+  Languages/language-ru-RU.xml 28835 611ef6c615a4aa6c999de5a49facfbd644c8da318a20c9c986e6c0ce08148fd9
+  Languages/language-sk-SK.xml 21148 1ccd873fea60862c142833df8d93834e13e4bc9d66a32397f1603cfa62f7cbc1
+  Languages/language-sl-SI.xml 18507 36493c74f330b3826d005932272f73bf7426bcd7697c66375a3e719bf8a1a67c
+  Languages/language-sr-RS.xml 24466 f3429caa3b435c1c491e0e99e4242d741599a63445e738902669853d25e0f6bd
+  Languages/language-sv-SE.xml 23130 5609b55acbfeee17fdbbfc0fadaad0e34f3dc428f167722087872a106a97d183
+  Languages/language-tr-TR.xml 20134 449adf9452772913f3d6c4dd7561d0daff1fe7356a0f883bd8e618fed0bd476b
+  Languages/language-uk-UA.xml 30103 e535cabdba37a6c5f34a097f61bf6e512affab6e2da0709267edf813fab4d66c
+  Languages/language-vi-VN.xml 14193 da6dfd99ff9c24e9decc0be0c3e90c7e218e83d433d80d72062f01b0f5b63837
+  Languages/language-zh-CN.xml 21647 ca298e565c4f632e010b53efa29344b5dc151199dc69f6703c823637951a4cce
+  Languages/language-zh-TW.xml 20960 77274c90b2d29c23fe8b78b54bf19ada1a0bcde1a219e395ec10d0a059e59c00
+  LinqBridge.dll 74672 e9d98dcf877357127db02dd36d2a0c6eb6c8561ea802d910b6a9c62c75243e94
+  Plugins/GreenshotBoxPlugin/GreenshotBoxPlugin.gsp 44464 c403886afc2aea09843698d89492ebd7891970b00015dde130362e42f959abff
+  Plugins/GreenshotConfluencePlugin/GreenshotConfluencePlugin.gsp 93616 23a8330440120f2c7cdf57af49b9d32639059478c97adf41245f76d07c7fc9f3
+  Plugins/GreenshotDropBoxPlugin/GreenshotDropboxPlugin.gsp 40368 83650b2b7171203191e1d19bb776431c92453989ea5c163e439c0e00f5ce6ca9
+  Plugins/GreenshotExternalCommandPlugin/GreenshotExternalCommandPlugin.gsp 52656 c270eeecd8ef753fec62b49fb9d53e895a6b858d2b3aae3a1421c7542a01d39e
+  Plugins/GreenshotFlickrPlugin/GreenshotFlickrPlugin.gsp 48560 2cae2d13c0ee66664685381c56a38a5cd56a98663533ae2b9c51f8e10eeb3af1
+  Plugins/GreenshotImgurPlugin/GreenshotImgurPlugin.gsp 60848 51a036a4dcd6f082d8b0122c93b5b1fdfc8ac6eee572edbde3f3e873e0dbf3bf
+  Plugins/GreenshotJiraPlugin/GreenshotJiraPlugin.gsp 387504 abcc7ce89053a90067cda1ebf2051d4cd0eb95902dbdfb476c9f6d2f65c395ed
+  Plugins/GreenshotOCRPlugin/GreenshotOCRCommand.exe 29104 b93560ecc1e1eb54bdc20311cf96cd43111a370a18265b8d2845800bfd13f027
+  Plugins/GreenshotOCRPlugin/GreenshotOCRCommand.exe.config 296 b76e9c25eb2bbded1b97efcbf91150e97f44c525fdcfa3838cec51aeb5687441
+  Plugins/GreenshotOCRPlugin/GreenshotOCRPlugin.gsp 40368 8eb8540fee4fe2869e1da64b85bc6c27cd5a63e892f55b9fbf17f3ff83fecff5
+  Plugins/GreenshotOfficePlugin/GreenshotOfficePlugin.gsp 105904 25c239d2d46b5f778f4fa6ac6c1eab1b1807f9b12498e82810524edd305b3938
+  Plugins/GreenshotPhotobucketPlugin/GreenshotPhotobucketPlugin.gsp 48560 10aa51ff57d6e6e4154b0599c5fe30c2b9ae3951b29aa8bc78f88f424a11e4cb
+  Plugins/GreenshotPicasaPlugin/GreenshotPicasaPlugin.gsp 48560 f85a359ebec70a14383088f700149009f7ab574eecf33768c0c8cf0919cae74f
+  checksum.MD5 976 68338580c8fa91a8ea188ec035c6a966419afdb748a7f84a8ead02910c9f932e
+  installer.txt 1975 486d65759113e52bc9d9a20c8a2b8dd9efbc3574c2720916e23c443fd47d89a6
+  license.txt 35800 b5cd774c1d086cebb073999a7a93d17cb81525540d5f6096c044a949d0bd91b1
+  log4net.dll 221184 b44c644dcb302ef0fe827a40f947c68e689cb20a162defed655599e90a47fba6
+  log4net.xml 1038 73f2751080ccf92ef64b2096bed37608219acb4353e9b6d7c5a463c035014448
+  readme.txt 35010 6cf08315598f09b3c6418b18e8cb205b58bc5334d12cab535a8b12ef7618ca58
+  tmp/dutch.ini 1203 e8478736754e60b7a67198fbac27dd0522f0ec8322022b7cc817ea1e057b1950
+  tmp/french3.ini 1261 2c4be3d00583c2b1faa3588efcc42a29aa538482e01cb65fea1e994a7edcdb77
+  tmp/german.ini 1315 40bc193d31e3a1a851287aab13e7ca57ae9b1b0ed7b277042e4e5cc18cca3c27
+  tmp/isxdl.dll 124416 b0cc4697b2fd1b4163fddca2050fc62a9e7d221864f1bd11e739144c90b685b3

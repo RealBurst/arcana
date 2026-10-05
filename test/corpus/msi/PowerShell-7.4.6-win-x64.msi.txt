@@ -1,0 +1,1849 @@
+# Arcana regression reference (RegressionRunner --update)
+input: ed331a04679b83d4c013705282d1f3f8d8300485eb04c081f36e11eaf1148bd0 109203456
+identify: data | MSI - Windows Installer package (OLE2)
+list: 922 entries
+  Program Files/PowerShell/7/Accessibility.dll 21288
+  Program Files/PowerShell/7/D3DCompiler_47_cor3.dll 4916840
+  Program Files/PowerShell/7/DirectWriteForwarder.dll 497936
+  Program Files/PowerShell/7/Humanizer.dll 854064
+  Program Files/PowerShell/7/Install-PowerShellRemoting.ps1 23563
+  Program Files/PowerShell/7/InstallPSCorePolicyDefinitions.ps1 17546
+  Program Files/PowerShell/7/Json.More.dll 153680
+  Program Files/PowerShell/7/JsonPointer.Net.dll 71760
+  Program Files/PowerShell/7/JsonSchema.Net.dll 763976
+  Program Files/PowerShell/7/LICENSE.txt 1095
+  Program Files/PowerShell/7/Markdig.Signed.dll 1341520
+  Program Files/PowerShell/7/Microsoft.ApplicationInsights.dll 940088
+  Program Files/PowerShell/7/Microsoft.Bcl.AsyncInterfaces.dll 30792
+  Program Files/PowerShell/7/Microsoft.CSharp.dll 1005872
+  Program Files/PowerShell/7/Microsoft.CodeAnalysis.CSharp.dll 17659984
+  Program Files/PowerShell/7/Microsoft.CodeAnalysis.dll 7833648
+  Program Files/PowerShell/7/Microsoft.Extensions.ObjectPool.dll 43088
+  Program Files/PowerShell/7/Microsoft.Management.Infrastructure.CimCmdlets.dll 501792
+  Program Files/PowerShell/7/Microsoft.Management.Infrastructure.CimCmdlets.xml 305223
+  Program Files/PowerShell/7/Microsoft.PowerShell.Commands.Diagnostics.dll 342048
+  Program Files/PowerShell/7/Microsoft.PowerShell.Commands.Diagnostics.xml 23700
+  Program Files/PowerShell/7/Microsoft.PowerShell.Commands.Management.dll 1148960
+  Program Files/PowerShell/7/Microsoft.PowerShell.Commands.Management.xml 529962
+  Program Files/PowerShell/7/Microsoft.PowerShell.Commands.Utility.dll 1673248
+  Program Files/PowerShell/7/Microsoft.PowerShell.Commands.Utility.xml 596676
+  Program Files/PowerShell/7/Microsoft.PowerShell.ConsoleHost.dll 608288
+  Program Files/PowerShell/7/Microsoft.PowerShell.ConsoleHost.xml 219945
+  Program Files/PowerShell/7/Microsoft.PowerShell.CoreCLR.Eventing.dll 235552
+  Program Files/PowerShell/7/Microsoft.PowerShell.CoreCLR.Eventing.xml 8595
+  Program Files/PowerShell/7/Microsoft.PowerShell.GraphicalHost.dll 1001504
+  Program Files/PowerShell/7/Microsoft.PowerShell.GraphicalHost.dll.config 4904
+  Program Files/PowerShell/7/Microsoft.PowerShell.GraphicalHost.xml 541653
+  Program Files/PowerShell/7/Microsoft.PowerShell.MarkdownRender.dll 55328
+  Program Files/PowerShell/7/Microsoft.PowerShell.SDK.dll 142880
+  Program Files/PowerShell/7/Microsoft.PowerShell.SDK.xml 149
+  Program Files/PowerShell/7/Microsoft.PowerShell.Security.dll 350232
+  Program Files/PowerShell/7/Microsoft.PowerShell.Security.xml 125116
+  Program Files/PowerShell/7/Microsoft.VisualBasic.Core.dll 1247408
+  Program Files/PowerShell/7/Microsoft.VisualBasic.Forms.dll 248072
+  Program Files/PowerShell/7/Microsoft.VisualBasic.dll 19104
+  Program Files/PowerShell/7/Microsoft.WSMan.Management.dll 559136
+  Program Files/PowerShell/7/Microsoft.WSMan.Management.xml 173129
+  Program Files/PowerShell/7/Microsoft.WSMan.Runtime.dll 161824
+  Program Files/PowerShell/7/Microsoft.WSMan.Runtime.xml 3569
+  Program Files/PowerShell/7/Microsoft.Win32.Primitives.dll 15656
+  Program Files/PowerShell/7/Microsoft.Win32.Registry.AccessControl.dll 34976
+  Program Files/PowerShell/7/Microsoft.Win32.Registry.dll 121008
+  Program Files/PowerShell/7/Microsoft.Win32.SystemEvents.dll 100432
+  Program Files/PowerShell/7/Modules/CimCmdlets/CimCmdlets.psd1 15567
+  Program Files/PowerShell/7/Modules/Microsoft.PowerShell.Archive/Microsoft.PowerShell.Archive.cat 10498
+  Program Files/PowerShell/7/Modules/Microsoft.PowerShell.Archive/Microsoft.PowerShell.Archive.psd1 13503
+  Program Files/PowerShell/7/Modules/Microsoft.PowerShell.Archive/Microsoft.PowerShell.Archive.psm1 71846
+  Program Files/PowerShell/7/Modules/Microsoft.PowerShell.Archive/en-US/ArchiveResources.psd1 15584
+  Program Files/PowerShell/7/Modules/Microsoft.PowerShell.Diagnostics/Diagnostics.format.ps1xml 18653
+  Program Files/PowerShell/7/Modules/Microsoft.PowerShell.Diagnostics/Event.format.ps1xml 21212
+  Program Files/PowerShell/7/Modules/Microsoft.PowerShell.Diagnostics/GetEvent.types.ps1xml 20641
+  Program Files/PowerShell/7/Modules/Microsoft.PowerShell.Diagnostics/Microsoft.PowerShell.Diagnostics.psd1 15219
+  Program Files/PowerShell/7/Modules/Microsoft.PowerShell.Host/Microsoft.PowerShell.Host.psd1 15089
+  Program Files/PowerShell/7/Modules/Microsoft.PowerShell.Management/Microsoft.PowerShell.Management.psd1 16424
+  Program Files/PowerShell/7/Modules/Microsoft.PowerShell.PSResourceGet/LICENSE 1095
+  Program Files/PowerShell/7/Modules/Microsoft.PowerShell.PSResourceGet/Microsoft.PowerShell.PSResourceGet.dll 343584
+  Program Files/PowerShell/7/Modules/Microsoft.PowerShell.PSResourceGet/Microsoft.PowerShell.PSResourceGet.psd1 26144
+  Program Files/PowerShell/7/Modules/Microsoft.PowerShell.PSResourceGet/Microsoft.PowerShell.PSResourceGet.psm1 17926
+  Program Files/PowerShell/7/Modules/Microsoft.PowerShell.PSResourceGet/Notice.txt 158819
+  Program Files/PowerShell/7/Modules/Microsoft.PowerShell.PSResourceGet/PSGet.Format.ps1xml 23512
+  Program Files/PowerShell/7/Modules/Microsoft.PowerShell.PSResourceGet/dependencies/Microsoft.Bcl.AsyncInterfaces.dll 26656
+  Program Files/PowerShell/7/Modules/Microsoft.PowerShell.PSResourceGet/dependencies/Newtonsoft.Json.dll 722160
+  Program Files/PowerShell/7/Modules/Microsoft.PowerShell.PSResourceGet/dependencies/NuGet.Commands.dll 613824
+  Program Files/PowerShell/7/Modules/Microsoft.PowerShell.PSResourceGet/dependencies/NuGet.Common.dll 122800
+  Program Files/PowerShell/7/Modules/Microsoft.PowerShell.PSResourceGet/dependencies/NuGet.Configuration.dll 170424
+  Program Files/PowerShell/7/Modules/Microsoft.PowerShell.PSResourceGet/dependencies/NuGet.Credentials.dll 67616
+  Program Files/PowerShell/7/Modules/Microsoft.PowerShell.PSResourceGet/dependencies/NuGet.DependencyResolver.Core.dll 93728
+  Program Files/PowerShell/7/Modules/Microsoft.PowerShell.PSResourceGet/dependencies/NuGet.Frameworks.dll 131104
+  Program Files/PowerShell/7/Modules/Microsoft.PowerShell.PSResourceGet/dependencies/NuGet.LibraryModel.dll 56760
+  Program Files/PowerShell/7/Modules/Microsoft.PowerShell.PSResourceGet/dependencies/NuGet.Packaging.dll 689088
+  Program Files/PowerShell/7/Modules/Microsoft.PowerShell.PSResourceGet/dependencies/NuGet.ProjectModel.dll 219056
+  Program Files/PowerShell/7/Modules/Microsoft.PowerShell.PSResourceGet/dependencies/NuGet.Protocol.dll 786368
+  Program Files/PowerShell/7/Modules/Microsoft.PowerShell.PSResourceGet/dependencies/NuGet.Versioning.dll 65984
+  Program Files/PowerShell/7/Modules/Microsoft.PowerShell.PSResourceGet/dependencies/System.Buffers.dll 20856
+  Program Files/PowerShell/7/Modules/Microsoft.PowerShell.PSResourceGet/dependencies/System.Memory.dll 142240
+  Program Files/PowerShell/7/Modules/Microsoft.PowerShell.PSResourceGet/dependencies/System.Numerics.Vectors.dll 115856
+  Program Files/PowerShell/7/Modules/Microsoft.PowerShell.PSResourceGet/dependencies/System.Runtime.CompilerServices.Unsafe.dll 18024
+  Program Files/PowerShell/7/Modules/Microsoft.PowerShell.PSResourceGet/dependencies/System.Text.Encodings.Web.dll 79024
+  Program Files/PowerShell/7/Modules/Microsoft.PowerShell.PSResourceGet/dependencies/System.Text.Json.dll 642832
+  Program Files/PowerShell/7/Modules/Microsoft.PowerShell.PSResourceGet/dependencies/System.Threading.Tasks.Extensions.dll 25984
+  Program Files/PowerShell/7/Modules/Microsoft.PowerShell.PSResourceGet/dependencies/System.ValueTuple.dll 25232
+  Program Files/PowerShell/7/Modules/Microsoft.PowerShell.Security/Microsoft.PowerShell.Security.psd1 15783
+  Program Files/PowerShell/7/Modules/Microsoft.PowerShell.Security/Security.types.ps1xml 20516
+  Program Files/PowerShell/7/Modules/Microsoft.PowerShell.Utility/Microsoft.PowerShell.Utility.psd1 17152
+  Program Files/PowerShell/7/Modules/Microsoft.WSMan.Management/Microsoft.WSMan.Management.psd1 15365
+  Program Files/PowerShell/7/Modules/Microsoft.WSMan.Management/WSMan.format.ps1xml 24410
+  Program Files/PowerShell/7/Modules/PSDiagnostics/PSDiagnostics.psd1 15290
+  Program Files/PowerShell/7/Modules/PSDiagnostics/PSDiagnostics.psm1 26412
+  Program Files/PowerShell/7/Modules/PSReadLine/.signature.p7s 12817
+  Program Files/PowerShell/7/Modules/PSReadLine/Changes.txt 36463
+  Program Files/PowerShell/7/Modules/PSReadLine/License.txt 1324
+  Program Files/PowerShell/7/Modules/PSReadLine/Microsoft.PowerShell.PSReadLine2.dll 335392
+  Program Files/PowerShell/7/Modules/PSReadLine/Microsoft.PowerShell.Pager.dll 16784
+  Program Files/PowerShell/7/Modules/PSReadLine/PSReadLine.format.ps1xml 26638
+  Program Files/PowerShell/7/Modules/PSReadLine/PSReadLine.psd1 15528
+  Program Files/PowerShell/7/Modules/PSReadLine/PSReadLine.psm1 15072
+  Program Files/PowerShell/7/Modules/PSReadLine/SamplePSReadLineProfile.ps1 41538
+  Program Files/PowerShell/7/Modules/PSReadLine/_manifest/spdx_2.2/bsi.json 824
+  Program Files/PowerShell/7/Modules/PSReadLine/_manifest/spdx_2.2/manifest.cat 11183
+  Program Files/PowerShell/7/Modules/PSReadLine/_manifest/spdx_2.2/manifest.spdx.json 31151
+  Program Files/PowerShell/7/Modules/PSReadLine/_manifest/spdx_2.2/manifest.spdx.json.sha256 64
+  Program Files/PowerShell/7/Modules/PSReadLine/net462/Microsoft.PowerShell.PSReadLine.Polyfiller.dll 16928
+  Program Files/PowerShell/7/Modules/PSReadLine/net6plus/Microsoft.PowerShell.PSReadLine.Polyfiller.dll 14880
+  Program Files/PowerShell/7/Modules/PackageManagement/DSCResources/MSFT_PackageManagement/MSFT_PackageManagement.psm1 28469
+  Program Files/PowerShell/7/Modules/PackageManagement/DSCResources/MSFT_PackageManagement/MSFT_PackageManagement.schema.mof 31676
+  Program Files/PowerShell/7/Modules/PackageManagement/DSCResources/MSFT_PackageManagement/MSFT_PackageManagement.strings.psd1 31412
+  Program Files/PowerShell/7/Modules/PackageManagement/DSCResources/MSFT_PackageManagementSource/MSFT_PackageManagementSource.psm1 53524
+  Program Files/PowerShell/7/Modules/PackageManagement/DSCResources/MSFT_PackageManagementSource/MSFT_PackageManagementSource.schema.mof 31566
+  Program Files/PowerShell/7/Modules/PackageManagement/DSCResources/MSFT_PackageManagementSource/MSFT_PackageManagementSource.strings.psd1 32494
+  Program Files/PowerShell/7/Modules/PackageManagement/DSCResources/PackageManagementDscUtilities.psm1 24136
+  Program Files/PowerShell/7/Modules/PackageManagement/DSCResources/PackageManagementDscUtilities.strings.psd1 31104
+  Program Files/PowerShell/7/Modules/PackageManagement/PackageManagement.Resources.psd1 14984
+  Program Files/PowerShell/7/Modules/PackageManagement/PackageManagement.format.ps1xml 32443
+  Program Files/PowerShell/7/Modules/PackageManagement/PackageManagement.psd1 17889
+  Program Files/PowerShell/7/Modules/PackageManagement/PackageManagement.psm1 16422
+  Program Files/PowerShell/7/Modules/PackageManagement/PackageProviderFunctions.psm1 25115
+  Program Files/PowerShell/7/Modules/PackageManagement/coreclr/netstandard2.0/Microsoft.PackageManagement.ArchiverProviders.dll 89504
+  Program Files/PowerShell/7/Modules/PackageManagement/coreclr/netstandard2.0/Microsoft.PackageManagement.CoreProviders.dll 72080
+  Program Files/PowerShell/7/Modules/PackageManagement/coreclr/netstandard2.0/Microsoft.PackageManagement.MetaProvider.PowerShell.dll 83864
+  Program Files/PowerShell/7/Modules/PackageManagement/coreclr/netstandard2.0/Microsoft.PackageManagement.NuGetProvider.dll 290192
+  Program Files/PowerShell/7/Modules/PackageManagement/coreclr/netstandard2.0/Microsoft.PackageManagement.dll 318352
+  Program Files/PowerShell/7/Modules/PackageManagement/coreclr/netstandard2.0/Microsoft.PowerShell.PackageManagement.dll 189328
+  Program Files/PowerShell/7/Modules/PowerShellGet/DscResources/MSFT_PSModule/MSFT_PSModule.psm1 38882
+  Program Files/PowerShell/7/Modules/PowerShellGet/DscResources/MSFT_PSModule/MSFT_PSModule.schema.mfl 1766
+  Program Files/PowerShell/7/Modules/PowerShellGet/DscResources/MSFT_PSModule/MSFT_PSModule.schema.mof 14446
+  Program Files/PowerShell/7/Modules/PowerShellGet/DscResources/MSFT_PSModule/en-US/MSFT_PSModule.strings.psd1 15939
+  Program Files/PowerShell/7/Modules/PowerShellGet/DscResources/MSFT_PSRepository/MSFT_PSRepository.psm1 23645
+  Program Files/PowerShell/7/Modules/PowerShellGet/DscResources/MSFT_PSRepository/MSFT_PSRepository.schema.mfl 1578
+  Program Files/PowerShell/7/Modules/PowerShellGet/DscResources/MSFT_PSRepository/MSFT_PSRepository.schema.mof 14325
+  Program Files/PowerShell/7/Modules/PowerShellGet/DscResources/MSFT_PSRepository/en-US/MSFT_PSRepository.strings.psd1 14171
+  Program Files/PowerShell/7/Modules/PowerShellGet/Modules/PowerShellGet.LocalizationHelper/PowerShellGet.LocalizationHelper.psm1 20118
+  Program Files/PowerShell/7/Modules/PowerShellGet/Modules/PowerShellGet.ResourceHelper/PowerShellGet.ResourceHelper.psm1 27387
+  Program Files/PowerShell/7/Modules/PowerShellGet/Modules/PowerShellGet.ResourceHelper/en-US/PowerShellGet.ResourceHelper.strings.psd1 15108
+  Program Files/PowerShell/7/Modules/PowerShellGet/PSGet.Format.ps1xml 23680
+  Program Files/PowerShell/7/Modules/PowerShellGet/PSGet.Resource.psd1 59328
+  Program Files/PowerShell/7/Modules/PowerShellGet/PSModule.psm1 1368306
+  Program Files/PowerShell/7/Modules/PowerShellGet/PowerShellGet.psd1 23683
+  Program Files/PowerShell/7/Modules/PowerShellGet/en-US/PSGet.Resource.psd1 59328
+  Program Files/PowerShell/7/Modules/ThreadJob/Microsoft.PowerShell.ThreadJob.dll 35192
+  Program Files/PowerShell/7/Modules/ThreadJob/ThreadJob.psd1 15788
+  Program Files/PowerShell/7/Newtonsoft.Json.dll 1857584
+  Program Files/PowerShell/7/PenImc_cor3.dll 157856
+  Program Files/PowerShell/7/PowerShell.Core.Instrumentation.dll 104888
+  Program Files/PowerShell/7/PowerShell.Core.Instrumentation.man 222263
+  Program Files/PowerShell/7/PowerShellCoreExecutionPolicy.adml 9675
+  Program Files/PowerShell/7/PowerShellCoreExecutionPolicy.admx 6198
+  Program Files/PowerShell/7/PresentationCore.dll 8542496
+  Program Files/PowerShell/7/PresentationFramework-SystemCore.dll 39072
+  Program Files/PowerShell/7/PresentationFramework-SystemData.dll 35088
+  Program Files/PowerShell/7/PresentationFramework-SystemDrawing.dll 35104
+  Program Files/PowerShell/7/PresentationFramework-SystemXml.dll 35096
+  Program Files/PowerShell/7/PresentationFramework-SystemXmlLinq.dll 30984
+  Program Files/PowerShell/7/PresentationFramework.Aero.dll 444680
+  Program Files/PowerShell/7/PresentationFramework.Aero2.dll 448776
+  Program Files/PowerShell/7/PresentationFramework.AeroLite.dll 239904
+  Program Files/PowerShell/7/PresentationFramework.Classic.dll 272648
+  Program Files/PowerShell/7/PresentationFramework.Luna.dll 669968
+  Program Files/PowerShell/7/PresentationFramework.Royale.dll 334088
+  Program Files/PowerShell/7/PresentationFramework.dll 16124176
+  Program Files/PowerShell/7/PresentationNative_cor3.dll 1237280
+  Program Files/PowerShell/7/PresentationUI.dll 1288472
+  Program Files/PowerShell/7/ReachFramework.dll 1603848
+  Program Files/PowerShell/7/RegisterManifest.ps1 17810
+  Program Files/PowerShell/7/RegisterMicrosoftUpdate.ps1 17239
+  Program Files/PowerShell/7/Schemas/PSMaml/ITPro.xsd 1208
+  Program Files/PowerShell/7/Schemas/PSMaml/Maml.rld 115835
+  Program Files/PowerShell/7/Schemas/PSMaml/Maml.tbr 30575
+  Program Files/PowerShell/7/Schemas/PSMaml/Maml.xsd 1571
+  Program Files/PowerShell/7/Schemas/PSMaml/Maml.xsx 211
+  Program Files/PowerShell/7/Schemas/PSMaml/Maml_HTML.xsl 363
+  Program Files/PowerShell/7/Schemas/PSMaml/Maml_HTML_Style.xsl 14422
+  Program Files/PowerShell/7/Schemas/PSMaml/ManagedDeveloper.xsd 14517
+  Program Files/PowerShell/7/Schemas/PSMaml/ManagedDeveloperStructure.xsd 3391
+  Program Files/PowerShell/7/Schemas/PSMaml/ProviderHelp.xsd 6766
+  Program Files/PowerShell/7/Schemas/PSMaml/base.xsd 6434
+  Program Files/PowerShell/7/Schemas/PSMaml/baseConditional.xsd 5297
+  Program Files/PowerShell/7/Schemas/PSMaml/block.xsd 917
+  Program Files/PowerShell/7/Schemas/PSMaml/blockCommon.xsd 3872
+  Program Files/PowerShell/7/Schemas/PSMaml/blockSoftware.xsd 1282
+  Program Files/PowerShell/7/Schemas/PSMaml/command.xsd 13061
+  Program Files/PowerShell/7/Schemas/PSMaml/conditionSet.xsd 4279
+  Program Files/PowerShell/7/Schemas/PSMaml/developer.xsd 11403
+  Program Files/PowerShell/7/Schemas/PSMaml/developerCommand.rld 115907
+  Program Files/PowerShell/7/Schemas/PSMaml/developerCommand.xsd 14520
+  Program Files/PowerShell/7/Schemas/PSMaml/developerDscResource.xsd 2896
+  Program Files/PowerShell/7/Schemas/PSMaml/developerManaged.xsd 10238
+  Program Files/PowerShell/7/Schemas/PSMaml/developerManagedClass.xsd 3693
+  Program Files/PowerShell/7/Schemas/PSMaml/developerManagedConstructor.xsd 2557
+  Program Files/PowerShell/7/Schemas/PSMaml/developerManagedDelegate.xsd 2558
+  Program Files/PowerShell/7/Schemas/PSMaml/developerManagedEnumeration.xsd 2306
+  Program Files/PowerShell/7/Schemas/PSMaml/developerManagedEvent.xsd 3108
+  Program Files/PowerShell/7/Schemas/PSMaml/developerManagedField.xsd 2803
+  Program Files/PowerShell/7/Schemas/PSMaml/developerManagedInterface.xsd 2882
+  Program Files/PowerShell/7/Schemas/PSMaml/developerManagedMethod.xsd 2544
+  Program Files/PowerShell/7/Schemas/PSMaml/developerManagedNamespace.xsd 3359
+  Program Files/PowerShell/7/Schemas/PSMaml/developerManagedOperator.xsd 1896
+  Program Files/PowerShell/7/Schemas/PSMaml/developerManagedOverload.xsd 2573
+  Program Files/PowerShell/7/Schemas/PSMaml/developerManagedProperty.xsd 2843
+  Program Files/PowerShell/7/Schemas/PSMaml/developerManagedStructure.xsd 2951
+  Program Files/PowerShell/7/Schemas/PSMaml/developerReference.xsd 12604
+  Program Files/PowerShell/7/Schemas/PSMaml/developerStructure.xsd 4112
+  Program Files/PowerShell/7/Schemas/PSMaml/developerXaml.xsd 6746
+  Program Files/PowerShell/7/Schemas/PSMaml/endUser.xsd 2144
+  Program Files/PowerShell/7/Schemas/PSMaml/hierarchy.xsd 10070
+  Program Files/PowerShell/7/Schemas/PSMaml/inline.xsd 7644
+  Program Files/PowerShell/7/Schemas/PSMaml/inlineCommon.xsd 8860
+  Program Files/PowerShell/7/Schemas/PSMaml/inlineSoftware.xsd 8016
+  Program Files/PowerShell/7/Schemas/PSMaml/inlineUi.xsd 6400
+  Program Files/PowerShell/7/Schemas/PSMaml/shellExecute.xsd 2250
+  Program Files/PowerShell/7/Schemas/PSMaml/structure.xsd 5973
+  Program Files/PowerShell/7/Schemas/PSMaml/structureGlossary.xsd 4186
+  Program Files/PowerShell/7/Schemas/PSMaml/structureList.xsd 4173
+  Program Files/PowerShell/7/Schemas/PSMaml/structureProcedure.xsd 1994
+  Program Files/PowerShell/7/Schemas/PSMaml/structureTable.xsd 6137
+  Program Files/PowerShell/7/Schemas/PSMaml/structureTaskExecution.xsd 6794
+  Program Files/PowerShell/7/Schemas/PSMaml/task.xsd 22391
+  Program Files/PowerShell/7/Schemas/PSMaml/troubleshooting.xsd 3239
+  Program Files/PowerShell/7/System.AppContext.dll 15672
+  Program Files/PowerShell/7/System.Buffers.dll 15520
+  Program Files/PowerShell/7/System.CodeDom.dll 489736
+  Program Files/PowerShell/7/System.Collections.Concurrent.dll 276776
+  Program Files/PowerShell/7/System.Collections.Immutable.dll 837792
+  Program Files/PowerShell/7/System.Collections.NonGeneric.dll 104720
+  Program Files/PowerShell/7/System.Collections.Specialized.dll 104744
+  Program Files/PowerShell/7/System.Collections.dll 260392
+  Program Files/PowerShell/7/System.ComponentModel.Annotations.dll 203048
+  Program Files/PowerShell/7/System.ComponentModel.Composition.Registration.dll 108616
+  Program Files/PowerShell/7/System.ComponentModel.Composition.dll 739408
+  Program Files/PowerShell/7/System.ComponentModel.DataAnnotations.dll 17160
+  Program Files/PowerShell/7/System.ComponentModel.EventBasedAsync.dll 47264
+  Program Files/PowerShell/7/System.ComponentModel.Primitives.dll 80168
+  Program Files/PowerShell/7/System.ComponentModel.TypeConverter.dll 747816
+  Program Files/PowerShell/7/System.ComponentModel.dll 31032
+  Program Files/PowerShell/7/System.Configuration.ConfigurationManager.dll 1075480
+  Program Files/PowerShell/7/System.Configuration.dll 19752
+  Program Files/PowerShell/7/System.Console.dll 174360
+  Program Files/PowerShell/7/System.Core.dll 23848
+  Program Files/PowerShell/7/System.Data.Common.dll 2861224
+  Program Files/PowerShell/7/System.Data.DataSetExtensions.dll 16168
+  Program Files/PowerShell/7/System.Data.Odbc.dll 632880
+  Program Files/PowerShell/7/System.Data.OleDb.dll 854096
+  Program Files/PowerShell/7/System.Data.SqlClient.dll 2504784
+  Program Files/PowerShell/7/System.Data.dll 25400
+  Program Files/PowerShell/7/System.Design.dll 22312
+  Program Files/PowerShell/7/System.Diagnostics.Contracts.dll 16544
+  Program Files/PowerShell/7/System.Diagnostics.Debug.dll 16032
+  Program Files/PowerShell/7/System.Diagnostics.DiagnosticSource.dll 415904
+  Program Files/PowerShell/7/System.Diagnostics.EventLog.Messages.dll 801080
+  Program Files/PowerShell/7/System.Diagnostics.EventLog.dll 387336
+  Program Files/PowerShell/7/System.Diagnostics.FileVersionInfo.dll 47264
+  Program Files/PowerShell/7/System.Diagnostics.PerformanceCounter.dll 289040
+  Program Files/PowerShell/7/System.Diagnostics.Process.dll 338080
+  Program Files/PowerShell/7/System.Diagnostics.StackTrace.dll 47400
+  Program Files/PowerShell/7/System.Diagnostics.TextWriterTraceListener.dll 67848
+  Program Files/PowerShell/7/System.Diagnostics.Tools.dll 15664
+  Program Files/PowerShell/7/System.Diagnostics.TraceSource.dll 145720
+  Program Files/PowerShell/7/System.Diagnostics.Tracing.dll 16560
+  Program Files/PowerShell/7/System.DirectoryServices.AccountManagement.dll 743504
+  Program Files/PowerShell/7/System.DirectoryServices.Protocols.dll 370760
+  Program Files/PowerShell/7/System.DirectoryServices.dll 1046792
+  Program Files/PowerShell/7/System.Drawing.Common.dll 1140808
+  Program Files/PowerShell/7/System.Drawing.Design.dll 15656
+  Program Files/PowerShell/7/System.Drawing.Primitives.dll 133280
+  Program Files/PowerShell/7/System.Drawing.dll 21664
+  Program Files/PowerShell/7/System.Dynamic.Runtime.dll 16680
+  Program Files/PowerShell/7/System.Formats.Asn1.dll 244008
+  Program Files/PowerShell/7/System.Formats.Tar.dll 272560
+  Program Files/PowerShell/7/System.Globalization.Calendars.dll 16168
+  Program Files/PowerShell/7/System.Globalization.Extensions.dll 15664
+  Program Files/PowerShell/7/System.Globalization.dll 16176
+  Program Files/PowerShell/7/System.IO.Compression.Brotli.dll 84264
+  Program Files/PowerShell/7/System.IO.Compression.FileSystem.dll 15624
+  Program Files/PowerShell/7/System.IO.Compression.Native.dll 831280
+  Program Files/PowerShell/7/System.IO.Compression.ZipFile.dll 55456
+  Program Files/PowerShell/7/System.IO.Compression.dll 264504
+  Program Files/PowerShell/7/System.IO.FileSystem.AccessControl.dll 104736
+  Program Files/PowerShell/7/System.IO.FileSystem.DriveInfo.dll 55592
+  Program Files/PowerShell/7/System.IO.FileSystem.Primitives.dll 15656
+  Program Files/PowerShell/7/System.IO.FileSystem.Watcher.dll 88360
+  Program Files/PowerShell/7/System.IO.FileSystem.dll 16032
+  Program Files/PowerShell/7/System.IO.IsolatedStorage.dll 92336
+  Program Files/PowerShell/7/System.IO.MemoryMappedFiles.dll 84248
+  Program Files/PowerShell/7/System.IO.Packaging.dll 293152
+  Program Files/PowerShell/7/System.IO.Pipes.AccessControl.dll 16680
+  Program Files/PowerShell/7/System.IO.Pipes.dll 166048
+  Program Files/PowerShell/7/System.IO.Ports.dll 170056
+  Program Files/PowerShell/7/System.IO.UnmanagedMemoryStream.dll 15536
+  Program Files/PowerShell/7/System.IO.dll 16176
+  Program Files/PowerShell/7/System.Linq.Expressions.dll 3676320
+  Program Files/PowerShell/7/System.Linq.Parallel.dll 805160
+  Program Files/PowerShell/7/System.Linq.Queryable.dll 174392
+  Program Files/PowerShell/7/System.Linq.dll 543024
+  Program Files/PowerShell/7/System.Management.Automation.dll 19961888
+  Program Files/PowerShell/7/System.Management.Automation.xml 8117017
+  Program Files/PowerShell/7/System.Management.dll 841800
+  Program Files/PowerShell/7/System.Memory.dll 157992
+  Program Files/PowerShell/7/System.Net.Http.Json.dll 129200
+  Program Files/PowerShell/7/System.Net.Http.WinHttpHandler.dll 309320
+  Program Files/PowerShell/7/System.Net.Http.dll 1730736
+  Program Files/PowerShell/7/System.Net.HttpListener.dll 551208
+  Program Files/PowerShell/7/System.Net.Mail.dll 432424
+  Program Files/PowerShell/7/System.Net.NameResolution.dll 112936
+  Program Files/PowerShell/7/System.Net.NetworkInformation.dll 157856
+  Program Files/PowerShell/7/System.Net.Ping.dll 96552
+  Program Files/PowerShell/7/System.Net.Primitives.dll 231584
+  Program Files/PowerShell/7/System.Net.Quic.dll 280736
+  Program Files/PowerShell/7/System.Net.Requests.dll 346408
+  Program Files/PowerShell/7/System.Net.Security.dll 669856
+  Program Files/PowerShell/7/System.Net.ServicePoint.dll 47400
+  Program Files/PowerShell/7/System.Net.Sockets.dll 547104
+  Program Files/PowerShell/7/System.Net.WebClient.dll 170296
+  Program Files/PowerShell/7/System.Net.WebHeaderCollection.dll 67888
+  Program Files/PowerShell/7/System.Net.WebProxy.dll 43296
+  Program Files/PowerShell/7/System.Net.WebSockets.Client.dll 100512
+  Program Files/PowerShell/7/System.Net.WebSockets.dll 190776
+  Program Files/PowerShell/7/System.Net.dll 17712
+  Program Files/PowerShell/7/System.Numerics.Vectors.dll 16168
+  Program Files/PowerShell/7/System.Numerics.dll 15664
+  Program Files/PowerShell/7/System.ObjectModel.dll 80168
+  Program Files/PowerShell/7/System.Printing.dll 964872
+  Program Files/PowerShell/7/System.Private.CoreLib.dll 13170952
+  Program Files/PowerShell/7/System.Private.DataContractSerialization.dll 2082976
+  Program Files/PowerShell/7/System.Private.ServiceModel.dll 6305872
+  Program Files/PowerShell/7/System.Private.Uri.dll 260360
+  Program Files/PowerShell/7/System.Private.Windows.Core.dll 1398832
+  Program Files/PowerShell/7/System.Private.Xml.Linq.dll 403752
+  Program Files/PowerShell/7/System.Private.Xml.dll 7989408
+  Program Files/PowerShell/7/System.Reflection.Context.dll 190544
+  Program Files/PowerShell/7/System.Reflection.DispatchProxy.dll 75936
+  Program Files/PowerShell/7/System.Reflection.Emit.ILGeneration.dll 16176
+  Program Files/PowerShell/7/System.Reflection.Emit.Lightweight.dll 16168
+  Program Files/PowerShell/7/System.Reflection.Emit.dll 129304
+  Program Files/PowerShell/7/System.Reflection.Extensions.dll 15536
+  Program Files/PowerShell/7/System.Reflection.Metadata.dll 1116320
+  Program Files/PowerShell/7/System.Reflection.Primitives.dll 16160
+  Program Files/PowerShell/7/System.Reflection.TypeExtensions.dll 43184
+  Program Files/PowerShell/7/System.Reflection.dll 16544
+  Program Files/PowerShell/7/System.Resources.Extensions.dll 137488
+  Program Files/PowerShell/7/System.Resources.Reader.dll 15536
+  Program Files/PowerShell/7/System.Resources.ResourceManager.dll 16168
+  Program Files/PowerShell/7/System.Resources.Writer.dll 51480
+  Program Files/PowerShell/7/System.Runtime.Caching.dll 206920
+  Program Files/PowerShell/7/System.Runtime.CompilerServices.Unsafe.dll 15656
+  Program Files/PowerShell/7/System.Runtime.CompilerServices.VisualC.dll 31016
+  Program Files/PowerShell/7/System.Runtime.Extensions.dll 18080
+  Program Files/PowerShell/7/System.Runtime.Handles.dll 15520
+  Program Files/PowerShell/7/System.Runtime.InteropServices.JavaScript.dll 51360
+  Program Files/PowerShell/7/System.Runtime.InteropServices.RuntimeInformation.dll 15664
+  Program Files/PowerShell/7/System.Runtime.InteropServices.dll 96552
+  Program Files/PowerShell/7/System.Runtime.Intrinsics.dll 17056
+  Program Files/PowerShell/7/System.Runtime.Loader.dll 16168
+  Program Files/PowerShell/7/System.Runtime.Numerics.dll 330032
+  Program Files/PowerShell/7/System.Runtime.Serialization.Formatters.dll 309408
+  Program Files/PowerShell/7/System.Runtime.Serialization.Json.dll 16184
+  Program Files/PowerShell/7/System.Runtime.Serialization.Primitives.dll 39208
+  Program Files/PowerShell/7/System.Runtime.Serialization.Xml.dll 17192
+  Program Files/PowerShell/7/System.Runtime.Serialization.dll 17072
+  Program Files/PowerShell/7/System.Runtime.dll 43696
+  Program Files/PowerShell/7/System.Security.AccessControl.dll 231720
+  Program Files/PowerShell/7/System.Security.Claims.dll 100656
+  Program Files/PowerShell/7/System.Security.Cryptography.Algorithms.dll 17712
+  Program Files/PowerShell/7/System.Security.Cryptography.Cng.dll 16544
+  Program Files/PowerShell/7/System.Security.Cryptography.Csp.dll 16032
+  Program Files/PowerShell/7/System.Security.Cryptography.Encoding.dll 16032
+  Program Files/PowerShell/7/System.Security.Cryptography.OpenSsl.dll 15656
+  Program Files/PowerShell/7/System.Security.Cryptography.Pkcs.dll 760088
+  Program Files/PowerShell/7/System.Security.Cryptography.Primitives.dll 16184
+  Program Files/PowerShell/7/System.Security.Cryptography.ProtectedData.dll 55560
+  Program Files/PowerShell/7/System.Security.Cryptography.X509Certificates.dll 17192
+  Program Files/PowerShell/7/System.Security.Cryptography.Xml.dll 456976
+  Program Files/PowerShell/7/System.Security.Cryptography.dll 2050224
+  Program Files/PowerShell/7/System.Security.Permissions.dll 186648
+  Program Files/PowerShell/7/System.Security.Principal.Windows.dll 186528
+  Program Files/PowerShell/7/System.Security.Principal.dll 15536
+  Program Files/PowerShell/7/System.Security.SecureString.dll 15520
+  Program Files/PowerShell/7/System.Security.dll 18592
+  Program Files/PowerShell/7/System.ServiceModel.Duplex.dll 15392
+  Program Files/PowerShell/7/System.ServiceModel.Http.dll 16416
+  Program Files/PowerShell/7/System.ServiceModel.NetTcp.dll 15904
+  Program Files/PowerShell/7/System.ServiceModel.Primitives.dll 23080
+  Program Files/PowerShell/7/System.ServiceModel.Security.dll 17440
+  Program Files/PowerShell/7/System.ServiceModel.Syndication.dll 321616
+  Program Files/PowerShell/7/System.ServiceModel.Web.dll 17056
+  Program Files/PowerShell/7/System.ServiceModel.dll 25120
+  Program Files/PowerShell/7/System.ServiceProcess.ServiceController.dll 149576
+  Program Files/PowerShell/7/System.ServiceProcess.dll 16176
+  Program Files/PowerShell/7/System.Speech.dll 1435728
+  Program Files/PowerShell/7/System.Text.Encoding.CodePages.dll 862520
+  Program Files/PowerShell/7/System.Text.Encoding.Extensions.dll 16176
+  Program Files/PowerShell/7/System.Text.Encoding.dll 16168
+  Program Files/PowerShell/7/System.Text.Encodings.Web.dll 133296
+  Program Files/PowerShell/7/System.Text.Json.dll 1501344
+  Program Files/PowerShell/7/System.Text.RegularExpressions.dll 1022232
+  Program Files/PowerShell/7/System.Threading.AccessControl.dll 88112
+  Program Files/PowerShell/7/System.Threading.Channels.dll 133296
+  Program Files/PowerShell/7/System.Threading.Overlapped.dll 16168
+  Program Files/PowerShell/7/System.Threading.Tasks.Dataflow.dll 489768
+  Program Files/PowerShell/7/System.Threading.Tasks.Extensions.dll 16168
+  Program Files/PowerShell/7/System.Threading.Tasks.Parallel.dll 133280
+  Program Files/PowerShell/7/System.Threading.Tasks.dll 17072
+  Program Files/PowerShell/7/System.Threading.Thread.dll 16168
+  Program Files/PowerShell/7/System.Threading.ThreadPool.dll 16168
+  Program Files/PowerShell/7/System.Threading.Timer.dll 15672
+  Program Files/PowerShell/7/System.Threading.dll 84144
+  Program Files/PowerShell/7/System.Transactions.Local.dll 661680
+  Program Files/PowerShell/7/System.Transactions.dll 16544
+  Program Files/PowerShell/7/System.ValueTuple.dll 15656
+  Program Files/PowerShell/7/System.Web.HttpUtility.dll 59552
+  Program Files/PowerShell/7/System.Web.Services.Description.dll 804936
+  Program Files/PowerShell/7/System.Web.dll 15520
+  Program Files/PowerShell/7/System.Windows.Controls.Ribbon.dll 1452296
+  Program Files/PowerShell/7/System.Windows.Extensions.dll 117016
+  Program Files/PowerShell/7/System.Windows.Forms.Design.Editors.dll 16544
+  Program Files/PowerShell/7/System.Windows.Forms.Design.dll 5564696
+  Program Files/PowerShell/7/System.Windows.Forms.Primitives.dll 3012880
+  Program Files/PowerShell/7/System.Windows.Forms.dll 13564192
+  Program Files/PowerShell/7/System.Windows.Input.Manipulations.dll 137376
+  Program Files/PowerShell/7/System.Windows.Presentation.dll 31000
+  Program Files/PowerShell/7/System.Windows.dll 16032
+  Program Files/PowerShell/7/System.Xaml.dll 1419544
+  Program Files/PowerShell/7/System.Xml.Linq.dll 16032
+  Program Files/PowerShell/7/System.Xml.ReaderWriter.dll 22320
+  Program Files/PowerShell/7/System.Xml.Serialization.dll 16544
+  Program Files/PowerShell/7/System.Xml.XDocument.dll 16048
+  Program Files/PowerShell/7/System.Xml.XPath.XDocument.dll 31016
+  Program Files/PowerShell/7/System.Xml.XPath.dll 16032
+  Program Files/PowerShell/7/System.Xml.XmlDocument.dll 16168
+  Program Files/PowerShell/7/System.Xml.XmlSerializer.dll 18224
+  Program Files/PowerShell/7/System.Xml.dll 23712
+  Program Files/PowerShell/7/System.dll 50352
+  Program Files/PowerShell/7/ThirdPartyNotices.txt 209868
+  Program Files/PowerShell/7/UIAutomationClient.dll 416024
+  Program Files/PowerShell/7/UIAutomationClientSideProviders.dll 870688
+  Program Files/PowerShell/7/UIAutomationProvider.dll 59680
+  Program Files/PowerShell/7/UIAutomationTypes.dll 313608
+  Program Files/PowerShell/7/WindowsBase.dll 2255120
+  Program Files/PowerShell/7/WindowsFormsIntegration.dll 211224
+  Program Files/PowerShell/7/assets/Powershell_av_colors.ico 120737
+  Program Files/PowerShell/7/assets/Powershell_avatar.ico 125384
+  Program Files/PowerShell/7/assets/Powershell_black.ico 127271
+  Program Files/PowerShell/7/assets/ps_black_32x32.ico 4470
+  Program Files/PowerShell/7/clretwrc.dll 311088
+  Program Files/PowerShell/7/clrgc.dll 668320
+  Program Files/PowerShell/7/clrjit.dll 1785136
+  Program Files/PowerShell/7/coreclr.dll 5040800
+  Program Files/PowerShell/7/createdump.exe 61784
+  Program Files/PowerShell/7/cs/Microsoft.CodeAnalysis.CSharp.resources.dll 423072
+  Program Files/PowerShell/7/cs/Microsoft.CodeAnalysis.resources.dll 47368
+  Program Files/PowerShell/7/cs/Microsoft.VisualBasic.Forms.resources.dll 25896
+  Program Files/PowerShell/7/cs/PresentationCore.resources.dll 108808
+  Program Files/PowerShell/7/cs/PresentationFramework.resources.dll 196784
+  Program Files/PowerShell/7/cs/PresentationUI.resources.dll 45872
+  Program Files/PowerShell/7/cs/ReachFramework.resources.dll 39208
+  Program Files/PowerShell/7/cs/System.Private.ServiceModel.resources.dll 213024
+  Program Files/PowerShell/7/cs/System.Web.Services.Description.resources.dll 19480
+  Program Files/PowerShell/7/cs/System.Windows.Controls.Ribbon.resources.dll 18728
+  Program Files/PowerShell/7/cs/System.Windows.Forms.Design.resources.dll 149168
+  Program Files/PowerShell/7/cs/System.Windows.Forms.Primitives.resources.dll 16032
+  Program Files/PowerShell/7/cs/System.Windows.Forms.resources.dll 365864
+  Program Files/PowerShell/7/cs/System.Windows.Input.Manipulations.resources.dll 16680
+  Program Files/PowerShell/7/cs/System.Xaml.resources.dll 65184
+  Program Files/PowerShell/7/cs/UIAutomationClient.resources.dll 20280
+  Program Files/PowerShell/7/cs/UIAutomationClientSideProviders.resources.dll 21288
+  Program Files/PowerShell/7/cs/UIAutomationProvider.resources.dll 15656
+  Program Files/PowerShell/7/cs/UIAutomationTypes.resources.dll 18592
+  Program Files/PowerShell/7/cs/WindowsBase.resources.dll 86824
+  Program Files/PowerShell/7/cs/WindowsFormsIntegration.resources.dll 16032
+  Program Files/PowerShell/7/de/Microsoft.CodeAnalysis.CSharp.resources.dll 452256
+  Program Files/PowerShell/7/de/Microsoft.CodeAnalysis.resources.dll 49312
+  Program Files/PowerShell/7/de/Microsoft.VisualBasic.Forms.resources.dll 25760
+  Program Files/PowerShell/7/de/PresentationCore.resources.dll 114472
+  Program Files/PowerShell/7/de/PresentationFramework.resources.dll 213800
+  Program Files/PowerShell/7/de/PresentationUI.resources.dll 47392
+  Program Files/PowerShell/7/de/ReachFramework.resources.dll 39720
+  Program Files/PowerShell/7/de/System.Private.ServiceModel.resources.dll 227368
+  Program Files/PowerShell/7/de/System.Web.Services.Description.resources.dll 20000
+  Program Files/PowerShell/7/de/System.Windows.Controls.Ribbon.resources.dll 18592
+  Program Files/PowerShell/7/de/System.Windows.Forms.Design.resources.dll 149664
+  Program Files/PowerShell/7/de/System.Windows.Forms.Primitives.resources.dll 16032
+  Program Files/PowerShell/7/de/System.Windows.Forms.resources.dll 373920
+  Program Files/PowerShell/7/de/System.Windows.Input.Manipulations.resources.dll 16560
+  Program Files/PowerShell/7/de/System.Xaml.resources.dll 68768
+  Program Files/PowerShell/7/de/UIAutomationClient.resources.dll 20128
+  Program Files/PowerShell/7/de/UIAutomationClientSideProviders.resources.dll 21264
+  Program Files/PowerShell/7/de/UIAutomationProvider.resources.dll 15520
+  Program Files/PowerShell/7/de/UIAutomationTypes.resources.dll 18728
+  Program Files/PowerShell/7/de/WindowsBase.resources.dll 91448
+  Program Files/PowerShell/7/de/WindowsFormsIntegration.resources.dll 16168
+  Program Files/PowerShell/7/en-US/default.help.txt 3420
+  Program Files/PowerShell/7/es/Microsoft.CodeAnalysis.CSharp.resources.dll 443040
+  Program Files/PowerShell/7/es/Microsoft.CodeAnalysis.resources.dll 48816
+  Program Files/PowerShell/7/es/Microsoft.VisualBasic.Forms.resources.dll 25896
+  Program Files/PowerShell/7/es/PresentationCore.resources.dll 110376
+  Program Files/PowerShell/7/es/PresentationFramework.resources.dll 203552
+  Program Files/PowerShell/7/es/PresentationUI.resources.dll 45864
+  Program Files/PowerShell/7/es/ReachFramework.resources.dll 39584
+  Program Files/PowerShell/7/es/System.Private.ServiceModel.resources.dll 218664
+  Program Files/PowerShell/7/es/System.Web.Services.Description.resources.dll 19488
+  Program Files/PowerShell/7/es/System.Windows.Controls.Ribbon.resources.dll 18728
+  Program Files/PowerShell/7/es/System.Windows.Forms.Design.resources.dll 149800
+  Program Files/PowerShell/7/es/System.Windows.Forms.Primitives.resources.dll 16160
+  Program Files/PowerShell/7/es/System.Windows.Forms.resources.dll 366344
+  Program Files/PowerShell/7/es/System.Windows.Input.Manipulations.resources.dll 16544
+  Program Files/PowerShell/7/es/System.Xaml.resources.dll 66224
+  Program Files/PowerShell/7/es/UIAutomationClient.resources.dll 20264
+  Program Files/PowerShell/7/es/UIAutomationClientSideProviders.resources.dll 21288
+  Program Files/PowerShell/7/es/UIAutomationProvider.resources.dll 15520
+  Program Files/PowerShell/7/es/UIAutomationTypes.resources.dll 18728
+  Program Files/PowerShell/7/es/WindowsBase.resources.dll 89760
+  Program Files/PowerShell/7/es/WindowsFormsIntegration.resources.dll 16168
+  Program Files/PowerShell/7/fr/Microsoft.CodeAnalysis.CSharp.resources.dll 453792
+  Program Files/PowerShell/7/fr/Microsoft.CodeAnalysis.resources.dll 49824
+  Program Files/PowerShell/7/fr/Microsoft.VisualBasic.Forms.resources.dll 25760
+  Program Files/PowerShell/7/fr/PresentationCore.resources.dll 113448
+  Program Files/PowerShell/7/fr/PresentationFramework.resources.dll 207008
+  Program Files/PowerShell/7/fr/PresentationUI.resources.dll 46768
+  Program Files/PowerShell/7/fr/ReachFramework.resources.dll 40240
+  Program Files/PowerShell/7/fr/System.Private.ServiceModel.resources.dll 226344
+  Program Files/PowerShell/7/fr/System.Web.Services.Description.resources.dll 19496
+  Program Files/PowerShell/7/fr/System.Windows.Controls.Ribbon.resources.dll 18728
+  Program Files/PowerShell/7/fr/System.Windows.Forms.Design.resources.dll 150176
+  Program Files/PowerShell/7/fr/System.Windows.Forms.Primitives.resources.dll 16032
+  Program Files/PowerShell/7/fr/System.Windows.Forms.resources.dll 373032
+  Program Files/PowerShell/7/fr/System.Windows.Input.Manipulations.resources.dll 16680
+  Program Files/PowerShell/7/fr/System.Xaml.resources.dll 67376
+  Program Files/PowerShell/7/fr/UIAutomationClient.resources.dll 20264
+  Program Files/PowerShell/7/fr/UIAutomationClientSideProviders.resources.dll 21296
+  Program Files/PowerShell/7/fr/UIAutomationProvider.resources.dll 15536
+  Program Files/PowerShell/7/fr/UIAutomationTypes.resources.dll 18736
+  Program Files/PowerShell/7/fr/WindowsBase.resources.dll 90784
+  Program Files/PowerShell/7/fr/WindowsFormsIntegration.resources.dll 16168
+  Program Files/PowerShell/7/getfilesiginforedist.dll 64840
+  Program Files/PowerShell/7/getfilesiginforedistwrapper.dll 30792
+  Program Files/PowerShell/7/hostfxr.dll 350504
+  Program Files/PowerShell/7/hostpolicy.dll 393376
+  Program Files/PowerShell/7/it/Microsoft.CodeAnalysis.CSharp.resources.dll 449184
+  Program Files/PowerShell/7/it/Microsoft.CodeAnalysis.resources.dll 49840
+  Program Files/PowerShell/7/it/Microsoft.VisualBasic.Forms.resources.dll 25776
+  Program Files/PowerShell/7/it/PresentationCore.resources.dll 111792
+  Program Files/PowerShell/7/it/PresentationFramework.resources.dll 206120
+  Program Files/PowerShell/7/it/PresentationUI.resources.dll 45728
+  Program Files/PowerShell/7/it/ReachFramework.resources.dll 39600
+  Program Files/PowerShell/7/it/System.Private.ServiceModel.resources.dll 220704
+  Program Files/PowerShell/7/it/System.Web.Services.Description.resources.dll 19488
+  Program Files/PowerShell/7/it/System.Windows.Controls.Ribbon.resources.dll 18696
+  Program Files/PowerShell/7/it/System.Windows.Forms.Design.resources.dll 150704
+  Program Files/PowerShell/7/it/System.Windows.Forms.Primitives.resources.dll 16168
+  Program Files/PowerShell/7/it/System.Windows.Forms.resources.dll 368944
+  Program Files/PowerShell/7/it/System.Windows.Input.Manipulations.resources.dll 16560
+  Program Files/PowerShell/7/it/System.Xaml.resources.dll 66344
+  Program Files/PowerShell/7/it/UIAutomationClient.resources.dll 20264
+  Program Files/PowerShell/7/it/UIAutomationClientSideProviders.resources.dll 21288
+  Program Files/PowerShell/7/it/UIAutomationProvider.resources.dll 15648
+  Program Files/PowerShell/7/it/UIAutomationTypes.resources.dll 18728
+  Program Files/PowerShell/7/it/WindowsBase.resources.dll 91296
+  Program Files/PowerShell/7/it/WindowsFormsIntegration.resources.dll 16032
+  Program Files/PowerShell/7/ja/Microsoft.CodeAnalysis.CSharp.resources.dll 495392
+  Program Files/PowerShell/7/ja/Microsoft.CodeAnalysis.resources.dll 52912
+  Program Files/PowerShell/7/ja/Microsoft.VisualBasic.Forms.resources.dll 26408
+  Program Files/PowerShell/7/ja/PresentationCore.resources.dll 122664
+  Program Files/PowerShell/7/ja/PresentationFramework.resources.dll 226600
+  Program Files/PowerShell/7/ja/PresentationUI.resources.dll 49456
+  Program Files/PowerShell/7/ja/ReachFramework.resources.dll 42280
+  Program Files/PowerShell/7/ja/System.Private.ServiceModel.resources.dll 256544
+  Program Files/PowerShell/7/ja/System.Web.Services.Description.resources.dll 20528
+  Program Files/PowerShell/7/ja/System.Windows.Controls.Ribbon.resources.dll 19240
+  Program Files/PowerShell/7/ja/System.Windows.Forms.Design.resources.dll 155808
+  Program Files/PowerShell/7/ja/System.Windows.Forms.Primitives.resources.dll 16560
+  Program Files/PowerShell/7/ja/System.Windows.Forms.resources.dll 409264
+  Program Files/PowerShell/7/ja/System.Windows.Input.Manipulations.resources.dll 16680
+  Program Files/PowerShell/7/ja/System.Xaml.resources.dll 74544
+  Program Files/PowerShell/7/ja/UIAutomationClient.resources.dll 20768
+  Program Files/PowerShell/7/ja/UIAutomationClientSideProviders.resources.dll 21808
+  Program Files/PowerShell/7/ja/UIAutomationProvider.resources.dll 15520
+  Program Files/PowerShell/7/ja/UIAutomationTypes.resources.dll 18592
+  Program Files/PowerShell/7/ja/WindowsBase.resources.dll 99488
+  Program Files/PowerShell/7/ja/WindowsFormsIntegration.resources.dll 16544
+  Program Files/PowerShell/7/ko/Microsoft.CodeAnalysis.CSharp.resources.dll 454408
+  Program Files/PowerShell/7/ko/Microsoft.CodeAnalysis.resources.dll 49824
+  Program Files/PowerShell/7/ko/Microsoft.VisualBasic.Forms.resources.dll 25896
+  Program Files/PowerShell/7/ko/PresentationCore.resources.dll 114472
+  Program Files/PowerShell/7/ko/PresentationFramework.resources.dll 211752
+  Program Files/PowerShell/7/ko/PresentationUI.resources.dll 46240
+  Program Files/PowerShell/7/ko/ReachFramework.resources.dll 40760
+  Program Files/PowerShell/7/ko/System.Private.ServiceModel.resources.dll 225832
+  Program Files/PowerShell/7/ko/System.Web.Services.Description.resources.dll 20000
+  Program Files/PowerShell/7/ko/System.Windows.Controls.Ribbon.resources.dll 18592
+  Program Files/PowerShell/7/ko/System.Windows.Forms.Design.resources.dll 151336
+  Program Files/PowerShell/7/ko/System.Windows.Forms.Primitives.resources.dll 16168
+  Program Files/PowerShell/7/ko/System.Windows.Forms.resources.dll 370984
+  Program Files/PowerShell/7/ko/System.Windows.Input.Manipulations.resources.dll 16560
+  Program Files/PowerShell/7/ko/System.Xaml.resources.dll 69928
+  Program Files/PowerShell/7/ko/UIAutomationClient.resources.dll 20264
+  Program Files/PowerShell/7/ko/UIAutomationClientSideProviders.resources.dll 21288
+  Program Files/PowerShell/7/ko/UIAutomationProvider.resources.dll 15656
+  Program Files/PowerShell/7/ko/UIAutomationTypes.resources.dll 18592
+  Program Files/PowerShell/7/ko/WindowsBase.resources.dll 92464
+  Program Files/PowerShell/7/ko/WindowsFormsIntegration.resources.dll 16168
+  Program Files/PowerShell/7/microsoft.management.infrastructure.dll 309320
+  Program Files/PowerShell/7/microsoft.management.infrastructure.native.dll 362568
+  Program Files/PowerShell/7/microsoft.management.infrastructure.native.unmanaged.dll 28192
+  Program Files/PowerShell/7/mscordaccore.dll 1338392
+  Program Files/PowerShell/7/mscordaccore_amd64_amd64_8.0.1024.46610.dll 1338392
+  Program Files/PowerShell/7/mscordbi.dll 1241640
+  Program Files/PowerShell/7/mscorlib.dll 59688
+  Program Files/PowerShell/7/mscorrc.dll 136864
+  Program Files/PowerShell/7/msquic.dll 538136
+  Program Files/PowerShell/7/netstandard.dll 101160
+  Program Files/PowerShell/7/pl/Microsoft.CodeAnalysis.CSharp.resources.dll 455328
+  Program Files/PowerShell/7/pl/Microsoft.CodeAnalysis.resources.dll 49824
+  Program Files/PowerShell/7/pl/Microsoft.VisualBasic.Forms.resources.dll 25776
+  Program Files/PowerShell/7/pl/PresentationCore.resources.dll 113448
+  Program Files/PowerShell/7/pl/PresentationFramework.resources.dll 209568
+  Program Files/PowerShell/7/pl/PresentationUI.resources.dll 46256
+  Program Files/PowerShell/7/pl/ReachFramework.resources.dll 40096
+  Program Files/PowerShell/7/pl/System.Private.ServiceModel.resources.dll 226336
+  Program Files/PowerShell/7/pl/System.Web.Services.Description.resources.dll 19480
+  Program Files/PowerShell/7/pl/System.Windows.Controls.Ribbon.resources.dll 18592
+  Program Files/PowerShell/7/pl/System.Windows.Forms.Design.resources.dll 149296
+  Program Files/PowerShell/7/pl/System.Windows.Forms.Primitives.resources.dll 16032
+  Program Files/PowerShell/7/pl/System.Windows.Forms.resources.dll 366240
+  Program Files/PowerShell/7/pl/System.Windows.Input.Manipulations.resources.dll 16656
+  Program Files/PowerShell/7/pl/System.Xaml.resources.dll 69928
+  Program Files/PowerShell/7/pl/UIAutomationClient.resources.dll 20128
+  Program Files/PowerShell/7/pl/UIAutomationClientSideProviders.resources.dll 21264
+  Program Files/PowerShell/7/pl/UIAutomationProvider.resources.dll 15664
+  Program Files/PowerShell/7/pl/UIAutomationTypes.resources.dll 18728
+  Program Files/PowerShell/7/pl/WindowsBase.resources.dll 90888
+  Program Files/PowerShell/7/pl/WindowsFormsIntegration.resources.dll 16168
+  Program Files/PowerShell/7/powershell.config.json 190
+  Program Files/PowerShell/7/preview/pwsh-preview.cmd 25
+  Program Files/PowerShell/7/pt-BR/Microsoft.CodeAnalysis.CSharp.resources.dll 434848
+  Program Files/PowerShell/7/pt-BR/Microsoft.CodeAnalysis.resources.dll 48288
+  Program Files/PowerShell/7/pt-BR/Microsoft.VisualBasic.Forms.resources.dll 25760
+  Program Files/PowerShell/7/pt-BR/PresentationCore.resources.dll 109864
+  Program Files/PowerShell/7/pt-BR/PresentationFramework.resources.dll 202912
+  Program Files/PowerShell/7/pt-BR/PresentationUI.resources.dll 45728
+  Program Files/PowerShell/7/pt-BR/ReachFramework.resources.dll 39208
+  Program Files/PowerShell/7/pt-BR/System.Private.ServiceModel.resources.dll 217120
+  Program Files/PowerShell/7/pt-BR/System.Web.Services.Description.resources.dll 19488
+  Program Files/PowerShell/7/pt-BR/System.Windows.Controls.Ribbon.resources.dll 18728
+  Program Files/PowerShell/7/pt-BR/System.Windows.Forms.Design.resources.dll 149152
+  Program Files/PowerShell/7/pt-BR/System.Windows.Forms.Primitives.resources.dll 16032
+  Program Files/PowerShell/7/pt-BR/System.Windows.Forms.resources.dll 359072
+  Program Files/PowerShell/7/pt-BR/System.Windows.Input.Manipulations.resources.dll 16680
+  Program Files/PowerShell/7/pt-BR/System.Xaml.resources.dll 65712
+  Program Files/PowerShell/7/pt-BR/UIAutomationClient.resources.dll 20264
+  Program Files/PowerShell/7/pt-BR/UIAutomationClientSideProviders.resources.dll 21152
+  Program Files/PowerShell/7/pt-BR/UIAutomationProvider.resources.dll 15656
+  Program Files/PowerShell/7/pt-BR/UIAutomationTypes.resources.dll 18728
+  Program Files/PowerShell/7/pt-BR/WindowsBase.resources.dll 89248
+  Program Files/PowerShell/7/pt-BR/WindowsFormsIntegration.resources.dll 16032
+  Program Files/PowerShell/7/pwrshplugin.dll 161216
+  Program Files/PowerShell/7/pwsh.deps.json 100974
+  Program Files/PowerShell/7/pwsh.dll 157728
+  Program Files/PowerShell/7/pwsh.exe 278048
+  Program Files/PowerShell/7/pwsh.runtimeconfig.json 729
+  Program Files/PowerShell/7/pwsh.xml 617
+  Program Files/PowerShell/7/ref/Microsoft.CSharp.dll 18608
+  Program Files/PowerShell/7/ref/Microsoft.VisualBasic.Core.dll 59672
+  Program Files/PowerShell/7/ref/Microsoft.VisualBasic.dll 17568
+  Program Files/PowerShell/7/ref/Microsoft.Win32.Primitives.dll 16544
+  Program Files/PowerShell/7/ref/Microsoft.Win32.Registry.dll 21800
+  Program Files/PowerShell/7/ref/System.AppContext.dll 15672
+  Program Files/PowerShell/7/ref/System.Buffers.dll 15520
+  Program Files/PowerShell/7/ref/System.Collections.Concurrent.dll 26784
+  Program Files/PowerShell/7/ref/System.Collections.Immutable.dll 73520
+  Program Files/PowerShell/7/ref/System.Collections.NonGeneric.dll 23328
+  Program Files/PowerShell/7/ref/System.Collections.Specialized.dll 26392
+  Program Files/PowerShell/7/ref/System.Collections.dll 46376
+  Program Files/PowerShell/7/ref/System.ComponentModel.Annotations.dll 32040
+  Program Files/PowerShell/7/ref/System.ComponentModel.DataAnnotations.dll 17160
+  Program Files/PowerShell/7/ref/System.ComponentModel.EventBasedAsync.dll 19752
+  Program Files/PowerShell/7/ref/System.ComponentModel.Primitives.dll 26272
+  Program Files/PowerShell/7/ref/System.ComponentModel.TypeConverter.dll 103720
+  Program Files/PowerShell/7/ref/System.ComponentModel.dll 16048
+  Program Files/PowerShell/7/ref/System.Configuration.dll 19752
+  Program Files/PowerShell/7/ref/System.Console.dll 26416
+  Program Files/PowerShell/7/ref/System.Core.dll 23848
+  Program Files/PowerShell/7/ref/System.Data.Common.dll 154400
+  Program Files/PowerShell/7/ref/System.Data.DataSetExtensions.dll 16168
+  Program Files/PowerShell/7/ref/System.Data.dll 24360
+  Program Files/PowerShell/7/ref/System.Diagnostics.Contracts.dll 20272
+  Program Files/PowerShell/7/ref/System.Diagnostics.Debug.dll 16032
+  Program Files/PowerShell/7/ref/System.Diagnostics.DiagnosticSource.dll 40736
+  Program Files/PowerShell/7/ref/System.Diagnostics.FileVersionInfo.dll 17056
+  Program Files/PowerShell/7/ref/System.Diagnostics.Process.dll 31528
+  Program Files/PowerShell/7/ref/System.Diagnostics.StackTrace.dll 23352
+  Program Files/PowerShell/7/ref/System.Diagnostics.TextWriterTraceListener.dll 18080
+  Program Files/PowerShell/7/ref/System.Diagnostics.Tools.dll 15664
+  Program Files/PowerShell/7/ref/System.Diagnostics.TraceSource.dll 28336
+  Program Files/PowerShell/7/ref/System.Diagnostics.Tracing.dll 29360
+  Program Files/PowerShell/7/ref/System.Drawing.Primitives.dll 36144
+  Program Files/PowerShell/7/ref/System.Drawing.dll 20640
+  Program Files/PowerShell/7/ref/System.Dynamic.Runtime.dll 16680
+  Program Files/PowerShell/7/ref/System.Formats.Asn1.dll 26272
+  Program Files/PowerShell/7/ref/System.Formats.Tar.dll 20248
+  Program Files/PowerShell/7/ref/System.Globalization.Calendars.dll 16168
+  Program Files/PowerShell/7/ref/System.Globalization.Extensions.dll 15664
+  Program Files/PowerShell/7/ref/System.Globalization.dll 16176
+  Program Files/PowerShell/7/ref/System.IO.Compression.Brotli.dll 18200
+  Program Files/PowerShell/7/ref/System.IO.Compression.FileSystem.dll 15624
+  Program Files/PowerShell/7/ref/System.IO.Compression.ZipFile.dll 17072
+  Program Files/PowerShell/7/ref/System.IO.Compression.dll 21256
+  Program Files/PowerShell/7/ref/System.IO.FileSystem.AccessControl.dll 20776
+  Program Files/PowerShell/7/ref/System.IO.FileSystem.DriveInfo.dll 17704
+  Program Files/PowerShell/7/ref/System.IO.FileSystem.Primitives.dll 15656
+  Program Files/PowerShell/7/ref/System.IO.FileSystem.Watcher.dll 21288
+  Program Files/PowerShell/7/ref/System.IO.FileSystem.dll 16032
+  Program Files/PowerShell/7/ref/System.IO.IsolatedStorage.dll 22832
+  Program Files/PowerShell/7/ref/System.IO.MemoryMappedFiles.dll 18592
+  Program Files/PowerShell/7/ref/System.IO.Pipes.AccessControl.dll 19224
+  Program Files/PowerShell/7/ref/System.IO.Pipes.dll 21800
+  Program Files/PowerShell/7/ref/System.IO.UnmanagedMemoryStream.dll 15536
+  Program Files/PowerShell/7/ref/System.IO.dll 16176
+  Program Files/PowerShell/7/ref/System.Linq.Expressions.dll 63272
+  Program Files/PowerShell/7/ref/System.Linq.Parallel.dll 31392
+  Program Files/PowerShell/7/ref/System.Linq.Queryable.dll 30992
+  Program Files/PowerShell/7/ref/System.Linq.dll 32552
+  Program Files/PowerShell/7/ref/System.Memory.dll 53552
+  Program Files/PowerShell/7/ref/System.Net.Http.Json.dll 23712
+  Program Files/PowerShell/7/ref/System.Net.Http.dll 60200
+  Program Files/PowerShell/7/ref/System.Net.HttpListener.dll 25760
+  Program Files/PowerShell/7/ref/System.Net.Mail.dll 31904
+  Program Files/PowerShell/7/ref/System.Net.NameResolution.dll 18096
+  Program Files/PowerShell/7/ref/System.Net.NetworkInformation.dll 34088
+  Program Files/PowerShell/7/ref/System.Net.Ping.dll 20776
+  Program Files/PowerShell/7/ref/System.Net.Primitives.dll 36120
+  Program Files/PowerShell/7/ref/System.Net.Quic.dll 22312
+  Program Files/PowerShell/7/ref/System.Net.Requests.dll 37536
+  Program Files/PowerShell/7/ref/System.Net.Security.dll 52912
+  Program Files/PowerShell/7/ref/System.Net.ServicePoint.dll 20280
+  Program Files/PowerShell/7/ref/System.Net.Sockets.dll 47912
+  Program Files/PowerShell/7/ref/System.Net.WebClient.dll 27936
+  Program Files/PowerShell/7/ref/System.Net.WebHeaderCollection.dll 19752
+  Program Files/PowerShell/7/ref/System.Net.WebProxy.dll 18216
+  Program Files/PowerShell/7/ref/System.Net.WebSockets.Client.dll 19616
+  Program Files/PowerShell/7/ref/System.Net.WebSockets.dll 22832
+  Program Files/PowerShell/7/ref/System.Net.dll 17712
+  Program Files/PowerShell/7/ref/System.Numerics.Vectors.dll 41256
+  Program Files/PowerShell/7/ref/System.Numerics.dll 15664
+  Program Files/PowerShell/7/ref/System.ObjectModel.dll 23712
+  Program Files/PowerShell/7/ref/System.Reflection.DispatchProxy.dll 16032
+  Program Files/PowerShell/7/ref/System.Reflection.Emit.ILGeneration.dll 20776
+  Program Files/PowerShell/7/ref/System.Reflection.Emit.Lightweight.dll 19616
+  Program Files/PowerShell/7/ref/System.Reflection.Emit.dll 43184
+  Program Files/PowerShell/7/ref/System.Reflection.Extensions.dll 15536
+  Program Files/PowerShell/7/ref/System.Reflection.Metadata.dll 120616
+  Program Files/PowerShell/7/ref/System.Reflection.Primitives.dll 22176
+  Program Files/PowerShell/7/ref/System.Reflection.TypeExtensions.dll 19752
+  Program Files/PowerShell/7/ref/System.Reflection.dll 16544
+  Program Files/PowerShell/7/ref/System.Resources.Reader.dll 15536
+  Program Files/PowerShell/7/ref/System.Resources.ResourceManager.dll 16168
+  Program Files/PowerShell/7/ref/System.Resources.Writer.dll 16544
+  Program Files/PowerShell/7/ref/System.Runtime.CompilerServices.Unsafe.dll 15656
+  Program Files/PowerShell/7/ref/System.Runtime.CompilerServices.VisualC.dll 17568
+  Program Files/PowerShell/7/ref/System.Runtime.Extensions.dll 18080
+  Program Files/PowerShell/7/ref/System.Runtime.Handles.dll 15520
+  Program Files/PowerShell/7/ref/System.Runtime.InteropServices.JavaScript.dll 26272
+  Program Files/PowerShell/7/ref/System.Runtime.InteropServices.RuntimeInformation.dll 15664
+  Program Files/PowerShell/7/ref/System.Runtime.InteropServices.dll 97456
+  Program Files/PowerShell/7/ref/System.Runtime.Intrinsics.dll 276792
+  Program Files/PowerShell/7/ref/System.Runtime.Loader.dll 19760
+  Program Files/PowerShell/7/ref/System.Runtime.Numerics.dll 36648
+  Program Files/PowerShell/7/ref/System.Runtime.Serialization.Formatters.dll 23848
+  Program Files/PowerShell/7/ref/System.Runtime.Serialization.Json.dll 21152
+  Program Files/PowerShell/7/ref/System.Runtime.Serialization.Primitives.dll 20264
+  Program Files/PowerShell/7/ref/System.Runtime.Serialization.Xml.dll 40232
+  Program Files/PowerShell/7/ref/System.Runtime.Serialization.dll 17072
+  Program Files/PowerShell/7/ref/System.Runtime.dll 829224
+  Program Files/PowerShell/7/ref/System.Security.AccessControl.dll 37672
+  Program Files/PowerShell/7/ref/System.Security.Claims.dll 32552
+  Program Files/PowerShell/7/ref/System.Security.Cryptography.Algorithms.dll 17712
+  Program Files/PowerShell/7/ref/System.Security.Cryptography.Cng.dll 16544
+  Program Files/PowerShell/7/ref/System.Security.Cryptography.Csp.dll 16032
+  Program Files/PowerShell/7/ref/System.Security.Cryptography.Encoding.dll 16032
+  Program Files/PowerShell/7/ref/System.Security.Cryptography.OpenSsl.dll 15656
+  Program Files/PowerShell/7/ref/System.Security.Cryptography.Primitives.dll 16184
+  Program Files/PowerShell/7/ref/System.Security.Cryptography.X509Certificates.dll 17192
+  Program Files/PowerShell/7/ref/System.Security.Cryptography.dll 133928
+  Program Files/PowerShell/7/ref/System.Security.Principal.Windows.dll 27296
+  Program Files/PowerShell/7/ref/System.Security.Principal.dll 15536
+  Program Files/PowerShell/7/ref/System.Security.SecureString.dll 15520
+  Program Files/PowerShell/7/ref/System.Security.dll 18592
+  Program Files/PowerShell/7/ref/System.ServiceModel.Web.dll 17056
+  Program Files/PowerShell/7/ref/System.ServiceProcess.dll 16176
+  Program Files/PowerShell/7/ref/System.Text.Encoding.CodePages.dll 16152
+  Program Files/PowerShell/7/ref/System.Text.Encoding.Extensions.dll 21296
+  Program Files/PowerShell/7/ref/System.Text.Encoding.dll 16168
+  Program Files/PowerShell/7/ref/System.Text.Encodings.Web.dll 26272
+  Program Files/PowerShell/7/ref/System.Text.Json.dll 74008
+  Program Files/PowerShell/7/ref/System.Text.RegularExpressions.dll 36000
+  Program Files/PowerShell/7/ref/System.Threading.Channels.dll 19224
+  Program Files/PowerShell/7/ref/System.Threading.Overlapped.dll 19240
+  Program Files/PowerShell/7/ref/System.Threading.Tasks.Dataflow.dll 31920
+  Program Files/PowerShell/7/ref/System.Threading.Tasks.Extensions.dll 16168
+  Program Files/PowerShell/7/ref/System.Threading.Tasks.Parallel.dll 20264
+  Program Files/PowerShell/7/ref/System.Threading.Tasks.dll 17072
+  Program Files/PowerShell/7/ref/System.Threading.Thread.dll 23320
+  Program Files/PowerShell/7/ref/System.Threading.ThreadPool.dll 18712
+  Program Files/PowerShell/7/ref/System.Threading.Timer.dll 15672
+  Program Files/PowerShell/7/ref/System.Threading.dll 32544
+  Program Files/PowerShell/7/ref/System.Transactions.Local.dll 26272
+  Program Files/PowerShell/7/ref/System.Transactions.dll 16544
+  Program Files/PowerShell/7/ref/System.ValueTuple.dll 15656
+  Program Files/PowerShell/7/ref/System.Web.HttpUtility.dll 17568
+  Program Files/PowerShell/7/ref/System.Web.dll 15520
+  Program Files/PowerShell/7/ref/System.Windows.dll 16032
+  Program Files/PowerShell/7/ref/System.Xml.Linq.dll 16032
+  Program Files/PowerShell/7/ref/System.Xml.ReaderWriter.dll 116016
+  Program Files/PowerShell/7/ref/System.Xml.Serialization.dll 16544
+  Program Files/PowerShell/7/ref/System.Xml.XDocument.dll 34464
+  Program Files/PowerShell/7/ref/System.Xml.XPath.XDocument.dll 16648
+  Program Files/PowerShell/7/ref/System.Xml.XPath.dll 17184
+  Program Files/PowerShell/7/ref/System.Xml.XmlDocument.dll 16168
+  Program Files/PowerShell/7/ref/System.Xml.XmlSerializer.dll 50848
+  Program Files/PowerShell/7/ref/System.Xml.dll 23712
+  Program Files/PowerShell/7/ref/System.dll 49968
+  Program Files/PowerShell/7/ref/WindowsBase.dll 16544
+  Program Files/PowerShell/7/ref/mscorlib.dll 56112
+  Program Files/PowerShell/7/ref/netstandard.dll 101160
+  Program Files/PowerShell/7/ru/Microsoft.CodeAnalysis.CSharp.resources.dll 598704
+  Program Files/PowerShell/7/ru/Microsoft.CodeAnalysis.resources.dll 59552
+  Program Files/PowerShell/7/ru/Microsoft.VisualBasic.Forms.resources.dll 26800
+  Program Files/PowerShell/7/ru/PresentationCore.resources.dll 138536
+  Program Files/PowerShell/7/ru/PresentationFramework.resources.dll 257832
+  Program Files/PowerShell/7/ru/PresentationUI.resources.dll 54584
+  Program Files/PowerShell/7/ru/ReachFramework.resources.dll 44328
+  Program Files/PowerShell/7/ru/System.Private.ServiceModel.resources.dll 298528
+  Program Files/PowerShell/7/ru/System.Web.Services.Description.resources.dll 21032
+  Program Files/PowerShell/7/ru/System.Windows.Controls.Ribbon.resources.dll 19760
+  Program Files/PowerShell/7/ru/System.Windows.Forms.Design.resources.dll 162976
+  Program Files/PowerShell/7/ru/System.Windows.Forms.Primitives.resources.dll 16680
+  Program Files/PowerShell/7/ru/System.Windows.Forms.resources.dll 476832
+  Program Files/PowerShell/7/ru/System.Windows.Input.Manipulations.resources.dll 17056
+  Program Files/PowerShell/7/ru/System.Xaml.resources.dll 84776
+  Program Files/PowerShell/7/ru/UIAutomationClient.resources.dll 21800
+  Program Files/PowerShell/7/ru/UIAutomationClientSideProviders.resources.dll 22312
+  Program Files/PowerShell/7/ru/UIAutomationProvider.resources.dll 15520
+  Program Files/PowerShell/7/ru/UIAutomationTypes.resources.dll 19120
+  Program Files/PowerShell/7/ru/WindowsBase.resources.dll 111912
+  Program Files/PowerShell/7/ru/WindowsFormsIntegration.resources.dll 16680
+  Program Files/PowerShell/7/sni.dll 160040
+  Program Files/PowerShell/7/tr/Microsoft.CodeAnalysis.CSharp.resources.dll 431264
+  Program Files/PowerShell/7/tr/Microsoft.CodeAnalysis.resources.dll 47776
+  Program Files/PowerShell/7/tr/Microsoft.VisualBasic.Forms.resources.dll 25384
+  Program Files/PowerShell/7/tr/PresentationCore.resources.dll 107696
+  Program Files/PowerShell/7/tr/PresentationFramework.resources.dll 196400
+  Program Files/PowerShell/7/tr/PresentationUI.resources.dll 44704
+  Program Files/PowerShell/7/tr/ReachFramework.resources.dll 38560
+  Program Files/PowerShell/7/tr/System.Private.ServiceModel.resources.dll 212512
+  Program Files/PowerShell/7/tr/System.Web.Services.Description.resources.dll 19496
+  Program Files/PowerShell/7/tr/System.Windows.Controls.Ribbon.resources.dll 18744
+  Program Files/PowerShell/7/tr/System.Windows.Forms.Design.resources.dll 148656
+  Program Files/PowerShell/7/tr/System.Windows.Forms.Primitives.resources.dll 16032
+  Program Files/PowerShell/7/tr/System.Windows.Forms.resources.dll 361648
+  Program Files/PowerShell/7/tr/System.Windows.Input.Manipulations.resources.dll 16680
+  Program Files/PowerShell/7/tr/System.Xaml.resources.dll 65336
+  Program Files/PowerShell/7/tr/UIAutomationClient.resources.dll 20272
+  Program Files/PowerShell/7/tr/UIAutomationClientSideProviders.resources.dll 21168
+  Program Files/PowerShell/7/tr/UIAutomationProvider.resources.dll 15656
+  Program Files/PowerShell/7/tr/UIAutomationTypes.resources.dll 18592
+  Program Files/PowerShell/7/tr/WindowsBase.resources.dll 85152
+  Program Files/PowerShell/7/tr/WindowsFormsIntegration.resources.dll 16168
+  Program Files/PowerShell/7/vcruntime140_cor3.dll 119888
+  Program Files/PowerShell/7/wpfgfx_cor3.dll 1964328
+  Program Files/PowerShell/7/zh-Hans/Microsoft.CodeAnalysis.CSharp.resources.dll 383648
+  Program Files/PowerShell/7/zh-Hans/Microsoft.CodeAnalysis.resources.dll 44720
+  Program Files/PowerShell/7/zh-Hans/Microsoft.VisualBasic.Forms.resources.dll 25264
+  Program Files/PowerShell/7/zh-Hans/PresentationCore.resources.dll 100656
+  Program Files/PowerShell/7/zh-Hans/PresentationFramework.resources.dll 183592
+  Program Files/PowerShell/7/zh-Hans/PresentationUI.resources.dll 43304
+  Program Files/PowerShell/7/zh-Hans/ReachFramework.resources.dll 37168
+  Program Files/PowerShell/7/zh-Hans/System.Private.ServiceModel.resources.dll 188464
+  Program Files/PowerShell/7/zh-Hans/System.Web.Services.Description.resources.dll 18984
+  Program Files/PowerShell/7/zh-Hans/System.Windows.Controls.Ribbon.resources.dll 18728
+  Program Files/PowerShell/7/zh-Hans/System.Windows.Forms.Design.resources.dll 145200
+  Program Files/PowerShell/7/zh-Hans/System.Windows.Forms.Primitives.resources.dll 16176
+  Program Files/PowerShell/7/zh-Hans/System.Windows.Forms.resources.dll 319792
+  Program Files/PowerShell/7/zh-Hans/System.Windows.Input.Manipulations.resources.dll 16544
+  Program Files/PowerShell/7/zh-Hans/System.Xaml.resources.dll 61088
+  Program Files/PowerShell/7/zh-Hans/UIAutomationClient.resources.dll 19616
+  Program Files/PowerShell/7/zh-Hans/UIAutomationClientSideProviders.resources.dll 20640
+  Program Files/PowerShell/7/zh-Hans/UIAutomationProvider.resources.dll 15520
+  Program Files/PowerShell/7/zh-Hans/UIAutomationTypes.resources.dll 18592
+  Program Files/PowerShell/7/zh-Hans/WindowsBase.resources.dll 79008
+  Program Files/PowerShell/7/zh-Hans/WindowsFormsIntegration.resources.dll 16168
+  Program Files/PowerShell/7/zh-Hant/Microsoft.CodeAnalysis.CSharp.resources.dll 383136
+  Program Files/PowerShell/7/zh-Hant/Microsoft.CodeAnalysis.resources.dll 44704
+  Program Files/PowerShell/7/zh-Hant/Microsoft.VisualBasic.Forms.resources.dll 25248
+  Program Files/PowerShell/7/zh-Hant/PresentationCore.resources.dll 101536
+  Program Files/PowerShell/7/zh-Hant/PresentationFramework.resources.dll 184112
+  Program Files/PowerShell/7/zh-Hant/PresentationUI.resources.dll 43312
+  Program Files/PowerShell/7/zh-Hant/ReachFramework.resources.dll 37672
+  Program Files/PowerShell/7/zh-Hant/System.Private.ServiceModel.resources.dll 189472
+  Program Files/PowerShell/7/zh-Hant/System.Web.Services.Description.resources.dll 18984
+  Program Files/PowerShell/7/zh-Hant/System.Windows.Controls.Ribbon.resources.dll 18608
+  Program Files/PowerShell/7/zh-Hant/System.Windows.Forms.Design.resources.dll 145208
+  Program Files/PowerShell/7/zh-Hant/System.Windows.Forms.Primitives.resources.dll 16168
+  Program Files/PowerShell/7/zh-Hant/System.Windows.Forms.resources.dll 325416
+  Program Files/PowerShell/7/zh-Hant/System.Windows.Input.Manipulations.resources.dll 16680
+  Program Files/PowerShell/7/zh-Hant/System.Xaml.resources.dll 60576
+  Program Files/PowerShell/7/zh-Hant/UIAutomationClient.resources.dll 19760
+  Program Files/PowerShell/7/zh-Hant/UIAutomationClientSideProviders.resources.dll 20776
+  Program Files/PowerShell/7/zh-Hant/UIAutomationProvider.resources.dll 15520
+  Program Files/PowerShell/7/zh-Hant/UIAutomationTypes.resources.dll 18720
+  Program Files/PowerShell/7/zh-Hant/WindowsBase.resources.dll 80544
+  Program Files/PowerShell/7/zh-Hant/WindowsFormsIntegration.resources.dll 16176
+  [streams]/Binary.WixCA 224328
+  [streams]/Binary.WixUIWixca 121912
+  [streams]/Binary.WixUI_Bmp_Banner 3855
+  [streams]/Binary.WixUI_Bmp_Dialog 30804
+  [streams]/Binary.WixUI_Bmp_New 318
+  [streams]/Binary.WixUI_Bmp_Up 318
+  [streams]/Binary.WixUI_Ico_Exclam 1638
+  [streams]/Binary.WixUI_Ico_Info 4470
+  [streams]/Icon.PowerShellExe.ico 127271
+extracted: 922 items
+  Program Files/PowerShell/7/Accessibility.dll 21288 eefec34261e620cb2c5db701db668c952ff11122d99d949ce16f160e4c06f7a9
+  Program Files/PowerShell/7/D3DCompiler_47_cor3.dll 4916840 a05d04a270f68c8c6d6ea2d23bebf8cd1d5453b26b5442fa54965f90f1c62082
+  Program Files/PowerShell/7/DirectWriteForwarder.dll 497936 9f689db29cc6e0a1ffa31cf5b4353b5fa0380ad705ae51a8b0ddde6618e69076
+  Program Files/PowerShell/7/Humanizer.dll 854064 585b9eed8e6ac66817b276b94ba4ce74c768fa375e9aa6c735ca8b0f992d519f
+  Program Files/PowerShell/7/Install-PowerShellRemoting.ps1 23563 c0bb70176cb89c3e7ea5ac5334c27a883591899ee57e415d8dc93bf97aeac4e8
+  Program Files/PowerShell/7/InstallPSCorePolicyDefinitions.ps1 17546 362746ffa5fd00ce5e66f1c75225e0194c7096443434fa323240e10dc416b57a
+  Program Files/PowerShell/7/Json.More.dll 153680 dd360051987dbb1f95af51c9d7775ba62b3ad4090d123cb1a04c3fda3f5b83e2
+  Program Files/PowerShell/7/JsonPointer.Net.dll 71760 48cff36453c53bfc6dd23eed6a0d2ae73a4066408db7667d37fc83b015e4dcea
+  Program Files/PowerShell/7/JsonSchema.Net.dll 763976 26aa7659a6d09f64643b8155236eb28fe5667bd9b05593b0afc203b90dbf2928
+  Program Files/PowerShell/7/LICENSE.txt 1095 296604f12546653ed97726dc5fc2f3945d4cca1f07abd2589f531647177b06fc
+  Program Files/PowerShell/7/Markdig.Signed.dll 1341520 8deb916bc450197bb705037de3b391791814b8fd16c01b53e8a9a0b5f4844008
+  Program Files/PowerShell/7/Microsoft.ApplicationInsights.dll 940088 1066194c176deb5d13b0640d98da2a2b88755c39b0be65917e33da6748d2d29d
+  Program Files/PowerShell/7/Microsoft.Bcl.AsyncInterfaces.dll 30792 d46db058599a48be90ffcce9e2e4c224bf192a1f91bf88ba3a9911d2dfacfb0d
+  Program Files/PowerShell/7/Microsoft.CSharp.dll 1005872 a3074ec7a00e3159b78cd732466c2966457fee4785bbe59bce1ec4c6df289572
+  Program Files/PowerShell/7/Microsoft.CodeAnalysis.CSharp.dll 17659984 a5b2871578f4aff58ce6e07ff01a3cbdf18dda96c97e4462596fa0151acc6cbb
+  Program Files/PowerShell/7/Microsoft.CodeAnalysis.dll 7833648 22b2b5f2884748dbaaeae290346d6c1b0ca6ad000324e08d2161e38a28c529be
+  Program Files/PowerShell/7/Microsoft.Extensions.ObjectPool.dll 43088 895534167bb9330a495357c9ce0eea0b9250999f6ef0c52f054f457f466a7edd
+  Program Files/PowerShell/7/Microsoft.Management.Infrastructure.CimCmdlets.dll 501792 9bc4151dad70f88b58699b5514fcc1842b1c2a254c3ee83e0083a6324f3d3676
+  Program Files/PowerShell/7/Microsoft.Management.Infrastructure.CimCmdlets.xml 305223 83c2d5ff29d63c1944203ca30df65bb20e10b2605c423d97d5f7ca0a4c84b18c
+  Program Files/PowerShell/7/Microsoft.PowerShell.Commands.Diagnostics.dll 342048 715d4ce39a839307824082c703177c2eb51879a63043245d7fd2f92262d41f78
+  Program Files/PowerShell/7/Microsoft.PowerShell.Commands.Diagnostics.xml 23700 ee244be62d33308b3ff7c525725651737bbf9b90ffa481e0e5a32593dae38ae5
+  Program Files/PowerShell/7/Microsoft.PowerShell.Commands.Management.dll 1148960 19c4a91c6dd6dbf1d373dcca27dbba922b46ef53ccc8e1edd700dd06e12d79ac
+  Program Files/PowerShell/7/Microsoft.PowerShell.Commands.Management.xml 529962 c29c9becab664106faa1cad810738cfeaa5afac6013b34218b41e21be300a95f
+  Program Files/PowerShell/7/Microsoft.PowerShell.Commands.Utility.dll 1673248 c8432078a8e2aaa63c5bb08105cb09fee38b58b91fabad80084d98ede9727b8c
+  Program Files/PowerShell/7/Microsoft.PowerShell.Commands.Utility.xml 596676 60e07b6baf39e328ee05c875c338f923d3e252fe7c1bc81718fa899c9e2cb686
+  Program Files/PowerShell/7/Microsoft.PowerShell.ConsoleHost.dll 608288 9387551f1e5edff4127368f1455bea7bf1c16accc41e27632eb2ed8dc85d9b52
+  Program Files/PowerShell/7/Microsoft.PowerShell.ConsoleHost.xml 219945 785a150887ddf0f91e53e6fe38a6464c07578591713ea9f956e4f0bdc2191b47
+  Program Files/PowerShell/7/Microsoft.PowerShell.CoreCLR.Eventing.dll 235552 4b982f4f20358326bfa64191e73e8b5286d1b9b11b9c5b3ca49cf6a9be42a49a
+  Program Files/PowerShell/7/Microsoft.PowerShell.CoreCLR.Eventing.xml 8595 93b96e92261c440d2c56cf0814e7a47c6145b1c0ca087d4df89d8deb52c3aad5
+  Program Files/PowerShell/7/Microsoft.PowerShell.GraphicalHost.dll 1001504 24d68545b70de6449e886f9feac6cac542966b648c7fcc87e70c8df1b2bfe5f1
+  Program Files/PowerShell/7/Microsoft.PowerShell.GraphicalHost.dll.config 4904 04ef1b37822130ae6ac35d2ca9cb5224c87fbeb3ad2b0c48f953c87b083cc26c
+  Program Files/PowerShell/7/Microsoft.PowerShell.GraphicalHost.xml 541653 1c944fff240d11afd3f61cea4b8ce9faefae578dc9c7231cc20e6b37f6e4c5a3
+  Program Files/PowerShell/7/Microsoft.PowerShell.MarkdownRender.dll 55328 4147cb122e8d654a4d8e42a81b095bf17a4eba4129504bde18b02561e60ce975
+  Program Files/PowerShell/7/Microsoft.PowerShell.SDK.dll 142880 04e4f4db19347ed7bf96b4353b880d43a62988145c3811bc8074cdf84fa3c1fe
+  Program Files/PowerShell/7/Microsoft.PowerShell.SDK.xml 149 6e9d3482ee7f090b0311dea6350003c462aa25f8518c8aa3999899dea6567bc9
+  Program Files/PowerShell/7/Microsoft.PowerShell.Security.dll 350232 ed100623519faf8db69f3573e8832223d9ebb896f2b87052e6062492e67dae5a
+  Program Files/PowerShell/7/Microsoft.PowerShell.Security.xml 125116 7728af7b299cddc20ad0bad1c8de8c779110b9f4b087b5fc89a4f01cd822008a
+  Program Files/PowerShell/7/Microsoft.VisualBasic.Core.dll 1247408 e24caa8aafb4a6439ee1e3d41260a3658bb8b08e4c0461ceeb229e8555881dad
+  Program Files/PowerShell/7/Microsoft.VisualBasic.Forms.dll 248072 d6f76e35fd67ecdef3c9e8282d1fb7d123b31a3bb5abdc59a6e96daccdc9badc
+  Program Files/PowerShell/7/Microsoft.VisualBasic.dll 19104 4736bc640cd59b7fd2b7e60acb6afedb548e274c726ad343cb50bb75ab6da740
+  Program Files/PowerShell/7/Microsoft.WSMan.Management.dll 559136 9a225b1e1f7e04b1364f92719b4d67d679675e19ed01087a89371a08f778d5e2
+  Program Files/PowerShell/7/Microsoft.WSMan.Management.xml 173129 02c284c7ea362b9a7ef25e9d921c297976104da9dd319bce00547641193d3fd2
+  Program Files/PowerShell/7/Microsoft.WSMan.Runtime.dll 161824 f4022aa59248547f2b0539257fbdccdccd8cea6c541818193cd74adb8745bd6a
+  Program Files/PowerShell/7/Microsoft.WSMan.Runtime.xml 3569 e5189d8ece78e330f88f77fbae622b761d8bacc5326b767145e9c609ed6b9783
+  Program Files/PowerShell/7/Microsoft.Win32.Primitives.dll 15656 284e1af5c6ec021b1bb237a4cb4b00c6867b975cfb6902eec9f0fe207246cc58
+  Program Files/PowerShell/7/Microsoft.Win32.Registry.AccessControl.dll 34976 868515314a87b9bd1cf8a130c8c30250143acd2986c198ec623e416d76bd4e9e
+  Program Files/PowerShell/7/Microsoft.Win32.Registry.dll 121008 fa774e8124f64b4626ea275fe5499f6002ec6fbf591ac5551f18f8e0f7519aad
+  Program Files/PowerShell/7/Microsoft.Win32.SystemEvents.dll 100432 632c06a4fdc412bd2805a1fa2fd6d0d954a9951ecf120ebe8cdbd3c1f8a7d79a
+  Program Files/PowerShell/7/Modules/CimCmdlets/CimCmdlets.psd1 15567 0230c0d2cf06b4b3cd499c9911c959a5bf333daeaab620168165b555cdb5373c
+  Program Files/PowerShell/7/Modules/Microsoft.PowerShell.Archive/Microsoft.PowerShell.Archive.cat 10498 80ff18a0f1da3c8de428effe7e8f70d3233be546a45d7195a19379aefde81c47
+  Program Files/PowerShell/7/Modules/Microsoft.PowerShell.Archive/Microsoft.PowerShell.Archive.psd1 13503 07c7dfa0ddb6692f8dc5cc78718d62560257300f82227506645f53606a45ee39
+  Program Files/PowerShell/7/Modules/Microsoft.PowerShell.Archive/Microsoft.PowerShell.Archive.psm1 71846 348a39f554ceb988de198ae9f78e65cb4d2cab8b14ddcc5f2746cfe1d5b5c11f
+  Program Files/PowerShell/7/Modules/Microsoft.PowerShell.Archive/en-US/ArchiveResources.psd1 15584 090ba8377d2715f2b41ae25f51e2f36b58bf3016c7aaf6b8b48750241969bc44
+  Program Files/PowerShell/7/Modules/Microsoft.PowerShell.Diagnostics/Diagnostics.format.ps1xml 18653 dfd844c7b8414fd0f1209c2534aa721dcc54920616bd051cb0c85af645bdeb38
+  Program Files/PowerShell/7/Modules/Microsoft.PowerShell.Diagnostics/Event.format.ps1xml 21212 206b55482c796b3fddb70244416dac59afa151d46efc14b6fc99974c7d71546c
+  Program Files/PowerShell/7/Modules/Microsoft.PowerShell.Diagnostics/GetEvent.types.ps1xml 20641 00c6cab2354c99204b1cf5cf6357a98be826978d3dcb6f6ba704d1f8d0c483de
+  Program Files/PowerShell/7/Modules/Microsoft.PowerShell.Diagnostics/Microsoft.PowerShell.Diagnostics.psd1 15219 cee1ebbbb69f58369cc97075aa9ffdb05849d1d2463d137a2df7bd11be528348
+  Program Files/PowerShell/7/Modules/Microsoft.PowerShell.Host/Microsoft.PowerShell.Host.psd1 15089 a4ea11b13c5a3659b03c482178f6659d3dcb83cc8864d7642ea1b96b1bd0c2e0
+  Program Files/PowerShell/7/Modules/Microsoft.PowerShell.Management/Microsoft.PowerShell.Management.psd1 16424 a0e6091c8c107394be3c760e054b789919c3e40aca9701b63f7d6f20426e4bd3
+  Program Files/PowerShell/7/Modules/Microsoft.PowerShell.PSResourceGet/LICENSE 1095 be5723395260d4f07283d596f4b375810eb695653d48d52a5062c0f7070573a3
+  Program Files/PowerShell/7/Modules/Microsoft.PowerShell.PSResourceGet/Microsoft.PowerShell.PSResourceGet.dll 343584 59709244aab874ef826683908740c9e29ec59929989ae834757ef4f9cb9fe3ba
+  Program Files/PowerShell/7/Modules/Microsoft.PowerShell.PSResourceGet/Microsoft.PowerShell.PSResourceGet.psd1 26144 2aaea8d93e45e3b5d25495cb05ec8c24ee710bd0af34ecf6af1b3842b19a8e4b
+  Program Files/PowerShell/7/Modules/Microsoft.PowerShell.PSResourceGet/Microsoft.PowerShell.PSResourceGet.psm1 17926 53dab866cae796c990541c961c4363b730c27b2ef20c45cc4a5a80043afa2833
+  Program Files/PowerShell/7/Modules/Microsoft.PowerShell.PSResourceGet/Notice.txt 158819 cb3714c1f7fc609fee9264c5f7e87df89121d09242a4dccefe4815e9d784aa65
+  Program Files/PowerShell/7/Modules/Microsoft.PowerShell.PSResourceGet/PSGet.Format.ps1xml 23512 2b4679aa027aaac20d8b4142c2d28e0ba27eb21b4398ebd676c26e5b61e8fe4d
+  Program Files/PowerShell/7/Modules/Microsoft.PowerShell.PSResourceGet/dependencies/Microsoft.Bcl.AsyncInterfaces.dll 26656 b35a233b0ec08abd754d97beb06170dee90a1c5f0c9197c472b86ae131051b28
+  Program Files/PowerShell/7/Modules/Microsoft.PowerShell.PSResourceGet/dependencies/Newtonsoft.Json.dll 722160 f46d051d9b3f82a5816e1f39611cdf22441cc5babade2cd1a099773e6cc36e5e
+  Program Files/PowerShell/7/Modules/Microsoft.PowerShell.PSResourceGet/dependencies/NuGet.Commands.dll 613824 762988b531247a8ac282b85e0bc81004fa9d02b9118a24c3b18b3a97f1dade48
+  Program Files/PowerShell/7/Modules/Microsoft.PowerShell.PSResourceGet/dependencies/NuGet.Common.dll 122800 e8932ac0c5d7e306551bc4b585f582baef7651f21c88d4976445c0bfdf29f227
+  Program Files/PowerShell/7/Modules/Microsoft.PowerShell.PSResourceGet/dependencies/NuGet.Configuration.dll 170424 0bb37c45575cbcccc279a4250fb7f0d87de5c0a3ddc16565542a6ed0e5682c6b
+  Program Files/PowerShell/7/Modules/Microsoft.PowerShell.PSResourceGet/dependencies/NuGet.Credentials.dll 67616 e5f44ddc086a8f40989c70460e22e25095d75ac402faf6ff436e6a08c9cec71f
+  Program Files/PowerShell/7/Modules/Microsoft.PowerShell.PSResourceGet/dependencies/NuGet.DependencyResolver.Core.dll 93728 077951fea107ed42180aa5eaaa0be047070a0eff32a62999a8280535cb5d4f3d
+  Program Files/PowerShell/7/Modules/Microsoft.PowerShell.PSResourceGet/dependencies/NuGet.Frameworks.dll 131104 c79e07959989fe7e99f31171ef712f9665474e652b4c16bc729160114697f8d4
+  Program Files/PowerShell/7/Modules/Microsoft.PowerShell.PSResourceGet/dependencies/NuGet.LibraryModel.dll 56760 eaf71d1d5dd771dac1510c8779c2fdc98d539c8c07934ee114679d453fa60c21
+  Program Files/PowerShell/7/Modules/Microsoft.PowerShell.PSResourceGet/dependencies/NuGet.Packaging.dll 689088 877e82582d7802aca0b2fd53d34175b42d01bcf713a77d6d0a9e8a73c47ee2a4
+  Program Files/PowerShell/7/Modules/Microsoft.PowerShell.PSResourceGet/dependencies/NuGet.ProjectModel.dll 219056 275a531de109d62f71d745db656d295511dd53cf0fd141cc0153ad357bfc8163
+  Program Files/PowerShell/7/Modules/Microsoft.PowerShell.PSResourceGet/dependencies/NuGet.Protocol.dll 786368 ab3fcf87aba83ac429fb040d5c36a4b7e9af334c923f8f27041c93046d2af9cb
+  Program Files/PowerShell/7/Modules/Microsoft.PowerShell.PSResourceGet/dependencies/NuGet.Versioning.dll 65984 77b3fad9d3d369538f765035dd142d3d91785ce1308c40c5ca13bf84c9e78ecd
+  Program Files/PowerShell/7/Modules/Microsoft.PowerShell.PSResourceGet/dependencies/System.Buffers.dll 20856 accccfbe45d9f08ffeed9916e37b33e98c65be012cfff6e7fa7b67210ce1fefb
+  Program Files/PowerShell/7/Modules/Microsoft.PowerShell.PSResourceGet/dependencies/System.Memory.dll 142240 bf3fb84664f4097f1a8a9bc71a51dcf8cf1a905d4080a4d290da1730866e856f
+  Program Files/PowerShell/7/Modules/Microsoft.PowerShell.PSResourceGet/dependencies/System.Numerics.Vectors.dll 115856 1d3ef8698281e7cf7371d1554afef5872b39f96c26da772210a33da041ba1183
+  Program Files/PowerShell/7/Modules/Microsoft.PowerShell.PSResourceGet/dependencies/System.Runtime.CompilerServices.Unsafe.dll 18024 37768488e8ef45729bc7d9a2677633c6450042975bb96516e186da6cb9cd0dcf
+  Program Files/PowerShell/7/Modules/Microsoft.PowerShell.PSResourceGet/dependencies/System.Text.Encodings.Web.dll 79024 e9c4f5eed186cb129c527c4b8d67d163ea2f2396e9d8b96e30b5e7c12203ce84
+  Program Files/PowerShell/7/Modules/Microsoft.PowerShell.PSResourceGet/dependencies/System.Text.Json.dll 642832 de069c408673e62b098d6e37e64fc2308f02f3f16cb45e051c08b52fe2d104fb
+  Program Files/PowerShell/7/Modules/Microsoft.PowerShell.PSResourceGet/dependencies/System.Threading.Tasks.Extensions.dll 25984 4f81ffd0dc7204db75afc35ea4291769b07c440592f28894260eea76626a23c6
+  Program Files/PowerShell/7/Modules/Microsoft.PowerShell.PSResourceGet/dependencies/System.ValueTuple.dll 25232 e905d102585b22c6df04f219af5cbdbfa7bc165979e9788b62df6dcc165e10f4
+  Program Files/PowerShell/7/Modules/Microsoft.PowerShell.Security/Microsoft.PowerShell.Security.psd1 15783 429851302c3213a65421a2c42972027b99a2c47134beb2494e790f24e80bb4d7
+  Program Files/PowerShell/7/Modules/Microsoft.PowerShell.Security/Security.types.ps1xml 20516 ef7435fe83d3ffc00f1a1f77138f5b6375a81e4b29ef1b410648899177ee6556
+  Program Files/PowerShell/7/Modules/Microsoft.PowerShell.Utility/Microsoft.PowerShell.Utility.psd1 17152 59b35d39a9cdf5d070a19a50afd1c27eb37f694154a688181f24f00b34635298
+  Program Files/PowerShell/7/Modules/Microsoft.WSMan.Management/Microsoft.WSMan.Management.psd1 15365 39fea13d14c054228ef83a1ab34c46b4b83d7505b23515a02f5ae08e70795680
+  Program Files/PowerShell/7/Modules/Microsoft.WSMan.Management/WSMan.format.ps1xml 24410 ea1dbc5981076b635bf0aedf00056d2fe164dc17247472b824d2e2046c7353dc
+  Program Files/PowerShell/7/Modules/PSDiagnostics/PSDiagnostics.psd1 15290 13754ec537831c3d94e499603968d9608e5949b5989adaf58df311bb724d1316
+  Program Files/PowerShell/7/Modules/PSDiagnostics/PSDiagnostics.psm1 26412 3857ab06faf278882b3ca2a721c899679926472d966a3529e4d66470154d50b2
+  Program Files/PowerShell/7/Modules/PSReadLine/.signature.p7s 12817 1ffd38f59ac510f5d9b115fbd24e4d8ca000011542e0c07ac68ea788f2cfd169
+  Program Files/PowerShell/7/Modules/PSReadLine/Changes.txt 36463 4be492dac29103eba576f04a3b6d5f3c4fd8532df34b292dc5a45a870c3eba1d
+  Program Files/PowerShell/7/Modules/PSReadLine/License.txt 1324 25c2fdfcdc653f65629233f5ef217a83287733d3c0299c207b0bca865508c463
+  Program Files/PowerShell/7/Modules/PSReadLine/Microsoft.PowerShell.PSReadLine2.dll 335392 52bdd05eea1ce835b9c795aaa185b98036ca21b68308be7c1b76c45e2a0cf410
+  Program Files/PowerShell/7/Modules/PSReadLine/Microsoft.PowerShell.Pager.dll 16784 f1997d21f6833cf88e8bb39ebcfe3c9f9d7e107a8a5e21434ffa6ac94f876a48
+  Program Files/PowerShell/7/Modules/PSReadLine/PSReadLine.format.ps1xml 26638 beb1b572960d2ced72f2aadccf3b7c0d9db34fad0bcf426f80b87d8a6029cb9c
+  Program Files/PowerShell/7/Modules/PSReadLine/PSReadLine.psd1 15528 e374fa224da2677a763c82994acadd65dda24d8d553bf283149726c2a709e33f
+  Program Files/PowerShell/7/Modules/PSReadLine/PSReadLine.psm1 15072 e7542b89cc1fa6ab810d11042c82fdeb6d733e0956a0b760652af7fe5e7b7537
+  Program Files/PowerShell/7/Modules/PSReadLine/SamplePSReadLineProfile.ps1 41538 d7e1907ae05d3749479f8fcbf27e35d539fd6403672177d7c4d6ddfe9440c119
+  Program Files/PowerShell/7/Modules/PSReadLine/_manifest/spdx_2.2/bsi.json 824 39cbbda6918c0e168ba22b9423c91146974e0857b9af9b86a83e6541d2c9b329
+  Program Files/PowerShell/7/Modules/PSReadLine/_manifest/spdx_2.2/manifest.cat 11183 a370f404a22defdbd89a4634a4206462ce252c0f60482401f78616bf15246bec
+  Program Files/PowerShell/7/Modules/PSReadLine/_manifest/spdx_2.2/manifest.spdx.json 31151 a0da7973723c117e051645ecbadfa83064e14eaca6597a868e10ec148b4beb2d
+  Program Files/PowerShell/7/Modules/PSReadLine/_manifest/spdx_2.2/manifest.spdx.json.sha256 64 1d18d994c8b926ce8009e861938bcd0725a070ce66c889a026ca6d27243c0d52
+  Program Files/PowerShell/7/Modules/PSReadLine/net462/Microsoft.PowerShell.PSReadLine.Polyfiller.dll 16928 28bd113a6ee3684a55370fbd07a9f51dbefb00b272d701744896be36610ab667
+  Program Files/PowerShell/7/Modules/PSReadLine/net6plus/Microsoft.PowerShell.PSReadLine.Polyfiller.dll 14880 9caac64fe5c373bffbfe802e31ee763dd3ec67117678c697296027a873b99410
+  Program Files/PowerShell/7/Modules/PackageManagement/DSCResources/MSFT_PackageManagement/MSFT_PackageManagement.psm1 28469 b7cd11228923e8747b04ae8a03f246f1490b4d51c8a54b41d26ccb20164fe558
+  Program Files/PowerShell/7/Modules/PackageManagement/DSCResources/MSFT_PackageManagement/MSFT_PackageManagement.schema.mof 31676 8d9e6819af5265b47dc514f82eeef657449c2f3dc72ce4f4f8531fc2fccdecf0
+  Program Files/PowerShell/7/Modules/PackageManagement/DSCResources/MSFT_PackageManagement/MSFT_PackageManagement.strings.psd1 31412 50ee9087694a8325e0bc6ff4e5ae008984d46ff84cb9bcc6ed655cff1a8547a3
+  Program Files/PowerShell/7/Modules/PackageManagement/DSCResources/MSFT_PackageManagementSource/MSFT_PackageManagementSource.psm1 53524 56bd33242e6d59f02514eb3b902f65b83a3ea8ea7e44099f57892ab640823c25
+  Program Files/PowerShell/7/Modules/PackageManagement/DSCResources/MSFT_PackageManagementSource/MSFT_PackageManagementSource.schema.mof 31566 acd658401a6a84f29e091f6549f4ad6bc6e16b71005f542e4be558c40b50eafa
+  Program Files/PowerShell/7/Modules/PackageManagement/DSCResources/MSFT_PackageManagementSource/MSFT_PackageManagementSource.strings.psd1 32494 ab2dd00ee1ab028ef4c506cac98e5407fb866da40720c232a3426adbb57ea67a
+  Program Files/PowerShell/7/Modules/PackageManagement/DSCResources/PackageManagementDscUtilities.psm1 24136 ca8ea0f3e2208fdedd51c2f282ea9e9a50be7d8a38c56eef0141191f7e484776
+  Program Files/PowerShell/7/Modules/PackageManagement/DSCResources/PackageManagementDscUtilities.strings.psd1 31104 24e1182e6f6e3eddf2528ec6d335e0d584ce37995b0d849b5dd5f5ee75a558bb
+  Program Files/PowerShell/7/Modules/PackageManagement/PackageManagement.Resources.psd1 14984 734bfff81999a08b4145399a6284b00e46f070a7038bb4c82ab79165ff15f543
+  Program Files/PowerShell/7/Modules/PackageManagement/PackageManagement.format.ps1xml 32443 6cc6da35a87357e213fa7a2cd0faf9b1db1bb83bdaaf9f73c952fe9ad2bb4596
+  Program Files/PowerShell/7/Modules/PackageManagement/PackageManagement.psd1 17889 ec633e756164c26d1154fab722648e2737f3650399856d29c089f0c25b190d33
+  Program Files/PowerShell/7/Modules/PackageManagement/PackageManagement.psm1 16422 d484e31593fe26c8e670f8a0d72d4400a3e8eb75f587df4b11554b8c000e128a
+  Program Files/PowerShell/7/Modules/PackageManagement/PackageProviderFunctions.psm1 25115 481fded09bf8a376ec4bd53cf34c0d66c8d8b1d31ab2012a768227f92b099156
+  Program Files/PowerShell/7/Modules/PackageManagement/coreclr/netstandard2.0/Microsoft.PackageManagement.ArchiverProviders.dll 89504 5a140eb9bfb2ebb42f02e75da9a408a86ba6034eaa27ac57a10a534011efd509
+  Program Files/PowerShell/7/Modules/PackageManagement/coreclr/netstandard2.0/Microsoft.PackageManagement.CoreProviders.dll 72080 50cb7269866ec2e3663221662fd1649a0c1b2736525d65231e29b39b25bb2467
+  Program Files/PowerShell/7/Modules/PackageManagement/coreclr/netstandard2.0/Microsoft.PackageManagement.MetaProvider.PowerShell.dll 83864 8f5bfd7ffffe4930ad035194447b8fb24257c8c799302f04879cd5d5211a38c6
+  Program Files/PowerShell/7/Modules/PackageManagement/coreclr/netstandard2.0/Microsoft.PackageManagement.NuGetProvider.dll 290192 c0579b5bca0adfe99dc17c253f4f00d669ad008a60854d2508bf6d79a886b4b2
+  Program Files/PowerShell/7/Modules/PackageManagement/coreclr/netstandard2.0/Microsoft.PackageManagement.dll 318352 23689dd357312f0924305c612aa41be0bd592ad9712fed70a3da72a9c40eb712
+  Program Files/PowerShell/7/Modules/PackageManagement/coreclr/netstandard2.0/Microsoft.PowerShell.PackageManagement.dll 189328 10d3f4e3aa47cfc3aac0e94c3b20000ea73cb0062e5037a79fcbe932112eb0a1
+  Program Files/PowerShell/7/Modules/PowerShellGet/DscResources/MSFT_PSModule/MSFT_PSModule.psm1 38882 6c724f3b86d5d5233c2906fe41206d6eb2279b6d053164f51aaf83b4891619eb
+  Program Files/PowerShell/7/Modules/PowerShellGet/DscResources/MSFT_PSModule/MSFT_PSModule.schema.mfl 1766 cf126cc6fd7afaec54f07942f346f379725795625b80ec5fc32f547ab7b49bfc
+  Program Files/PowerShell/7/Modules/PowerShellGet/DscResources/MSFT_PSModule/MSFT_PSModule.schema.mof 14446 2107051fab99f1e8545cc30f72fb089899b19a5bd4d33a6891fbf0df794f573a
+  Program Files/PowerShell/7/Modules/PowerShellGet/DscResources/MSFT_PSModule/en-US/MSFT_PSModule.strings.psd1 15939 4081abd182f805ab3b9705279478a2a8af17a0e43f07887e3c68962bcd09c9e8
+  Program Files/PowerShell/7/Modules/PowerShellGet/DscResources/MSFT_PSRepository/MSFT_PSRepository.psm1 23645 627edb8150ec8c52b33e363652d27e4fd71c1374d03c5b56d98af244d3c1cc10
+  Program Files/PowerShell/7/Modules/PowerShellGet/DscResources/MSFT_PSRepository/MSFT_PSRepository.schema.mfl 1578 b9f9a62a3d2d0497bf81cc69a456b9e0bdbf9d1f34909a0283f088940efffc34
+  Program Files/PowerShell/7/Modules/PowerShellGet/DscResources/MSFT_PSRepository/MSFT_PSRepository.schema.mof 14325 6aa312f0a73494723fe4caa98bd74ccf3724226bee4bfe4ec0a7229bfad7141c
+  Program Files/PowerShell/7/Modules/PowerShellGet/DscResources/MSFT_PSRepository/en-US/MSFT_PSRepository.strings.psd1 14171 7520000be81f281384af99b787a4629e55269ef73d8fa162cf29390dc273a017
+  Program Files/PowerShell/7/Modules/PowerShellGet/Modules/PowerShellGet.LocalizationHelper/PowerShellGet.LocalizationHelper.psm1 20118 14a35134461abcfaa7dfe393c7b3a16605032719f5ea0ee062b4655a181c0c76
+  Program Files/PowerShell/7/Modules/PowerShellGet/Modules/PowerShellGet.ResourceHelper/PowerShellGet.ResourceHelper.psm1 27387 640240a2632c22e75ae372414bee7136c2adc932f92a0f656c436be616b19cda
+  Program Files/PowerShell/7/Modules/PowerShellGet/Modules/PowerShellGet.ResourceHelper/en-US/PowerShellGet.ResourceHelper.strings.psd1 15108 1302f09514e514b4a2c5a2f8d4dfcfc5087070e211357319fb516e27994c88b0
+  Program Files/PowerShell/7/Modules/PowerShellGet/PSGet.Format.ps1xml 23680 4f12dd41e0fab7b1a97ae83a84bddb567ce9876f9e6c3496d833cfbb8e52bd7f
+  Program Files/PowerShell/7/Modules/PowerShellGet/PSGet.Resource.psd1 59328 b5c9da477ef0f8662708ac1a755c0b2611800805aba861663abb421e0c5f7ca4
+  Program Files/PowerShell/7/Modules/PowerShellGet/PSModule.psm1 1368306 573d4a3861cb967e52eaf6155a41f930fcd4168368a6946f65d985f30dc357ec
+  Program Files/PowerShell/7/Modules/PowerShellGet/PowerShellGet.psd1 23683 b1315712ade77af6c5115d8c9ae2f9a5d8ccbfa5e9a5f00c19ab283a52057f2b
+  Program Files/PowerShell/7/Modules/PowerShellGet/en-US/PSGet.Resource.psd1 59328 b5c9da477ef0f8662708ac1a755c0b2611800805aba861663abb421e0c5f7ca4
+  Program Files/PowerShell/7/Modules/ThreadJob/Microsoft.PowerShell.ThreadJob.dll 35192 17402328990a0c4a40c4d9e5eb0ea5103eb0b5e207dbc8e58449533000d9ea2a
+  Program Files/PowerShell/7/Modules/ThreadJob/ThreadJob.psd1 15788 705259ad6c87e0138a49dc1ef3d9f2d8bb00b304d4282af251b844b8a4688a94
+  Program Files/PowerShell/7/Newtonsoft.Json.dll 1857584 748efa22d8c62ceeda5429486ba1b2cf772495b63cc1f7ea2bfa86d89f08e363
+  Program Files/PowerShell/7/PenImc_cor3.dll 157856 db04cf8ea04dfbb195a0811915b9232917902fd6573f8d39e74f57f0385a49f5
+  Program Files/PowerShell/7/PowerShell.Core.Instrumentation.dll 104888 55f15c6843f883522fac922d949d08c04270be5f0e30aa2de33c730b5874f55b
+  Program Files/PowerShell/7/PowerShell.Core.Instrumentation.man 222263 dc093e4105999bdcafea5bca40ccb1f8ac4761ff2ad22126b58f7c546c476b52
+  Program Files/PowerShell/7/PowerShellCoreExecutionPolicy.adml 9675 2b8c4b7d5bd585431fbf918f223a9b932d80eb9703a1976a1ce3492d4dd26966
+  Program Files/PowerShell/7/PowerShellCoreExecutionPolicy.admx 6198 ee8eb99c1e66009d95af46e4f6c8f5c13563c9a0ad827e631149176a1b8d34d2
+  Program Files/PowerShell/7/PresentationCore.dll 8542496 19003034acd593c74bde2996ad4d00bd9546d3d5bdd082a260e16c39320303c0
+  Program Files/PowerShell/7/PresentationFramework-SystemCore.dll 39072 666dfb21a4c2c6f87cb2aadb6251400b380ab8b8c5174c18e445d58a8309132b
+  Program Files/PowerShell/7/PresentationFramework-SystemData.dll 35088 32df44539e932b8dd630df3e9136068bad34c1fba706e2dfe830bdafa05530ff
+  Program Files/PowerShell/7/PresentationFramework-SystemDrawing.dll 35104 1b29d4712c52770530f884b99fca64f7531b6f828453340ff88a9404832b8967
+  Program Files/PowerShell/7/PresentationFramework-SystemXml.dll 35096 96c034368caabe0289c0855d90090028140c88aa85b533ba841c413aa2b865d2
+  Program Files/PowerShell/7/PresentationFramework-SystemXmlLinq.dll 30984 004729cd33347bcfaf0d4055500617203c508c6f5c6bb1e6c044e53ae3cab3e6
+  Program Files/PowerShell/7/PresentationFramework.Aero.dll 444680 baf5447ba122c0d54f92a1dc54a8d07cabb349af03fa7005dce3c06ac23c827e
+  Program Files/PowerShell/7/PresentationFramework.Aero2.dll 448776 348befba010ad0e54cf77d7f67ff4221093eee07a141b57d3cb474802a39fa58
+  Program Files/PowerShell/7/PresentationFramework.AeroLite.dll 239904 1e9eecc89d4c2909260890e2261cf3bf64d99e416b923cea9b00bbfa5542551f
+  Program Files/PowerShell/7/PresentationFramework.Classic.dll 272648 961893397d6bd18a9e0d0b7f68886659f2eeb14d89fdcd43c5449cfaffe716ef
+  Program Files/PowerShell/7/PresentationFramework.Luna.dll 669968 17312b891996639e1724c543f496d4b38c336ec0950e029e37b80c9c4324ee34
+  Program Files/PowerShell/7/PresentationFramework.Royale.dll 334088 797e2b85dada7ec9ca51848c9a3a2558c96d9baf99ab8998a959b266e30fa566
+  Program Files/PowerShell/7/PresentationFramework.dll 16124176 5e3bc191b1815b5e4e0eba7da068eb7726093b77c33d62bcf267c52f1777f6ff
+  Program Files/PowerShell/7/PresentationNative_cor3.dll 1237280 66e5d8d49f9645fd67c12324e0e947b8646779b502a3bc475e3a3aeb650e20bb
+  Program Files/PowerShell/7/PresentationUI.dll 1288472 32999445685adce3ddceb1b56409b5dda27169da04ac387900cb90773f25c235
+  Program Files/PowerShell/7/ReachFramework.dll 1603848 c1107e75d146c412b3f127f7efd2b82c9c2c750fea8a7a00bb9856c9627f5c8f
+  Program Files/PowerShell/7/RegisterManifest.ps1 17810 e6aa11599590bce75a53950ac89817a12d6b77644951baf379a2c21afee26152
+  Program Files/PowerShell/7/RegisterMicrosoftUpdate.ps1 17239 46f46e07fd2694c0ecca37115d9e70509a3846ff416b9e09d4e386181d8a1e94
+  Program Files/PowerShell/7/Schemas/PSMaml/ITPro.xsd 1208 767328ad7b14ec90731e52d04ef27873ea674d34dd30297cb0fba2a11242e96e
+  Program Files/PowerShell/7/Schemas/PSMaml/Maml.rld 115835 a711a691fdfdbeeef09cb23543a8ac3d6bbf92aabeec05939fca51665229e710
+  Program Files/PowerShell/7/Schemas/PSMaml/Maml.tbr 30575 0ffd2e7097b51e0c6e1c1a18867658312d39ac68d8179049521f9ecaeb2cbf08
+  Program Files/PowerShell/7/Schemas/PSMaml/Maml.xsd 1571 fda94a92fe41a7280d7f5ece13cfc0042d4e1049e8ff961717628412317f6ae2
+  Program Files/PowerShell/7/Schemas/PSMaml/Maml.xsx 211 639e5ed55bb9fd20672c74c20020c6c96b5ff721e45e9a337133af858998b08c
+  Program Files/PowerShell/7/Schemas/PSMaml/Maml_HTML.xsl 363 bda0f195c928e6c18e226a83c77a1477dd88b70025d78f12d92605bbd10723bb
+  Program Files/PowerShell/7/Schemas/PSMaml/Maml_HTML_Style.xsl 14422 99e1ad569c30396efc7f37acd08a8f0f41b20ff82e513d738e331c0eac5ddc1c
+  Program Files/PowerShell/7/Schemas/PSMaml/ManagedDeveloper.xsd 14517 3b89cb9a72549c46a56d9ea2ea12ac53cbc7ddd3392012fdd9d69ef261961ad2
+  Program Files/PowerShell/7/Schemas/PSMaml/ManagedDeveloperStructure.xsd 3391 0fa8eacf615f4a726f846d2938e18e84bb641bb28579bd9e2ab83f3d46d505fa
+  Program Files/PowerShell/7/Schemas/PSMaml/ProviderHelp.xsd 6766 0e6adbe5b896f075bf55ae6f2c1966e0e5596f79bc282c2d17cc36ccf41c30cf
+  Program Files/PowerShell/7/Schemas/PSMaml/base.xsd 6434 b860ef30b01c57486a56948800e9b2da116ec473cbecbb33fa9f71b8ceab90ae
+  Program Files/PowerShell/7/Schemas/PSMaml/baseConditional.xsd 5297 d26d4ef29124b2f9107b167d73e611f649fb2021d30c48a8616c6cc96230de81
+  Program Files/PowerShell/7/Schemas/PSMaml/block.xsd 917 9a8b3c184394711480c38d71db4850659b87729df9eac5a2235bdcf37a2020cf
+  Program Files/PowerShell/7/Schemas/PSMaml/blockCommon.xsd 3872 928717b190b014f271c09c2ffb7633c1e660b26f0ecbdd926662121914795789
+  Program Files/PowerShell/7/Schemas/PSMaml/blockSoftware.xsd 1282 88aa3462598b7c394350f83ef366e5f83885c50a9c6966f02179228277358334
+  Program Files/PowerShell/7/Schemas/PSMaml/command.xsd 13061 a3da7f8f2260a826ce253c33bda8576246b4298794765edc4f80a433357c6b87
+  Program Files/PowerShell/7/Schemas/PSMaml/conditionSet.xsd 4279 506415cd77ede25b33c3e28fb89012b282e90b5d01f266323a83fea9625f8eab
+  Program Files/PowerShell/7/Schemas/PSMaml/developer.xsd 11403 ab9a7ddb85084f331ed79cb34374509767d9a64c510b0264682d5e682dc59497
+  Program Files/PowerShell/7/Schemas/PSMaml/developerCommand.rld 115907 cd8a9a6b113db5005f2a5c8321e52368411691b5f0c5eb90595e2a97b0fdee89
+  Program Files/PowerShell/7/Schemas/PSMaml/developerCommand.xsd 14520 bbc9b2dd6d4473f09ce95a4e44b7f654a8d34a70197beabacd1c9ff5233c3dec
+  Program Files/PowerShell/7/Schemas/PSMaml/developerDscResource.xsd 2896 7c22d9a1393062734e4923657c48d9117f6ac824d4e3f85ef88d8de23f8c7bdf
+  Program Files/PowerShell/7/Schemas/PSMaml/developerManaged.xsd 10238 5585fd25ed4fa8d39b75e9a83082eab1d305b00839e7bcf05a24530e3d91d6ea
+  Program Files/PowerShell/7/Schemas/PSMaml/developerManagedClass.xsd 3693 4cb1c23d86d22b4bcc5aca98cd309c37f54a30358d673115d460feeacb78df9a
+  Program Files/PowerShell/7/Schemas/PSMaml/developerManagedConstructor.xsd 2557 0ca55a744ad968b537742ed37cd62852df01cd96533d4e17874ad4f75271c8dc
+  Program Files/PowerShell/7/Schemas/PSMaml/developerManagedDelegate.xsd 2558 961daa1c4b3513b83cf2e37fdb1361be0d123e8b2cfe7f32510ad534fea98e3d
+  Program Files/PowerShell/7/Schemas/PSMaml/developerManagedEnumeration.xsd 2306 3ab7329914d7a9a6d711a62405089e736ce714ee4de72f3493222887a72fdd39
+  Program Files/PowerShell/7/Schemas/PSMaml/developerManagedEvent.xsd 3108 93ebd3af5a078830839b10c9db753cd445dc2d1a78a5449c90ac605e7ffc397c
+  Program Files/PowerShell/7/Schemas/PSMaml/developerManagedField.xsd 2803 b17f73add6678c4bc259065add380a9070531bc24a66af3c4cad3cf3d811f3a5
+  Program Files/PowerShell/7/Schemas/PSMaml/developerManagedInterface.xsd 2882 b851d8be146f1f51e5857045c28726585cc96a29c5a5a57dfc86cf7c509d8234
+  Program Files/PowerShell/7/Schemas/PSMaml/developerManagedMethod.xsd 2544 36eb2bc76b2cdbfd908df62e16ca915f7490ce75cf7bc386974ef89aa77b32ff
+  Program Files/PowerShell/7/Schemas/PSMaml/developerManagedNamespace.xsd 3359 68d68d8cec8181c0c3046b419426ee1bd4d0371abfdbf9a6789755b0f5764d91
+  Program Files/PowerShell/7/Schemas/PSMaml/developerManagedOperator.xsd 1896 053c18557be353860222e14d7ce5e5844f5a746ba45347a9e08da1d5a2b29f3b
+  Program Files/PowerShell/7/Schemas/PSMaml/developerManagedOverload.xsd 2573 7d2695d2f6ab6eb3c0bab6125eee415545c3eabe0923b1b37519f2d4a8b9251d
+  Program Files/PowerShell/7/Schemas/PSMaml/developerManagedProperty.xsd 2843 832a25485eaa9060868e9258aa1f93626804ed439ee2b43b2d74f9cb0dc438c4
+  Program Files/PowerShell/7/Schemas/PSMaml/developerManagedStructure.xsd 2951 b7d1f7ddbcfef43bd171fd78d5a255089a97762ad67c116b6a6998815905901f
+  Program Files/PowerShell/7/Schemas/PSMaml/developerReference.xsd 12604 42c585d48c418c7eb47cba298a147923597b967e236997bb815301b57e31cb92
+  Program Files/PowerShell/7/Schemas/PSMaml/developerStructure.xsd 4112 d1c0e02bb7207095e49efc216a574b596a82e97b88e686e1c7a9717362623c44
+  Program Files/PowerShell/7/Schemas/PSMaml/developerXaml.xsd 6746 83ed2ee26cf6ab4c95a880f1424f7d5e09385b71239b84b3cffb58288eeff3b2
+  Program Files/PowerShell/7/Schemas/PSMaml/endUser.xsd 2144 24caee5d0536ed81eb68d6fd836cf08849e056497b6064971a145397a04eb853
+  Program Files/PowerShell/7/Schemas/PSMaml/hierarchy.xsd 10070 d50d8096a11350a8e3b6873cf9cbc173b8a4322324b16f949538b1b98857c5b4
+  Program Files/PowerShell/7/Schemas/PSMaml/inline.xsd 7644 5a1a2d4586203bb3d6a4e6ec93e4d09d0ab66d33539b88a2550a36100d1e16fd
+  Program Files/PowerShell/7/Schemas/PSMaml/inlineCommon.xsd 8860 02071402b963966ad574ab09bb42719bdb1ce6cd7e9af260a13faf9ebb580c55
+  Program Files/PowerShell/7/Schemas/PSMaml/inlineSoftware.xsd 8016 c444cd1121a8b83b0ffe5a8467cc10d2d810c5a7765f4b4406d1eb329cd8901d
+  Program Files/PowerShell/7/Schemas/PSMaml/inlineUi.xsd 6400 e7ff025576e482632878709e208b95916ccdca2af108c1c7b9218fb8472c1ae3
+  Program Files/PowerShell/7/Schemas/PSMaml/shellExecute.xsd 2250 52f48b0830346e30c782aa5c379dc547d0f40265ff1504276c904b819446409e
+  Program Files/PowerShell/7/Schemas/PSMaml/structure.xsd 5973 f35e24830e9e1a6ac79dedfbc3f2ef03eff8d41ef8c2414e8ba1c1a52e527391
+  Program Files/PowerShell/7/Schemas/PSMaml/structureGlossary.xsd 4186 4425e365ba3b646b11e5625644d5f98b0151f60ed2ba0a28316570d7d68f6fa5
+  Program Files/PowerShell/7/Schemas/PSMaml/structureList.xsd 4173 176d55d7715ddecccbe51330e9c012e09972ae3e4a9c9ac8d1c5869b9510540a
+  Program Files/PowerShell/7/Schemas/PSMaml/structureProcedure.xsd 1994 d323aeb14f98a01583e538dd92ef445e1094db861dc7205d5d2062976de539b3
+  Program Files/PowerShell/7/Schemas/PSMaml/structureTable.xsd 6137 63d397b018e5d3783ae3057658d7adcb44f968bfd81329d2fcea1abb91f2c7b8
+  Program Files/PowerShell/7/Schemas/PSMaml/structureTaskExecution.xsd 6794 c37308c8cdb9ac988c94a850a848fc79707fb5d268f7e17072d6d2fb8e83e852
+  Program Files/PowerShell/7/Schemas/PSMaml/task.xsd 22391 808a13ceeebda94c0152b93a52a7825e20b5c01780a3ec6c2ae0c8ac0230ed74
+  Program Files/PowerShell/7/Schemas/PSMaml/troubleshooting.xsd 3239 fba82fda979c33074968ed01ad95970fcf1151f3e7c298955bd501d5ca554633
+  Program Files/PowerShell/7/System.AppContext.dll 15672 60dec4ebeb3e9724952a60778c5e7b5ba2f8fc108f6b82803d1c125dad25c384
+  Program Files/PowerShell/7/System.Buffers.dll 15520 ce38c87d0da9dfe4f6033d2087455c62cf6c264d51f74f1cd039deda099d056e
+  Program Files/PowerShell/7/System.CodeDom.dll 489736 f794d4df3c79fd4c4707a65ea7e47aad84714410104af6e869aa9aa9615b54a9
+  Program Files/PowerShell/7/System.Collections.Concurrent.dll 276776 cf981c062f70b1e7c0afcddbf81e761a9df5a89654d3eb3f21fdc0c46d97fb00
+  Program Files/PowerShell/7/System.Collections.Immutable.dll 837792 adf957ec8c7f61317d370a71ccf62eee16af30c15949b0bcceabbc780ddf5f02
+  Program Files/PowerShell/7/System.Collections.NonGeneric.dll 104720 0f10acf3a66a2143cc098ca01e015cf840fec6f328bdae06495a4ca443511f4b
+  Program Files/PowerShell/7/System.Collections.Specialized.dll 104744 3e4711718627b6acadfc2305625afbbb61ab27f8afb138d8f3489d28e2948a2b
+  Program Files/PowerShell/7/System.Collections.dll 260392 06ac8c082896fe8c2c3ebcfe2966e467838118fc2ea54185f808ebb3f37ddad4
+  Program Files/PowerShell/7/System.ComponentModel.Annotations.dll 203048 72301550224c8f1d7b54a1b87dc0cf8297b6ca98a5e4be705931e969401c56d4
+  Program Files/PowerShell/7/System.ComponentModel.Composition.Registration.dll 108616 ad64ca9f6cde5acc4d6a23e11068c6f4deef490c3faf2f78fbe8d6502a40fcee
+  Program Files/PowerShell/7/System.ComponentModel.Composition.dll 739408 e5c8acb0b40bbb97e21652662fdd5050c971583338ea1c75557a837abe2fdeb3
+  Program Files/PowerShell/7/System.ComponentModel.DataAnnotations.dll 17160 75c4a5dcee1568537a546bbb27c4a8f95ac34996e16c1d113ad7446cfbb022e8
+  Program Files/PowerShell/7/System.ComponentModel.EventBasedAsync.dll 47264 974183eee250920a17cca79bdc0ba94cb6f75cdb0a8329c85fc9f3b81e85522a
+  Program Files/PowerShell/7/System.ComponentModel.Primitives.dll 80168 fa581d2aa20bac7d159a56911cc469784aa9a7ff816115499eeacce85fbc989c
+  Program Files/PowerShell/7/System.ComponentModel.TypeConverter.dll 747816 f5286ef2c4d5a9ac1418122b9ffc26612b09468c87120f51ee4e9736f84a9eca
+  Program Files/PowerShell/7/System.ComponentModel.dll 31032 145bef6f199664ad1f534120056906dad4a1a6766a9cb0501b8125cc3fddf9df
+  Program Files/PowerShell/7/System.Configuration.ConfigurationManager.dll 1075480 8c5dc3e409c45f07d6bd9e86f55983738af79228d9e45db2cae8f411c24265dd
+  Program Files/PowerShell/7/System.Configuration.dll 19752 79307ad890ca3cc0a4be03fc31eb6f63537a8f66dc0a2b477c5712b23429d065
+  Program Files/PowerShell/7/System.Console.dll 174360 0eeb98d76e948f36423c178d81a45d015ea19c6446424cf1014a848df27b86d4
+  Program Files/PowerShell/7/System.Core.dll 23848 96a110301eb86eb923328977516da02ed8ab5716c22ffa87d6491a666671ae7b
+  Program Files/PowerShell/7/System.Data.Common.dll 2861224 9c358a5d87bce272f835594022a1e513745c4e2111c78b7fa6a760afcdab4985
+  Program Files/PowerShell/7/System.Data.DataSetExtensions.dll 16168 6c0a8f230387b5403d6f81227dee094f1a0c0dd4dbb76d1fce1db5ca1cca6c36
+  Program Files/PowerShell/7/System.Data.Odbc.dll 632880 d39adb794865f20ae57914214e58ac8e0da3a33ef585ea4f8f04315d62a60ee1
+  Program Files/PowerShell/7/System.Data.OleDb.dll 854096 5798b9b313c6e1fc85ff74b79583f7c462ca3d490d39f7f694b9dfdbdb14fab5
+  Program Files/PowerShell/7/System.Data.SqlClient.dll 2504784 4bd94f05c73bd7a5dc447a1911d88aeedec1838ad376f9aed049ecdd9cbddc0d
+  Program Files/PowerShell/7/System.Data.dll 25400 8e166a00ec2ff9607dd943eaff8488b3b954c2e4775d9f80e4a98df8454fb6fa
+  Program Files/PowerShell/7/System.Design.dll 22312 14e9389960690408b5de604aedd0f47f80ee138ae81f8574837f2a71ad78542e
+  Program Files/PowerShell/7/System.Diagnostics.Contracts.dll 16544 c1ba12ee7c2e9132b627b1b0d8d1aa6038c3cd4fab7afb87ed3125964e32c4e9
+  Program Files/PowerShell/7/System.Diagnostics.Debug.dll 16032 8f92a1d8b76fe65417c6781d23019ccc4e4574caa7a3344d729aeeabbca7972e
+  Program Files/PowerShell/7/System.Diagnostics.DiagnosticSource.dll 415904 5f1efabb67a643a02434a9b4e34e09a78d2ed95e5a25ecfedf84c2b3bda3b03d
+  Program Files/PowerShell/7/System.Diagnostics.EventLog.Messages.dll 801080 dbfb7c81fb62a0bd3f77da92496640f179e96dd0c1a41a0d3c5d2a2445a3be46
+  Program Files/PowerShell/7/System.Diagnostics.EventLog.dll 387336 e4a124dad72f4662fb77a3dc87e9eb92cd97b5ee9942592443359de96fd288b8
+  Program Files/PowerShell/7/System.Diagnostics.FileVersionInfo.dll 47264 f346484148e0f52666bf9331a9efb85dd565a0082adefdf8289c9a16fdfea5d8
+  Program Files/PowerShell/7/System.Diagnostics.PerformanceCounter.dll 289040 b710c3276059cebca97dfb883d9ccaf0ddd111da638ae4c455cfbcff09d47618
+  Program Files/PowerShell/7/System.Diagnostics.Process.dll 338080 7a396da2fb5e091f2fa0830910f8d0467eb97cf48819ec6111c9502afa2f88e4
+  Program Files/PowerShell/7/System.Diagnostics.StackTrace.dll 47400 c8d73c39097c08d5836360c5012be01c3409ecdd8b34310ac25c638775efcfd6
+  Program Files/PowerShell/7/System.Diagnostics.TextWriterTraceListener.dll 67848 c583e098f6985254fe72e1e65703b085290226ad03cb5f7dab0857013b67e725
+  Program Files/PowerShell/7/System.Diagnostics.Tools.dll 15664 b172276b92a82a9d5bfea5bebf1484b9ac96500872f1ff8e5be142d72e243522
+  Program Files/PowerShell/7/System.Diagnostics.TraceSource.dll 145720 589f07d5a3d8db037cc2ad543832adebe3f4c6ad2560fb3d35cae022a8be5bec
+  Program Files/PowerShell/7/System.Diagnostics.Tracing.dll 16560 28cd0388d2059be7ce945a293df78beff6b451a445ffcaef88aa9ae91d2cc296
+  Program Files/PowerShell/7/System.DirectoryServices.AccountManagement.dll 743504 8afa40705177bbfc2f294530197df219ddf8d446b0dc7bde70340a91da29baaf
+  Program Files/PowerShell/7/System.DirectoryServices.Protocols.dll 370760 7c84e173a7bb0bed6b50648a33706c6b863b48c05a5786dc1111cc5368dd291b
+  Program Files/PowerShell/7/System.DirectoryServices.dll 1046792 2be7233cd7395457c32fd0ebc36d006b46b9eeefc0c2052a1ba6515c7b00682b
+  Program Files/PowerShell/7/System.Drawing.Common.dll 1140808 6f3c4fcd8148132df4c97569f9fd74affe1469e28bbb32941b6d5ac2b2e627be
+  Program Files/PowerShell/7/System.Drawing.Design.dll 15656 50f321074d5e4705efda52c7b84c2cbe8cf99c93b3403c25f534f559c2a58596
+  Program Files/PowerShell/7/System.Drawing.Primitives.dll 133280 04330707301399b62adf6a576a1b7a9b6a6390b1f624922f94711615a90e4059
+  Program Files/PowerShell/7/System.Drawing.dll 21664 653527022e47cd1a9ac28d30a80652d72f46433b9f77754438974d02aa18253a
+  Program Files/PowerShell/7/System.Dynamic.Runtime.dll 16680 43dc2c35f736ecec0cf53d129a38ae6afe9b302bac54845d0abe9df77ae9947c
+  Program Files/PowerShell/7/System.Formats.Asn1.dll 244008 d8c8363d41f41337b492b65b183cb190d50d479f68b2d857a240f7e5d982cda6
+  Program Files/PowerShell/7/System.Formats.Tar.dll 272560 aacdd1099ab8314f63c22bb2f015d010cfe6f39ba4140bb26fd79346906a31ca
+  Program Files/PowerShell/7/System.Globalization.Calendars.dll 16168 dc0fbf442464eff403a1182868079d9df4a1ea8c4b5a61a8e742253232ed2fb3
+  Program Files/PowerShell/7/System.Globalization.Extensions.dll 15664 4f81079b1c116e6fe9dc7af2f2015d743107f067903422e25d49c15471ba1e0e
+  Program Files/PowerShell/7/System.Globalization.dll 16176 99b3afa7a9d8f903138fae73e2ec8050936618d4f32ae028f9ee639c68dfd49c
+  Program Files/PowerShell/7/System.IO.Compression.Brotli.dll 84264 ceb4f4fcddf307bb35aa4f6f40d381849cc3ffed804f6d39333f3a0bcedbf6a1
+  Program Files/PowerShell/7/System.IO.Compression.FileSystem.dll 15624 ed42ed141134e509b16a95b1f1c3b390b21cccf2fa20a8daa8a523ed77836604
+  Program Files/PowerShell/7/System.IO.Compression.Native.dll 831280 2ff56bc844cbc3c0046d42bf218942e6a30cfd9feeb33bece039c06d5c018136
+  Program Files/PowerShell/7/System.IO.Compression.ZipFile.dll 55456 ba4c0c44b17b77586a5b56b5d727579331cdf220eebdeca9044cdea4552db350
+  Program Files/PowerShell/7/System.IO.Compression.dll 264504 09bb88072085f533a2cefa1296d4a5e0632595c2fa789f679d36da1f551f7555
+  Program Files/PowerShell/7/System.IO.FileSystem.AccessControl.dll 104736 da93b4b79ee6b8609be8b9f54cc1ba1c263e8213b6fcef5f0f454ad43e2b005f
+  Program Files/PowerShell/7/System.IO.FileSystem.DriveInfo.dll 55592 3c69564f9cd0dcdc0fed512c4908c6cc99479adde81142e94f9dac2c6730843a
+  Program Files/PowerShell/7/System.IO.FileSystem.Primitives.dll 15656 1d7ee9839da37ba4aa5a1e01e4d7e08077755a27cc021ab8251bec414120b655
+  Program Files/PowerShell/7/System.IO.FileSystem.Watcher.dll 88360 be143d5f41a244f2f65ca7f8db25143465b89959b042d4889b0bd72f422138db
+  Program Files/PowerShell/7/System.IO.FileSystem.dll 16032 dfad5910c19a8cc226fca351e66205ff99ed0e139271fd91c768793a59c461f0
+  Program Files/PowerShell/7/System.IO.IsolatedStorage.dll 92336 4d98c2894f81ab6737c52496cc27c6b4c9b159a2260d4e3619614463ee4e2a5f
+  Program Files/PowerShell/7/System.IO.MemoryMappedFiles.dll 84248 3d30170663b0d8ad826d1626eca7828c7d68479ad78f8aef9db501701a38f98c
+  Program Files/PowerShell/7/System.IO.Packaging.dll 293152 60b2e3825434c79ab3ac158a839e7d50caa735acd2c3310a4d33f618f5b4a0e9
+  Program Files/PowerShell/7/System.IO.Pipes.AccessControl.dll 16680 e1ea7ed22cd16188726c3bf23b9bc72c4a242fbba14da5208f1ffe5d389931a9
+  Program Files/PowerShell/7/System.IO.Pipes.dll 166048 8fb387538280f31d4f5cabd87057ef2b2113814896d063ad9d262e47beeae57c
+  Program Files/PowerShell/7/System.IO.Ports.dll 170056 9b0034cd28db905ef4b55720fd88cda664a4f3c9d33ac476b34802e6afe3ac0f
+  Program Files/PowerShell/7/System.IO.UnmanagedMemoryStream.dll 15536 87d9f6d4cd34ffd8c54583b0feef053b893368165810024445238f081cb8f7ac
+  Program Files/PowerShell/7/System.IO.dll 16176 6ec9431f5359e6b81d37d1ff4ab6c9f487d65483562a3ae1c9b6a3b4cbb36491
+  Program Files/PowerShell/7/System.Linq.Expressions.dll 3676320 78b116be7f56e4fee749141b6d02ed87e04296ac9cb0d3a6cc2f892d081e73c8
+  Program Files/PowerShell/7/System.Linq.Parallel.dll 805160 ba4f80795478e9f18cfe9fb2bf3a2c76a534a382dff8b913486802ccc23431eb
+  Program Files/PowerShell/7/System.Linq.Queryable.dll 174392 b2a69866a16fdf9b7a7c0e8d57f59ea9502738cd384830645b3ace453472f388
+  Program Files/PowerShell/7/System.Linq.dll 543024 64acd73260b864145c835de0a0d535b0aec1ab10cf4708c1b56797ddefd0a678
+  Program Files/PowerShell/7/System.Management.Automation.dll 19961888 4034054de69cebed42f41145aeac4e288d53d81df684639c7a289c1449c73408
+  Program Files/PowerShell/7/System.Management.Automation.xml 8117017 0a5f5a5811ada6e745b1eb648bf951017ed22bab4a1bc9a11c90aa76434b1626
+  Program Files/PowerShell/7/System.Management.dll 841800 e25d461acf1f73fd90d5b779fb2c15e5ab8e85f01ac026b85fece10bb3fcbdb4
+  Program Files/PowerShell/7/System.Memory.dll 157992 acf0f25597bccb62553d7a7ce02d50db8ec6c9aba074f1feb2968d2228d6f767
+  Program Files/PowerShell/7/System.Net.Http.Json.dll 129200 a7d404e00b51c84e7214fcd89aabd1c7984bc7ecbbfe934c88573c0af72d6ed4
+  Program Files/PowerShell/7/System.Net.Http.WinHttpHandler.dll 309320 90174793a0d1c5bfde58ab0157e71b635d223a22cdd27907d489308c2437b6ee
+  Program Files/PowerShell/7/System.Net.Http.dll 1730736 ce57048b686f735aebf5fc4300b94a9ac87f7aba00d9ebe9e6dd27b9530f1ecb
+  Program Files/PowerShell/7/System.Net.HttpListener.dll 551208 9c246197e9a7aed911cebd4143a6799711afe0b8303201da45087974f5225256
+  Program Files/PowerShell/7/System.Net.Mail.dll 432424 a1a0bf958fc9a991badebf285e110e8f2128bcaedd6ded5408d4c805ccbb2d3c
+  Program Files/PowerShell/7/System.Net.NameResolution.dll 112936 f51dbd9743abe3d0f76dc51308491dad97dcbc539dd0bb211d54e61c2e3fe595
+  Program Files/PowerShell/7/System.Net.NetworkInformation.dll 157856 ead4dc1c08c35ccd9bc55ce9991770015366dd930e22009d7886061f2714ec84
+  Program Files/PowerShell/7/System.Net.Ping.dll 96552 9edf08fa4aadb0ec281d18e691ba35e4a25d5187cfca886aba60c318925c0573
+  Program Files/PowerShell/7/System.Net.Primitives.dll 231584 a9284ab30bfb4540cba15d51fdd44b33e30a764db0b42c31eb79bf7e9dc55120
+  Program Files/PowerShell/7/System.Net.Quic.dll 280736 3c44f2a193e713d90667b3f170961216737d55f9832274c77ef17835de4a27e7
+  Program Files/PowerShell/7/System.Net.Requests.dll 346408 1a6970bde3804e2d9d0e2e184cbf576b25f1b993aa52270913751a6ca1ca6319
+  Program Files/PowerShell/7/System.Net.Security.dll 669856 70cab66e9948c95b1486e53d7b803dbe4d6887824bec92383a81ce91ca2a2ca1
+  Program Files/PowerShell/7/System.Net.ServicePoint.dll 47400 92db0b4b24aeb10263d68b4be23c505c9eef517788b57461f26da6fbb98c9f28
+  Program Files/PowerShell/7/System.Net.Sockets.dll 547104 9a4349409ddca25dcc77745083f77ae1a808b1ae2ac623436a67af34d264d9b7
+  Program Files/PowerShell/7/System.Net.WebClient.dll 170296 a75d5d94b1742f980bdf52d2825302585811abd3c85e0012b46b45079298e6fc
+  Program Files/PowerShell/7/System.Net.WebHeaderCollection.dll 67888 80ec494f5495eb2beaff7629ed82e47b838a28dd06d051560c3a188d725dd2e2
+  Program Files/PowerShell/7/System.Net.WebProxy.dll 43296 4b058bf0b789bf7fdfcb7504acba6f697ffcb5c7c0f10df36d6c2e2d9476be38
+  Program Files/PowerShell/7/System.Net.WebSockets.Client.dll 100512 269dd995e2145e2f86e4ac1df048ae36996a8496f67893dd9e56a85a0fa957e3
+  Program Files/PowerShell/7/System.Net.WebSockets.dll 190776 7144c49b96ed904665bd2d5daa2c4dfec4af51ef0df6036fccca8c0d7ca6b86b
+  Program Files/PowerShell/7/System.Net.dll 17712 54eed3c068f1411fd458a7e54334bf78d33e866dfaedc07ea7732188bb472348
+  Program Files/PowerShell/7/System.Numerics.Vectors.dll 16168 20bd9defa85fe8a83db18a00e98b85dd5d8bef799fd94492ab86b2e4364d7b63
+  Program Files/PowerShell/7/System.Numerics.dll 15664 e07113d0c53ef381eab0565a6c4dc756e61936ab3ed3e5455bcee72b36f54ebe
+  Program Files/PowerShell/7/System.ObjectModel.dll 80168 381fc44114bd420c0855469395876a962f8cd752a6621cafc3bcad5c8e131970
+  Program Files/PowerShell/7/System.Printing.dll 964872 5b1dc945a05eaa991fb3504737fbabf04e9698be9560ea17d6b002fa52e132a6
+  Program Files/PowerShell/7/System.Private.CoreLib.dll 13170952 6b18dc1feaf9ceb49cf5b173a1543b41a304dc5ceef32a612ad77fd13e02eee7
+  Program Files/PowerShell/7/System.Private.DataContractSerialization.dll 2082976 906bba2f64d76dab71e2ed71e4ad3a0a7cb99f971ac84b5ca568ccfe6713e8bf
+  Program Files/PowerShell/7/System.Private.ServiceModel.dll 6305872 46b243527331ddf2c9302efc1d7c5f4249917ffc7daa1bfca5557571694ed3dd
+  Program Files/PowerShell/7/System.Private.Uri.dll 260360 2492c5f7e779359d09740cb776cd41a726cd4f0ccdd65dd64d5e6f5a81e6df54
+  Program Files/PowerShell/7/System.Private.Windows.Core.dll 1398832 6b5ab7c02236de083506c1bccc0943bc03c2037fbac04810e0863f8feb55a121
+  Program Files/PowerShell/7/System.Private.Xml.Linq.dll 403752 0209ac7ef88297b395fea94f52fb4eb028c25369eb06ab3092a7f08db09da7a8
+  Program Files/PowerShell/7/System.Private.Xml.dll 7989408 952dd261e720f74d3063d5d34391c2064b1ba89afccec65b339883f790633fcd
+  Program Files/PowerShell/7/System.Reflection.Context.dll 190544 ff007188b9c00566e8de4571f6a133a93277b6650f6d98e5c782ce4b555bdc12
+  Program Files/PowerShell/7/System.Reflection.DispatchProxy.dll 75936 a3b7f7d5c56d521ec692dcb279016c7a7f8b91bedef586e979c24491241d767f
+  Program Files/PowerShell/7/System.Reflection.Emit.ILGeneration.dll 16176 947708bcd677080793e0bbe5e4287da46adaceb84f81dabcc4ad246bde108286
+  Program Files/PowerShell/7/System.Reflection.Emit.Lightweight.dll 16168 5e8f8a4490b2ef800fbce36a89c1b1b231f7b0320ccd59b71d13ff95039cf813
+  Program Files/PowerShell/7/System.Reflection.Emit.dll 129304 c35bc68b60f1ce947ed7c622cd5ffd2894cb91e356c4b1eba4874e5cdada5b5f
+  Program Files/PowerShell/7/System.Reflection.Extensions.dll 15536 e5b1a807bfb68e92d0a0b68056ddd9febb57926317c8f27ab9466694b6365a6b
+  Program Files/PowerShell/7/System.Reflection.Metadata.dll 1116320 827f3f62ebb6aceb1904ab762a6580c0400384ca136601aa4c89278fa8f8a142
+  Program Files/PowerShell/7/System.Reflection.Primitives.dll 16160 6e935e29c887e3f8319d58a01edeb071faccb92ae2d18671c918e77bcb77890c
+  Program Files/PowerShell/7/System.Reflection.TypeExtensions.dll 43184 73569f1836584be755c9749cdc1dfb2a547f1f8f595cc79e0f52ec39ee2b0457
+  Program Files/PowerShell/7/System.Reflection.dll 16544 2cab69493157300cf093fd515396caf0d302081ae41e131d6f144a519dfd5b21
+  Program Files/PowerShell/7/System.Resources.Extensions.dll 137488 57496ee4a4b18b805018c064cf505b42e022ff19ad16b0c047894e4f2ce031af
+  Program Files/PowerShell/7/System.Resources.Reader.dll 15536 37a82185d361eeb62ac3fb9fd182d4cdd54415e27f7aa3abf7cabd00a926184f
+  Program Files/PowerShell/7/System.Resources.ResourceManager.dll 16168 ad79036ae89ebd610a2b1f6eba6d67be08d8bcc9ae13f0ee9977b2d5d21e6fdc
+  Program Files/PowerShell/7/System.Resources.Writer.dll 51480 9fa03360df1680f93448beb2200777e59dbed395f3c99128e81e552dd96395b2
+  Program Files/PowerShell/7/System.Runtime.Caching.dll 206920 14a5c2c275671d82210ba35902b170cbcf7cbb0d53fcdc16dbc1e659a39ba6ca
+  Program Files/PowerShell/7/System.Runtime.CompilerServices.Unsafe.dll 15656 fc944f12d89b4d42f2e7eb7278f3627e34b6b3fc50217ef690367fef488eaba0
+  Program Files/PowerShell/7/System.Runtime.CompilerServices.VisualC.dll 31016 c29ccaedc648ed25eef290e1e38f530cb028f8a4177a2512164db47662958a2d
+  Program Files/PowerShell/7/System.Runtime.Extensions.dll 18080 e6a58c965d928697926040a50d4b95b9e7e726777a23f25222ef8239ab9795c9
+  Program Files/PowerShell/7/System.Runtime.Handles.dll 15520 5dfa22f7785793232688ea2021b046fde110e40ca5e914f4302d3fbe8e67fe01
+  Program Files/PowerShell/7/System.Runtime.InteropServices.JavaScript.dll 51360 4f8b8291e5d8314519b799b8d829a5520bf234575b8c473f6638f54eb5b958c4
+  Program Files/PowerShell/7/System.Runtime.InteropServices.RuntimeInformation.dll 15664 4d4c14135bf487c259302988e35f6925faebbda68541aed2675eff339cea20f0
+  Program Files/PowerShell/7/System.Runtime.InteropServices.dll 96552 ad237d38dcbe945aa218eabf4ed05a96dcd159601eac262a7ba9dd741a9f9fd9
+  Program Files/PowerShell/7/System.Runtime.Intrinsics.dll 17056 bc50c170e91412736e18ad5d703f9b55f4d1a292285ee6e41baa5e50a63cbcd0
+  Program Files/PowerShell/7/System.Runtime.Loader.dll 16168 699708074f4887afc60a92f8b370b368974ae53c5c2d6338e5d67b24d1df9e3d
+  Program Files/PowerShell/7/System.Runtime.Numerics.dll 330032 7877202440dc4a7b0480eac92e109db303b941466ffe2f346f915387e2519ddf
+  Program Files/PowerShell/7/System.Runtime.Serialization.Formatters.dll 309408 9eda8abcd4056a9d29bea2a39fbb68cfd301d360c92325830433c5f80eb366d7
+  Program Files/PowerShell/7/System.Runtime.Serialization.Json.dll 16184 29ffdb4e0400ba55eca2da286ee1852fc17e1c2eb1bf60b0e8253c38bafcb0ff
+  Program Files/PowerShell/7/System.Runtime.Serialization.Primitives.dll 39208 5af9f8503bf496dbe71943d934e61a9c8ae9b23d3cc4a6c350eb1a56672514d6
+  Program Files/PowerShell/7/System.Runtime.Serialization.Xml.dll 17192 6a126aa625454af0ab2a0b9df785339ebfc40d87d086580fb6329e42f5907e0c
+  Program Files/PowerShell/7/System.Runtime.Serialization.dll 17072 2cb9c808b898d997d9181ada0a17a70937f570e470217311100c20dadb7f5d9d
+  Program Files/PowerShell/7/System.Runtime.dll 43696 2849a7089c9a96c027caff7350af131e630e4e7b6edb268b7ab880569358100d
+  Program Files/PowerShell/7/System.Security.AccessControl.dll 231720 4e513aae5da321e8c5f8bf493de903f2e3017a6cd1c81e33bacc29b9b5601543
+  Program Files/PowerShell/7/System.Security.Claims.dll 100656 62014947e7735a1201e01f141f0d41a22ccb47c7750ef29ce88f9926ed8d438d
+  Program Files/PowerShell/7/System.Security.Cryptography.Algorithms.dll 17712 4097146c79d7c4acf475745cccd8d74ed848b8880b803377114a545e065591d0
+  Program Files/PowerShell/7/System.Security.Cryptography.Cng.dll 16544 8de6984db039f665e683402845e0e914e7e294c673e01c08ec1c5dc426bf4685
+  Program Files/PowerShell/7/System.Security.Cryptography.Csp.dll 16032 737fab2a609ab3e395a1aad9ba446b6b2728be5231e73c17061aa77e1b7ac94d
+  Program Files/PowerShell/7/System.Security.Cryptography.Encoding.dll 16032 bd43537710c73b46a4545137cb616a79a48a80b636b7dd08311e85884ae363bb
+  Program Files/PowerShell/7/System.Security.Cryptography.OpenSsl.dll 15656 f6bf52fde737cb31f17e38895da486bfd9e2d2b12cfb34532cc7f29d90a604e6
+  Program Files/PowerShell/7/System.Security.Cryptography.Pkcs.dll 760088 a646de6f60e2c879457432d21725aabd36a78845bc2ed15552cb5cb5e6cecf10
+  Program Files/PowerShell/7/System.Security.Cryptography.Primitives.dll 16184 82cc9287206293d2791f9f4a8073a977293b671b7cb2598f57e202b050ba3989
+  Program Files/PowerShell/7/System.Security.Cryptography.ProtectedData.dll 55560 cc27e292148d8afb7f34916ec257faf8284e4d3fb74189a92cd14cf84d8ba49b
+  Program Files/PowerShell/7/System.Security.Cryptography.X509Certificates.dll 17192 5dc14698c08485d0f025d7dd6275873aef06b63ae7228e3dc96bf931950ffc7f
+  Program Files/PowerShell/7/System.Security.Cryptography.Xml.dll 456976 b39ae3acd1818f5c1dc5f8a95ed5e3271637170b0370a00cf35342c667f0f022
+  Program Files/PowerShell/7/System.Security.Cryptography.dll 2050224 ab62dcc76c144e1f830b663057260bbf31c463dc5a00a0663852dc2a3b646bf5
+  Program Files/PowerShell/7/System.Security.Permissions.dll 186648 62812c55adf747d23cd049ecea5324c4319e8dafd47e74212bd52e21cc84f677
+  Program Files/PowerShell/7/System.Security.Principal.Windows.dll 186528 1451ab23d9fc7c13eb618c82cf39e79071ad3759b5a474befd386a3b932f7c8f
+  Program Files/PowerShell/7/System.Security.Principal.dll 15536 6bee858b4eb57033624cd93c9b9e08e0f8d4b7bd4540a83ce9978993c334b7ab
+  Program Files/PowerShell/7/System.Security.SecureString.dll 15520 be8ceea3da4bb7cabd5fd6e1c978585d2c97593f67660e1d8d7b46da3dae713a
+  Program Files/PowerShell/7/System.Security.dll 18592 73fd97e5762b1e1629271c9e17df6b9af431cd446ad1cb0bdaddaba25edb7412
+  Program Files/PowerShell/7/System.ServiceModel.Duplex.dll 15392 47df412f4314dd8167b98c00b07ee72d8cba519d9157746a434cfc14f35f9157
+  Program Files/PowerShell/7/System.ServiceModel.Http.dll 16416 4b42f2d27aee9fdc2063709b485d052bf46c387e6a6e13ce92adebd5a5fad2d4
+  Program Files/PowerShell/7/System.ServiceModel.NetTcp.dll 15904 9176ab9d413a02065eaf3cbc2cc8f3b9a7828bb42eeb60f0e94f4c62e90c37cc
+  Program Files/PowerShell/7/System.ServiceModel.Primitives.dll 23080 9ba3a0e63c793cd63910882f6458e6e23fbb35d7a424f02fa8659eb8515b0b7e
+  Program Files/PowerShell/7/System.ServiceModel.Security.dll 17440 d557f54112db1b908bb0f15cae688204420c8a76413085e33dd8a18fd8ce097b
+  Program Files/PowerShell/7/System.ServiceModel.Syndication.dll 321616 55788562ea38278c8a7142f7fea65d3e25017b9b822cfb2e64ebec1d919fc58f
+  Program Files/PowerShell/7/System.ServiceModel.Web.dll 17056 4a2d6960be7e1de8262bc22f8c60d73f25674f8e8351e07c1d31d0b298dd8946
+  Program Files/PowerShell/7/System.ServiceModel.dll 25120 49624a49e5e93bb9e0f67d53b5f800df1639a96b6c499b4702ca2400036e1017
+  Program Files/PowerShell/7/System.ServiceProcess.ServiceController.dll 149576 b494d2ba7f9fd01b32256f2e1c94b30c8daa513b442456479c0d7d77c6900abb
+  Program Files/PowerShell/7/System.ServiceProcess.dll 16176 3f86c32c5c56c701eda8469052c9afb82347037441ae8c57ca017310b4612537
+  Program Files/PowerShell/7/System.Speech.dll 1435728 a0f2c07d8a530d1ceee4bc5aaf212ddf5f884a3aeecf3bec4b8e5a4a4187385c
+  Program Files/PowerShell/7/System.Text.Encoding.CodePages.dll 862520 db95c7c90a7c9993a8071347b99c45e7b1793d34445ddffbc3a17a4cfacdcec7
+  Program Files/PowerShell/7/System.Text.Encoding.Extensions.dll 16176 8ed71b194ea5039a1fda3335c6971d2fde7177603fc53ee1e5a3f0c45c54aa04
+  Program Files/PowerShell/7/System.Text.Encoding.dll 16168 2c4453d4199c152434d3f58b9c7b90e4c5dd34c4c4923e69b51e99093d399a0a
+  Program Files/PowerShell/7/System.Text.Encodings.Web.dll 133296 7f556bd01ddd310be10c1190928f0fcf0d90b2689eddfb30ed304c04e6dbf4c8
+  Program Files/PowerShell/7/System.Text.Json.dll 1501344 92cce99f4ab6e9c0c4454e1b2cc8f9a77c48d2657ed7cc175441fb8bfe2e32d4
+  Program Files/PowerShell/7/System.Text.RegularExpressions.dll 1022232 f85e03b5ea7fb5c168b4d15b882c2e4eaa6e34ae73d209f05b116abbe20ef108
+  Program Files/PowerShell/7/System.Threading.AccessControl.dll 88112 a3816041e5bfb7cf0b72c038d9510a772a436fdd61f35d73f3974bd33124330d
+  Program Files/PowerShell/7/System.Threading.Channels.dll 133296 bde8e2e81b9ba68102d12191b6cf472c014032ac9c13f5d6172b3e6b8e27375f
+  Program Files/PowerShell/7/System.Threading.Overlapped.dll 16168 5d182dc5e3fc7a94c6c7bf369fd3f2f5910092302e4afca70159be12204dd05c
+  Program Files/PowerShell/7/System.Threading.Tasks.Dataflow.dll 489768 9db2f8285daeb5a6546bd4471737c85f7995d60425aea47bffca5048b3895d55
+  Program Files/PowerShell/7/System.Threading.Tasks.Extensions.dll 16168 c846c4d79cb29e8554bc72a49a9f245ef52333e3cd48064b041e954f67a4e4ff
+  Program Files/PowerShell/7/System.Threading.Tasks.Parallel.dll 133280 aa1f3230623fc45a8a7a258e5fae773665c2fd287924fffd84a775712f13b2f9
+  Program Files/PowerShell/7/System.Threading.Tasks.dll 17072 5a9a52deca1485d0f6fcb142a836cf6437c8759709be09dd4e3e78c5f2b6e783
+  Program Files/PowerShell/7/System.Threading.Thread.dll 16168 eefbc4bd778148c479774c57d24d13261d4f2b32fbeeb95f211d3a129a52b27e
+  Program Files/PowerShell/7/System.Threading.ThreadPool.dll 16168 0112b653d00ae32bdc9c1217e0aa0995a17b1e58af1e614ea4c7a3dece699ef8
+  Program Files/PowerShell/7/System.Threading.Timer.dll 15672 3619367eccf46d3548c7872cffac3d1ab5e7c4710baa8384ede6bcae1f9b84ee
+  Program Files/PowerShell/7/System.Threading.dll 84144 d822696f2831fe562be2e91621382951500d34a49171e8165b5255426ddb5c20
+  Program Files/PowerShell/7/System.Transactions.Local.dll 661680 abb45af7820cc6e78ee92b49ae436976134f20efc36bcc60497539ae667204ed
+  Program Files/PowerShell/7/System.Transactions.dll 16544 52e97d93cb40e6fe7e68859abb8dcb56c0a48f4d6aef507124e7dad75c34fbf1
+  Program Files/PowerShell/7/System.ValueTuple.dll 15656 9283979403626f8d769ff1bf8e517a8f4e14a3a53e27ceefd3fc3aa1f6c6d91f
+  Program Files/PowerShell/7/System.Web.HttpUtility.dll 59552 a4397ffd3dc992b4c019e384c3cb6e788feccf5be57cf3e68f31e80afd7d9842
+  Program Files/PowerShell/7/System.Web.Services.Description.dll 804936 fc2e621ef87b2631d4792235e50307e479c8db5a8c730b21e532294c1bac7ffa
+  Program Files/PowerShell/7/System.Web.dll 15520 e266ee482c9e674efe3181c604829a5b497e1b0e98dbb76826545ed62ad96e13
+  Program Files/PowerShell/7/System.Windows.Controls.Ribbon.dll 1452296 b49750e67d38e98c96144e656d860802879afee6570068626213079a07890e19
+  Program Files/PowerShell/7/System.Windows.Extensions.dll 117016 b9640a499443fd14a14ffc9134f334049c18a9f17e734056d8f1409ab2655460
+  Program Files/PowerShell/7/System.Windows.Forms.Design.Editors.dll 16544 313e8604b2905f3599c7090fc261ef8d85b1df86e7b8fc4bb6ea70023b5d73aa
+  Program Files/PowerShell/7/System.Windows.Forms.Design.dll 5564696 19c5b03afb22d5f5157693a16110bb5c2e93d74db28b50b0d2502811df08a029
+  Program Files/PowerShell/7/System.Windows.Forms.Primitives.dll 3012880 14c0361caeaf85cecab731bffeb7ef4a791c2069e1adc08e91054094b1c5d174
+  Program Files/PowerShell/7/System.Windows.Forms.dll 13564192 2ecd99101fd14296bbae04f26b67044e77ca8351eeaa7fceea55937997f75da5
+  Program Files/PowerShell/7/System.Windows.Input.Manipulations.dll 137376 460f0fb609e9935e061b98fca40fb626234aed1f47155cde8a4e7bf9edf980f8
+  Program Files/PowerShell/7/System.Windows.Presentation.dll 31000 be5c9c055046ac22e222212088b625d05b58c80cffcfe9f12c683afd1844abdf
+  Program Files/PowerShell/7/System.Windows.dll 16032 88ef13e687734a8848df7ef0b459d85dab150b64895d502793a12c3c10d97c7e
+  Program Files/PowerShell/7/System.Xaml.dll 1419544 53b27fa67210b4c2edba7fb727e5b79014970a8831a170312970626ade700454
+  Program Files/PowerShell/7/System.Xml.Linq.dll 16032 cc0fe98595a79dbea9c92b222cd9ec2acb77264cd34f18b33b443a281e39b8fa
+  Program Files/PowerShell/7/System.Xml.ReaderWriter.dll 22320 4a2da327c8eef568eba6d785a29c86c7eb0df216acb6741b5a2b339d030dd448
+  Program Files/PowerShell/7/System.Xml.Serialization.dll 16544 db3f6f63f5c8d89255860594faccecffb63fa35292cced93018ff61b647f459f
+  Program Files/PowerShell/7/System.Xml.XDocument.dll 16048 b9deb3cb32259ccc5506067333442143e139c35e4de9520971a7720dc16c9c82
+  Program Files/PowerShell/7/System.Xml.XPath.XDocument.dll 31016 b1f21041eb18af58bd822a7354682bfc795191abdb8903659f3325df26efef0f
+  Program Files/PowerShell/7/System.Xml.XPath.dll 16032 30cecbdf37ebcc86905f4b21b8d7f249d456ab371538a93e7e4465dc93ac06e5
+  Program Files/PowerShell/7/System.Xml.XmlDocument.dll 16168 f05bdf95c3b446f3135b05c66a36c047f34525f704bf52ebccbde02821529d66
+  Program Files/PowerShell/7/System.Xml.XmlSerializer.dll 18224 d00b7b2028a3ec7728344fe0b8d14ff69475264d579d4a234a9f247b076c9c2e
+  Program Files/PowerShell/7/System.Xml.dll 23712 4ec6f4ccd1ef66fc2a9ade19b2e45b165931819a61d3afc6ae661ecd7e4d12c3
+  Program Files/PowerShell/7/System.dll 50352 51335ba81b90c8326ed720f7d666b2f90bd18a8b3a96c9f406ab039a20f4396b
+  Program Files/PowerShell/7/ThirdPartyNotices.txt 209868 735a0f895a989b8aa432376b5b603bd1f125057b39f3eca76ae39a58098570a7
+  Program Files/PowerShell/7/UIAutomationClient.dll 416024 8abccca8bd271995869e58669914a0603200aab1a8d6532bd8a25083394aff14
+  Program Files/PowerShell/7/UIAutomationClientSideProviders.dll 870688 c356bd9f588b0246be166774b7ef842b739428f68f70afc0ebd090c1a047ba52
+  Program Files/PowerShell/7/UIAutomationProvider.dll 59680 d9d80434e86057814a3f6d42398d5d39c13416901475384db7497f7f523a3c1a
+  Program Files/PowerShell/7/UIAutomationTypes.dll 313608 03a957e22d1134e9ac5a5bfc80d2b18f6efdcb7ee0885a9e6df882328e39484a
+  Program Files/PowerShell/7/WindowsBase.dll 2255120 04c4e2839104f9e066e31659bb1fcb7136a9593613128f0f47451c19ac589666
+  Program Files/PowerShell/7/WindowsFormsIntegration.dll 211224 19566bd2f029ac1c13d1b84af5fe4632bcdd0085dc8a093b11e0cd70fce3107f
+  Program Files/PowerShell/7/assets/Powershell_av_colors.ico 120737 6ccc0b5626975eb29ec75247a44bbbc194038a9ec37cca618ef6001549712cf0
+  Program Files/PowerShell/7/assets/Powershell_avatar.ico 125384 2356d669e2166997f85bffdfe090278bc2b48f753f94dabd170b003f2fbce81a
+  Program Files/PowerShell/7/assets/Powershell_black.ico 127271 541e130176053ea0e044a6a7a0fa49c70d287f5e81be2c0785471f1ac9586904
+  Program Files/PowerShell/7/assets/ps_black_32x32.ico 4470 7f2bd9c5992501a59560b9a25bd867374dcd10203bbedfdc8bf6042e85925a6d
+  Program Files/PowerShell/7/clretwrc.dll 311088 74cc90ffe9c74514a90e12a1d138601c3e6644c3316a0fc8f70eb49defe0699b
+  Program Files/PowerShell/7/clrgc.dll 668320 7d65141fead9df535dfe348d503f16449ee9802e4fe3851ee765cf718c6a755e
+  Program Files/PowerShell/7/clrjit.dll 1785136 bb68bf2c02422190fca77a823f9cd38ea2bb97ed9bcfd16cdc424c2e5f3de6bb
+  Program Files/PowerShell/7/coreclr.dll 5040800 b8962adcfb27934ff93f7fffe306e1f01b9342305e883443896204e24c68290b
+  Program Files/PowerShell/7/createdump.exe 61784 e2ac2b814e173bafbf4392a3123ea562575b8e6a865ad434ecd8d1c342cc2e03
+  Program Files/PowerShell/7/cs/Microsoft.CodeAnalysis.CSharp.resources.dll 423072 7ebb1f42eb0e91e656392d2334857633ee23f5a6164f4b8aad13ab06076e5c50
+  Program Files/PowerShell/7/cs/Microsoft.CodeAnalysis.resources.dll 47368 ca17a6239887c6fb891160299a8077d3ae5d04e46dd5ebd556ee85e4ef3e4a15
+  Program Files/PowerShell/7/cs/Microsoft.VisualBasic.Forms.resources.dll 25896 60c206947b7f2543a9c70d77ecc99bebf4843cc4b0a73cc8bb072fec5be246e4
+  Program Files/PowerShell/7/cs/PresentationCore.resources.dll 108808 c26d2527270262ddfa7c31a03b68a1e005ec27dc5fe1259254051aea964e7e1e
+  Program Files/PowerShell/7/cs/PresentationFramework.resources.dll 196784 e4dd9299bdf0e38bc28a255b594c6bedf4e784f7a40e0580a03f53883a1a0704
+  Program Files/PowerShell/7/cs/PresentationUI.resources.dll 45872 0e1dbd1051c84a04e85448d5b8b5f465107e7acfe6beaf30a6b11f9af3c93208
+  Program Files/PowerShell/7/cs/ReachFramework.resources.dll 39208 6a29e8138384cef2bc6ba443e3e612ecfd000d6329ab49b68b59f13203b701da
+  Program Files/PowerShell/7/cs/System.Private.ServiceModel.resources.dll 213024 e62d0a64305bdf6f866320af5c0a9b76f04e324ccacc48b8a7fd74dc15c35e8b
+  Program Files/PowerShell/7/cs/System.Web.Services.Description.resources.dll 19480 70db4da263d6f5d480f15cead0d2eb490a6429d1fb67a7b3c840ccec96906898
+  Program Files/PowerShell/7/cs/System.Windows.Controls.Ribbon.resources.dll 18728 9d55bee7ecc06caaed3ce73ddc0bfdacdd3e912dc8ea942072e987db7ede89a4
+  Program Files/PowerShell/7/cs/System.Windows.Forms.Design.resources.dll 149168 24d27740ba5ee0eada94908b127d4158a9c7f31526783577d2d500251398d47c
+  Program Files/PowerShell/7/cs/System.Windows.Forms.Primitives.resources.dll 16032 89b8f458ca3b366c3401b044c55b41f8939682d26fdff2c64e9f45be2adbae3e
+  Program Files/PowerShell/7/cs/System.Windows.Forms.resources.dll 365864 f54b7e29221f015b88c4d4d836bd3715e7e5948aab1eebe31ced6971355a4752
+  Program Files/PowerShell/7/cs/System.Windows.Input.Manipulations.resources.dll 16680 a0b0f78f84ce3445f19c31c1ab8d59019f1c44d79c4a8a4d9a5f52fea40e9d1c
+  Program Files/PowerShell/7/cs/System.Xaml.resources.dll 65184 e7a8840bda8e9e127323cea499b45140c70eda41ab0102307292fb4ab6dae5a9
+  Program Files/PowerShell/7/cs/UIAutomationClient.resources.dll 20280 c85dcddfd5fbf1c3c836cd3b37d41c7a4f60d550b99ad07cc32aecfb25352294
+  Program Files/PowerShell/7/cs/UIAutomationClientSideProviders.resources.dll 21288 c8f24bbe30ed2dde96e394a65e9674461e713ed75219b3a92a6d9d05be4958a8
+  Program Files/PowerShell/7/cs/UIAutomationProvider.resources.dll 15656 f5b42222a44cd24b07bc7b3f1ec15438398ff1679d990dd050e0ec0a4866e217
+  Program Files/PowerShell/7/cs/UIAutomationTypes.resources.dll 18592 5597ef5956719496072c65b5c2102d4047818cf2738896c1c6fb59e3b2b2be0d
+  Program Files/PowerShell/7/cs/WindowsBase.resources.dll 86824 a0b8cee8cb1b8775123eee916968af915dfcc01d1a440981b31ee4d7a8575d6f
+  Program Files/PowerShell/7/cs/WindowsFormsIntegration.resources.dll 16032 84ac4e42efae9862b12848637335d275c8660b5ded233d640ec998e7fdd57b74
+  Program Files/PowerShell/7/de/Microsoft.CodeAnalysis.CSharp.resources.dll 452256 d8928af63632c1e2bd72bbb434cb6872f4c0e28f556a8d1fdaeb8f5ce588ba03
+  Program Files/PowerShell/7/de/Microsoft.CodeAnalysis.resources.dll 49312 0cf2bd4075b9d89604bb7078a910b1795f823c698c70fc7b82fe14346195d773
+  Program Files/PowerShell/7/de/Microsoft.VisualBasic.Forms.resources.dll 25760 987d2663de827f8d062d88525fd7fe82dda9282e519e639bddd9c0d618a9dcc8
+  Program Files/PowerShell/7/de/PresentationCore.resources.dll 114472 10918222d83d5de7b1e0aef40cb25c32c92f625c3bc35563db355553ab6559f2
+  Program Files/PowerShell/7/de/PresentationFramework.resources.dll 213800 0cf060f0ff0dd49de5f9fa9cd42397b8c7bb3960ef66178bd10b64f16dff0c05
+  Program Files/PowerShell/7/de/PresentationUI.resources.dll 47392 631a8705c75108f0b961fb858d4a21948f8735b6dc24ce515fa0de29fa03bc43
+  Program Files/PowerShell/7/de/ReachFramework.resources.dll 39720 b45c44443cf92036b585fc3a56e82127bdda9bee248f937f9f338ca5a59b3993
+  Program Files/PowerShell/7/de/System.Private.ServiceModel.resources.dll 227368 67b5b3abde2b6dd89142b4a88e33d0f00b17d7231c5523ff8973a2c85028d476
+  Program Files/PowerShell/7/de/System.Web.Services.Description.resources.dll 20000 645cedc6288a23056c26cf19559ce2b0a886e308b7c9289b5ea1d884a0a4ddff
+  Program Files/PowerShell/7/de/System.Windows.Controls.Ribbon.resources.dll 18592 e69c39a069eb1d24e4aad662e293afca640406e96d8349305682568fe23fa91a
+  Program Files/PowerShell/7/de/System.Windows.Forms.Design.resources.dll 149664 c7223cd1fa310abb3dd76f3672fc207b8f61464d20fa9c125cdf78b25f37ec99
+  Program Files/PowerShell/7/de/System.Windows.Forms.Primitives.resources.dll 16032 d7456fdb83b940ddafd0ae16c3afa1f3bbe30f5d4d81cae783f470a43d9c64d7
+  Program Files/PowerShell/7/de/System.Windows.Forms.resources.dll 373920 87b6aa9dcdf70c730315bd972e13fe5060734be4738b9094798514e2c5ed6234
+  Program Files/PowerShell/7/de/System.Windows.Input.Manipulations.resources.dll 16560 deff1d91dd6510fea154977b15ed3290b0900d80e5711bc44eb3170e66d32e10
+  Program Files/PowerShell/7/de/System.Xaml.resources.dll 68768 1a4d72bbe674aef76f0f67ecf662e59546db81c00c77ef13641f5976fef917f0
+  Program Files/PowerShell/7/de/UIAutomationClient.resources.dll 20128 81adf93cc2f08b4112c5769e4b8677b8a33dbb347f4b93d1af894588969d3909
+  Program Files/PowerShell/7/de/UIAutomationClientSideProviders.resources.dll 21264 16320636ed8a2b3e8c7725ef49ef8a2b14f3a9b8f5fe494fff0edefbcb0a75fe
+  Program Files/PowerShell/7/de/UIAutomationProvider.resources.dll 15520 9ba71d3b82ef3dee5c5b69f4d6904f8befe33352cb704b6ad37a5590de49bcb1
+  Program Files/PowerShell/7/de/UIAutomationTypes.resources.dll 18728 764711e7461aa0450166543c7ffbb2398971e9d452c50fc35a5c2c5a224c27b3
+  Program Files/PowerShell/7/de/WindowsBase.resources.dll 91448 7e31b70448710c211adc3c7fa14885e27c56ab9ca08940b888c50d838ec5cbd5
+  Program Files/PowerShell/7/de/WindowsFormsIntegration.resources.dll 16168 e01174484e29d57022d199b17734d8a5f82458145dd99307f78b91262d810716
+  Program Files/PowerShell/7/en-US/default.help.txt 3420 5ad33ad117ecd78ad5e84ad745e69d45e6a6a10e68a0c7333c2ce95e102fd602
+  Program Files/PowerShell/7/es/Microsoft.CodeAnalysis.CSharp.resources.dll 443040 0a7fb00e65dff4619ef1b8ba6e1fe50a0e882efb2e3a4661d8eb6d979beafda6
+  Program Files/PowerShell/7/es/Microsoft.CodeAnalysis.resources.dll 48816 aaca7ed4c0c739a2a056303f9c9ccba120bfd9af98bfabe084c2626386fac082
+  Program Files/PowerShell/7/es/Microsoft.VisualBasic.Forms.resources.dll 25896 ba1a76c85578f3ab243d451dbc8f6c03bab006a37079cacc8f6a883bd3c30781
+  Program Files/PowerShell/7/es/PresentationCore.resources.dll 110376 d3e4923d3c0d2de5c0d1046fb84fc33261d25d350cd1e927317a5cb88e0e63d4
+  Program Files/PowerShell/7/es/PresentationFramework.resources.dll 203552 cd6d7010eb8521f02e148c019f43db6f0950cfec6aec3bc7d148211c9c77d785
+  Program Files/PowerShell/7/es/PresentationUI.resources.dll 45864 e866590604f77510660bb419f406c4c8d6f76d4fe0875d1345db3f8a2d5a7439
+  Program Files/PowerShell/7/es/ReachFramework.resources.dll 39584 ac7654288d321ce14c030f776a4a0310793823392153cb6f70d0e02df265a9d8
+  Program Files/PowerShell/7/es/System.Private.ServiceModel.resources.dll 218664 e75221c1dccf33e30f8134cf908e3c493ae0bae812d94a065efa188effe252f7
+  Program Files/PowerShell/7/es/System.Web.Services.Description.resources.dll 19488 22201808b528dbb5dbbebc17d7d2c1840d89b9c7fbeb72caa5a30eac0735d595
+  Program Files/PowerShell/7/es/System.Windows.Controls.Ribbon.resources.dll 18728 56dd8fcac091f14348c2368bedd31a917576d9bb5902ea9c3959fb28143ccb57
+  Program Files/PowerShell/7/es/System.Windows.Forms.Design.resources.dll 149800 047179830df887a9906b8fa15d78a90632450c2b707d5bc50d8be2d21c9ad9f0
+  Program Files/PowerShell/7/es/System.Windows.Forms.Primitives.resources.dll 16160 aec434ec6c0ddfb53e51879d8e380c95c86c2f998d896e288e17e682ba03b9ad
+  Program Files/PowerShell/7/es/System.Windows.Forms.resources.dll 366344 41657b0b132cef97f9476771c6cc249f6a422f46952a79aff3ba673e109074c7
+  Program Files/PowerShell/7/es/System.Windows.Input.Manipulations.resources.dll 16544 8f3feb7178e7f2fbfcd0325b5c6d4abc16fa43e85a5081d1cdb881776217cf79
+  Program Files/PowerShell/7/es/System.Xaml.resources.dll 66224 8a1c61df06fce280d8ad72118fdeac38c30fcd78d492a3ccfb975a9ad005fb8a
+  Program Files/PowerShell/7/es/UIAutomationClient.resources.dll 20264 6072612c7869032c7403ee39cbe13c583b4a02dd8d45866b5d8be6f3ed568ce8
+  Program Files/PowerShell/7/es/UIAutomationClientSideProviders.resources.dll 21288 63308e8ce49ed303e1edf9ca7f23c2fd48b69680dc348279d76e7982df6e7176
+  Program Files/PowerShell/7/es/UIAutomationProvider.resources.dll 15520 870b78a89a2860df6a5af32557a5672888485ebb53f5bcfd21495828299e670c
+  Program Files/PowerShell/7/es/UIAutomationTypes.resources.dll 18728 4ef76571232dfda145acb6c7b4bc3ec47a846a8f6e90aab6f35d0725577c66db
+  Program Files/PowerShell/7/es/WindowsBase.resources.dll 89760 cc4e9766cf7cd48b20f27b8b51359885ad4c6ce13637e380ec9af0f8453483a4
+  Program Files/PowerShell/7/es/WindowsFormsIntegration.resources.dll 16168 d7c7975d9a9e84330113b17c8e8912df87805fd2dbf594106b57f6d726dbd26e
+  Program Files/PowerShell/7/fr/Microsoft.CodeAnalysis.CSharp.resources.dll 453792 00cd1921bad072623d34f7684f7fe962f63df59663ef752457ec5073a9db5901
+  Program Files/PowerShell/7/fr/Microsoft.CodeAnalysis.resources.dll 49824 f9a0ac645b6b275726f51c07b00e83f0148b51f39528c316c4cf3087794c402b
+  Program Files/PowerShell/7/fr/Microsoft.VisualBasic.Forms.resources.dll 25760 0e9810789777a0eecb40a8c6b19a608be9d3842aba928a783d6a4902d05da2dc
+  Program Files/PowerShell/7/fr/PresentationCore.resources.dll 113448 5f9e3b24148e58d95f902beb83c0944b3d3ee24efc5f08caac5dc525cc833bb4
+  Program Files/PowerShell/7/fr/PresentationFramework.resources.dll 207008 5455ed9ebea15dae22c4851a9602b9dda1d0f780aae2fdd563e7449feeae5e62
+  Program Files/PowerShell/7/fr/PresentationUI.resources.dll 46768 758f83abcd7474b1adf009571bbcccad3f1662149d4abf0da46c3e833bb4fe31
+  Program Files/PowerShell/7/fr/ReachFramework.resources.dll 40240 55bacf360333b265184f4bf776ac48389c17a3cfdbd1390dbfa84cf7b116f43f
+  Program Files/PowerShell/7/fr/System.Private.ServiceModel.resources.dll 226344 928ae7ca6c605f3a5238156287f24becb6fdb60d677f4a16d81f8f7022c6bc8d
+  Program Files/PowerShell/7/fr/System.Web.Services.Description.resources.dll 19496 82700ff381065021ef782171a1f4e319a471ea84642b048af5af77d9a05487d4
+  Program Files/PowerShell/7/fr/System.Windows.Controls.Ribbon.resources.dll 18728 8e6666e7a4934d0dc3fa8f857a1cbc92e2e812cdc40d2302d45ef7f654e7cabf
+  Program Files/PowerShell/7/fr/System.Windows.Forms.Design.resources.dll 150176 ad3048a4f9547f8c385593d0f551c23215adb0528d8630313866e1c4d7bb315b
+  Program Files/PowerShell/7/fr/System.Windows.Forms.Primitives.resources.dll 16032 b774532eaa5347f76f17a95c9dbaad06ee199b29fff096a73b9af58b30490564
+  Program Files/PowerShell/7/fr/System.Windows.Forms.resources.dll 373032 801d54da6cc8b186756f2f401217e8a71eda2e6f3f5d811b4bcfa9c612bb7cc4
+  Program Files/PowerShell/7/fr/System.Windows.Input.Manipulations.resources.dll 16680 1e36d579414a8573c5b9e7fd20d318c259dbb5e1d29a2d0b5ca8c4861849ccbe
+  Program Files/PowerShell/7/fr/System.Xaml.resources.dll 67376 70dff1154b1d4c3da4f0dd23b15608749565e1f1b3039cfe6aae122db11564ea
+  Program Files/PowerShell/7/fr/UIAutomationClient.resources.dll 20264 9ef3c4013a8da3e6f924a9e4713fcbd5b77131a105e24353948e0b5157af542b
+  Program Files/PowerShell/7/fr/UIAutomationClientSideProviders.resources.dll 21296 5cd8e0d6189416079def7fd2c69b94a02ffc7f8a76afef9b06c4b1da972de26b
+  Program Files/PowerShell/7/fr/UIAutomationProvider.resources.dll 15536 d3dc6d58fd7c5485482a367885c2e924bc37d652f73893fd3fc4d2e1d3527460
+  Program Files/PowerShell/7/fr/UIAutomationTypes.resources.dll 18736 de38d0fec3cd173e0aac4168ca888b0167f081d2c9d7381f8913dddf6f9f7530
+  Program Files/PowerShell/7/fr/WindowsBase.resources.dll 90784 60c095ece2c4d11f731d1f891e5aff52f51277e7aeb6d9b605864d70e80f2280
+  Program Files/PowerShell/7/fr/WindowsFormsIntegration.resources.dll 16168 76f8f930ae249999a85a2ad93c10674cb58e2ecd3aefa1c408799d762bd6d2bf
+  Program Files/PowerShell/7/getfilesiginforedist.dll 64840 108163e4b85ba10c1c9c5af00683eb1ac49d31eae4b0e26f1d10008fd4228a42
+  Program Files/PowerShell/7/getfilesiginforedistwrapper.dll 30792 7fc3990c647f1118f6cba281abf241297574e82585b2766363a827fa0ff10934
+  Program Files/PowerShell/7/hostfxr.dll 350504 eef3310770dd503494c4b1c917394db18f1eece1600638c881023c30902934f1
+  Program Files/PowerShell/7/hostpolicy.dll 393376 d4d9db2cee70e6ad857188f12f92a0532be6f7fc7412851c8ed54afdc30ccbcd
+  Program Files/PowerShell/7/it/Microsoft.CodeAnalysis.CSharp.resources.dll 449184 a51287b129246fcff847fbc29158ccd9a8165f1e7fcb2bbca057d76502183b47
+  Program Files/PowerShell/7/it/Microsoft.CodeAnalysis.resources.dll 49840 3084357f443d214f66d46c3bca6f0abaf8025d0c10b3a2009de51a45c16ff6f4
+  Program Files/PowerShell/7/it/Microsoft.VisualBasic.Forms.resources.dll 25776 649ad2cc72ac397c6d558eb01ca81cc48de9fcb9354341e8ad57ad554d5721d5
+  Program Files/PowerShell/7/it/PresentationCore.resources.dll 111792 6148372d9db9b7b0d6ddf378483c45300ebb114f8021df666e3c3fde23975fe4
+  Program Files/PowerShell/7/it/PresentationFramework.resources.dll 206120 583ca71ffb64f736cbccc72301c57a8933b7cf8f79558903b718fcd0ff6d38a4
+  Program Files/PowerShell/7/it/PresentationUI.resources.dll 45728 76570f01f34b9d6c7da1b6c1bdc2a60038ebf902073c85d3dd981f69829e9d5c
+  Program Files/PowerShell/7/it/ReachFramework.resources.dll 39600 c1ebb881669bba4500bf34f5e2a582af95ca706db90b3f1432c623f3adbe4d52
+  Program Files/PowerShell/7/it/System.Private.ServiceModel.resources.dll 220704 812b1ad7d49fe847f5960493f6609b234c84326c4aa7248ac031c849c5b58098
+  Program Files/PowerShell/7/it/System.Web.Services.Description.resources.dll 19488 7eb7c83a9d28c637ca07227511f990836a86673de613f6297c3b9a172f28739f
+  Program Files/PowerShell/7/it/System.Windows.Controls.Ribbon.resources.dll 18696 bd7a3f91c70dcb0ff1705c527760f54f096988bbceb2ae9abecdc60cb55f3c37
+  Program Files/PowerShell/7/it/System.Windows.Forms.Design.resources.dll 150704 6674ee77eda9ef3c9b0230a601316b63407a271f1433c40f6a381b148533dff5
+  Program Files/PowerShell/7/it/System.Windows.Forms.Primitives.resources.dll 16168 c9772843b4156896a07db759fddfd8e5968b1209b3de07b55d99838995c93411
+  Program Files/PowerShell/7/it/System.Windows.Forms.resources.dll 368944 b282062b25686b8c9b730842ddb2fe1f77745aa1723c0dc77f397a0ee89bdea6
+  Program Files/PowerShell/7/it/System.Windows.Input.Manipulations.resources.dll 16560 1557e808ca68a74819de11da454562f006d8c112bb68cb808d2d307f5f37f018
+  Program Files/PowerShell/7/it/System.Xaml.resources.dll 66344 a13ee6dac1791352a928cec0794b494d63d7a6448a322e9b24663ac63dbe4eea
+  Program Files/PowerShell/7/it/UIAutomationClient.resources.dll 20264 aeff362b131e080c94edf265f649a9626833a4d54b02d4babbecb31eec030ad4
+  Program Files/PowerShell/7/it/UIAutomationClientSideProviders.resources.dll 21288 e6a00ce35d547d031aea46b1146be895bb8f4d07094807a3b59be755da149617
+  Program Files/PowerShell/7/it/UIAutomationProvider.resources.dll 15648 13d11a9c3037f59e3b0b0b7c08e9decb1a8133e706e9d609cd72c69cf12d644b
+  Program Files/PowerShell/7/it/UIAutomationTypes.resources.dll 18728 0a53534e8766c9d3df34d27410205254f1b6493f14d33ff8ef100ebb0deffaba
+  Program Files/PowerShell/7/it/WindowsBase.resources.dll 91296 61749af55a8a1c2a44dfe3c50c3bf7c3184c62052965b6468c8dd1f0540d65f9
+  Program Files/PowerShell/7/it/WindowsFormsIntegration.resources.dll 16032 9f35a33ca8e139b6db109fcb8dd47a1d6b740b912fdbab5e1603c18bbe4d4c8a
+  Program Files/PowerShell/7/ja/Microsoft.CodeAnalysis.CSharp.resources.dll 495392 0e8d724681a960661bf11ada84a0705e9c0438017297c8343ac1a760972d5137
+  Program Files/PowerShell/7/ja/Microsoft.CodeAnalysis.resources.dll 52912 fa9f6654b2010f583371acc6f08c92835a54f5acdc44f37c67c9b35c97351bc0
+  Program Files/PowerShell/7/ja/Microsoft.VisualBasic.Forms.resources.dll 26408 71b13bdec0f4370f5679fdd648f934484e7b80b3aeb0230dd4b6dd16d9e12137
+  Program Files/PowerShell/7/ja/PresentationCore.resources.dll 122664 b7476c316004389af387d28b2c15450ab720e2981459184dadc60c3e3acf6354
+  Program Files/PowerShell/7/ja/PresentationFramework.resources.dll 226600 d500c9238e136e2a907f0ce2057ef4f66197339aeaadfce1f9a0b652e871fceb
+  Program Files/PowerShell/7/ja/PresentationUI.resources.dll 49456 8d0122da3971e038aa933a253178f9e27817ec129589c6ab6ad2528b6cea8cfc
+  Program Files/PowerShell/7/ja/ReachFramework.resources.dll 42280 fdeaf0aa77d89abfc37d1a47109607352d1731a260456117eda3439e04821978
+  Program Files/PowerShell/7/ja/System.Private.ServiceModel.resources.dll 256544 b9605fac42bdaa7606d817d8a5baaeaf605957098dd5d0f42838d791295a9ecb
+  Program Files/PowerShell/7/ja/System.Web.Services.Description.resources.dll 20528 bcb1f8e2040dbd71ccce58c924e18864e70d4f92bb3572dc444ba406c71a8e73
+  Program Files/PowerShell/7/ja/System.Windows.Controls.Ribbon.resources.dll 19240 5e400e59211f9b0f0bbc3563dd4bec5c1e4efd10f54c45caaf92b236efb6985e
+  Program Files/PowerShell/7/ja/System.Windows.Forms.Design.resources.dll 155808 12846fb5e9f25e926695052588bea914ff285607cd3638d64f1fa53e9e9da88f
+  Program Files/PowerShell/7/ja/System.Windows.Forms.Primitives.resources.dll 16560 86c4834ca9d2a79297094f8dae77c3bae4f4275ef2fc29a3bb83c957561741b6
+  Program Files/PowerShell/7/ja/System.Windows.Forms.resources.dll 409264 024822536db1485912f38ffbe65d842298009117df0913faf1ba40cdc2d729b5
+  Program Files/PowerShell/7/ja/System.Windows.Input.Manipulations.resources.dll 16680 d3105938abe6b6cd72a82c9e46f32e291ea191edf1e1b7babbcf8bc753d0621d
+  Program Files/PowerShell/7/ja/System.Xaml.resources.dll 74544 e6bfdd5f15521dbae2d8f6b40420b3b30e97acb4ca81e5129579d4a9a6493650
+  Program Files/PowerShell/7/ja/UIAutomationClient.resources.dll 20768 c3e090d01dc3386cb5a233bc994c2b483122750393fc51cdd3721255787bbeb6
+  Program Files/PowerShell/7/ja/UIAutomationClientSideProviders.resources.dll 21808 b576401e23c2f9decac621868e7bb8bfe5eba81ec5eae53e56cea2acfc0ba0e2
+  Program Files/PowerShell/7/ja/UIAutomationProvider.resources.dll 15520 8e639d6336a0831f7f354cc3a2316dc41adcaa1323c5e81d2e9e3d11b0654d66
+  Program Files/PowerShell/7/ja/UIAutomationTypes.resources.dll 18592 3a54b8d60778d09cf84838c2cb5368a52607f1b25fc825578800ea2664524770
+  Program Files/PowerShell/7/ja/WindowsBase.resources.dll 99488 fb3acdefb639c404e31ab25785987b080fe0f215178d54c61d9f550f03cbea19
+  Program Files/PowerShell/7/ja/WindowsFormsIntegration.resources.dll 16544 69d833c9fca077635465351f61683bbc40b92bd0bfc703eefd100acb08df756e
+  Program Files/PowerShell/7/ko/Microsoft.CodeAnalysis.CSharp.resources.dll 454408 37aee1854bede1fbbf2da0b1aa7083c811d0986c07f14a32bffdd1702ff4a207
+  Program Files/PowerShell/7/ko/Microsoft.CodeAnalysis.resources.dll 49824 c392ab5f6ace5fd880d3b83c53a2913e2860e687494704ca9657901ba0c139c1
+  Program Files/PowerShell/7/ko/Microsoft.VisualBasic.Forms.resources.dll 25896 4354b20f9624442a233f5e82a32ea2d3afa01c7324233555bfa6acb1051a97de
+  Program Files/PowerShell/7/ko/PresentationCore.resources.dll 114472 e4b143830fc4486003ac070d9084546c5de50914706cdaf00c0bab4578d4ddea
+  Program Files/PowerShell/7/ko/PresentationFramework.resources.dll 211752 4746edb7af4ffcb5900f9e52e1e9ebf7bf4913c9203b75bc768f628b03a4d624
+  Program Files/PowerShell/7/ko/PresentationUI.resources.dll 46240 d9930d0bdd39591d1b9f5ebd2daa88024c3c6ac8e1f859e956fd9a036acf1d57
+  Program Files/PowerShell/7/ko/ReachFramework.resources.dll 40760 ab47e047d9960e0e6d0f68526101da1779d60106633ffd798418a892c4f1c4d3
+  Program Files/PowerShell/7/ko/System.Private.ServiceModel.resources.dll 225832 14aaee6b3e709cc2c49b56811b0584e11fca10a8972ca200ecadd52b3f1e9a36
+  Program Files/PowerShell/7/ko/System.Web.Services.Description.resources.dll 20000 aa0dd4abdf3bbdf6ec8b681cf738bd2823d1177bc9c8f77a5c3a401f723536c9
+  Program Files/PowerShell/7/ko/System.Windows.Controls.Ribbon.resources.dll 18592 e39eb5b9dc88899bdae1edf7cb740838f8f9d1469d450670d386e484b942e5fb
+  Program Files/PowerShell/7/ko/System.Windows.Forms.Design.resources.dll 151336 63f052deeec38d7fd768632e51ec4a315a98873ed0ce10df6d3823333f04b764
+  Program Files/PowerShell/7/ko/System.Windows.Forms.Primitives.resources.dll 16168 afac749de7f7845b8ccf7560857f1a22af9297dd90f39ed780b3a781e6df5bea
+  Program Files/PowerShell/7/ko/System.Windows.Forms.resources.dll 370984 5e0b6bf80d1864a88e9d10be147971271b6bd6ce918dc33f85b4afb0244ff6b8
+  Program Files/PowerShell/7/ko/System.Windows.Input.Manipulations.resources.dll 16560 96d3dda9de7cf243ccdaaa4a2928893b76b2245f6d392afaf20312133c3d8ac1
+  Program Files/PowerShell/7/ko/System.Xaml.resources.dll 69928 b862b3bed7fd947f756169200539a5a0db8366d12d5904bfeeef62fa585d7dfd
+  Program Files/PowerShell/7/ko/UIAutomationClient.resources.dll 20264 b9d3db0f1508c54bd1b1c8b42c0b6377c58c03beb97b1ee9fb87d972017c04b3
+  Program Files/PowerShell/7/ko/UIAutomationClientSideProviders.resources.dll 21288 4b973d47e0d1f8e5bb8a91aad2ef1f3bc47335971ebe57f234ac71142bfa5d33
+  Program Files/PowerShell/7/ko/UIAutomationProvider.resources.dll 15656 293b1b7abce827071b7626c500237c0118da880ba32f0a465a0858d9ee1fd287
+  Program Files/PowerShell/7/ko/UIAutomationTypes.resources.dll 18592 0c0d5b2ca19bd420ba95dd52818509dd54f17fd4b3414fdf1937a6c5e52a5954
+  Program Files/PowerShell/7/ko/WindowsBase.resources.dll 92464 fbb3d264d0d367a0cd2fde97836136b8c67f8a60d9aa4b8bdea301ac791f870d
+  Program Files/PowerShell/7/ko/WindowsFormsIntegration.resources.dll 16168 55ab74de730067747691ccca297f935130abab27e8673951ff37ad5cb20d25a5
+  Program Files/PowerShell/7/microsoft.management.infrastructure.dll 309320 94f264400c2f8ed1abd3232bd86f26563e81a514e07be6e3faf770eefc118d95
+  Program Files/PowerShell/7/microsoft.management.infrastructure.native.dll 362568 1df4127a2c06003124c7683b0b184e3622eeb34fd5540a03ea34d0d5906f7385
+  Program Files/PowerShell/7/microsoft.management.infrastructure.native.unmanaged.dll 28192 9bee4e35576355156f00e2e47ef57aa2c8ca64390c112f083a772f2219026293
+  Program Files/PowerShell/7/mscordaccore.dll 1338392 be164b3bf22f3960b05c382b5db2405e9aa71c461d1049b0f7fff04663cf257c
+  Program Files/PowerShell/7/mscordaccore_amd64_amd64_8.0.1024.46610.dll 1338392 be164b3bf22f3960b05c382b5db2405e9aa71c461d1049b0f7fff04663cf257c
+  Program Files/PowerShell/7/mscordbi.dll 1241640 1e6106fb2313b9d4c106449a4061cf261777447f02b9df5f67e6bb3ff48db51a
+  Program Files/PowerShell/7/mscorlib.dll 59688 ede24956e9fafa7c675e60ab9bead323e8bbfbe660667b654fdcaa5ae396b460
+  Program Files/PowerShell/7/mscorrc.dll 136864 4a2be04f2b8cd8532793d59a64563866a97c63e97656fad5bdb9e987c6ec49c1
+  Program Files/PowerShell/7/msquic.dll 538136 2d67e87859ecaeb15c4dd621b0983f1a9ad3e2aa9b11624c018a43e6d6b06bec
+  Program Files/PowerShell/7/netstandard.dll 101160 57f9beafe45cce172d363928f126936a274958b6d357455d368d9f9a2be16f1c
+  Program Files/PowerShell/7/pl/Microsoft.CodeAnalysis.CSharp.resources.dll 455328 428d7665e06c2894118865017d73b9fb2154b86a72f3b7c5d020ba3db6190cf6
+  Program Files/PowerShell/7/pl/Microsoft.CodeAnalysis.resources.dll 49824 a22e629186008de8b6cebaf8fd02fe00a288a749ad28c5b2c4c776702ba0a24c
+  Program Files/PowerShell/7/pl/Microsoft.VisualBasic.Forms.resources.dll 25776 df89930790020892f14bde5df0d9dd72587dfa3c46fa9fad714870116ee8c4c2
+  Program Files/PowerShell/7/pl/PresentationCore.resources.dll 113448 d6e9998f263062834849b754b010cd81a5ed1d21842ccd4c27e9b8c592046752
+  Program Files/PowerShell/7/pl/PresentationFramework.resources.dll 209568 ef91ce7707f0ac46783d1ec5cec028a75ab82bf9d1a2816cc551c34ef17f89c9
+  Program Files/PowerShell/7/pl/PresentationUI.resources.dll 46256 c14fbbb59c57bfc5e3efa07ad524da9c7b7fc5baa18b209a304268745f5610ec
+  Program Files/PowerShell/7/pl/ReachFramework.resources.dll 40096 ec88df85cfb079fbd10091f185051fc14177c2cacafb33e6b912b646e2e262a7
+  Program Files/PowerShell/7/pl/System.Private.ServiceModel.resources.dll 226336 d244d6441177bb7dc055aa366f74b84d575dbe23959e313dea7ed347926a84ef
+  Program Files/PowerShell/7/pl/System.Web.Services.Description.resources.dll 19480 e6aa0fd29d17e64e41fd05cb56a57c51e497edf1fdb190a3107cddd9a7454a7b
+  Program Files/PowerShell/7/pl/System.Windows.Controls.Ribbon.resources.dll 18592 77241f38c9d358966c22991549c944886b215c1f1ff11d8735ae7de690ede4a3
+  Program Files/PowerShell/7/pl/System.Windows.Forms.Design.resources.dll 149296 803593036df69d1d58c713fb30b96682d9db4c26169959d11c3820e1e9618df1
+  Program Files/PowerShell/7/pl/System.Windows.Forms.Primitives.resources.dll 16032 78658e19486dbe57f6be966962c3b10d6eb99c09acce2c85d7bed9c20dbfede7
+  Program Files/PowerShell/7/pl/System.Windows.Forms.resources.dll 366240 b91308111da9225925b4d09e9896c24e000c7543d18bc1580f4d82b32dcffc8c
+  Program Files/PowerShell/7/pl/System.Windows.Input.Manipulations.resources.dll 16656 9d99f72f1d66ae1b396897a3c70ef32fecca8ec54f18215bbf71744fa960837e
+  Program Files/PowerShell/7/pl/System.Xaml.resources.dll 69928 56ba9e5e470f156db17e07254d7289272c8887b84571e56b7e89135c5be1acc3
+  Program Files/PowerShell/7/pl/UIAutomationClient.resources.dll 20128 6a8751c8e3c08ac1da64c7619420a6e17634ccec6175d9c4bd8ee19183c8c223
+  Program Files/PowerShell/7/pl/UIAutomationClientSideProviders.resources.dll 21264 eb6b314f3b3d6220ad67942ea9b19916bb545cb4437b26def49f1b8f7ab57873
+  Program Files/PowerShell/7/pl/UIAutomationProvider.resources.dll 15664 37c4969869ea07412c2c2e28916d1aac31ce0dffaeb7e61fc3725f08471ce58c
+  Program Files/PowerShell/7/pl/UIAutomationTypes.resources.dll 18728 46c377e5fdcf4b4342b119e3929e38f9ebb44239813445f5e81031fa37e36c75
+  Program Files/PowerShell/7/pl/WindowsBase.resources.dll 90888 29ef97ed1837cb540f4bcc04e5ad6c753602a6975b9865589151e04d26bd7036
+  Program Files/PowerShell/7/pl/WindowsFormsIntegration.resources.dll 16168 53b12ce9a85f4a7f823805538b684de3f1c9df67ee6a39fd31ea742630388c76
+  Program Files/PowerShell/7/powershell.config.json 190 98c0e5b6ee17eb8b8f4e4940c2b2528689cec8470db4bde427ad16d90d6a52d4
+  Program Files/PowerShell/7/preview/pwsh-preview.cmd 25 7a24cb96b62009cffb38c85b6acbf48a5db5746459b85ff3e727bd952ffd8832
+  Program Files/PowerShell/7/pt-BR/Microsoft.CodeAnalysis.CSharp.resources.dll 434848 2a0b8ded758422f54d2c66f98ee89c136250e2b3a5208ea540de5c0cab9fbe69
+  Program Files/PowerShell/7/pt-BR/Microsoft.CodeAnalysis.resources.dll 48288 2108be6458d96125857c0b40135630a32315e410f592d8bfccd393282d0615ba
+  Program Files/PowerShell/7/pt-BR/Microsoft.VisualBasic.Forms.resources.dll 25760 b134745fffbd2d26b9fbcb110e668e46c7a78dfb42e51b9d1e9f8cecf7110654
+  Program Files/PowerShell/7/pt-BR/PresentationCore.resources.dll 109864 27e706556a19e9ef58a26db8fc591282b2c7d2848ca47c19902295621b9fd1fe
+  Program Files/PowerShell/7/pt-BR/PresentationFramework.resources.dll 202912 41c151cb7731e658fd16ff3858447e47e1557550e6c011b8731871d66272accb
+  Program Files/PowerShell/7/pt-BR/PresentationUI.resources.dll 45728 171abfff1ec764a7dd55990c8dfcf491f382b100d0942441cdff17d5dfbd66a4
+  Program Files/PowerShell/7/pt-BR/ReachFramework.resources.dll 39208 2e94f1f119048c0ad6c0a88621aada215cc77881a5acba70f35821df85121e5c
+  Program Files/PowerShell/7/pt-BR/System.Private.ServiceModel.resources.dll 217120 7d79fd74dafa8557c463d828a99b86e2e5251db8dd8b40e1421c7b11b8341a40
+  Program Files/PowerShell/7/pt-BR/System.Web.Services.Description.resources.dll 19488 feadab1e8145b437580122643f1e8747dadb81160d87f98ca606d004399f83e6
+  Program Files/PowerShell/7/pt-BR/System.Windows.Controls.Ribbon.resources.dll 18728 c9a6b9db69798b667c7b8adc1f2ffa221909a1045f5399bee593404aeba87c88
+  Program Files/PowerShell/7/pt-BR/System.Windows.Forms.Design.resources.dll 149152 d97bb68114c6ce69635719997b8925e8c5f963c5ffd755adf2fc3e68ed19a69a
+  Program Files/PowerShell/7/pt-BR/System.Windows.Forms.Primitives.resources.dll 16032 2238037f4377390d453952cc3b0819de0461d5fba1dd42d7849f3122158942d8
+  Program Files/PowerShell/7/pt-BR/System.Windows.Forms.resources.dll 359072 bb83e9b5574efaf474641c8c8b2407bcd11adafe2d6f293694fc68cf6d8a31c8
+  Program Files/PowerShell/7/pt-BR/System.Windows.Input.Manipulations.resources.dll 16680 3509b2804e9b0e91c74682e99b6e1135179af9350638028e65788ed37c4a2909
+  Program Files/PowerShell/7/pt-BR/System.Xaml.resources.dll 65712 2550541bf442c35af0cd1a5dfa44da2658289f6f16c5bbe21024cc084c15476e
+  Program Files/PowerShell/7/pt-BR/UIAutomationClient.resources.dll 20264 48ba9b06793a38ead2e03b621cf9f1bedad1b522b45f2bc8f6a97d22e2b4ee3d
+  Program Files/PowerShell/7/pt-BR/UIAutomationClientSideProviders.resources.dll 21152 d828b7fab9b7dd873da7183f4eab98180db9e2c3dd3d62d22395a6d34389206f
+  Program Files/PowerShell/7/pt-BR/UIAutomationProvider.resources.dll 15656 06a0c71840e5d4701e05f7d797bce637db3b5c1f69357acf57cb10073df93ff4
+  Program Files/PowerShell/7/pt-BR/UIAutomationTypes.resources.dll 18728 74f9b391a3d5d5e42676df2c754dd0a6c753be3fc8632692bd54e67c723ac2f3
+  Program Files/PowerShell/7/pt-BR/WindowsBase.resources.dll 89248 dff5fd63678b99ee12fb96331452b30ca1c3076437eb01612ee4d9c964bb2fa3
+  Program Files/PowerShell/7/pt-BR/WindowsFormsIntegration.resources.dll 16032 d7be644f2855b0d900b87d8ee65c124db20f037cd78d5c2c0a0646636971763f
+  Program Files/PowerShell/7/pwrshplugin.dll 161216 66d33f8070456d0a04c2a7a4a711a1df2f036baedd2305a37be5835091ff4c5d
+  Program Files/PowerShell/7/pwsh.deps.json 100974 a7e5ca198ef476be10292639315e4c562a069c496a99158967a16d1430d4ae4f
+  Program Files/PowerShell/7/pwsh.dll 157728 af11a873305d0f05df1c2d8d98a0b3b9f16f611b7cf8f0c03f9be0a0d3cf8529
+  Program Files/PowerShell/7/pwsh.exe 278048 ea5596296a0b6f1261c84c7edee40f27879aefc63f005ed541c440b73e382503
+  Program Files/PowerShell/7/pwsh.runtimeconfig.json 729 ec918ca81428ca773d04448b535f8550461771df1b9e6fbaf7aa8b479b21aefc
+  Program Files/PowerShell/7/pwsh.xml 617 9cbc7285e49e4798f5c3dae703762f0138bbe45f688d4103f8b46ade0bcc4b53
+  Program Files/PowerShell/7/ref/Microsoft.CSharp.dll 18608 e9246ad69546299cba349a073859d3b1bbc1509e681ddf9f196895d2d557c23f
+  Program Files/PowerShell/7/ref/Microsoft.VisualBasic.Core.dll 59672 f1229093b702cd6f9ad590631d0e11ea5ee4bf0e0c3c0529803b4a74d874a187
+  Program Files/PowerShell/7/ref/Microsoft.VisualBasic.dll 17568 999c1e83e9523770197bd0194debcb1cb57f6b91c6a15c28a6695a6fb7de1d47
+  Program Files/PowerShell/7/ref/Microsoft.Win32.Primitives.dll 16544 edf8e3e28a01d9d81dd4d218c27b4c83cc1e40e6afd759cea59c9fddbd157297
+  Program Files/PowerShell/7/ref/Microsoft.Win32.Registry.dll 21800 0448d61d23ce5a2c1a67b4ee326172f6e37d544070bd95e4c62af17b831a7403
+  Program Files/PowerShell/7/ref/System.AppContext.dll 15672 60dec4ebeb3e9724952a60778c5e7b5ba2f8fc108f6b82803d1c125dad25c384
+  Program Files/PowerShell/7/ref/System.Buffers.dll 15520 ce38c87d0da9dfe4f6033d2087455c62cf6c264d51f74f1cd039deda099d056e
+  Program Files/PowerShell/7/ref/System.Collections.Concurrent.dll 26784 9f77c7ee73b48c0243e1245ef2961c25ecf047a095b40448abc9375a4d6eeb84
+  Program Files/PowerShell/7/ref/System.Collections.Immutable.dll 73520 a70ffb56edcc7a19d63101dea5a4c968b7dd535f92345cd8b7895ec91d542439
+  Program Files/PowerShell/7/ref/System.Collections.NonGeneric.dll 23328 101028939942377038d4aa0a7eb82129d80577467c019f4f786fd29d8715c0df
+  Program Files/PowerShell/7/ref/System.Collections.Specialized.dll 26392 a23e29c990da2a34e3bd01c4808cfcaf2a060c74f16c84ae1f4b87dd37f02792
+  Program Files/PowerShell/7/ref/System.Collections.dll 46376 9e96f55e099ebb01b484e626ddeb8f709683cd8ea62eb28d91a4b7a6287b0312
+  Program Files/PowerShell/7/ref/System.ComponentModel.Annotations.dll 32040 056dfbc910dcf621d632ee9790fabe0e8e0a623274e1fffde8760a464be0da78
+  Program Files/PowerShell/7/ref/System.ComponentModel.DataAnnotations.dll 17160 75c4a5dcee1568537a546bbb27c4a8f95ac34996e16c1d113ad7446cfbb022e8
+  Program Files/PowerShell/7/ref/System.ComponentModel.EventBasedAsync.dll 19752 dd24ee7930c6b692628589fdd58ef0540d48cc25f0fc3070601529acd1d0d515
+  Program Files/PowerShell/7/ref/System.ComponentModel.Primitives.dll 26272 0a5d9292cb02c1519117492b57bf7b6ec3c9cbab8fa4a723f7883cc4882e7eb0
+  Program Files/PowerShell/7/ref/System.ComponentModel.TypeConverter.dll 103720 3d68f31ebabb265a4da2be89ea30c7fffd2103afe07d300f43f93b6164caa53b
+  Program Files/PowerShell/7/ref/System.ComponentModel.dll 16048 78184b59587bdd5bb6f3d67a6e17eb3ad066f1fb44ff87c275621571b2afd298
+  Program Files/PowerShell/7/ref/System.Configuration.dll 19752 79307ad890ca3cc0a4be03fc31eb6f63537a8f66dc0a2b477c5712b23429d065
+  Program Files/PowerShell/7/ref/System.Console.dll 26416 7730267a484f610f2ca584425f41e9a2e99b5fae5bfd67eac290b4139b604918
+  Program Files/PowerShell/7/ref/System.Core.dll 23848 96a110301eb86eb923328977516da02ed8ab5716c22ffa87d6491a666671ae7b
+  Program Files/PowerShell/7/ref/System.Data.Common.dll 154400 aaeb9fadca0b9c9301f410846f5445044da23f89a9493c7816b8fa5d85acf692
+  Program Files/PowerShell/7/ref/System.Data.DataSetExtensions.dll 16168 6c0a8f230387b5403d6f81227dee094f1a0c0dd4dbb76d1fce1db5ca1cca6c36
+  Program Files/PowerShell/7/ref/System.Data.dll 24360 005aa7f2dc4b779dc2a64b8886a81263c7d6c53eac15eba0eb5c278197a1d31a
+  Program Files/PowerShell/7/ref/System.Diagnostics.Contracts.dll 20272 c455b51ba4ecda47fe90c1f2e16b24cc00643c388ab3c9ae24c245b1e0871ae2
+  Program Files/PowerShell/7/ref/System.Diagnostics.Debug.dll 16032 8f92a1d8b76fe65417c6781d23019ccc4e4574caa7a3344d729aeeabbca7972e
+  Program Files/PowerShell/7/ref/System.Diagnostics.DiagnosticSource.dll 40736 4c3109f4db2ac2de75f2669c498d4fcdfaaa74db68745056a45a347ec08eb2e0
+  Program Files/PowerShell/7/ref/System.Diagnostics.FileVersionInfo.dll 17056 cf5ed7b29ee88e510879edcc7eb71e0eed91dea314d994a5713d10276bd8c0e1
+  Program Files/PowerShell/7/ref/System.Diagnostics.Process.dll 31528 70cd4b5e715215b8fc97f4da8953808f39149c030f5a8caa4bd528b763da3302
+  Program Files/PowerShell/7/ref/System.Diagnostics.StackTrace.dll 23352 94f11ee4e5e066cd441a905acd76de207c2871ce8d40abdfe4966e33504ed46d
+  Program Files/PowerShell/7/ref/System.Diagnostics.TextWriterTraceListener.dll 18080 9678bd8ba57f2928f3e32527f599d7da3deeabb3e12f6749d3ccea5d4df0a5ea
+  Program Files/PowerShell/7/ref/System.Diagnostics.Tools.dll 15664 b172276b92a82a9d5bfea5bebf1484b9ac96500872f1ff8e5be142d72e243522
+  Program Files/PowerShell/7/ref/System.Diagnostics.TraceSource.dll 28336 929c3b6bff170142a1bc8ef75c030e92afce259bee1c91f8c3dbde042b4ad169
+  Program Files/PowerShell/7/ref/System.Diagnostics.Tracing.dll 29360 ee87327a8c94d19528706e6d2893cc586b1c9edaa915fe30286e962956c21090
+  Program Files/PowerShell/7/ref/System.Drawing.Primitives.dll 36144 165e5f7fde6287bb88b2f6ec86ab84a5ed0a21bdcbd531ae879eb89711aa03a3
+  Program Files/PowerShell/7/ref/System.Drawing.dll 20640 a50df1d7dcf1e0688300d98dd125e254146b1cb800c2fe208ba7ee77b48672b9
+  Program Files/PowerShell/7/ref/System.Dynamic.Runtime.dll 16680 43dc2c35f736ecec0cf53d129a38ae6afe9b302bac54845d0abe9df77ae9947c
+  Program Files/PowerShell/7/ref/System.Formats.Asn1.dll 26272 3abcd1bb622881bd432dea08ac7d03d359bc1594df8e5bde9a592c5d3bbc9006
+  Program Files/PowerShell/7/ref/System.Formats.Tar.dll 20248 58d70cc6469ffb36c8c6785f52954c6b911045864b32ec2be3ebad142b744ac5
+  Program Files/PowerShell/7/ref/System.Globalization.Calendars.dll 16168 dc0fbf442464eff403a1182868079d9df4a1ea8c4b5a61a8e742253232ed2fb3
+  Program Files/PowerShell/7/ref/System.Globalization.Extensions.dll 15664 4f81079b1c116e6fe9dc7af2f2015d743107f067903422e25d49c15471ba1e0e
+  Program Files/PowerShell/7/ref/System.Globalization.dll 16176 99b3afa7a9d8f903138fae73e2ec8050936618d4f32ae028f9ee639c68dfd49c
+  Program Files/PowerShell/7/ref/System.IO.Compression.Brotli.dll 18200 1c02af0cd9e33e230faf5ef4eb7068caeb9bbfec116f376a48b657a7e2df5033
+  Program Files/PowerShell/7/ref/System.IO.Compression.FileSystem.dll 15624 ed42ed141134e509b16a95b1f1c3b390b21cccf2fa20a8daa8a523ed77836604
+  Program Files/PowerShell/7/ref/System.IO.Compression.ZipFile.dll 17072 058e54edac8ff640524ab923126b004c3edf1fa20824b124cdb06504a431f823
+  Program Files/PowerShell/7/ref/System.IO.Compression.dll 21256 86ed05049ab62d9862e0f5143cc9099bf2ead567a691f652399ef444808c5534
+  Program Files/PowerShell/7/ref/System.IO.FileSystem.AccessControl.dll 20776 1a29eaf57a05cdf3110093951ab885fe0f5fc465a7380783b7b25a996feff318
+  Program Files/PowerShell/7/ref/System.IO.FileSystem.DriveInfo.dll 17704 8693924e5e320122223c0d4ef572ee30558dfc1d48886e2b3fef9ab9dbfe204d
+  Program Files/PowerShell/7/ref/System.IO.FileSystem.Primitives.dll 15656 1d7ee9839da37ba4aa5a1e01e4d7e08077755a27cc021ab8251bec414120b655
+  Program Files/PowerShell/7/ref/System.IO.FileSystem.Watcher.dll 21288 7089c68925ba92477a8e85a61cdecf2bc76a85e4e4b55f1b48e14221ca4daaf6
+  Program Files/PowerShell/7/ref/System.IO.FileSystem.dll 16032 dfad5910c19a8cc226fca351e66205ff99ed0e139271fd91c768793a59c461f0
+  Program Files/PowerShell/7/ref/System.IO.IsolatedStorage.dll 22832 16ca01864806c2f5311bab0e566af61ecde939171e1dff6875d692dc4fd0261e
+  Program Files/PowerShell/7/ref/System.IO.MemoryMappedFiles.dll 18592 035f330bf11afd63e2db8ec73c3fa66610fb98c863e22aee69332d81ccb14d02
+  Program Files/PowerShell/7/ref/System.IO.Pipes.AccessControl.dll 19224 ee86cd96322dea7b7c1142bcf5d191db542c19fd9efe4d528dcb335b59152bfa
+  Program Files/PowerShell/7/ref/System.IO.Pipes.dll 21800 3729bbcc9300b030db08edfb158cc53e660e5e393ed6ef98e8a1294727c0281c
+  Program Files/PowerShell/7/ref/System.IO.UnmanagedMemoryStream.dll 15536 87d9f6d4cd34ffd8c54583b0feef053b893368165810024445238f081cb8f7ac
+  Program Files/PowerShell/7/ref/System.IO.dll 16176 6ec9431f5359e6b81d37d1ff4ab6c9f487d65483562a3ae1c9b6a3b4cbb36491
+  Program Files/PowerShell/7/ref/System.Linq.Expressions.dll 63272 90ea3a99f25c0998a4650ba852ed7c664defb016eb81d5bfec4dfa3fe81a2b98
+  Program Files/PowerShell/7/ref/System.Linq.Parallel.dll 31392 611e9651956124e648edb34a5e39239df6b2616087137f49b4e153c669a8daa2
+  Program Files/PowerShell/7/ref/System.Linq.Queryable.dll 30992 efe7ac9bf7d3abbe057c6632d5d8bda6a216158337c7932c37a0cdca1927832a
+  Program Files/PowerShell/7/ref/System.Linq.dll 32552 eee86e961c520946d42c875996c4d20cdb039fd067e8584a21635f51226dbefc
+  Program Files/PowerShell/7/ref/System.Memory.dll 53552 5b501ce36582fc91f38945879267e942c885d65df7f5ae8a824ad534a36246d8
+  Program Files/PowerShell/7/ref/System.Net.Http.Json.dll 23712 4e692c820de2d4d8994b0128582f1bd3ef322adb9a7b629ed75efafa834a5534
+  Program Files/PowerShell/7/ref/System.Net.Http.dll 60200 838882f9ed2f1dc6dddd3969596f4b742b92218fa9db82a64dbe8f6215949391
+  Program Files/PowerShell/7/ref/System.Net.HttpListener.dll 25760 a907f84c4eaa623dc1c813002aff9a94ed50a29e4f8317d9afb7d7a74379e720
+  Program Files/PowerShell/7/ref/System.Net.Mail.dll 31904 e0ef44db4f25aef6aa32fa66d81d7e399bfb930da9d61861f12364fcce4bf280
+  Program Files/PowerShell/7/ref/System.Net.NameResolution.dll 18096 1530dfac971df2a981916df8acbe30d54d5fcb493018c315098dab9f0085b308
+  Program Files/PowerShell/7/ref/System.Net.NetworkInformation.dll 34088 f3a004fddfe0fc5d7489b13895df0894757427abed4dd56a90ef2c8394f46fed
+  Program Files/PowerShell/7/ref/System.Net.Ping.dll 20776 5c0710638a0c24865fc8a7f7c49956c32e3693d603c1213099522b6a6edfebee
+  Program Files/PowerShell/7/ref/System.Net.Primitives.dll 36120 1ef34f8e536e0502406a66a6eca2904deaa9fd6dd21b7011bd37e3bb1c96dec2
+  Program Files/PowerShell/7/ref/System.Net.Quic.dll 22312 7d7d311567dba91cbd0a022c3be3d2dd574e13782663bc0a0df077a72e2a5c6e
+  Program Files/PowerShell/7/ref/System.Net.Requests.dll 37536 34e2c7c74c6fb4f630c28f0c0e6a3201c02622b187a7808a87d4cca0b529ccc3
+  Program Files/PowerShell/7/ref/System.Net.Security.dll 52912 dab11b4ea79f1fd2d6451bc5f406daa3f102b5c7eec0fd9985dcd9664bc06def
+  Program Files/PowerShell/7/ref/System.Net.ServicePoint.dll 20280 cdccdf4300b47862d5cda8c4dd80317580d570282cefdb76da8749d13987f21a
+  Program Files/PowerShell/7/ref/System.Net.Sockets.dll 47912 0882325bf795b662a832ea6eebf63366c74487df335b96329f3a1eb414a02ce6
+  Program Files/PowerShell/7/ref/System.Net.WebClient.dll 27936 def9b99f3ccb1d54da1c05046f52384d7a26c08c3b33348b170ba44760df31d4
+  Program Files/PowerShell/7/ref/System.Net.WebHeaderCollection.dll 19752 778c58ca98ef333c8b0e3b9fd1b64f1e91fe14a6ba33239d17890870733224c1
+  Program Files/PowerShell/7/ref/System.Net.WebProxy.dll 18216 38ab535a1b3f4e6cff50df0edab6102fb56f006bdcccc3c4a069f1c2e4a60708
+  Program Files/PowerShell/7/ref/System.Net.WebSockets.Client.dll 19616 0db6f84ef4f7d21a007a023a8c650873a404e6baa1702ef1c01e1888720c8893
+  Program Files/PowerShell/7/ref/System.Net.WebSockets.dll 22832 0150a53a967b30d92a671a195a311bbbe543ad3f971ff96aadfc9781db91124a
+  Program Files/PowerShell/7/ref/System.Net.dll 17712 54eed3c068f1411fd458a7e54334bf78d33e866dfaedc07ea7732188bb472348
+  Program Files/PowerShell/7/ref/System.Numerics.Vectors.dll 41256 29a21e820841516897b0834d09da8359180737b4038671216219253b1317f91b
+  Program Files/PowerShell/7/ref/System.Numerics.dll 15664 e07113d0c53ef381eab0565a6c4dc756e61936ab3ed3e5455bcee72b36f54ebe
+  Program Files/PowerShell/7/ref/System.ObjectModel.dll 23712 4bf17f0b7176d12ed44621cc2702efa031627aa9bc6905b892b6fb0335cf98f4
+  Program Files/PowerShell/7/ref/System.Reflection.DispatchProxy.dll 16032 9d788c54a829f08db2017acaa47f713f7f7caff6016f5b797ab2a13df2906bbe
+  Program Files/PowerShell/7/ref/System.Reflection.Emit.ILGeneration.dll 20776 b43f5d8c211700b09ae1d9efb302ad51f53e0d0e8eb611db1d241fa6f6b6b4db
+  Program Files/PowerShell/7/ref/System.Reflection.Emit.Lightweight.dll 19616 467f43dd9fd578db50355409aebf99ddb8d9eb2fd237456aeb8721a9b6f00f17
+  Program Files/PowerShell/7/ref/System.Reflection.Emit.dll 43184 1bd2210b3cac2ec0f2febab270974d46cd913551fbca5ad660ebf0b9ca1dbacf
+  Program Files/PowerShell/7/ref/System.Reflection.Extensions.dll 15536 e5b1a807bfb68e92d0a0b68056ddd9febb57926317c8f27ab9466694b6365a6b
+  Program Files/PowerShell/7/ref/System.Reflection.Metadata.dll 120616 8dd218ccdd409641164ba5b54c42a60ec550e611dc31e137682fdb3681c99bbd
+  Program Files/PowerShell/7/ref/System.Reflection.Primitives.dll 22176 c4031edbbf8dcdad7d21a1b242e8c31cf43840b87be36d9b80a6fdcf896ec128
+  Program Files/PowerShell/7/ref/System.Reflection.TypeExtensions.dll 19752 49550d784b06668f56e5d4e0abf2ff22c82449169810906ff06d98992161ab80
+  Program Files/PowerShell/7/ref/System.Reflection.dll 16544 2cab69493157300cf093fd515396caf0d302081ae41e131d6f144a519dfd5b21
+  Program Files/PowerShell/7/ref/System.Resources.Reader.dll 15536 37a82185d361eeb62ac3fb9fd182d4cdd54415e27f7aa3abf7cabd00a926184f
+  Program Files/PowerShell/7/ref/System.Resources.ResourceManager.dll 16168 ad79036ae89ebd610a2b1f6eba6d67be08d8bcc9ae13f0ee9977b2d5d21e6fdc
+  Program Files/PowerShell/7/ref/System.Resources.Writer.dll 16544 ad18dcadd7ef2b7ff93708fb54c303ceae57f17eb9206f842179b7e8146d4955
+  Program Files/PowerShell/7/ref/System.Runtime.CompilerServices.Unsafe.dll 15656 fc944f12d89b4d42f2e7eb7278f3627e34b6b3fc50217ef690367fef488eaba0
+  Program Files/PowerShell/7/ref/System.Runtime.CompilerServices.VisualC.dll 17568 807e1bc59d9f1c544f51817ac16297af2b38451cb187b3a47080a7bef14dbf2d
+  Program Files/PowerShell/7/ref/System.Runtime.Extensions.dll 18080 e6a58c965d928697926040a50d4b95b9e7e726777a23f25222ef8239ab9795c9
+  Program Files/PowerShell/7/ref/System.Runtime.Handles.dll 15520 5dfa22f7785793232688ea2021b046fde110e40ca5e914f4302d3fbe8e67fe01
+  Program Files/PowerShell/7/ref/System.Runtime.InteropServices.JavaScript.dll 26272 984d9ed72e7b62836f70215a6fcb45b6cdc5b8b14f74896d51606594ffc9e6d4
+  Program Files/PowerShell/7/ref/System.Runtime.InteropServices.RuntimeInformation.dll 15664 4d4c14135bf487c259302988e35f6925faebbda68541aed2675eff339cea20f0
+  Program Files/PowerShell/7/ref/System.Runtime.InteropServices.dll 97456 ccd88ebf8ede43476a4bd556b2ca93ea27a8291de401a0c3853b204dee4f0bd8
+  Program Files/PowerShell/7/ref/System.Runtime.Intrinsics.dll 276792 f770e5eb8651893b9019f6c414fef3e9d5a37c50ec9f680ea6c4a938b225cdd2
+  Program Files/PowerShell/7/ref/System.Runtime.Loader.dll 19760 f2566c73aff42a4bd6388146011d4ba22d68089924b27a6e8e66a6e0e94ea014
+  Program Files/PowerShell/7/ref/System.Runtime.Numerics.dll 36648 013a875dd84c0cece16a6d6fe0553c36e1aa8efe1ffd04d133e9121c86d4db2e
+  Program Files/PowerShell/7/ref/System.Runtime.Serialization.Formatters.dll 23848 0c4d61159efe3d9821029aea20fbd576269da7568dbc3d65816c7c38da391391
+  Program Files/PowerShell/7/ref/System.Runtime.Serialization.Json.dll 21152 88df77cce994fe97e925f563e201dd161e5bb8abae3401e19765da27a610f184
+  Program Files/PowerShell/7/ref/System.Runtime.Serialization.Primitives.dll 20264 7224ff66c74004c7ff3f8fece9946b9983d0a44bfc70369768b5423a1ad30b29
+  Program Files/PowerShell/7/ref/System.Runtime.Serialization.Xml.dll 40232 ffda6fcf165d6dd7afdb1907e4cb78630db6c0f1ad9a167c014bf558b2990f19
+  Program Files/PowerShell/7/ref/System.Runtime.Serialization.dll 17072 2cb9c808b898d997d9181ada0a17a70937f570e470217311100c20dadb7f5d9d
+  Program Files/PowerShell/7/ref/System.Runtime.dll 829224 85c28755dd8e60cc6baf0ef9a390b30af7f2c8d1a2b73a1644e2a5144239943a
+  Program Files/PowerShell/7/ref/System.Security.AccessControl.dll 37672 f43b46b83065d5bfb0b583bd66015206bf8c6d9364871985f817996388ced723
+  Program Files/PowerShell/7/ref/System.Security.Claims.dll 32552 1687ec2df0064cbb9e4516da49b15d944cb10c09b5cb7bbc29ab45cbb06e4ff5
+  Program Files/PowerShell/7/ref/System.Security.Cryptography.Algorithms.dll 17712 4097146c79d7c4acf475745cccd8d74ed848b8880b803377114a545e065591d0
+  Program Files/PowerShell/7/ref/System.Security.Cryptography.Cng.dll 16544 8de6984db039f665e683402845e0e914e7e294c673e01c08ec1c5dc426bf4685
+  Program Files/PowerShell/7/ref/System.Security.Cryptography.Csp.dll 16032 737fab2a609ab3e395a1aad9ba446b6b2728be5231e73c17061aa77e1b7ac94d
+  Program Files/PowerShell/7/ref/System.Security.Cryptography.Encoding.dll 16032 bd43537710c73b46a4545137cb616a79a48a80b636b7dd08311e85884ae363bb
+  Program Files/PowerShell/7/ref/System.Security.Cryptography.OpenSsl.dll 15656 f6bf52fde737cb31f17e38895da486bfd9e2d2b12cfb34532cc7f29d90a604e6
+  Program Files/PowerShell/7/ref/System.Security.Cryptography.Primitives.dll 16184 82cc9287206293d2791f9f4a8073a977293b671b7cb2598f57e202b050ba3989
+  Program Files/PowerShell/7/ref/System.Security.Cryptography.X509Certificates.dll 17192 5dc14698c08485d0f025d7dd6275873aef06b63ae7228e3dc96bf931950ffc7f
+  Program Files/PowerShell/7/ref/System.Security.Cryptography.dll 133928 3729401bdc26618bc7c1c48a41aa54a817654f21a29d7bf6adad74d1e9acfa65
+  Program Files/PowerShell/7/ref/System.Security.Principal.Windows.dll 27296 43ea544f37821f34ed66b52b8b47936ea8bbfd0f675dd717b3c5cc5becf69480
+  Program Files/PowerShell/7/ref/System.Security.Principal.dll 15536 6bee858b4eb57033624cd93c9b9e08e0f8d4b7bd4540a83ce9978993c334b7ab
+  Program Files/PowerShell/7/ref/System.Security.SecureString.dll 15520 be8ceea3da4bb7cabd5fd6e1c978585d2c97593f67660e1d8d7b46da3dae713a
+  Program Files/PowerShell/7/ref/System.Security.dll 18592 73fd97e5762b1e1629271c9e17df6b9af431cd446ad1cb0bdaddaba25edb7412
+  Program Files/PowerShell/7/ref/System.ServiceModel.Web.dll 17056 4a2d6960be7e1de8262bc22f8c60d73f25674f8e8351e07c1d31d0b298dd8946
+  Program Files/PowerShell/7/ref/System.ServiceProcess.dll 16176 3f86c32c5c56c701eda8469052c9afb82347037441ae8c57ca017310b4612537
+  Program Files/PowerShell/7/ref/System.Text.Encoding.CodePages.dll 16152 be29e895e2d4f6205709b590bf7773fff2ca2825d86e13963159623a641e2fd0
+  Program Files/PowerShell/7/ref/System.Text.Encoding.Extensions.dll 21296 af8744d5e29efa7ad905118cb527c2853ce0573d4467cdc3616539d82aa03202
+  Program Files/PowerShell/7/ref/System.Text.Encoding.dll 16168 2c4453d4199c152434d3f58b9c7b90e4c5dd34c4c4923e69b51e99093d399a0a
+  Program Files/PowerShell/7/ref/System.Text.Encodings.Web.dll 26272 c582e4e14db1139f974fe4964aa850c1e961431c5a0776ae47c34c7f403f8e15
+  Program Files/PowerShell/7/ref/System.Text.Json.dll 74008 5206565353842304aca3d48e56a9d12ef1b7a727c1e4181c8abb4314e90187b7
+  Program Files/PowerShell/7/ref/System.Text.RegularExpressions.dll 36000 3d2d990b16c41cc68e9d94e47b50173aa32165156a6fd6f1851f78d96730d5ea
+  Program Files/PowerShell/7/ref/System.Threading.Channels.dll 19224 7c2828eff12081a0ae29189d58093610cc26caae59ed46f341100048641ba0db
+  Program Files/PowerShell/7/ref/System.Threading.Overlapped.dll 19240 257fe610cb4990252848c16b6022c07194778aa3e66396499da8162bc8647fac
+  Program Files/PowerShell/7/ref/System.Threading.Tasks.Dataflow.dll 31920 1c007962a402422db438114cb0d05bd1750a3941fdbf0a284a2f0e2cee1258a4
+  Program Files/PowerShell/7/ref/System.Threading.Tasks.Extensions.dll 16168 c846c4d79cb29e8554bc72a49a9f245ef52333e3cd48064b041e954f67a4e4ff
+  Program Files/PowerShell/7/ref/System.Threading.Tasks.Parallel.dll 20264 1f0257cb743bd13180fb13a36c73d35e440e6f7bf2acf4fb7f584c849e84f5bd
+  Program Files/PowerShell/7/ref/System.Threading.Tasks.dll 17072 5a9a52deca1485d0f6fcb142a836cf6437c8759709be09dd4e3e78c5f2b6e783
+  Program Files/PowerShell/7/ref/System.Threading.Thread.dll 23320 6212e408224c18be407c6c6f9301bb3eb75a5b198ca860ca2b223098f2f8499d
+  Program Files/PowerShell/7/ref/System.Threading.ThreadPool.dll 18712 083028469128093da49aa810f592a0629c14697f16911b07a85b6ebe17fd4e15
+  Program Files/PowerShell/7/ref/System.Threading.Timer.dll 15672 3619367eccf46d3548c7872cffac3d1ab5e7c4710baa8384ede6bcae1f9b84ee
+  Program Files/PowerShell/7/ref/System.Threading.dll 32544 f53abcc18d64d6f06bbc47d70a9d6d5a760191dd5473e8e149072096f01c637a
+  Program Files/PowerShell/7/ref/System.Transactions.Local.dll 26272 0ce4f21692bf3b51b546d1fd132159715377c75b7d6f5853f15e9f002c862d4d
+  Program Files/PowerShell/7/ref/System.Transactions.dll 16544 52e97d93cb40e6fe7e68859abb8dcb56c0a48f4d6aef507124e7dad75c34fbf1
+  Program Files/PowerShell/7/ref/System.ValueTuple.dll 15656 9283979403626f8d769ff1bf8e517a8f4e14a3a53e27ceefd3fc3aa1f6c6d91f
+  Program Files/PowerShell/7/ref/System.Web.HttpUtility.dll 17568 f7e4b06ae2e345352a8816593e846ab3f64cc38db1d68875e889bb1a5c46723e
+  Program Files/PowerShell/7/ref/System.Web.dll 15520 e266ee482c9e674efe3181c604829a5b497e1b0e98dbb76826545ed62ad96e13
+  Program Files/PowerShell/7/ref/System.Windows.dll 16032 88ef13e687734a8848df7ef0b459d85dab150b64895d502793a12c3c10d97c7e
+  Program Files/PowerShell/7/ref/System.Xml.Linq.dll 16032 cc0fe98595a79dbea9c92b222cd9ec2acb77264cd34f18b33b443a281e39b8fa
+  Program Files/PowerShell/7/ref/System.Xml.ReaderWriter.dll 116016 9f7b1eaf73a7bac4165d301f80d0bf95fdf3adfeb158fb6e0423d467491e7269
+  Program Files/PowerShell/7/ref/System.Xml.Serialization.dll 16544 db3f6f63f5c8d89255860594faccecffb63fa35292cced93018ff61b647f459f
+  Program Files/PowerShell/7/ref/System.Xml.XDocument.dll 34464 d4d54facd0471672e3f24525ea62ff9b979d5aafff3c8c2f9f99500d44bceb99
+  Program Files/PowerShell/7/ref/System.Xml.XPath.XDocument.dll 16648 930bec70884bd244161c6057a7cf3ca838880e1ac752b04a8e1ee61f1fa5b19f
+  Program Files/PowerShell/7/ref/System.Xml.XPath.dll 17184 cf2e86b865dabf2dfc8793b71e2e5684e0556d6c5858173bafdd5ac6940b7e2a
+  Program Files/PowerShell/7/ref/System.Xml.XmlDocument.dll 16168 f05bdf95c3b446f3135b05c66a36c047f34525f704bf52ebccbde02821529d66
+  Program Files/PowerShell/7/ref/System.Xml.XmlSerializer.dll 50848 fb8b5e7f7284634a8035a76d908fb8cf7c7004bd5cf577305e0aa2dda6b2c43f
+  Program Files/PowerShell/7/ref/System.Xml.dll 23712 4ec6f4ccd1ef66fc2a9ade19b2e45b165931819a61d3afc6ae661ecd7e4d12c3
+  Program Files/PowerShell/7/ref/System.dll 49968 44528b7e47b81c6ed85d9fd896dbb5bff187753bf79ccd104bc186fa7562d4a8
+  Program Files/PowerShell/7/ref/WindowsBase.dll 16544 1aaa9f6f702491209130737a9ca0e6c047bf25fa299dc07d0aeb8a23e1ca3230
+  Program Files/PowerShell/7/ref/mscorlib.dll 56112 05731ebd7ee475e7f70214921a9c2938b1ef20555af41a29d46ab36521db650b
+  Program Files/PowerShell/7/ref/netstandard.dll 101160 57f9beafe45cce172d363928f126936a274958b6d357455d368d9f9a2be16f1c
+  Program Files/PowerShell/7/ru/Microsoft.CodeAnalysis.CSharp.resources.dll 598704 bd0ba48ebc34e46d6eeef507ab741c1e5e8aeb86df730dc6ffaa06d79d5461d9
+  Program Files/PowerShell/7/ru/Microsoft.CodeAnalysis.resources.dll 59552 f9711d44c94015329eccc4759a407763c0876469a871f6248d407a44fa8166fb
+  Program Files/PowerShell/7/ru/Microsoft.VisualBasic.Forms.resources.dll 26800 e4f3c48b4af586a1ef8ca199bd4243f0c9cd427c5bfa41edce5fa3f61789fc8a
+  Program Files/PowerShell/7/ru/PresentationCore.resources.dll 138536 b6b793ab8aebe06642c50c01cd29dca30c09f86841f60975970869b333a21736
+  Program Files/PowerShell/7/ru/PresentationFramework.resources.dll 257832 03d924670fb3b8298afd227a16142dba37ab450a978fab00df947f09ccb1e7f6
+  Program Files/PowerShell/7/ru/PresentationUI.resources.dll 54584 f281b9f5bd5ab864b290f8028b566c0e201e7b6ddc53c1c212378cbb7f7ee4f1
+  Program Files/PowerShell/7/ru/ReachFramework.resources.dll 44328 9d9dc1289d4f47df9d63425d60063771f03f2e9c621b091baf5aee8b98d90f9b
+  Program Files/PowerShell/7/ru/System.Private.ServiceModel.resources.dll 298528 cb57d30c901e7750f8b740c865e11e82350a83187b6ee50a11048486eb14222d
+  Program Files/PowerShell/7/ru/System.Web.Services.Description.resources.dll 21032 f4d992e6a9e2ae86bd84bff077f877e49f509c669efab975bb9aa1d11cde8f5a
+  Program Files/PowerShell/7/ru/System.Windows.Controls.Ribbon.resources.dll 19760 8217be378c32777df79619a67b02045c8f8dc63b06b7c0afd2bf86f2329c4706
+  Program Files/PowerShell/7/ru/System.Windows.Forms.Design.resources.dll 162976 b1babe0e74b3e6711a4f781a91f65e7ca5c009f75e543e662b923d3ec1226788
+  Program Files/PowerShell/7/ru/System.Windows.Forms.Primitives.resources.dll 16680 3dc2f7b43808d44be679f2169fa79edbe3cde923b5adc2ebaa968bda09d77c52
+  Program Files/PowerShell/7/ru/System.Windows.Forms.resources.dll 476832 fd7afff646d75512b3cf889d234a9bdeca27d2a4f199338c7836b2b56431a9ac
+  Program Files/PowerShell/7/ru/System.Windows.Input.Manipulations.resources.dll 17056 965b6644477a8e9640f76371ccd177a06e052f4813a491359aa2ba5d29980f6e
+  Program Files/PowerShell/7/ru/System.Xaml.resources.dll 84776 dc7c9ab5c809d1145c90a52c48c22ea9bb86c1a29b009f20a50916e40ec0b014
+  Program Files/PowerShell/7/ru/UIAutomationClient.resources.dll 21800 08e73ecbac892cda77919037317dc80f4be623dfab2b29f591e1c269f6a1bc7d
+  Program Files/PowerShell/7/ru/UIAutomationClientSideProviders.resources.dll 22312 93f51c25549157a7c361a5cd19dd6dc868883b05d34b170b0d9cbce4a45ec37b
+  Program Files/PowerShell/7/ru/UIAutomationProvider.resources.dll 15520 46be4be2370b068713d3f76caa012afe4354a60484e3f39d9c300c65232ce24e
+  Program Files/PowerShell/7/ru/UIAutomationTypes.resources.dll 19120 25d8c72c4bd5ea923a905875a20365e1d01e354c10002d5e0301e968a0522d30
+  Program Files/PowerShell/7/ru/WindowsBase.resources.dll 111912 d7d8cc1edee633b2bf800b9eeb5931d5c99e0721849b48c1d838b9aa14ce92d7
+  Program Files/PowerShell/7/ru/WindowsFormsIntegration.resources.dll 16680 1a928f26137429dfd82dc19ad23a01e7eb2a9b5c5dd87ffd61aeffb0ddde334c
+  Program Files/PowerShell/7/sni.dll 160040 68705c4ef9ab818f2956a78e05f3fefce501a1448793b073b46110beb49b47d6
+  Program Files/PowerShell/7/tr/Microsoft.CodeAnalysis.CSharp.resources.dll 431264 9fc85b283b8039732c739cfe03d8c9f1e5449a46952321e53dcee1d6d83df490
+  Program Files/PowerShell/7/tr/Microsoft.CodeAnalysis.resources.dll 47776 c20c4288a14b45d4ffc75273904a8c82bb12ffc2b744492a1730ecfae51403b8
+  Program Files/PowerShell/7/tr/Microsoft.VisualBasic.Forms.resources.dll 25384 d32eacb2abec8ac11660af07e0d291bf673889b39d17aa84bfc56089f2943e9c
+  Program Files/PowerShell/7/tr/PresentationCore.resources.dll 107696 6fb78fa989a456e7aa8c84de890389f4b6587b6e2d5c1f97614c4db42f2d184e
+  Program Files/PowerShell/7/tr/PresentationFramework.resources.dll 196400 f9e2a48fc79fcb93a11e087f429fa1f3fc8552e782ea85e9ae3c1053bcb55b0d
+  Program Files/PowerShell/7/tr/PresentationUI.resources.dll 44704 c5be00599e84ac55faa6450dfd5e32ed8b2954f0b3d2753c8405543959ba518d
+  Program Files/PowerShell/7/tr/ReachFramework.resources.dll 38560 ba8d48d0c9277621afd72ca82ecb1f18a1a3c36af02f617b050c61d853dc4c96
+  Program Files/PowerShell/7/tr/System.Private.ServiceModel.resources.dll 212512 e00f6367ef050fb22f429abbc9d60a7a691fcbd32a87a421cca4d47dd62e405f
+  Program Files/PowerShell/7/tr/System.Web.Services.Description.resources.dll 19496 615391322e31a3b1b6e2a61859987a1c344f0e5ef5551d594562065ce6f92775
+  Program Files/PowerShell/7/tr/System.Windows.Controls.Ribbon.resources.dll 18744 d1f17ef6ece50ddfcb648f916f4094c6fe808fa3c6457a95516e3d354239332e
+  Program Files/PowerShell/7/tr/System.Windows.Forms.Design.resources.dll 148656 76374861987c8b75c48b0f8222abfd39055d66dd340a4c41dfa444fd20e19772
+  Program Files/PowerShell/7/tr/System.Windows.Forms.Primitives.resources.dll 16032 1c13e3408238323e76e697149ce0436a0000a35eceb0b3d21a6ff5214a05aca6
+  Program Files/PowerShell/7/tr/System.Windows.Forms.resources.dll 361648 2b4730df4edcaa5422efa42df64ef75e605472b9ffd537458f197c4ececba9b2
+  Program Files/PowerShell/7/tr/System.Windows.Input.Manipulations.resources.dll 16680 167223ce5080e11001b50a75e97747f6bc6043d3c1915a43577500e0cb040492
+  Program Files/PowerShell/7/tr/System.Xaml.resources.dll 65336 507585688de39443d4b6f577c568aa16eaa431e0a2a0aa080ae0d1fe067e53b5
+  Program Files/PowerShell/7/tr/UIAutomationClient.resources.dll 20272 435112edfe4e1431d1691f340778d5867dee76e2b60e61695e5e8eb25282c73a
+  Program Files/PowerShell/7/tr/UIAutomationClientSideProviders.resources.dll 21168 9fc507f6a834e744f7ca6c3ea6b0de8bc3ef1f0b6d62144ec340bca144d447aa
+  Program Files/PowerShell/7/tr/UIAutomationProvider.resources.dll 15656 4daa1605479f6f1be2eaab61155bc2887860e42c84b87387f0a54d4680c6809f
+  Program Files/PowerShell/7/tr/UIAutomationTypes.resources.dll 18592 0129b63a5a88dc29d756ca42574b38e36547e12721e2899292dd12829aa69a7e
+  Program Files/PowerShell/7/tr/WindowsBase.resources.dll 85152 afbf1ca003d288c63a411f171ea44159cd0d460edbd0750ad4124873be9b4529
+  Program Files/PowerShell/7/tr/WindowsFormsIntegration.resources.dll 16168 d54ca885b0f1ace1c1a6215e7b72528cf88358320ca6c25435e4b595dfe160b6
+  Program Files/PowerShell/7/vcruntime140_cor3.dll 119888 02c6aa0e6e624411a9f19b0360a7865ab15908e26024510e5c38a9c08362c35a
+  Program Files/PowerShell/7/wpfgfx_cor3.dll 1964328 caa592da7d9d5443815c2ee9f9c4c5978ca679ca7fbb4aa4082681cc91de6c5f
+  Program Files/PowerShell/7/zh-Hans/Microsoft.CodeAnalysis.CSharp.resources.dll 383648 0ec5da878654137b69e939bd409d1cf5fb5e7f71bf245d13e4b755c4e348dcc6
+  Program Files/PowerShell/7/zh-Hans/Microsoft.CodeAnalysis.resources.dll 44720 ba2a49fd532366ac72b525cd3c6a4c181ad582fe03223aa230100573f775b61d
+  Program Files/PowerShell/7/zh-Hans/Microsoft.VisualBasic.Forms.resources.dll 25264 94dc35c74f609b7e75b7e8e0f9b091a39d571e83bf2c581f22aa348cf1fe5621
+  Program Files/PowerShell/7/zh-Hans/PresentationCore.resources.dll 100656 d5e22dbddfcb6987b64b39d7b5788ddf5986b98121a494789036e5d5a7b0c040
+  Program Files/PowerShell/7/zh-Hans/PresentationFramework.resources.dll 183592 5153d78bd68fbfc0fc9f72fcad393cf34784dc56c90027f83fb59f521e245a1e
+  Program Files/PowerShell/7/zh-Hans/PresentationUI.resources.dll 43304 c5950c6edcce923b0a0a8a4dde4e369d7f2db8802cbe63905e76c9acf21433af
+  Program Files/PowerShell/7/zh-Hans/ReachFramework.resources.dll 37168 ec292b22eb53b3dfa72cb55496303dd36809f8e46dea864ea0e9e1db16ae5895
+  Program Files/PowerShell/7/zh-Hans/System.Private.ServiceModel.resources.dll 188464 59048b72505417ca18885e69f432d59197afa3d076282235a3f8ef6e0b3295a3
+  Program Files/PowerShell/7/zh-Hans/System.Web.Services.Description.resources.dll 18984 272ef4d9e8a072f22d7ce8510f40d802d5324847a78691ef74551a1ddbe4f1ea
+  Program Files/PowerShell/7/zh-Hans/System.Windows.Controls.Ribbon.resources.dll 18728 eb27b854714ab3efc82960b8bde86309b0496ac4b9fd186f5b1eb2ad9e0782d4
+  Program Files/PowerShell/7/zh-Hans/System.Windows.Forms.Design.resources.dll 145200 1884eb6f938a668831e317f5d179143dbba9f1da38c39b88c85f7e205827799e
+  Program Files/PowerShell/7/zh-Hans/System.Windows.Forms.Primitives.resources.dll 16176 865b1b40da07ca44b544c2da1db9c0e03d2e72cb1710279a84c61b4fea075ab2
+  Program Files/PowerShell/7/zh-Hans/System.Windows.Forms.resources.dll 319792 201eec1c0f1dca633ba4734524c8deb3efdb2ad617041237e4007aebc9bedea6
+  Program Files/PowerShell/7/zh-Hans/System.Windows.Input.Manipulations.resources.dll 16544 8679157e9b63424f7e38e7130e011a1796f5bfd2cb3ba5061d19414bb2c3c8cb
+  Program Files/PowerShell/7/zh-Hans/System.Xaml.resources.dll 61088 01bf72d1a6378c2cedf2bea9054bf19af52393f8b053e4a640b02829533c0f04
+  Program Files/PowerShell/7/zh-Hans/UIAutomationClient.resources.dll 19616 52819f8a10f1cff1929cb0c34e398502c1725e10e68f70785a4895239b06091a
+  Program Files/PowerShell/7/zh-Hans/UIAutomationClientSideProviders.resources.dll 20640 bfc6a8fcf85291bc6190d8726243def9e5e38bbd3f7248883acb394f35cbc0e3
+  Program Files/PowerShell/7/zh-Hans/UIAutomationProvider.resources.dll 15520 d4e09851e0d9cdf1d4400bd853b9fca25bf37424f7cd02501a776d3b6752e8cc
+  Program Files/PowerShell/7/zh-Hans/UIAutomationTypes.resources.dll 18592 7222ff7af539476c831efe051fd1b4b71e5a9f1acec5aff70a15f7deada74bcd
+  Program Files/PowerShell/7/zh-Hans/WindowsBase.resources.dll 79008 87770710f199d71220998f766d957fead29cdd09f40d8c3d5221c9122b2bbae4
+  Program Files/PowerShell/7/zh-Hans/WindowsFormsIntegration.resources.dll 16168 0a77ee23fb44a10f05897d18fa9453115dcd73dde4790b94196aabfb2fd6b79c
+  Program Files/PowerShell/7/zh-Hant/Microsoft.CodeAnalysis.CSharp.resources.dll 383136 283daf4d4d8969b20a0830b253791fd49fe0600b682ee01be8cf7f3eadf7aedf
+  Program Files/PowerShell/7/zh-Hant/Microsoft.CodeAnalysis.resources.dll 44704 f5b5645594429aaa09d3ba9cc250917ba98e5905af0dc331a65238ec9b7d71b8
+  Program Files/PowerShell/7/zh-Hant/Microsoft.VisualBasic.Forms.resources.dll 25248 d2607b5aaba00db81b62275fd2cf6b64cb194fefe6e604cb49f33dec05151e59
+  Program Files/PowerShell/7/zh-Hant/PresentationCore.resources.dll 101536 53b57dd1c2cde352c928a8cf23b0a51994f48963e0dda0331b2228b46dbd7c06
+  Program Files/PowerShell/7/zh-Hant/PresentationFramework.resources.dll 184112 602f0887013e6a3151522643cf67e7becdf174b072dbcd3b8e1fe6af5bf56f97
+  Program Files/PowerShell/7/zh-Hant/PresentationUI.resources.dll 43312 c92e4612fc312b0287327ccef20ea22fc5d608b667b1d64bc09a91e6dd266af8
+  Program Files/PowerShell/7/zh-Hant/ReachFramework.resources.dll 37672 8e16bd7e175e6bf84c59b8323402bf832fb03993510445afcfb42929f6dc875e
+  Program Files/PowerShell/7/zh-Hant/System.Private.ServiceModel.resources.dll 189472 3151df36dbfecedc5d1e9d1b738d878f8354af2404b7bc40e04fabe5f3001222
+  Program Files/PowerShell/7/zh-Hant/System.Web.Services.Description.resources.dll 18984 0612cf6e56c368742a34026a68397e38c28b2ad7681af4fae39c40f0b6b2086e
+  Program Files/PowerShell/7/zh-Hant/System.Windows.Controls.Ribbon.resources.dll 18608 382f07f2848c650c15a46761919dabeb11e59fe1485e2f545fb05af54a676dbf
+  Program Files/PowerShell/7/zh-Hant/System.Windows.Forms.Design.resources.dll 145208 8c26551b6607d412c7df305a2bf46bc85a68acf897763fa3e1f744858b433c7a
+  Program Files/PowerShell/7/zh-Hant/System.Windows.Forms.Primitives.resources.dll 16168 85ea05cd5a990c65ce671ec01a50c773f919118bd64df4deb4916f623a766436
+  Program Files/PowerShell/7/zh-Hant/System.Windows.Forms.resources.dll 325416 6c96b2ab874ff8e10e0db469a59def81f9ec0ec5876972222aa8a8c5eefcfb34
+  Program Files/PowerShell/7/zh-Hant/System.Windows.Input.Manipulations.resources.dll 16680 ef28e07e7b379fcc998e284197e79dfc2438b30d33445ab062603d4d648193a8
+  Program Files/PowerShell/7/zh-Hant/System.Xaml.resources.dll 60576 ea70f57888e4164467627b0a432a07db9f1d2be56afa1c75dba17d94d208d9d1
+  Program Files/PowerShell/7/zh-Hant/UIAutomationClient.resources.dll 19760 adb8f520ef0feeb8be1a253c4e672846f4f6f23a555d6622c40b3e601d2790d0
+  Program Files/PowerShell/7/zh-Hant/UIAutomationClientSideProviders.resources.dll 20776 ba85cec6f12f187c4bb97f6582cbeac2c5899e19f3e26eb4a1730a765d87f58d
+  Program Files/PowerShell/7/zh-Hant/UIAutomationProvider.resources.dll 15520 5ef34b940dac15da1335a856349eee25cd99de28e629f68555efa023418df493
+  Program Files/PowerShell/7/zh-Hant/UIAutomationTypes.resources.dll 18720 fed04f356a385764776b223a78dc04e50b2aa4fbcb24a9393c159acedfc4c546
+  Program Files/PowerShell/7/zh-Hant/WindowsBase.resources.dll 80544 449c826361b86ff8f3db83562655abf0b3db281aea18eed57d535cde1e017753
+  Program Files/PowerShell/7/zh-Hant/WindowsFormsIntegration.resources.dll 16176 99b0fb8532be19706267485936b42c5556d5d338880cd969218743cea9e05841
+  [streams]/Binary.WixCA 224328 2bf33a9b9980e44d21d48f04cc6ac4eed4c68f207bd5990b7d3254a310b944ae
+  [streams]/Binary.WixUIWixca 121912 9cebeb828fadff52cc83548dd8d48604099f3c1dca42fbaf16e443122d2a0b3d
+  [streams]/Binary.WixUI_Bmp_Banner 3855 a5b52eb521eec60bac7c062a6da5c60a0e9bab62afae224426aa8e3449872ef9
+  [streams]/Binary.WixUI_Bmp_Dialog 30804 f7d15ada9d7dda4ce4dabb9f8865a5f2e054097008961e6beeb339e7c1426a67
+  [streams]/Binary.WixUI_Bmp_New 318 4f92e804a11453382ebff7fb0958879bae88fe3366306911dec9d811cd306eed
+  [streams]/Binary.WixUI_Bmp_Up 318 573e3260eed63604f24f6f10ce5294e25e22fda9e5bfd9010134de6e684bab98
+  [streams]/Binary.WixUI_Ico_Exclam 1638 7a4ef56cb6c4bf90d0e31cf19c78ade6dcddd3e150d5c8b1fa125db345db49dd
+  [streams]/Binary.WixUI_Ico_Info 4470 7f2bd9c5992501a59560b9a25bd867374dcd10203bbedfdc8bf6042e85925a6d
+  [streams]/Icon.PowerShellExe.ico 127271 541e130176053ea0e044a6a7a0fa49c70d287f5e81be2c0785471f1ac9586904

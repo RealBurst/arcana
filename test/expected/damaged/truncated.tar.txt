@@ -1,0 +1,5 @@
+# Arcana regression reference (RegressionRunner --update)
+input: cc19d2cb0453a724488ecbd0032c129e9631f7bb1379f4dcea9dfb0fe612e23d 2560
+identify: archive | TAR - TAR (POSIX ustar) archive
+list: ERROR EOFException: Expected 512 bytes but got 0
+extract: ERROR IOException: Truncated TAR archive

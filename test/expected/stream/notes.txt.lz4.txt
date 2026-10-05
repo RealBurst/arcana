@@ -1,0 +1,7 @@
+# Arcana regression reference (RegressionRunner --update)
+input: e5fba71532830a3f887826e123fc680e76b620c09f64ccb44b0303e09174f8a1 3980
+identify: archive | LZ4 - LZ4 frame
+list: 1 entries
+  notes.txt -1
+extracted: 1 items
+  notes.txt 29490 d7e02c884850cdfa9d78d1e322269a120fdce78e1178469a980945b2d27d0c66

@@ -1,0 +1,12 @@
+# Arcana regression reference (RegressionRunner --update)
+input: 3459073eab39129087f14717e7dcc7b75c0a9685c46c237cde9b1a0cdd37e1fc 910112
+identify: executable | PE32 6.0.310.74 - PE32 EXE x86 (jinstall.exe)
+  kind: EXE (application)
+  architecture: x86 (32-bit)
+  subsystem: Windows GUI
+  internal name: jinstall.exe
+  signature: Authenticode signature present (5920 bytes)
+list: 1 entries
+  _installjava_.unpacked.exe 1771296
+extracted: 1 items
+  _installjava_.unpacked.exe 1771296 67961704970befc33fdb96c1c0f21e3ce45c6047054cd2ab996275dcaf0c2f67

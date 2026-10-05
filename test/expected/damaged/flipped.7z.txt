@@ -1,0 +1,17 @@
+# Arcana regression reference (RegressionRunner --update)
+input: 262e30156713146816c42fb9dee45555bc1f7044d5409875ca7fbb4b24cc13f1 5360
+identify: archive | 7-Zip 0.04 - 7-Zip archive (format version 0.04)
+list: 12 entries
+  bin (folder)
+  bin/random.bin 4096
+  deep (folder)
+  deep/a (folder)
+  deep/a/b (folder)
+  deep/a/b/c (folder)
+  deep/a/b/c/leaf.txt 5
+  docs (folder)
+  docs/empty.txt 0
+  docs/notes.txt 29490
+  empty-dir (folder)
+  readme.txt 1520
+extract: ERROR CorruptedInputException: Compressed data is corrupt

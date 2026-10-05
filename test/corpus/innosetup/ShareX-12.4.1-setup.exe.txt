@@ -1,0 +1,827 @@
+# Arcana regression reference (RegressionRunner --update)
+input: 276e70f3cbaeb4dde099aa78f1dfd58c26af95d4c80e96f0365c5b35377eb57b 5620225
+identify: archive | Inno Setup 5.5.7 Unicode - Inno Setup installer of ShareX 12.4.1 (LZMA2)
+  application: ShareX 12.4.1
+  compression: LZMA2
+  files: 409
+  encryption: none
+list: 409 entries
+  FluentFTP.dll 232960
+  ImageListView.dll 263168
+  Interop.IWshRuntimeLibrary.dll 37376
+  Interop.Shell32.dll 38912
+  Languages/de/ShareX.HelpersLib.resources.dll 43008
+  Languages/de/ShareX.HistoryLib.resources.dll 9216
+  Languages/de/ShareX.ImageEffectsLib.resources.dll 5120
+  Languages/de/ShareX.MediaLib.resources.dll 5632
+  Languages/de/ShareX.ScreenCaptureLib.resources.dll 18432
+  Languages/de/ShareX.UploadersLib.resources.dll 32768
+  Languages/de/ShareX.resources.dll 71168
+  Languages/es-MX/ShareX.HelpersLib.resources.dll 53760
+  Languages/es-MX/ShareX.HistoryLib.resources.dll 10240
+  Languages/es-MX/ShareX.ImageEffectsLib.resources.dll 5632
+  Languages/es-MX/ShareX.IndexerLib.resources.dll 4096
+  Languages/es-MX/ShareX.MediaLib.resources.dll 5632
+  Languages/es-MX/ShareX.ScreenCaptureLib.resources.dll 28160
+  Languages/es-MX/ShareX.UploadersLib.resources.dll 50176
+  Languages/es-MX/ShareX.resources.dll 75264
+  Languages/es/ShareX.HelpersLib.resources.dll 31744
+  Languages/es/ShareX.HistoryLib.resources.dll 9216
+  Languages/es/ShareX.ImageEffectsLib.resources.dll 5120
+  Languages/es/ShareX.ScreenCaptureLib.resources.dll 7680
+  Languages/es/ShareX.UploadersLib.resources.dll 25600
+  Languages/es/ShareX.resources.dll 48128
+  Languages/fr/ShareX.HelpersLib.resources.dll 48640
+  Languages/fr/ShareX.HistoryLib.resources.dll 9216
+  Languages/fr/ShareX.ImageEffectsLib.resources.dll 5120
+  Languages/fr/ShareX.MediaLib.resources.dll 5632
+  Languages/fr/ShareX.ScreenCaptureLib.resources.dll 20480
+  Languages/fr/ShareX.UploadersLib.resources.dll 40960
+  Languages/fr/ShareX.resources.dll 73216
+  Languages/hu/ShareX.HelpersLib.resources.dll 30720
+  Languages/hu/ShareX.HistoryLib.resources.dll 9216
+  Languages/hu/ShareX.ImageEffectsLib.resources.dll 5120
+  Languages/hu/ShareX.ScreenCaptureLib.resources.dll 7168
+  Languages/hu/ShareX.UploadersLib.resources.dll 25600
+  Languages/hu/ShareX.resources.dll 47616
+  Languages/id-ID/ShareX.HelpersLib.resources.dll 50176
+  Languages/id-ID/ShareX.ImageEffectsLib.resources.dll 5632
+  Languages/id-ID/ShareX.MediaLib.resources.dll 5632
+  Languages/id-ID/ShareX.ScreenCaptureLib.resources.dll 26112
+  Languages/id-ID/ShareX.UploadersLib.resources.dll 47104
+  Languages/id-ID/ShareX.resources.dll 71168
+  Languages/it-IT/ShareX.HelpersLib.resources.dll 49152
+  Languages/it-IT/ShareX.HistoryLib.resources.dll 9216
+  Languages/it-IT/ShareX.ImageEffectsLib.resources.dll 5120
+  Languages/it-IT/ShareX.MediaLib.resources.dll 5120
+  Languages/it-IT/ShareX.ScreenCaptureLib.resources.dll 19968
+  Languages/it-IT/ShareX.UploadersLib.resources.dll 41984
+  Languages/it-IT/ShareX.resources.dll 71680
+  Languages/ko-KR/ShareX.HelpersLib.resources.dll 51712
+  Languages/ko-KR/ShareX.HistoryLib.resources.dll 9728
+  Languages/ko-KR/ShareX.ImageEffectsLib.resources.dll 5632
+  Languages/ko-KR/ShareX.IndexerLib.resources.dll 4096
+  Languages/ko-KR/ShareX.MediaLib.resources.dll 5632
+  Languages/ko-KR/ShareX.ScreenCaptureLib.resources.dll 28160
+  Languages/ko-KR/ShareX.UploadersLib.resources.dll 49152
+  Languages/ko-KR/ShareX.resources.dll 73728
+  Languages/nl-NL/ShareX.HelpersLib.resources.dll 40960
+  Languages/nl-NL/ShareX.HistoryLib.resources.dll 9216
+  Languages/nl-NL/ShareX.ImageEffectsLib.resources.dll 5120
+  Languages/nl-NL/ShareX.MediaLib.resources.dll 5120
+  Languages/nl-NL/ShareX.ScreenCaptureLib.resources.dll 16384
+  Languages/nl-NL/ShareX.UploadersLib.resources.dll 31744
+  Languages/nl-NL/ShareX.resources.dll 60416
+  Languages/pt-BR/ShareX.HelpersLib.resources.dll 45056
+  Languages/pt-BR/ShareX.HistoryLib.resources.dll 9216
+  Languages/pt-BR/ShareX.ImageEffectsLib.resources.dll 5120
+  Languages/pt-BR/ShareX.MediaLib.resources.dll 5120
+  Languages/pt-BR/ShareX.ScreenCaptureLib.resources.dll 17408
+  Languages/pt-BR/ShareX.UploadersLib.resources.dll 42496
+  Languages/pt-BR/ShareX.resources.dll 62976
+  Languages/ru/ShareX.HelpersLib.resources.dll 59392
+  Languages/ru/ShareX.HistoryLib.resources.dll 11776
+  Languages/ru/ShareX.ImageEffectsLib.resources.dll 5632
+  Languages/ru/ShareX.IndexerLib.resources.dll 4096
+  Languages/ru/ShareX.MediaLib.resources.dll 6144
+  Languages/ru/ShareX.ScreenCaptureLib.resources.dll 35840
+  Languages/ru/ShareX.UploadersLib.resources.dll 54784
+  Languages/ru/ShareX.resources.dll 86016
+  Languages/tr/ShareX.HelpersLib.resources.dll 51712
+  Languages/tr/ShareX.HistoryLib.resources.dll 12288
+  Languages/tr/ShareX.ImageEffectsLib.resources.dll 5632
+  Languages/tr/ShareX.IndexerLib.resources.dll 4096
+  Languages/tr/ShareX.MediaLib.resources.dll 5632
+  Languages/tr/ShareX.ScreenCaptureLib.resources.dll 22528
+  Languages/tr/ShareX.UploadersLib.resources.dll 34304
+  Languages/tr/ShareX.resources.dll 71680
+  Languages/uk/ShareX.HelpersLib.resources.dll 24576
+  Languages/uk/ShareX.HistoryLib.resources.dll 9216
+  Languages/uk/ShareX.ImageEffectsLib.resources.dll 4608
+  Languages/uk/ShareX.MediaLib.resources.dll 5120
+  Languages/uk/ShareX.ScreenCaptureLib.resources.dll 8704
+  Languages/uk/ShareX.UploadersLib.resources.dll 29696
+  Languages/uk/ShareX.resources.dll 68608
+  Languages/vi-VN/ShareX.HelpersLib.resources.dll 54784
+  Languages/vi-VN/ShareX.HistoryLib.resources.dll 10752
+  Languages/vi-VN/ShareX.ImageEffectsLib.resources.dll 5632
+  Languages/vi-VN/ShareX.IndexerLib.resources.dll 4096
+  Languages/vi-VN/ShareX.MediaLib.resources.dll 5632
+  Languages/vi-VN/ShareX.ScreenCaptureLib.resources.dll 30720
+  Languages/vi-VN/ShareX.UploadersLib.resources.dll 53760
+  Languages/vi-VN/ShareX.resources.dll 77312
+  Languages/zh-CN/ShareX.HelpersLib.resources.dll 49664
+  Languages/zh-CN/ShareX.HistoryLib.resources.dll 9728
+  Languages/zh-CN/ShareX.ImageEffectsLib.resources.dll 5632
+  Languages/zh-CN/ShareX.MediaLib.resources.dll 5632
+  Languages/zh-CN/ShareX.ScreenCaptureLib.resources.dll 28160
+  Languages/zh-CN/ShareX.UploadersLib.resources.dll 47616
+  Languages/zh-CN/ShareX.resources.dll 70656
+  Languages/zh-TW/ShareX.HelpersLib.resources.dll 43520
+  Languages/zh-TW/ShareX.HistoryLib.resources.dll 9216
+  Languages/zh-TW/ShareX.ImageEffectsLib.resources.dll 5120
+  Languages/zh-TW/ShareX.MediaLib.resources.dll 4608
+  Languages/zh-TW/ShareX.ScreenCaptureLib.resources.dll 15872
+  Languages/zh-TW/ShareX.UploadersLib.resources.dll 33792
+  Languages/zh-TW/ShareX.resources.dll 61952
+  Licenses/BlobEmoji_license.txt 11399
+  Licenses/DirectShow_devices_license.txt 2584
+  Licenses/FFmpeg_license.txt 26530
+  Licenses/FluentFTP_license.txt 1058
+  Licenses/Icons_license.txt 16772
+  Licenses/ImageListView_license.txt 11358
+  Licenses/Json.NET_license.txt 1084
+  Licenses/MegaApiClient_license.txt 1075
+  Licenses/SSH.NET_license.txt 1456
+  Licenses/ShareX_license.txt 35146
+  Licenses/Steamworks.NET_license.txt 1082
+  Licenses/ZXing.Net_license.txt 11357
+  Licenses/Zeranoe_FFmpeg_license.txt 35147
+  MegaApiClient.dll 113152
+  Newtonsoft.Json.dll 675240
+  Recorder-devices-setup.exe 652047
+  Renci.SshNet.dll 422912
+  ShareX.HelpersLib.dll 1018368
+  ShareX.HistoryLib.dll 120320
+  ShareX.ImageEffectsLib.dll 92672
+  ShareX.IndexerLib.dll 42496
+  ShareX.MediaLib.dll 74240
+  ShareX.ScreenCaptureLib.dll 601600
+  ShareX.UploadersLib.dll 2142208
+  ShareX.exe 1884160
+  ShareX.exe.config 982
+  ShareX_NativeMessagingHost.exe 6656
+  Stickers/BlobEmoji/RedTick.png 1714
+  Stickers/BlobEmoji/b1nzyblob.png 4488
+  Stickers/BlobEmoji/b1nzyblob2.png 4058
+  Stickers/BlobEmoji/b4nzyblob.png 5588
+  Stickers/BlobEmoji/blob.png 2943
+  Stickers/BlobEmoji/blob0w0.png 4883
+  Stickers/BlobEmoji/blobamused.png 3920
+  Stickers/BlobEmoji/blobangel.png 5482
+  Stickers/BlobEmoji/blobangery.png 6038
+  Stickers/BlobEmoji/blobangry.png 4545
+  Stickers/BlobEmoji/blobastonished.png 4642
+  Stickers/BlobEmoji/blobawkward.png 4043
+  Stickers/BlobEmoji/blobaww.png 5484
+  Stickers/BlobEmoji/blobbandage.png 2058
+  Stickers/BlobEmoji/blobblush.png 5129
+  Stickers/BlobEmoji/blobbored.png 3545
+  Stickers/BlobEmoji/blobbowing.png 1427
+  Stickers/BlobEmoji/blobbroken.png 5098
+  Stickers/BlobEmoji/blobcamera.png 5140
+  Stickers/BlobEmoji/blobcat.png 5506
+  Stickers/BlobEmoji/blobcheeky.png 4740
+  Stickers/BlobEmoji/blobcheer.png 2826
+  Stickers/BlobEmoji/blobcmereyou.png 4528
+  Stickers/BlobEmoji/blobconfounded.png 4028
+  Stickers/BlobEmoji/blobconfused.png 4238
+  Stickers/BlobEmoji/blobcool.png 4767
+  Stickers/BlobEmoji/blobcouncil.png 6034
+  Stickers/BlobEmoji/blobcouple.png 4781
+  Stickers/BlobEmoji/blobcowboy.png 4766
+  Stickers/BlobEmoji/blobcry.png 4274
+  Stickers/BlobEmoji/blobdancer.png 4381
+  Stickers/BlobEmoji/blobdead.png 4379
+  Stickers/BlobEmoji/blobderpy.png 4293
+  Stickers/BlobEmoji/blobderpyhappy.png 3997
+  Stickers/BlobEmoji/blobdetective.png 2331
+  Stickers/BlobEmoji/blobdevil.png 5091
+  Stickers/BlobEmoji/blobdisapproval.png 4495
+  Stickers/BlobEmoji/blobdizzy.png 5753
+  Stickers/BlobEmoji/blobdoubt.png 4890
+  Stickers/BlobEmoji/blobdrool.png 4085
+  Stickers/BlobEmoji/blobenjoy.png 3988
+  Stickers/BlobEmoji/blobexpressionless.png 3189
+  Stickers/BlobEmoji/blobeyesdown.png 4525
+  Stickers/BlobEmoji/blobeyesup.png 4590
+  Stickers/BlobEmoji/blobfacepalm.png 5189
+  Stickers/BlobEmoji/blobfearful.png 4974
+  Stickers/BlobEmoji/blobfingerguns.png 6351
+  Stickers/BlobEmoji/blobfistbumpL.png 3626
+  Stickers/BlobEmoji/blobfistbumpR.png 3663
+  Stickers/BlobEmoji/blobflushed.png 4240
+  Stickers/BlobEmoji/blobfrog.png 4286
+  Stickers/BlobEmoji/blobfrown.png 4173
+  Stickers/BlobEmoji/blobfrowning.png 3977
+  Stickers/BlobEmoji/blobfrowningbig.png 1551
+  Stickers/BlobEmoji/blobgift.png 6126
+  Stickers/BlobEmoji/blobgiggle.png 6268
+  Stickers/BlobEmoji/blobglare.png 4076
+  Stickers/BlobEmoji/blobglassesdown.png 6850
+  Stickers/BlobEmoji/blobgo.png 4702
+  Stickers/BlobEmoji/blobgoat.png 5286
+  Stickers/BlobEmoji/blobgrin.png 5262
+  Stickers/BlobEmoji/blobhammer.png 5998
+  Stickers/BlobEmoji/blobheart.png 4792
+  Stickers/BlobEmoji/blobhearteyes.png 5855
+  Stickers/BlobEmoji/blobhero.png 4777
+  Stickers/BlobEmoji/blobhighfive.png 4863
+  Stickers/BlobEmoji/blobhug.png 6782
+  Stickers/BlobEmoji/blobhuh.png 4262
+  Stickers/BlobEmoji/blobhyperthink.png 7116
+  Stickers/BlobEmoji/blobhyperthinkfast.png 6725
+  Stickers/BlobEmoji/blobhypesquad.png 5502
+  Stickers/BlobEmoji/blobidea.png 4398
+  Stickers/BlobEmoji/blobimfine.png 4378
+  Stickers/BlobEmoji/blobjoy.png 5591
+  Stickers/BlobEmoji/blobkiss.png 4049
+  Stickers/BlobEmoji/blobkissblush.png 5392
+  Stickers/BlobEmoji/blobkissheart.png 4147
+  Stickers/BlobEmoji/bloblamp.png 7814
+  Stickers/BlobEmoji/bloblul.png 5476
+  Stickers/BlobEmoji/blobmail.png 3928
+  Stickers/BlobEmoji/blobmelt.png 4319
+  Stickers/BlobEmoji/blobmeltsob.png 4545
+  Stickers/BlobEmoji/blobmeltsoblove.png 5132
+  Stickers/BlobEmoji/blobmindblown.png 6411
+  Stickers/BlobEmoji/blobmoustache.png 4541
+  Stickers/BlobEmoji/blobnauseated.png 4291
+  Stickers/BlobEmoji/blobnerd.png 1961
+  Stickers/BlobEmoji/blobnervous.png 4292
+  Stickers/BlobEmoji/blobneutral.png 3184
+  Stickers/BlobEmoji/blobninja.png 4607
+  Stickers/BlobEmoji/blobnitro.png 5214
+  Stickers/BlobEmoji/blobno.png 4348
+  Stickers/BlobEmoji/blobnogood.png 1833
+  Stickers/BlobEmoji/blobnom.png 5896
+  Stickers/BlobEmoji/blobnomchristmas.png 5877
+  Stickers/BlobEmoji/blobnomcookie.png 6775
+  Stickers/BlobEmoji/blobnomouth.png 3584
+  Stickers/BlobEmoji/blobnostar.png 5427
+  Stickers/BlobEmoji/blobnotsureif.png 4326
+  Stickers/BlobEmoji/blobnwn.png 5183
+  Stickers/BlobEmoji/blobok.png 5103
+  Stickers/BlobEmoji/blobokhand.png 5030
+  Stickers/BlobEmoji/blobonfire.png 4172
+  Stickers/BlobEmoji/blobooh.png 5482
+  Stickers/BlobEmoji/blobopenmouth.png 4057
+  Stickers/BlobEmoji/bloboro.png 4367
+  Stickers/BlobEmoji/bloboutage.png 4594
+  Stickers/BlobEmoji/blobowo.png 4292
+  Stickers/BlobEmoji/blobowoevil.png 4176
+  Stickers/BlobEmoji/blobpan.png 5704
+  Stickers/BlobEmoji/blobpartlysunny.png 3308
+  Stickers/BlobEmoji/blobparty.png 5901
+  Stickers/BlobEmoji/blobpatrol.png 4953
+  Stickers/BlobEmoji/blobpats.png 6653
+  Stickers/BlobEmoji/blobpeek.png 3095
+  Stickers/BlobEmoji/blobpensive.png 4098
+  Stickers/BlobEmoji/blobpin.png 4637
+  Stickers/BlobEmoji/blobpolice.png 4433
+  Stickers/BlobEmoji/blobpoliceangry.png 5922
+  Stickers/BlobEmoji/blobpoll.png 4072
+  Stickers/BlobEmoji/blobpopcorn.png 4112
+  Stickers/BlobEmoji/blobpopsicle.png 4500
+  Stickers/BlobEmoji/blobpout.png 5447
+  Stickers/BlobEmoji/blobpout2.png 3621
+  Stickers/BlobEmoji/blobpray.png 1579
+  Stickers/BlobEmoji/blobreach.png 2975
+  Stickers/BlobEmoji/blobreachdrool.png 5231
+  Stickers/BlobEmoji/blobreachreverse.png 2982
+  Stickers/BlobEmoji/blobrofl.png 4804
+  Stickers/BlobEmoji/blobrollingeyes.png 1394
+  Stickers/BlobEmoji/blobross.png 5140
+  Stickers/BlobEmoji/blobsad.png 4311
+  Stickers/BlobEmoji/blobsadcloud.png 4700
+  Stickers/BlobEmoji/blobsadpats.png 5014
+  Stickers/BlobEmoji/blobsadreach.png 5943
+  Stickers/BlobEmoji/blobsalute.png 5577
+  Stickers/BlobEmoji/blobsanta.png 4961
+  Stickers/BlobEmoji/blobscream.png 2369
+  Stickers/BlobEmoji/blobshh.png 4801
+  Stickers/BlobEmoji/blobshrug.png 3656
+  Stickers/BlobEmoji/blobsip.png 6197
+  Stickers/BlobEmoji/blobsleeping.png 4253
+  Stickers/BlobEmoji/blobsleepless.png 4225
+  Stickers/BlobEmoji/blobsmile.png 4199
+  Stickers/BlobEmoji/blobsmilehappy.png 5220
+  Stickers/BlobEmoji/blobsmilehappyeyes.png 5254
+  Stickers/BlobEmoji/blobsmileopenmouth.png 5135
+  Stickers/BlobEmoji/blobsmileopenmouth2.png 4939
+  Stickers/BlobEmoji/blobsmilesweat.png 3174
+  Stickers/BlobEmoji/blobsmilesweat2.png 4374
+  Stickers/BlobEmoji/blobsmiley.png 4298
+  Stickers/BlobEmoji/blobsmirk.png 4251
+  Stickers/BlobEmoji/blobsneezing.png 5483
+  Stickers/BlobEmoji/blobsnuggle.png 5245
+  Stickers/BlobEmoji/blobsob.png 5412
+  Stickers/BlobEmoji/blobsplosion.png 6588
+  Stickers/BlobEmoji/blobspy.png 4461
+  Stickers/BlobEmoji/blobstop.png 4865
+  Stickers/BlobEmoji/blobsurprised.png 1409
+  Stickers/BlobEmoji/blobsweats.png 4747
+  Stickers/BlobEmoji/blobteefs.png 3801
+  Stickers/BlobEmoji/blobthanks.png 4080
+  Stickers/BlobEmoji/blobthinking.png 5249
+  Stickers/BlobEmoji/blobthinkingcool.png 6061
+  Stickers/BlobEmoji/blobthinkingdown.png 5467
+  Stickers/BlobEmoji/blobthinkingeyes.png 5719
+  Stickers/BlobEmoji/blobthinkingfast.png 6201
+  Stickers/BlobEmoji/blobthinkingglare.png 5347
+  Stickers/BlobEmoji/blobthinkingsmirk.png 4027
+  Stickers/BlobEmoji/blobthinksmart.png 5501
+  Stickers/BlobEmoji/blobthis.png 5374
+  Stickers/BlobEmoji/blobthonkang.png 5304
+  Stickers/BlobEmoji/blobthumbsdown.png 5124
+  Stickers/BlobEmoji/blobthumbsup.png 4525
+  Stickers/BlobEmoji/blobthump.png 4746
+  Stickers/BlobEmoji/blobtilt.png 1918
+  Stickers/BlobEmoji/blobtired.png 4374
+  Stickers/BlobEmoji/blobtongue.png 4512
+  Stickers/BlobEmoji/blobtonguewink.png 4540
+  Stickers/BlobEmoji/blobtorch.png 3378
+  Stickers/BlobEmoji/blobtriumph.png 5598
+  Stickers/BlobEmoji/blobugh.png 4998
+  Stickers/BlobEmoji/blobunamused.png 3863
+  Stickers/BlobEmoji/blobunsure.png 4351
+  Stickers/BlobEmoji/blobupset.png 5611
+  Stickers/BlobEmoji/blobupsidedown.png 4096
+  Stickers/BlobEmoji/blobuwu.png 4777
+  Stickers/BlobEmoji/blobvomiting.png 5303
+  Stickers/BlobEmoji/blobwaitwhat.png 4169
+  Stickers/BlobEmoji/blobwave.png 3872
+  Stickers/BlobEmoji/blobwavereverse.png 3859
+  Stickers/BlobEmoji/blobweary.png 3941
+  Stickers/BlobEmoji/blobwhistle.png 4562
+  Stickers/BlobEmoji/blobwink.png 4496
+  Stickers/BlobEmoji/blobwitch.png 5801
+  Stickers/BlobEmoji/blobwizard.png 4576
+  Stickers/BlobEmoji/blobwoah.png 4220
+  Stickers/BlobEmoji/blobworried.png 4550
+  Stickers/BlobEmoji/blobxd.png 4814
+  Stickers/BlobEmoji/blobyes.png 4480
+  Stickers/BlobEmoji/blobyikes.png 5370
+  Stickers/BlobEmoji/blobyum.png 4911
+  Stickers/BlobEmoji/blobzippermouth.png 1611
+  Stickers/BlobEmoji/bolb.png 2808
+  Stickers/BlobEmoji/doggoblob.png 4888
+  Stickers/BlobEmoji/feelsblobman.png 4186
+  Stickers/BlobEmoji/ferretblob.png 5845
+  Stickers/BlobEmoji/gentleblob.png 5725
+  Stickers/BlobEmoji/googlebear.png 5273
+  Stickers/BlobEmoji/googlebee.png 5861
+  Stickers/BlobEmoji/googleblueheart.png 1838
+  Stickers/BlobEmoji/googlecake.png 5461
+  Stickers/BlobEmoji/googlecat.png 5000
+  Stickers/BlobEmoji/googlecatface.png 4644
+  Stickers/BlobEmoji/googlecatheart.png 4924
+  Stickers/BlobEmoji/googlechick.png 4426
+  Stickers/BlobEmoji/googlechicken.png 4273
+  Stickers/BlobEmoji/googlechipmunk.png 2804
+  Stickers/BlobEmoji/googlecow.png 5727
+  Stickers/BlobEmoji/googledog.png 5153
+  Stickers/BlobEmoji/googledove.png 4576
+  Stickers/BlobEmoji/googleeagle.png 6019
+  Stickers/BlobEmoji/googlefire.png 2773
+  Stickers/BlobEmoji/googlefox.png 5950
+  Stickers/BlobEmoji/googleghost.png 6147
+  Stickers/BlobEmoji/googlegoat.png 4989
+  Stickers/BlobEmoji/googlegun.png 2564
+  Stickers/BlobEmoji/googleicecream.png 3694
+  Stickers/BlobEmoji/googlekoala.png 4579
+  Stickers/BlobEmoji/googlelion.png 6045
+  Stickers/BlobEmoji/googlemouse.png 5228
+  Stickers/BlobEmoji/googlemuscleL.png 1459
+  Stickers/BlobEmoji/googlemuscleR.png 1460
+  Stickers/BlobEmoji/googlepanda.png 5782
+  Stickers/BlobEmoji/googlepenguin.png 3425
+  Stickers/BlobEmoji/googlepig.png 4460
+  Stickers/BlobEmoji/googlepizza.png 5873
+  Stickers/BlobEmoji/googlerabbit.png 3942
+  Stickers/BlobEmoji/googlerat.png 1947
+  Stickers/BlobEmoji/googleredheart.png 1620
+  Stickers/BlobEmoji/googlesheep.png 5597
+  Stickers/BlobEmoji/googlesnake.png 4987
+  Stickers/BlobEmoji/googleturtle.png 5069
+  Stickers/BlobEmoji/googlewhale.png 4502
+  Stickers/BlobEmoji/greentick.png 1095
+  Stickers/BlobEmoji/jakeblob.png 4982
+  Stickers/BlobEmoji/kirbyblob.png 4848
+  Stickers/BlobEmoji/nellyblob.png 7273
+  Stickers/BlobEmoji/nikoblob.png 6107
+  Stickers/BlobEmoji/notlikeblob.png 5965
+  Stickers/BlobEmoji/pandablob.png 6125
+  Stickers/BlobEmoji/photoblob.png 3177
+  Stickers/BlobEmoji/pikablob.png 5602
+  Stickers/BlobEmoji/pusheenblob.png 3865
+  Stickers/BlobEmoji/rainblob.png 4732
+  Stickers/BlobEmoji/reindeerblob.png 6560
+  Stickers/BlobEmoji/rickblob.png 4895
+  Stickers/BlobEmoji/thinkingwithblobs.png 5826
+  Stickers/BlobEmoji/wolfiriblob.png 6031
+  Stickers/BlobEmoji/wumpusblob.png 4223
+  puush 0
+  tmp/isxdl.dll 124416
+  zxing.dll 441344
+  zxing.presentation.dll 19456
+extracted: 409 items
+  FluentFTP.dll 232960 a91177dd78c4f864ce10cbf1fb8aad63680f7965a6ef7204e4214eb322a34e27
+  ImageListView.dll 263168 a933db6e47f1aeeb6a98c3033eec464ec68d02588eefc931b445bb104f0393c3
+  Interop.IWshRuntimeLibrary.dll 37376 ae18fbfd73879ee61ef083b12d2a06a0afa8805ef37f2387a0ba632a05d439eb
+  Interop.Shell32.dll 38912 25663fac6645142b1711891b1bc060c10c237a66ac0e8f08f718d1a35a3fae63
+  Languages/de/ShareX.HelpersLib.resources.dll 43008 01cbff7c98ef82ecd81054dc2a485fda7d1026405a8c9ca366a3efc588b5ccc4
+  Languages/de/ShareX.HistoryLib.resources.dll 9216 fe349a8326af6b5e8e24c6855c1ee74031204f6fbd8d16b1cf804b90b9f2c30c
+  Languages/de/ShareX.ImageEffectsLib.resources.dll 5120 102420b577b1b2a486084f5350814af35e246e4ea4030d2593cd45106992100a
+  Languages/de/ShareX.MediaLib.resources.dll 5632 9a89e1aebe67e8e18c33800480b62a005fd1840f24a6de299d9d38bae61c4628
+  Languages/de/ShareX.ScreenCaptureLib.resources.dll 18432 0448d96371b8d1f42a0aae843ba24e3e6aae50803e967c2ee005fb83a6c41edd
+  Languages/de/ShareX.UploadersLib.resources.dll 32768 9785d6ca5a0c409b0e21c35c013566b9ef63d8a9a02cb2d4624f4b4a9848cbf6
+  Languages/de/ShareX.resources.dll 71168 a7649f6a84b69aec927df87a44a6e018716f79e926477511a30f55e35733c4ed
+  Languages/es-MX/ShareX.HelpersLib.resources.dll 53760 9ee3c145d79a68f7a2ac5c1d9b509538233e1cb73820b61e997fdc8032299c85
+  Languages/es-MX/ShareX.HistoryLib.resources.dll 10240 8dba9bf4d7fbf05d271fab7ec37e8fdd115368d748aeda954362592a6017a2c8
+  Languages/es-MX/ShareX.ImageEffectsLib.resources.dll 5632 639ec40e48ef37c9085a2fedd6aa01b21f58d7dbbb1a72f4035987ee7e25ebaf
+  Languages/es-MX/ShareX.IndexerLib.resources.dll 4096 ee360377b844bfff8ebf22f115d5af5b3059cd86838ca8fc08bc8f0bf64e055c
+  Languages/es-MX/ShareX.MediaLib.resources.dll 5632 210063c60c818c2633ead64a86bcae0c28c4ff45ad1bda17b7fc6a6ecbc8e582
+  Languages/es-MX/ShareX.ScreenCaptureLib.resources.dll 28160 44c39511e7aa3273340864715fbcf8579aecc2f4c028f78e6bf338eb58855aae
+  Languages/es-MX/ShareX.UploadersLib.resources.dll 50176 13f3647143ae9f66d2f18bd450e1547ccd5cad48b06a50ed40a85b4ad0fdf354
+  Languages/es-MX/ShareX.resources.dll 75264 df6d42865bdba3368ce7c551db38bc0364666d46049c14cab7cef53252eaad9f
+  Languages/es/ShareX.HelpersLib.resources.dll 31744 72316ffab8e286da5cff3f2ce90742db713e1d388eab52ead071b5afe17dd433
+  Languages/es/ShareX.HistoryLib.resources.dll 9216 7d29efa61807a910336c292f7a3d3734e5f08b044bcd9de8ff36e82c4e89c8f0
+  Languages/es/ShareX.ImageEffectsLib.resources.dll 5120 8f7c0134ee3686f437012fd4b7d6c6ad77ddaa800639bc0b7d0d371c957d621f
+  Languages/es/ShareX.ScreenCaptureLib.resources.dll 7680 452ad7f731224422c9f02f6f17c509fbe2bf26929427f64896bbaaa11de0cbd3
+  Languages/es/ShareX.UploadersLib.resources.dll 25600 ec5fb996f01b35ec41f1f57523075d87083c53100a78408742d2756264afb606
+  Languages/es/ShareX.resources.dll 48128 4f4122179c56e0c6b54494f9a21f0c0ef868f0a4dc61b19ad85bcf34eb4c7813
+  Languages/fr/ShareX.HelpersLib.resources.dll 48640 89c21eeaed9835eaf628689058f02f70056d7e39ef246e91a733c012db6a57e8
+  Languages/fr/ShareX.HistoryLib.resources.dll 9216 63d0f4447b5dcbcdc2c0f240dac6f4b524f92f43a9a352a847fda67c5f1a1b63
+  Languages/fr/ShareX.ImageEffectsLib.resources.dll 5120 205902d72dfd89b3478d8b9d96e5987db19486573cc2162aa8d69a03d8a83c8e
+  Languages/fr/ShareX.MediaLib.resources.dll 5632 57ccf85e2d42fe44d15c4c10ad1b48382a41f2186a53229423783aa8055a4313
+  Languages/fr/ShareX.ScreenCaptureLib.resources.dll 20480 1f4f1d10abff11518d2568414ca812cf7bb908a8673826ccfd2f183d717dbc9f
+  Languages/fr/ShareX.UploadersLib.resources.dll 40960 77cdb56f9f562ab22825ad892459c3338c1cbf00fbced27001e017010c4c3f64
+  Languages/fr/ShareX.resources.dll 73216 8acc996a05331e4548f391368d50691725d9a6a15281b497166d75ca8163cfae
+  Languages/hu/ShareX.HelpersLib.resources.dll 30720 465073b38b7c942c48be5f840fe1a24af8a4ebc61cd8fb51713f367e26d5d9f7
+  Languages/hu/ShareX.HistoryLib.resources.dll 9216 49262ab1e5946220bfde419ac9d6db9b99287ba5fc2eeb9f21218e84ac2a9a21
+  Languages/hu/ShareX.ImageEffectsLib.resources.dll 5120 93becce822f587dae4e240e61169cf684eb551fa449d72d6586c91e572a1b97b
+  Languages/hu/ShareX.ScreenCaptureLib.resources.dll 7168 1a6eb0dfbdb9484e8ef46fe639581ff621bc3b7b4c8d966791107a861324a00e
+  Languages/hu/ShareX.UploadersLib.resources.dll 25600 a2d330ed9380782f976dec3c6fbad1e722f2c1a3b8a73113d429cf1118118a83
+  Languages/hu/ShareX.resources.dll 47616 21f9397f0107b3092d854f95150039bafc1ead58316b9f51363b6f405071802b
+  Languages/id-ID/ShareX.HelpersLib.resources.dll 50176 3714d4ab1e69c272cd954174fe1cee32a4105b8432d5be9a44dd179ad404a8f8
+  Languages/id-ID/ShareX.ImageEffectsLib.resources.dll 5632 496c796dff5ae2e25e3681ad1ea00ab6fb7eab7782d188ced32a9f75af5943e9
+  Languages/id-ID/ShareX.MediaLib.resources.dll 5632 11da962166e5a0755ebc75393341f24886d71f1aff90c161c4999c4ed2f18556
+  Languages/id-ID/ShareX.ScreenCaptureLib.resources.dll 26112 c59b1696ef4f847c4eaaca4e1259b18bdc94523865000ec6e1c03d7d34a48615
+  Languages/id-ID/ShareX.UploadersLib.resources.dll 47104 b493eed772bb53138eff6671391d60ff285f3db4b3b3cb4cec87322219fb2e7b
+  Languages/id-ID/ShareX.resources.dll 71168 dbd28ee4fdf2b89faf312599617c71fc9a59f845ec9d4c801ad518d19262ef3d
+  Languages/it-IT/ShareX.HelpersLib.resources.dll 49152 22e381cebb79765a7b1f5d6cd13cfa666999f278df0de7d8761233ade1a298ec
+  Languages/it-IT/ShareX.HistoryLib.resources.dll 9216 292443484cf5fb55676392e9022532dc50762b66acabffb393fe79075fc6e1a3
+  Languages/it-IT/ShareX.ImageEffectsLib.resources.dll 5120 4b441cf19721d25b6160c2209e5411d02c7bfc39d239b29a5e2afdede27fb5e2
+  Languages/it-IT/ShareX.MediaLib.resources.dll 5120 7f6d6ba28551ef7e65c9905016818a5fb6fa2695cb74fc375179efe718e67218
+  Languages/it-IT/ShareX.ScreenCaptureLib.resources.dll 19968 5e5521ab126846419a568232ff6801f7ec9952796a1a64d5e363983e0ed39066
+  Languages/it-IT/ShareX.UploadersLib.resources.dll 41984 dc025a5d82e253fb80d7aa04d80ca3378f980704bf5f9d83e7e94e0f8f84fd4d
+  Languages/it-IT/ShareX.resources.dll 71680 6c6d11c19b5a3ac69ece569e6afef4f39936f24247e03b5f6d5ad44afcdc6768
+  Languages/ko-KR/ShareX.HelpersLib.resources.dll 51712 293546fd3067fae5eca8c3d8a8fa6dcd6a5c2442e6a5e5b1ac5ae1e986013f87
+  Languages/ko-KR/ShareX.HistoryLib.resources.dll 9728 ede745c8949ecdae92e97e6e3bdeaed30e109375d747a5ed313ecf9408392c7b
+  Languages/ko-KR/ShareX.ImageEffectsLib.resources.dll 5632 f31bae6e568dc64a9556724594d00155c9e48e437a4e31a65a152722f5df4466
+  Languages/ko-KR/ShareX.IndexerLib.resources.dll 4096 a4f9b003380643d314d6a3b3de7b2a2e612e29c1ac6a05122f1b990035c90ae9
+  Languages/ko-KR/ShareX.MediaLib.resources.dll 5632 40d77eae3f1f586f3d8515fbd79ad7befcf5949e15281dd5d03658428f227759
+  Languages/ko-KR/ShareX.ScreenCaptureLib.resources.dll 28160 c0cc6272eb9aaadf9ef4c0b36aa501f74a94b464de37562d46fcfa9718233471
+  Languages/ko-KR/ShareX.UploadersLib.resources.dll 49152 3a2d484284c2d8818059c04eddfc4fe030720816ad04724ccba8393bb1b39ceb
+  Languages/ko-KR/ShareX.resources.dll 73728 2e0ea404bcb342faaa3c1597d74a6285ea8d08dc1e5ebb5c28a29113488b6cd0
+  Languages/nl-NL/ShareX.HelpersLib.resources.dll 40960 b759b678c97f2772a88571d99286119997c45e9f4af71f6e975b0028ca843eda
+  Languages/nl-NL/ShareX.HistoryLib.resources.dll 9216 bcf2dc83f81ef511a1c78514702603118f05bef8d74fb2b976bee066f7cdbf12
+  Languages/nl-NL/ShareX.ImageEffectsLib.resources.dll 5120 ecd7f51057bed505dd038f0d84f5397e9341280905e2f754b62c5a85ae4d38d4
+  Languages/nl-NL/ShareX.MediaLib.resources.dll 5120 3f084cddaf51110f61f58f598788a91c506fc1721a60fb9a03886b50d8861865
+  Languages/nl-NL/ShareX.ScreenCaptureLib.resources.dll 16384 bb6b1be0c2d5d44f558972ef5711e1bb68d5eacd33484df55b39bb971e07ad27
+  Languages/nl-NL/ShareX.UploadersLib.resources.dll 31744 5640c78557b2ed27db474de2bbae82a95bc69da1b43b42b99dc9a11e3dce833b
+  Languages/nl-NL/ShareX.resources.dll 60416 03355a2526e2e06085faa3a69240de45b3c6f243ef26c2acf4bc10b8954df7aa
+  Languages/pt-BR/ShareX.HelpersLib.resources.dll 45056 b3e302f43bdc3d42fac937abd88e11fcab4a7a5cbb0c7f8bf4bf36f1dff013d1
+  Languages/pt-BR/ShareX.HistoryLib.resources.dll 9216 e24214bd88f5f63feb5b7d980817587263e6894970621c0a08df337e071b110b
+  Languages/pt-BR/ShareX.ImageEffectsLib.resources.dll 5120 4ba154aca9cbc56de96f6815e6e30200c9a4538ce7720c17c6f68946d10c944d
+  Languages/pt-BR/ShareX.MediaLib.resources.dll 5120 f5c3a39dbd74eaa053b79e772dbb37119415a9b42f70ff9be222da232e70cf93
+  Languages/pt-BR/ShareX.ScreenCaptureLib.resources.dll 17408 382bdb84a906e1cf9848a5cab69065187e3ae7e3b382e57ed31579ae27f73eb2
+  Languages/pt-BR/ShareX.UploadersLib.resources.dll 42496 8096d157f84d41639623691bc255ffdf910f71e38aa4114a808eec71310c646a
+  Languages/pt-BR/ShareX.resources.dll 62976 bc5834a0f19d8270961667f15636e1bd4d6cde9a1c0e2b52b1b992d2571e7b2a
+  Languages/ru/ShareX.HelpersLib.resources.dll 59392 3e241ea9e7fba81998fa3923f3550fc0e2d7b63dd9f2c974242b7617fcd8f361
+  Languages/ru/ShareX.HistoryLib.resources.dll 11776 33f389960a686601d0daa105a12f2d48dd29001ea1b832658dca2e67b0d1448a
+  Languages/ru/ShareX.ImageEffectsLib.resources.dll 5632 37c948264df298e0b404cc7d7292271ae610d7705e43a850ed7eea7eaa85aad9
+  Languages/ru/ShareX.IndexerLib.resources.dll 4096 a55e879fdfd6f19dd045264e863bd367e27646354407aec66a673b149f4ae5cf
+  Languages/ru/ShareX.MediaLib.resources.dll 6144 ac645874b9cb83e3de917f04486296494dbac04f97f6aad236be14613c12b4b1
+  Languages/ru/ShareX.ScreenCaptureLib.resources.dll 35840 9386d82c3b89ac2c26207ba607c464ada36dd93ef934dc4bda4edd716995b69e
+  Languages/ru/ShareX.UploadersLib.resources.dll 54784 19b9b285e42a0734508d2884d9e3d56f736f1ebf1075be9db9743a2888050376
+  Languages/ru/ShareX.resources.dll 86016 d1f101cf7aaf0d5a4d9bee3fd3c4a76c4fe8613ca83564c788f825e143a07692
+  Languages/tr/ShareX.HelpersLib.resources.dll 51712 598ae9c1136161f931ba362cd4afc53668bd20d0dc4dbbfa05325d1b6bdc0d58
+  Languages/tr/ShareX.HistoryLib.resources.dll 12288 245b08088ca61de80cbaf3b25c94dfc1ebfe266940f3fd36439ca97c171d6f42
+  Languages/tr/ShareX.ImageEffectsLib.resources.dll 5632 61db72443b662aeff22413168788225b0259c538edfa72ed7db961f121c150f4
+  Languages/tr/ShareX.IndexerLib.resources.dll 4096 15b59e6647a4b44bf2caa35cc3ed015598d041d099475f8effd4484b57e44296
+  Languages/tr/ShareX.MediaLib.resources.dll 5632 8e6533265ac99b4a892cf23342eca68f892e35da3b92fcd313812f2cdf73e5a1
+  Languages/tr/ShareX.ScreenCaptureLib.resources.dll 22528 ce6e33520c8b61d8bc6324ade7623a3bd3a0759939fd0d2794ab21feedd78356
+  Languages/tr/ShareX.UploadersLib.resources.dll 34304 7051cf059bb41db3c6713ca7c93ffc3539f1769d1a8b9e84b64f4372f11c22ea
+  Languages/tr/ShareX.resources.dll 71680 7494b8d7a135e28147db7866301e29a55945bdda1190810ba97af65ec46bb839
+  Languages/uk/ShareX.HelpersLib.resources.dll 24576 9ed54ac1d55ccbf6256250505435519e122afe1891f27f85272f44db23e289cb
+  Languages/uk/ShareX.HistoryLib.resources.dll 9216 10966521c39926c47034b6d3b4a816cddb46286fea413d37332c36817fab01ab
+  Languages/uk/ShareX.ImageEffectsLib.resources.dll 4608 1d0270465e46bd4c688a9f93a6c498ed2ababaf554582b65d80cb73fd849dc07
+  Languages/uk/ShareX.MediaLib.resources.dll 5120 cf1e41e26e991b657424eafe5b4d204b9a230ac15dec99407bca407ceee805ed
+  Languages/uk/ShareX.ScreenCaptureLib.resources.dll 8704 8b5cd3ae621156006e8ffef0ff4df64f507432967aff32562d8570f7def39378
+  Languages/uk/ShareX.UploadersLib.resources.dll 29696 357689b4168c4723bec35cb7abf133087ac6b70b9e137e5a00459ac2ce4041b3
+  Languages/uk/ShareX.resources.dll 68608 a79541ce5ad532721b37bf11464d2d71f1562e3e716c5e6c6029c70d0d35baf5
+  Languages/vi-VN/ShareX.HelpersLib.resources.dll 54784 43ccd1ca7a363af7409a2da090097ab60237f8ce3fdd7db28363944584e97305
+  Languages/vi-VN/ShareX.HistoryLib.resources.dll 10752 e94ba0959d1e1272db49a535a797df33b2142f49aec7f6d6652d0f40bf411275
+  Languages/vi-VN/ShareX.ImageEffectsLib.resources.dll 5632 981fac26bc989e50d3b98ef13decb1c86aa866e6ad154dfe3d39a8b06dc04681
+  Languages/vi-VN/ShareX.IndexerLib.resources.dll 4096 178220dd0049b06b2ea0b0d6b6bdaf554138cac54bca2922588ff45866c1ad41
+  Languages/vi-VN/ShareX.MediaLib.resources.dll 5632 0f7ffe00185253b79e01e6cee16708755ac3143e92da3849656ec50aabfdf448
+  Languages/vi-VN/ShareX.ScreenCaptureLib.resources.dll 30720 5b20f171b14607bd13354a292c081dccd4b92d6a0aecb3b54038a3f882ac048c
+  Languages/vi-VN/ShareX.UploadersLib.resources.dll 53760 13b7c3fba69b843c4863fbbbfbd64620f5891584681bf0fe929bb14832a97f98
+  Languages/vi-VN/ShareX.resources.dll 77312 f2cb0ce9dd6545301031e2d5cb49ea08d44d49a0e35abb052e2ef96b7a403c1b
+  Languages/zh-CN/ShareX.HelpersLib.resources.dll 49664 f1bc08465f356d8533b2f3538671e6d13dddea73c7eb361254bd22d9e12810d9
+  Languages/zh-CN/ShareX.HistoryLib.resources.dll 9728 ed96566daf7e7d1fd84d4552a5894ec2af11b378dcfea35f6bf624d2ac19c3ff
+  Languages/zh-CN/ShareX.ImageEffectsLib.resources.dll 5632 c84b73be422f950018c515d6f17308bf82bd84cc1e63307095761830edec187b
+  Languages/zh-CN/ShareX.MediaLib.resources.dll 5632 de8a23516541bc2395bdc6d7fb1b820c3f13473c86d3e683054a8d6560f54706
+  Languages/zh-CN/ShareX.ScreenCaptureLib.resources.dll 28160 e7497c05fa0ddbe7f91e0e57736cd6f4970e6eeda37653fc9457151e00abb448
+  Languages/zh-CN/ShareX.UploadersLib.resources.dll 47616 e3a07a3aa83dc3684e70dd00a6914f243f1356d64976321622c887d966613ba5
+  Languages/zh-CN/ShareX.resources.dll 70656 22099da81e2d0742fd7fc3b628b6b8ff0259414d38fede03f0b8bd2e9f40a974
+  Languages/zh-TW/ShareX.HelpersLib.resources.dll 43520 0f2d90c17cd1ed3f50af0643b827dd3c40c6749d733ebaa1facc77e1f729a5b8
+  Languages/zh-TW/ShareX.HistoryLib.resources.dll 9216 7969637e8264c13437d54d3152438e3b9cbad47b21f4118e8c47d5d02ebda1e2
+  Languages/zh-TW/ShareX.ImageEffectsLib.resources.dll 5120 38585603bae68a509c3d5b3f49f697c86c0ce9e2dd6fe9ff37d71899183aa485
+  Languages/zh-TW/ShareX.MediaLib.resources.dll 4608 5ef4a6c2a46528becb135edc2a25a604ea7b94aa3a57d959f66c3ffedce37d7f
+  Languages/zh-TW/ShareX.ScreenCaptureLib.resources.dll 15872 6880ef87cfebef9b6cedb17ef8c559acc96e974d5752f7549405bf0099aa7eb6
+  Languages/zh-TW/ShareX.UploadersLib.resources.dll 33792 8c90ab699f9e584297b8dead9fb4f5aef7f8668763bb847116c8c989c8e4031a
+  Languages/zh-TW/ShareX.resources.dll 61952 afd1bc79b87c628416cc0089abbf5171906d080f382e76fe9cde9820c01e55af
+  Licenses/BlobEmoji_license.txt 11399 8ad530518cb55a7b85b511a95ee326a4ef7d7bca411148dd434a8dacfc012f8b
+  Licenses/DirectShow_devices_license.txt 2584 492c3346b670ebdf45ecce4fe953d33eaab5bd0abaf18c90734a763eb34f311e
+  Licenses/FFmpeg_license.txt 26530 dc626520dcd53a22f727af3ee42c770e56c97a64fe3adb063799d8ab032fe551
+  Licenses/FluentFTP_license.txt 1058 aff8bbf7fc6456dbd680986913e2789464299a3c84467768eb13731349615e71
+  Licenses/Icons_license.txt 16772 f162c3af1e5ce26d0888e5cf939e932b473fd51096eec617ca5f25b551096cd5
+  Licenses/ImageListView_license.txt 11358 cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30
+  Licenses/Json.NET_license.txt 1084 d7f83bbea3264a8e23d7739e44d9db1a4994b357274df6f00876eb2e623827ad
+  Licenses/MegaApiClient_license.txt 1075 a73d7add1a4e9dd86d1eb604f86092c73b7065d0c12f430a288b4a5dc2769691
+  Licenses/SSH.NET_license.txt 1456 f45149d05f9a5f1309d21d018e825abad2a76ba11be427cf36e11b4f3f666f45
+  Licenses/ShareX_license.txt 35146 c53a65c2fd561c87eaabf1072ef5dcab8653042bc15308465f52413585eb6271
+  Licenses/Steamworks.NET_license.txt 1082 dfeca0a979daaa2553f6d3725a7326eb439b4e88791b8f0bd9eb3ae3aef2b499
+  Licenses/ZXing.Net_license.txt 11357 c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4
+  Licenses/Zeranoe_FFmpeg_license.txt 35147 8ceb4b9ee5adedde47b31e975c1d90c73ad27b6b165a1dcd80c7c545eb65b903
+  MegaApiClient.dll 113152 01c939451dba384826bbfa3e6298637e19487a28d932d6b74038f4cd5a586289
+  Newtonsoft.Json.dll 675240 b66749b81e1489fcd8d754b2ad39ebe0db681344e392a3f49dc9235643bdbd06
+  Recorder-devices-setup.exe 652047 8147b32e3d59fd493f9f216d27d194b48207a29d58274e4606fec09a91d07432
+  Renci.SshNet.dll 422912 f6315ed146438f7702033681043f8fe9690ed39a2abc9a192246424944a3a27a
+  ShareX.HelpersLib.dll 1018368 21982edb6a87c0f31479e4d7dc12514875a7a6d9252e6e06c099e110a370ad11
+  ShareX.HistoryLib.dll 120320 0a9dc143fc76aee423f905842ccbc5f1f2272b7d5ce5aeeb57ee43c30263f5b6
+  ShareX.ImageEffectsLib.dll 92672 6646be47ef0d2e9370f9c52ea023c090b02ea1bed9092bf9ad24f07c110cbe0c
+  ShareX.IndexerLib.dll 42496 d91cfe050fe7e39f62ce38d76a94c9a933cd98812164d6857142e58a178500e4
+  ShareX.MediaLib.dll 74240 19bce36284b0af53ab56e73af21460338d24b85c3a2b11937d7f3ae8e36bcd7d
+  ShareX.ScreenCaptureLib.dll 601600 375df45f10b3de97bec93decdcf492ad75868ef9afffab98d91c427208192d13
+  ShareX.UploadersLib.dll 2142208 a915755aa95841d2aa05e4d230765b2c4207c2c52bc981c576e3275bee8b2216
+  ShareX.exe 1884160 e9e2f343b70d804c9265c9692b44be93a1a287d2f9b1e126b7e84bb453915ac9
+  ShareX.exe.config 982 28ac5c20522bb80fe1b38cedc3d5f241f2499ce0eef1eca247e8564278697613
+  ShareX_NativeMessagingHost.exe 6656 d525791d6e0615803bb55b93d667149bd74c6ad2376ca4570e306e82393a7652
+  Stickers/BlobEmoji/RedTick.png 1714 f925f240f32388077166e6350aa3315fe157a23cdeef9fc2e2489cfdd4fc1576
+  Stickers/BlobEmoji/b1nzyblob.png 4488 19dcead074212cf52a818863789aaafdf147bdea1c9462ee8fc6768d7266eb28
+  Stickers/BlobEmoji/b1nzyblob2.png 4058 a174881241cacef01c6e06e9ced717386280833b8d224d7f5e8528f332686b87
+  Stickers/BlobEmoji/b4nzyblob.png 5588 c8f2c883080ce3b277b715e8a83fe88c548c77652477f53543d69665db3d3afd
+  Stickers/BlobEmoji/blob.png 2943 231e0a198f856fc5a52545c50f629094ce2057f900f4007ef9426bdac8b54324
+  Stickers/BlobEmoji/blob0w0.png 4883 59708ee4d9e028a8af2d2f8bd9df86f48318b3bf6d89124892a4015e2363c136
+  Stickers/BlobEmoji/blobamused.png 3920 4c873e3183cef220e455ad81576940e708677192bfaf53754a5c8bbbbbf02293
+  Stickers/BlobEmoji/blobangel.png 5482 24f07aa9370521a23e52f3f316ed265ae5eb120e9c99a6dd5eec7689aa2bb3dd
+  Stickers/BlobEmoji/blobangery.png 6038 5c41fefc79039d8633dee71bccbe92a438919a496a40651565f021beb7895784
+  Stickers/BlobEmoji/blobangry.png 4545 55b51c23a057d1dd8c2d11ceadcbd6d5c157d36fd05348e7c9f7110dbf48d257
+  Stickers/BlobEmoji/blobastonished.png 4642 8f72c1741902250cb1c9913aff69899fda6ac98323a1e587ae302c232724d3d5
+  Stickers/BlobEmoji/blobawkward.png 4043 663cbc9752c0f6cb78d3dbd1741dd6085ed55db23c23584d04f36d55d58bd5a0
+  Stickers/BlobEmoji/blobaww.png 5484 7b1b2a5fa6a2aa36e44b85fe11baaaacb61a5c2ea7aada17e00f9c3bc4083fc1
+  Stickers/BlobEmoji/blobbandage.png 2058 8262a721fbbad6c50fe1bdaa2d2c509743f9005e5ce41ac08208f98e506a4571
+  Stickers/BlobEmoji/blobblush.png 5129 d8d8abebc3e5e0869caefa7b5a68c7e711e4e06789ca6b22891abcd767ef84f3
+  Stickers/BlobEmoji/blobbored.png 3545 5585e32689a9a13ca48d7b61723a775cab4eff1ce6df89ed3756e7236a9651e2
+  Stickers/BlobEmoji/blobbowing.png 1427 f204841c64b993ec080487d9afb1ddbbfaad865473aa95a1c54d06df7d4e4db8
+  Stickers/BlobEmoji/blobbroken.png 5098 ab6e80f11c079a739c8259902627d89d2bb1d4ad9d8dd315bd3c9ba2ab4b75d5
+  Stickers/BlobEmoji/blobcamera.png 5140 8cf749480060ee9f4d5ec0606287743c93de54fa7836b1e7e63ca357b913b903
+  Stickers/BlobEmoji/blobcat.png 5506 8373315e1c8eedf521ca392325fb1f5e3082de6b88ddb1767a6bcaec7910836d
+  Stickers/BlobEmoji/blobcheeky.png 4740 70b9ab05d1c0560d665759199a56341a28e672f8518638d83decfb24cfd17b85
+  Stickers/BlobEmoji/blobcheer.png 2826 b58119690364db2d6989d088b1d3afcac931bf2b73e6b6950580709e382c6928
+  Stickers/BlobEmoji/blobcmereyou.png 4528 13103639fffd09c26640614170f87fcb091945f02b125db992c66bfac4fa1590
+  Stickers/BlobEmoji/blobconfounded.png 4028 e5473fe0880dcd15b048dedea0192dc7f08de57bd4ee0a1fb0633b6e79ef2bae
+  Stickers/BlobEmoji/blobconfused.png 4238 778f22cb09ec4014ff336be5ba9bcd891456efa4b37bce6ba4d961e48d7b205e
+  Stickers/BlobEmoji/blobcool.png 4767 776025b737dd8b7a71648b782c9400807be69b53e7c6826768d5d0590abb04c1
+  Stickers/BlobEmoji/blobcouncil.png 6034 96cd1e167a3f294c5015c0d806ec40c89bc49f031fea51f6b3118b703e36f385
+  Stickers/BlobEmoji/blobcouple.png 4781 478f12a2bc1c932012c5f19e637dacaba71c669633cfead0ba244e8f167886bf
+  Stickers/BlobEmoji/blobcowboy.png 4766 0977550ddb96714602fe01ee963cb0f07b83d8e5a6e9ef64293c66b6605d3f2f
+  Stickers/BlobEmoji/blobcry.png 4274 42c8e14ff12c1c0e399956c0ec1f0627fc9ba314aa1bf54a19cc48a3a80c0862
+  Stickers/BlobEmoji/blobdancer.png 4381 838331bf1d663ea87261fb78b40256f772ec991faa5704902111c2989627eac5
+  Stickers/BlobEmoji/blobdead.png 4379 b2c6799b6437db52d477493a9bf5be56e1d1cef940580409cd3691899cf0318c
+  Stickers/BlobEmoji/blobderpy.png 4293 a2641dead6b8eb18e9f193cd0d654eb062496dcd02d6225276d40e330ea09f0d
+  Stickers/BlobEmoji/blobderpyhappy.png 3997 dea9d66dcdac5f953b6007756487e285f86779495872ea3813a9bef1235f0e4e
+  Stickers/BlobEmoji/blobdetective.png 2331 65e60afa483fb759f1d90966cc5818a9bb01027bb3ba891f4831c566ff4e2138
+  Stickers/BlobEmoji/blobdevil.png 5091 d66b9f543a4337c336e05b9f1c78c382abdfee10743a59544de9bbc1a7526da8
+  Stickers/BlobEmoji/blobdisapproval.png 4495 2ac0e310edcaffda7f8488ed2ee94fd921126d413cbfa8dc93b160d8518fe6df
+  Stickers/BlobEmoji/blobdizzy.png 5753 50fa012a7446914d41835fe93d48f0b8f3ce0d89a817d47d06b7572235de2bd9
+  Stickers/BlobEmoji/blobdoubt.png 4890 de1118c7eaedfab26f7e33c1ca49cc26c5b383849a805daed8cad7d64c6d9148
+  Stickers/BlobEmoji/blobdrool.png 4085 6eaeb14a8335cce50544625b201bf07ae8296e3fa69d10586d2d8ccd4e0f785f
+  Stickers/BlobEmoji/blobenjoy.png 3988 869bc072963f2bacff6b17e8624c970b0ac2f67615e3e7ae516d07df5276ceb3
+  Stickers/BlobEmoji/blobexpressionless.png 3189 2876cef4ac9267d58ec2a4b4f00bc6892dc10ee55214d23f87b9511a31c4440f
+  Stickers/BlobEmoji/blobeyesdown.png 4525 7829442731774f9ded3be6fab1a20b3c02485a3ab72f3e33bde74d690aca2b49
+  Stickers/BlobEmoji/blobeyesup.png 4590 dff8f531d42d4d6d019c39950cc7bcb992de333c911a9e7ea87fe3675e6db203
+  Stickers/BlobEmoji/blobfacepalm.png 5189 f81ef1762eae0a4ae251f1bc4b13516e6e14393e85caa0e50c7dce4c50599c85
+  Stickers/BlobEmoji/blobfearful.png 4974 93eb97c31093bfa9e02f274d84731bedc09db5c71ce375ee895f2ad8527562ce
+  Stickers/BlobEmoji/blobfingerguns.png 6351 75012ed3fe4286cbd4cb9332d1b175cd158b84f77ca1b07f240cd662cf523b63
+  Stickers/BlobEmoji/blobfistbumpL.png 3626 aa40fc3053d4cbe0dff143c47b5bd44eb98bb34d368ca66bc91486aba673d71c
+  Stickers/BlobEmoji/blobfistbumpR.png 3663 3854fcca71a1f3fa9ab96ea02e2c5ce59f26fbaab407dfe08f22baa3d0ffe79b
+  Stickers/BlobEmoji/blobflushed.png 4240 96d4017a13c33a8810b16153167ba2a12eff446980d928f9c8bc8b927c3bd454
+  Stickers/BlobEmoji/blobfrog.png 4286 7607a8ed7942068d84d7ca8d04d1ea76d773732b233ea4c6f6b79aef3b237131
+  Stickers/BlobEmoji/blobfrown.png 4173 19ba432d1048cc30cd3fa104422297fb2fea0c1c0ea09fee214a061fdd6a683d
+  Stickers/BlobEmoji/blobfrowning.png 3977 4ce6ed6704f2b195c5c3d542c20830084ae2ff2b132c73d7105f3b1a3bae9d22
+  Stickers/BlobEmoji/blobfrowningbig.png 1551 c085d2e3f7dd4e0ed7c91a586d7b433d45bfbabc7f82ab8f7387da097d76ed15
+  Stickers/BlobEmoji/blobgift.png 6126 f5e44fdc690f04cfcde02b96123e477bb13167b62318ad27cda69b999671ccd8
+  Stickers/BlobEmoji/blobgiggle.png 6268 eb4d56c6e9720a8fa58d9ea92658378edc0d70ba963a79006cc4f08d018ffd91
+  Stickers/BlobEmoji/blobglare.png 4076 7a46dfceb3cc8259cfa162a080e25756c7d64b8cb12c13cdcc96a3dd50c33dc5
+  Stickers/BlobEmoji/blobglassesdown.png 6850 4c6c9f834de7e2a01253a78e7126d672b64ca7fdbe71b9d84d938f40d51fdb79
+  Stickers/BlobEmoji/blobgo.png 4702 b909e17aafcf75beca31313cece4ece2d215ff25377b56e14acbe0ac84a7e4c9
+  Stickers/BlobEmoji/blobgoat.png 5286 7e6cbb38df7d2433ce3254e62b735787301c05b8412c1b486e3125564b9b90f5
+  Stickers/BlobEmoji/blobgrin.png 5262 db40e52d60503f4db111a0f1fc47c8dad468b65b24f702b8f3abc45211e25083
+  Stickers/BlobEmoji/blobhammer.png 5998 a129a691f7aade07bcc3fa36e75b4d47ece849d36eaaff34c4d7f3e6eac2667d
+  Stickers/BlobEmoji/blobheart.png 4792 5f5d6180cbcba22372b5ce322910d854706e6a1594c1985542ad34e57db3293c
+  Stickers/BlobEmoji/blobhearteyes.png 5855 a4d8b57b8cbdb9b305cc35b70c8cba7cd8fe1acd4de4ef601c61d7c4d6c938d7
+  Stickers/BlobEmoji/blobhero.png 4777 7e0bb40cdfb6f05718d257b190c375da52a35d2adcd9673484278a4229abb8dc
+  Stickers/BlobEmoji/blobhighfive.png 4863 b8fb78f9809207e77fa049af3219591d53c7b9d330a095ab8912bd7d286e53f9
+  Stickers/BlobEmoji/blobhug.png 6782 a1ce5a502b9779b5c96ed77a2c7c98209fe6d6660057334d2a52c93a3962baaf
+  Stickers/BlobEmoji/blobhuh.png 4262 6a3aafb1dd69a03114292b2f14e4f109b5c98cf34ca756aebd140c5935ec172f
+  Stickers/BlobEmoji/blobhyperthink.png 7116 0d96986b26104bfa1530d32774a98e56a835bc71c5ba3699cdc888d75a61fcec
+  Stickers/BlobEmoji/blobhyperthinkfast.png 6725 8e75e2083d66c982689fc7c55cef99666ce6eae61497857a89fac810e95a0dac
+  Stickers/BlobEmoji/blobhypesquad.png 5502 d97b01c75fbb981703cc06ca787532ffd926f765ab7f787df505ad8504a87c0f
+  Stickers/BlobEmoji/blobidea.png 4398 7708fde76aa80721d6ee0cb61b143816d544708a72852967679af5434079988b
+  Stickers/BlobEmoji/blobimfine.png 4378 b7a3b8086d73fc5dfde2a03822fc25d7e886e50792d75462e009a6715da71f72
+  Stickers/BlobEmoji/blobjoy.png 5591 2cd5bfdbc1531351dd58750cdfb611f3e7066ba3f47db69bab923725cae26124
+  Stickers/BlobEmoji/blobkiss.png 4049 91648f694010eeffd0e5b6282346f5c2b0d330b01d1ee9ef5d7c24e4bdda94d1
+  Stickers/BlobEmoji/blobkissblush.png 5392 437be8049486181bf2598bafe9a3188bd34e59a9efb8201c1aa3a6f7283a6892
+  Stickers/BlobEmoji/blobkissheart.png 4147 4f08a3be0ba262823074001aa7eaead3c19af36edf3c10761e32cd9e48aeb601
+  Stickers/BlobEmoji/bloblamp.png 7814 c6c29d395f608c2d6304666fbdd8ddbb30f9359884337d677166aff596a8ad4c
+  Stickers/BlobEmoji/bloblul.png 5476 a3574e05ea9919698cb9eaae6d3927f61346353476425b612ddb571b8cf2b57c
+  Stickers/BlobEmoji/blobmail.png 3928 273b2802a55b54fbd372422e2ea4d0fae6459ee593e90cf6eba22005e8801835
+  Stickers/BlobEmoji/blobmelt.png 4319 5a30c198b387af9f34d1270f79437b1a412094e5c97e09e9c13dad21bb6225a2
+  Stickers/BlobEmoji/blobmeltsob.png 4545 9b7e4ea4400d5a190b1a2d921ecbfb7bd185251581987754eb3f29fada3d851b
+  Stickers/BlobEmoji/blobmeltsoblove.png 5132 4c182b72ccf3a3c709031e41319bf6af187d4875cb5706076bd5697d0f4015b9
+  Stickers/BlobEmoji/blobmindblown.png 6411 bbe44de4affd09abb150ee6f8d5221ce0dd7a0ebd58d86a014ecfbf3c5055871
+  Stickers/BlobEmoji/blobmoustache.png 4541 242682faae21c1a3b9e61279c2d74a07781bdee1dd66fc6d2ea4b7c6c01146ce
+  Stickers/BlobEmoji/blobnauseated.png 4291 4427451402c9667402c21d3de4a035cf84849492ecd36bf531217b77c08f0337
+  Stickers/BlobEmoji/blobnerd.png 1961 75991e6e07d93b5a8b832b32c9401a5f6c6d477781d3ba5f46e39e39096c2477
+  Stickers/BlobEmoji/blobnervous.png 4292 df3ab83eeaeadc470549256e40e28a060e5bee1dce6d7096a0c60c9f549d99ff
+  Stickers/BlobEmoji/blobneutral.png 3184 50470da4d73ec408b606b9814762dc25be15c7d0163055fdc1924953a11b5a73
+  Stickers/BlobEmoji/blobninja.png 4607 b9f5ac92ccf4bae1e871aa992863705dbdd0553ebe345db44d26e88a888a3b21
+  Stickers/BlobEmoji/blobnitro.png 5214 e9da53c8a812ecdd9ded115028af20dec9ecdce95ddd87fe94dfa6abffd5d717
+  Stickers/BlobEmoji/blobno.png 4348 174fd8737eb71b2273f03d6e32ded046dbbad0e5cf87b755ea9f61d0747904f7
+  Stickers/BlobEmoji/blobnogood.png 1833 9c391100db1354a4db3033d20bf71fe6be7c920a10a3d84a6139feb4541c60d5
+  Stickers/BlobEmoji/blobnom.png 5896 77b0be6bcd8eaa05d92660a18cc394e5d5827f557c5628ace461fd20de8d4e7c
+  Stickers/BlobEmoji/blobnomchristmas.png 5877 7bb946e664a42c2743297a3c9bb0650b1fe8a650ed68fdf5b9bf3cd2521a6ecc
+  Stickers/BlobEmoji/blobnomcookie.png 6775 f3170f0c3910049f0452f0edf0f38df3f9c3fd092210f19764aa9ab4d9d5166e
+  Stickers/BlobEmoji/blobnomouth.png 3584 4e9573e396a3f9f569f49e26363a0b6ef643b62fd3abada03a7a11c45cb997ff
+  Stickers/BlobEmoji/blobnostar.png 5427 ecc96e65cbc362a33d9e6475349e825bfd642c7d1c1c274273f5b72b835902e9
+  Stickers/BlobEmoji/blobnotsureif.png 4326 9ccc942ee76d2bc8e3b1872e432a3475c1baaaa617d82f6ac8085943886c1df1
+  Stickers/BlobEmoji/blobnwn.png 5183 6bbd877bd1f4bf58fa6cd854bb3dd09a7b324ac2a425eb457d487189f39c9f26
+  Stickers/BlobEmoji/blobok.png 5103 adebb8cea874a8529c027cc82b83fca3a087352caf93eabc1647502e32dc9f9d
+  Stickers/BlobEmoji/blobokhand.png 5030 cf947a16d6de2cafca405c9956cc459abb4d23da9c7d3754c01551428a79a569
+  Stickers/BlobEmoji/blobonfire.png 4172 cb2a0435ac368f4c60c2b6d52744f651e9e4e54d8147a427f47ed822a58311fb
+  Stickers/BlobEmoji/blobooh.png 5482 810e2cfd249a6585db13e7f73547459827731179a04673c7340df6478bc53f3a
+  Stickers/BlobEmoji/blobopenmouth.png 4057 b8c082145ee54b7a115c751ba4b29ce400f46635b872c38b4040f2df40fb4e68
+  Stickers/BlobEmoji/bloboro.png 4367 4c62e136119768bdb8a949aced35ee333ffcbe2ddc5b61f729bbff480070d15c
+  Stickers/BlobEmoji/bloboutage.png 4594 d4da6ef7d861cd363b60a30316edbda63b0c57394f37944c24044b24622558ea
+  Stickers/BlobEmoji/blobowo.png 4292 13014b5b271e10566b006ea44d12c3f0f7861c9d9f302c8cf986f9010a199e1d
+  Stickers/BlobEmoji/blobowoevil.png 4176 b0e5565fb3a4447dc65425293e60bbdd8f28906b80f59fa707163b818c0214d6
+  Stickers/BlobEmoji/blobpan.png 5704 bbcf6847aa0c988e3ef1d704e5f0043f6d9072c39df7f8aada05cd9f7358163f
+  Stickers/BlobEmoji/blobpartlysunny.png 3308 be362c31416e44bbf60644d3a91a24e4dd406493d514af5cf7d3abc002fb3c08
+  Stickers/BlobEmoji/blobparty.png 5901 0fbe4def73445dbb13a4f134dbc5f40002b7d60b7edf9548c25f4dbd7714922e
+  Stickers/BlobEmoji/blobpatrol.png 4953 e9dae4b5f2943e926cc8f3411257e0bf21351f9c03fa4e8842926703ef1400bb
+  Stickers/BlobEmoji/blobpats.png 6653 bd54b0610e982a343802c619d4d990f2d3d77a5699789d76db4b5cba3633e5e0
+  Stickers/BlobEmoji/blobpeek.png 3095 a2d856e51291691636ff453dbae844516e69adc29cc250de1786356a7a4122f3
+  Stickers/BlobEmoji/blobpensive.png 4098 f9adacf3ff6c3e5cb2df8ab27de1b9b46c8437a3e96afe7b2a38bdee19c5aa34
+  Stickers/BlobEmoji/blobpin.png 4637 e3b1ced0b76cb62843153c9142b82d999adace365701b6a89966b92182d31c72
+  Stickers/BlobEmoji/blobpolice.png 4433 5795209b0b7b1dd0cee0ae8543d84076e8360010c72072154fbd3a35ca78880a
+  Stickers/BlobEmoji/blobpoliceangry.png 5922 f01908a8874c33727f93ee339c4e96c6f39865f77718a662dd3ec4d6ff11c650
+  Stickers/BlobEmoji/blobpoll.png 4072 bb1ab9e12e6a00b5676d4bda0ace6a1191e3e56f01b6ffafad45afab6a2e43dc
+  Stickers/BlobEmoji/blobpopcorn.png 4112 1e51bb2d1f23a8054d372369b1d9a1c9e0fdf25ecf94ec7ec31ad1d6daaef593
+  Stickers/BlobEmoji/blobpopsicle.png 4500 65cf17cc2c8df3b8852f9a70c109a22f35b903d2a01ff963cfeb858fec7d8674
+  Stickers/BlobEmoji/blobpout.png 5447 a5255ec67200a5464e3ba2e9a1f7a9acabb4c4b35e261893ac759e135b9805e5
+  Stickers/BlobEmoji/blobpout2.png 3621 0a8f5f00e62ff94cc5b09d091ba02c78e10408b7ca77a9512234e830395ae0ac
+  Stickers/BlobEmoji/blobpray.png 1579 b76bcc1443fe07349610881f9370e4b629a88aa56380bcf8aeeb9012d9f80241
+  Stickers/BlobEmoji/blobreach.png 2975 1e6b366287dc56ba8a3689b598803b376f9a4cdce8f425d146426cb49c7f4633
+  Stickers/BlobEmoji/blobreachdrool.png 5231 259963a473c335a6159d6b2bea2616355b6b6df147ed30c056ed314adab4cd20
+  Stickers/BlobEmoji/blobreachreverse.png 2982 8e95f2da13929fbf09957666c12772bfc184d1a47f58fb8496d205101abfee24
+  Stickers/BlobEmoji/blobrofl.png 4804 7deab40e6b5a3531ad066c0e8e160700cd47d6266e46caeab01d27fffc289a9d
+  Stickers/BlobEmoji/blobrollingeyes.png 1394 8c8bd061f0fdeabbb6ba23c162c90f56ec8aaf55dce7e5fcd5f75709a64e0c04
+  Stickers/BlobEmoji/blobross.png 5140 4de8f6a91f143013775aca64a0c3444b9363395ac04cf8412b1f64f08121d8b6
+  Stickers/BlobEmoji/blobsad.png 4311 45d2b0e4c5cfa8c12edef225b2ce3750ef3b0272eb797f1b4d7bcc8b8545bb92
+  Stickers/BlobEmoji/blobsadcloud.png 4700 c12b4e172b2b98c2314b2aa67c6b37cd55b8a45378e0638e89df94b677a6387f
+  Stickers/BlobEmoji/blobsadpats.png 5014 e8e9b86381262615099fe09c7a4102ea9f1cf471f908fe63fbf69a564e16ca19
+  Stickers/BlobEmoji/blobsadreach.png 5943 8aebae3bf22621e51d43c6b8df174ce56c280416bf6ce86bb790b41cc647b317
+  Stickers/BlobEmoji/blobsalute.png 5577 fee4458d3d4d9d4288fecc853c7b8f9b919950873183d5232dba88fe701aaff0
+  Stickers/BlobEmoji/blobsanta.png 4961 43a4a0ac2d9d6d4562db90c115db4e48235e568acd9e0050d243532fd90194a2
+  Stickers/BlobEmoji/blobscream.png 2369 b2d1c0d069435dfe29bfe0fd711078d8d774bbcb071127095d05fb98cb14803c
+  Stickers/BlobEmoji/blobshh.png 4801 6034ada3bebed5165b805a68f19b9de0ce7c4a3369de4ba6efe63c05a627c94d
+  Stickers/BlobEmoji/blobshrug.png 3656 7aa8db3a7f7633adddcdc5b2c9dfaa556ae699b5d387a3fdfc362cf73537177e
+  Stickers/BlobEmoji/blobsip.png 6197 c7b31d7621965baecb3ee483b1c0f54a1aa3f9459af9f1a67861d36aa69b8177
+  Stickers/BlobEmoji/blobsleeping.png 4253 72c61868cf2d9225530f0037a25cf10da4630294d99ae4fd87892bcbeef4cdd3
+  Stickers/BlobEmoji/blobsleepless.png 4225 e3b92b136be19a1d84e85a06d3a852264091c4bc2177323c01d062eecc0930dc
+  Stickers/BlobEmoji/blobsmile.png 4199 1d0a8bb226478cf88d09caa42fb235452d17382c8b313ca7f887d6fbfccf3f3a
+  Stickers/BlobEmoji/blobsmilehappy.png 5220 8a19b54f48b56f86bc58e8600c10fa189988884db8492944508e82ae6fca669b
+  Stickers/BlobEmoji/blobsmilehappyeyes.png 5254 40eba0c23f67ee1653f67f4f1e8ed0ca6faa1944e7c2fc2389b1096a65e71de6
+  Stickers/BlobEmoji/blobsmileopenmouth.png 5135 3ab400a2c08c62c474fc38ffa120213d46cd016af8ca8721bc2ba418ba91df48
+  Stickers/BlobEmoji/blobsmileopenmouth2.png 4939 acf37f0c82ac97678591be802103de3f9fecf5420387837b7862d4c198dffe31
+  Stickers/BlobEmoji/blobsmilesweat.png 3174 5f651a8317d2d0089144c1ca6eeb6de82563a4de20ceb5d326b3e19af6861a58
+  Stickers/BlobEmoji/blobsmilesweat2.png 4374 eb0f37fd29c6bd904718b741a68528a3d137783b02c25b3d276ee1649cd14043
+  Stickers/BlobEmoji/blobsmiley.png 4298 9f6080714fd4a53cff22940f886f7afbb268e59a672f61712681d24756e07678
+  Stickers/BlobEmoji/blobsmirk.png 4251 3be6756d8a8ae3860161dbd48162a50090467d153ea328b21e08d1ec76e8b504
+  Stickers/BlobEmoji/blobsneezing.png 5483 f1c342530ff40bbb3664408b13084fd44a11872d3e3c139567e942a2683a2026
+  Stickers/BlobEmoji/blobsnuggle.png 5245 712e90113714265ce9aaeb2ce0bfd2a3a24acd9c5e1e7fdc53559a06d5ed5b27
+  Stickers/BlobEmoji/blobsob.png 5412 3e69d6454bc5cec17c3e987333f8e794fa5d7753dede777bc037bd23b879eaeb
+  Stickers/BlobEmoji/blobsplosion.png 6588 5b1a28ea15833f862c3f47f53ded3df785f0ce9ae5612d476f8696fad0f90eaf
+  Stickers/BlobEmoji/blobspy.png 4461 8a4edb74ec8abde031510561768216c3bdbcb60585cd47f8088ed1b528081592
+  Stickers/BlobEmoji/blobstop.png 4865 bb8a28a8277b5b3360293a7eadf3b66daa5d703e9fb769e40b9f49c8721bf707
+  Stickers/BlobEmoji/blobsurprised.png 1409 eace36601d4aa8825f8431d80bd4987fcdcfac7b4ea3637f3886b07477fd39db
+  Stickers/BlobEmoji/blobsweats.png 4747 2e846079a6d68a276ceea340059123935860cc536b74cc030df62ae49e37361f
+  Stickers/BlobEmoji/blobteefs.png 3801 920ea12a08eaa893cd02e020ba7c3fa8c1a06a67d92f5f96c8918fc9931689f0
+  Stickers/BlobEmoji/blobthanks.png 4080 7247f6f3dfc173b9be91728eaa3803b90d386e991263c68d9cdbcce072e9f5ce
+  Stickers/BlobEmoji/blobthinking.png 5249 a84fcdd0c4aa54d324e4508da57afcc26d58adec0c3bb6344326a8e1e61e7090
+  Stickers/BlobEmoji/blobthinkingcool.png 6061 60cc418702820a318b61b59719150701dcdbd7d24c91f7b8e9c5f2190bb2986b
+  Stickers/BlobEmoji/blobthinkingdown.png 5467 ea158ca654e4ee729a674419a119950c86916a06a27eb695b0dc99918ac8282a
+  Stickers/BlobEmoji/blobthinkingeyes.png 5719 ec1c1025a6a886479fa5aff35f4de8da2aaaedc8a019274704bf7594a6b6029b
+  Stickers/BlobEmoji/blobthinkingfast.png 6201 6d8e698782939f225d627e3d2bcb2e1ff0d7e11b104cc9325fc7265514233b24
+  Stickers/BlobEmoji/blobthinkingglare.png 5347 72c3857478e5ce01454743096fc36ff893ea965447a154d9f9b50cee4c3c4be9
+  Stickers/BlobEmoji/blobthinkingsmirk.png 4027 65c7ba510551ae387120f43e4825a1786d97f1e6638ff6f312c228987ce38ce3
+  Stickers/BlobEmoji/blobthinksmart.png 5501 e4085e994e649583ce7c9570dfefe8f0a65c441f9222a14da094c888380d8caf
+  Stickers/BlobEmoji/blobthis.png 5374 4c94bbbf7a900295b9ae31ecfcaa403fa42a82918859931f7e14fa2c4d915e29
+  Stickers/BlobEmoji/blobthonkang.png 5304 d12091cb1d1974a3157d2fb3333c1e9017afa6d2bd3649727dbdb76fbe69b7fa
+  Stickers/BlobEmoji/blobthumbsdown.png 5124 f825e59504c3354c02bbfa5c6b0137a2cfc3443214b6ceb1660c5330ca25da2b
+  Stickers/BlobEmoji/blobthumbsup.png 4525 3b95d5572e02d47e07019559eaaa3a54cfa1401349a9fd6bb36f3034e121bd49
+  Stickers/BlobEmoji/blobthump.png 4746 4dd7f08d47fb8a7b65e76891207c3edf88e895259aabce3ea33791fbd485822f
+  Stickers/BlobEmoji/blobtilt.png 1918 c8bc1741d0c58a2c334f96ce52a6dadebcdb400b106d14e77d444b4f1900c815
+  Stickers/BlobEmoji/blobtired.png 4374 bf430a48e4305e4ba25be5241c2b4afc44f5075a3f926964176e332ebd86c896
+  Stickers/BlobEmoji/blobtongue.png 4512 2860169a625f9746ba752acccc7fdb50fd90219a03f4f469a8b839f521063269
+  Stickers/BlobEmoji/blobtonguewink.png 4540 6a079901184f3f2c1d653d1973a24a9f558608875bc88c00c8752d046451f08a
+  Stickers/BlobEmoji/blobtorch.png 3378 4c0bca0c831bef7ec97cd2e5649f29ef936e1517c524c510975aa1f4c8a2cf68
+  Stickers/BlobEmoji/blobtriumph.png 5598 d1fdb11b044cbf89b75baa7db3a544803fe0a4326bd2416baeb4ad001052a871
+  Stickers/BlobEmoji/blobugh.png 4998 1159a83e00c00d9ee762e31bf69a3c8fc560a13e593b4a1a3b280ee972fe82ea
+  Stickers/BlobEmoji/blobunamused.png 3863 aa9be074f5e5696e68b85b4e926c863e61404373cd539464aacecd8b898b7ceb
+  Stickers/BlobEmoji/blobunsure.png 4351 1a37911c502f7d026810f0f51aa72b791fae5b810650d7d816138f5aa9c567b2
+  Stickers/BlobEmoji/blobupset.png 5611 27897c1ebfabc15aecd2469fe013e8abb7f31b7a715758e92f5a9d42d8947476
+  Stickers/BlobEmoji/blobupsidedown.png 4096 077d98add58e30013661c32ef6a949e5b18bb497923ee77eb8fa4fba74db328a
+  Stickers/BlobEmoji/blobuwu.png 4777 68c05104c02aa052853bd1d441b669865ecd711eb8f1b0f95ee8bd36d0e3e8d1
+  Stickers/BlobEmoji/blobvomiting.png 5303 c091ace8dae5177a066e0566d236bdc0e73ff44ad3e3b3960a33b4efccecfef0
+  Stickers/BlobEmoji/blobwaitwhat.png 4169 65e9a7feaf0fb5f910fc5f69437ebe885814da1f541d8527beba016c39218e39
+  Stickers/BlobEmoji/blobwave.png 3872 e0b7cf891c3f087ead1dd4d9f6d2dba9602f0b99e0caadf818f5410aa4c2660b
+  Stickers/BlobEmoji/blobwavereverse.png 3859 825553eab167890d9d22b4aa4f133909f77108f1823357ebdf506dc516c3975c
+  Stickers/BlobEmoji/blobweary.png 3941 eb9bc35028dce234e3b566e436232817e51ae0be9067d7fcc16ec5bf084da70e
+  Stickers/BlobEmoji/blobwhistle.png 4562 eca14bce22bad7987190994a0d83ce39d2a5092e435a0092ee898e944b6670cb
+  Stickers/BlobEmoji/blobwink.png 4496 ae10a3cc0c907d197267b9d8abbf5bd81e691ba1016a75e3600bb5bed465c255
+  Stickers/BlobEmoji/blobwitch.png 5801 842f806054dc53ce92c1830977b35271fad1cd39de21362fbcef32fe1017a836
+  Stickers/BlobEmoji/blobwizard.png 4576 45fa31e62b6bf6028680beb2ada08849f1f459d24f50061f47eeba20b8d79436
+  Stickers/BlobEmoji/blobwoah.png 4220 3cd96a09effba0e5aaaffcf564f9da3453dee3e3a72f1dab33212748acf0a7d0
+  Stickers/BlobEmoji/blobworried.png 4550 f98ae08ee458f65e71dc1505a66e4e7e9af8582e1750e88a616ec88b0395fbe4
+  Stickers/BlobEmoji/blobxd.png 4814 58bb3d28dee194c470240c5c49168c17e3e0850405a1d3b5dd9a91df99a69d3d
+  Stickers/BlobEmoji/blobyes.png 4480 9c7739258186152fbea1b728a296d02006b079a53dce6ad6cae2deddec66caaf
+  Stickers/BlobEmoji/blobyikes.png 5370 30aabb8c28f50cbc395e1d8dd16720ac2034169d1290a2b9393283e83eaacdb0
+  Stickers/BlobEmoji/blobyum.png 4911 eb83315e91d47ab003f5fe0b40aa6667e290a617d9293cb1ac95c4a8f0bb6993
+  Stickers/BlobEmoji/blobzippermouth.png 1611 d52dfb816b1350e54e6586dcac6fd28db0f282d2d2cbaaec2f142d6ec8d5d074
+  Stickers/BlobEmoji/bolb.png 2808 912a15561379b610c651fc69a6c2a03ead58efebb80c92c63619d80c4cd29b30
+  Stickers/BlobEmoji/doggoblob.png 4888 4b9bd5f8adb87ef3d9261cabcc62b53126f9b526f7047a77a39fe5f8e0594b65
+  Stickers/BlobEmoji/feelsblobman.png 4186 dc630d3cfdea1766993a20558352bf8d9c8ed304d1e0d3ba30cc62518c012d41
+  Stickers/BlobEmoji/ferretblob.png 5845 d8f0e098268a598228169a3fe07844eb8eb1657152b959ec2edca1b7115cbaa4
+  Stickers/BlobEmoji/gentleblob.png 5725 43fcdbad2adc1df5f4ca5f1e5e4e5bca557671536a90f1b17a90991b593c0cbc
+  Stickers/BlobEmoji/googlebear.png 5273 98e21db43b555c8a4f27e8e2f94d423657a7f71c43d28d9aa7dac416d4708e24
+  Stickers/BlobEmoji/googlebee.png 5861 b6bdd0b3143d986e6acc6bb2b150764822602bd59f656dd9be273a85c09727ff
+  Stickers/BlobEmoji/googleblueheart.png 1838 3d69c7092656d705f638093a1689fa2a353a8bfdb5fb2588b341ee28574f7e2f
+  Stickers/BlobEmoji/googlecake.png 5461 1a10a1c297cf591794de46401cb9ae617eb24fecf3b41940437c09dc649f0792
+  Stickers/BlobEmoji/googlecat.png 5000 1fc961f3a13275137071a5cdde5d881e0a6844c99bad75e9899f7e01da29a95b
+  Stickers/BlobEmoji/googlecatface.png 4644 83099ccbf8f7e37307c118f94648ad3cefce4070d3980868bab620841e848f1f
+  Stickers/BlobEmoji/googlecatheart.png 4924 1bbbf4e9165bfc01fc265b5211b8f51a2785aea2968237f85fa1509de847e6a3
+  Stickers/BlobEmoji/googlechick.png 4426 fe602690142ee5f791c5661aa9f081cebca52ff590faa38f6695795c67f415c1
+  Stickers/BlobEmoji/googlechicken.png 4273 d086ef4647b52fc8901e84e8a33ddddccbe171b6697a9600b80fa6805304d709
+  Stickers/BlobEmoji/googlechipmunk.png 2804 387567bfe84172c4f083e5ce9e14f7477e2805da159d06d0a9500aebb6841368
+  Stickers/BlobEmoji/googlecow.png 5727 0fef6e7329f5b85272eedc9090733cdf2aa67967bdfdcadf2687cbc1bd41c98b
+  Stickers/BlobEmoji/googledog.png 5153 1053714dc6d17f22c3a444c45c081ed60812011bb3aadbef8448adf08ba01baf
+  Stickers/BlobEmoji/googledove.png 4576 2a3c77eb5a0ed6a8269f5d3db73b0356c8276ab7a030aad64feaaadb27657e5c
+  Stickers/BlobEmoji/googleeagle.png 6019 c2f23b0eb31d7b9c2f1ac56bd0bb300f61e0f961aeb140fb38cb2a675a92e689
+  Stickers/BlobEmoji/googlefire.png 2773 afafb9bf4f0dfb45b16ba261e9acc2c6aa7ccc19e2d1dc25e9d23913d2e5501b
+  Stickers/BlobEmoji/googlefox.png 5950 f603f636347744007b609011cab0cfcfe7336695d96a64614aaa8b36562221fe
+  Stickers/BlobEmoji/googleghost.png 6147 1fbe0624823ef96f7149149e84d87457ddd817039ace458ee8576a4b38430355
+  Stickers/BlobEmoji/googlegoat.png 4989 d2855e15faf4300ba0e21c613d180ff84b9856b1fa61a49ecbcf5f3f2ed959a8
+  Stickers/BlobEmoji/googlegun.png 2564 7a5097ffedd37617130fb82c089bf18252c368635804946c6391c7b9e929cf21
+  Stickers/BlobEmoji/googleicecream.png 3694 861c0c33951f29a24f6e1171600d140d669d4608917540c14e58eaacf7a4e1db
+  Stickers/BlobEmoji/googlekoala.png 4579 5a98d432850b4db984dbf2a0816342bbbaae40c56a69777274d0eff830083ec7
+  Stickers/BlobEmoji/googlelion.png 6045 dcbb1aa13b21a045ff37925f2fdee533050fd3efc2af65ba2396fc5a625bf5de
+  Stickers/BlobEmoji/googlemouse.png 5228 0feb3614972a607ee741cabc949effda683fecf9b159d60f05ef4eff7ff980f5
+  Stickers/BlobEmoji/googlemuscleL.png 1459 44b150dffb634d0d8b295aae8a1d3f2cf9870be1277bbb371ff00440e4b83186
+  Stickers/BlobEmoji/googlemuscleR.png 1460 e6414f938cdead64ff1e8dd53486cb2cf9986362a26e8a9e46734996d8bf3c48
+  Stickers/BlobEmoji/googlepanda.png 5782 c258196689b0cc6c7b19e740f4d4d3d2c036d7aba62f687e7ca0e4b5bbda8d27
+  Stickers/BlobEmoji/googlepenguin.png 3425 6d4fbec1342ec024796b8be6232338565eca54dcbd46f59ae1ac1f44b6b0555d
+  Stickers/BlobEmoji/googlepig.png 4460 e21a30b81387197afa2b2239f186ae4740257edcce83bd1e9a17386e0486c06f
+  Stickers/BlobEmoji/googlepizza.png 5873 c26a8f5a1306fbd10d7c1d966fa333925011c7853b11275e4b2befe0c7aadec7
+  Stickers/BlobEmoji/googlerabbit.png 3942 7d70215f89e6fab27bd964ebc33098ceed4110daa4fc16a0d5cabe21894dc5c1
+  Stickers/BlobEmoji/googlerat.png 1947 8da37d17005ced9cb9a35bd686f1ca690ef5f742c288ac6fd63188e2bd261327
+  Stickers/BlobEmoji/googleredheart.png 1620 9c2f746a208293df425edbc185d3087969e12873dd53de04df5c1fae79e1312e
+  Stickers/BlobEmoji/googlesheep.png 5597 8102a4b54b59cfe22ad128d442f64f6a506c0ec3002254892abc24ad46a22d80
+  Stickers/BlobEmoji/googlesnake.png 4987 93aa8b64c9307db6de2506e2dec13b0d6125a80bfabee17a14d785e928c9d7b8
+  Stickers/BlobEmoji/googleturtle.png 5069 54f4a6d4635f75aca4761e0155db560f6d62c91b5162510148966cb460d09994
+  Stickers/BlobEmoji/googlewhale.png 4502 7e869a51b296e1362ab205a58e04462bb11c155bb61360b3544e651d14398f06
+  Stickers/BlobEmoji/greentick.png 1095 0b955ab4b55c74b49ccb2bc665553f16f82a09ee8fe7305610917498e6b8c901
+  Stickers/BlobEmoji/jakeblob.png 4982 0ac1d48afbbb1cef1af07eb968be8475b592a077e8eb485af9dcf0c5ffd6e82c
+  Stickers/BlobEmoji/kirbyblob.png 4848 ac8a82db5fabd40ec711b6bfb1331dfb55a0c72745766aad02d2238d3fef68a9
+  Stickers/BlobEmoji/nellyblob.png 7273 3073304c3b06cd1c0eae81b29f72b301357c9df1d6ed5751090330cb29311bc6
+  Stickers/BlobEmoji/nikoblob.png 6107 15de1683632b6d3494e682172a865170c4a6a3ea57fc1bef72723ff596ba1a77
+  Stickers/BlobEmoji/notlikeblob.png 5965 1f21caa45eaff7fa7403f2efde703671e2d2e00de5eaeeffc8d4c67cc190ea71
+  Stickers/BlobEmoji/pandablob.png 6125 467ace8374df9851b0a215777f7609104f59fb888005377fa8faebd527484f77
+  Stickers/BlobEmoji/photoblob.png 3177 ecf9765553568d24a81c88e771273978ce0c676bfe6ef022d411b55cd2cf6e4d
+  Stickers/BlobEmoji/pikablob.png 5602 c522d51afc0140737f8252dc6cbf7b31dccdc5c8bed90ccc56abb633c41931f7
+  Stickers/BlobEmoji/pusheenblob.png 3865 28b39211d1eb34bc7a133d28ff1f6dbde0bdf4687fd4ae6390021377dc9fe4d0
+  Stickers/BlobEmoji/rainblob.png 4732 bff301af4565873d2663a3f7e29379dad6af9b1dd0f9d10a323dbe5fbb9c08f6
+  Stickers/BlobEmoji/reindeerblob.png 6560 b1734fd0caaab99789ce46da82733ee4adef8ba6f71a8fc51a84654f4fd3024d
+  Stickers/BlobEmoji/rickblob.png 4895 6f286ce5bfad77232adf014361ceee4e6b39ed24feeb39da25d515be6341e308
+  Stickers/BlobEmoji/thinkingwithblobs.png 5826 0fd2fcc9a122266b98ae44e216c4a0b7d2e07de82415e35547c5fb192fcd4aa0
+  Stickers/BlobEmoji/wolfiriblob.png 6031 80a08414a42c45057e1eb0f2a8cce31940d77c5fe587ad643f98a7c8139cea52
+  Stickers/BlobEmoji/wumpusblob.png 4223 db51165d7b1bb5d50d94d9f8ba83161031ff36d411a41742abee6710a2d1cc6d
+  puush 0 e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+  tmp/isxdl.dll 124416 b0cc4697b2fd1b4163fddca2050fc62a9e7d221864f1bd11e739144c90b685b3
+  zxing.dll 441344 907b043a4199be5c03350ef65ce33649c1add8e6de8780f3aa0c1de4cd632ae0
+  zxing.presentation.dll 19456 e694e42203163bae0f751ca57be5bbb745743b4a1bbe9f762b8c12a1c90ded91

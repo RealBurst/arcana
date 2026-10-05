@@ -1,0 +1,10 @@
+# Arcana regression reference (RegressionRunner --update)
+input: 5f125b948d584ea2fb9aa663a9eaf89c5ef083b37ee03730b3f6c7e40cdaf436 3937
+identify: archive | RAR 4 - RAR archive, version 1.5-4.x
+list: 5 entries
+  bin\random.bin 4096
+  deep\a\b\c\leaf.txt 5
+  docs\empty.txt 0
+  docs\notes.txt 29490
+  readme.txt 1520
+extract: ERROR ArcanaCorruptedException: RAR extraction failed for: truncated-rar4.rar   truncated-rar4.rar: Truncated archive: data of bin\random.bin goes beyond the end of the file   bin\random.bin: CRC32 mismatch: expected 454DAEC0, got D64FFF9D (corrupted data or wrong password)

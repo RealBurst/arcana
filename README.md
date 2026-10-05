@@ -339,9 +339,14 @@ src/                         Arcana sources (package be.stef.arcana)
 plugins/arcana-plugin-xxx/   one directory per official plugin: src/, META-INF/
 VERSION                      version number used by the build
 build.bat, build.sh          build scripts
+test/                        regression tests (samples, references, runner)
 ```
 
 When running from an IDE (classes not packaged in a JAR), `arcana version` prints `Arcana (dev)`.
+
+### Regression tests
+
+`build.bat test` (or `./build.sh test`) builds Arcana and the plugins, then identifies, lists and extracts every sample of `test/samples` (and of your own corpus folder, `--corpus DIR` or `ARCANA_CORPUS`) and compares the results with the committed references. See [test/README.md](test/README.md).
 
 ---
 

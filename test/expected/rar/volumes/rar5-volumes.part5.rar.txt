@@ -1,0 +1,19 @@
+# Arcana regression reference (RegressionRunner --update)
+input: 0a95b0ab61d01a9ac1e4149a24baa8ddb62a193c840ea46d63997608ac13962c 3481
+identify: archive | RAR 5 - RAR archive, version 5.0
+list: 8 entries
+  bin (folder)
+  bin/random.bin 4096
+  deep (folder)
+  deep/a (folder)
+  deep/a/b (folder)
+  deep/a/b/c (folder)
+  docs (folder)
+  empty-dir (folder)
+extracted: 6 items
+  bin/random.bin 4096 8fe774a9e65a6c63fc7df534a66e2bafb44a73813a37b2abcc178749b237552e
+  deep/a/b/c/leaf.txt 5 26d0bac9f0c7a35b2f3322a0f4ad4517265f56b2c0f4b2ed7cb5cbd30c5868e2
+  docs/empty.txt 0 e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+  docs/notes.txt 29490 d7e02c884850cdfa9d78d1e322269a120fdce78e1178469a980945b2d27d0c66
+  empty-dir/ (empty folder)
+  readme.txt 1520 ba2f1014c1181c953f32737172808623ce8dd59ba7c7598d2d73730ea4f6217c

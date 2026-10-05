@@ -1,0 +1,10 @@
+# Arcana regression reference (RegressionRunner --update)
+input: b9ec2cced10fb703126998576b75a3939110d4024f13f94635cfb94b6a9af6fa 3414
+identify: archive | Cabinet 1.3 - Microsoft Cabinet (CAB) archive
+  files: 3
+  folders: 1
+list: 3 entries
+  bin/random.bin 4096
+  docs/notes.txt 29490
+  readme.txt 1520
+extract: ERROR ArcanaCorruptedException: Corrupted Cabinet archive: CAB: unexpected end of file

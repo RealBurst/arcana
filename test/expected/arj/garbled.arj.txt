@@ -1,0 +1,8 @@
+# Arcana regression reference (RegressionRunner --update)
+input: d7f049dd654f7383845b2cc0165c520ad9419527684ed11821caf8c89464931c 2286
+password: secret
+identify: archive | ARJ - ARJ archive
+list: 2 entries
+  docs/notes.txt 29490 encrypted
+  readme.txt 1520 encrypted
+extract: ERROR ArcanaUnsupportedFormatException: Encrypted ARJ entry: readme.txt

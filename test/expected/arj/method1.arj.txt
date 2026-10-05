@@ -1,0 +1,11 @@
+# Arcana regression reference (RegressionRunner --update)
+input: 096d5d4322f34ebf04cab9ed2776e5c6bc0fdb39724b6e69c06693ee0bcbe562 6454
+identify: archive | ARJ - ARJ archive
+list: 3 entries
+  bin/random.bin 4096
+  docs/notes.txt 29490
+  readme.txt 1520
+extracted: 3 items
+  bin/random.bin 4096 8fe774a9e65a6c63fc7df534a66e2bafb44a73813a37b2abcc178749b237552e
+  docs/notes.txt 29490 d7e02c884850cdfa9d78d1e322269a120fdce78e1178469a980945b2d27d0c66
+  readme.txt 1520 ba2f1014c1181c953f32737172808623ce8dd59ba7c7598d2d73730ea4f6217c

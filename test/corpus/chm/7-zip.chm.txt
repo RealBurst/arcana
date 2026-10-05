@@ -1,0 +1,202 @@
+# Arcana regression reference (RegressionRunner --update)
+input: be2eb9d2fcaa3990426b311914dad99a0d4e9dac32a8c166aa53d7cccf8d682f 125118
+identify: archive | CHM - CHM archive
+list: 103 entries
+  #IDXHDR 4096
+  #ITBITS 0
+  #STRINGS 2122
+  #SYSTEM 4252
+  #TOPICS 1120
+  #URLSTR 2302
+  #URLTBL 840
+  $FIftiMain 78723
+  $OBJINST 2751
+  $WWAssociativeLinks (folder)
+  $WWAssociativeLinks/Property 4
+  $WWKeywordLinks (folder)
+  $WWKeywordLinks/BTree 8268
+  $WWKeywordLinks/Data 897
+  $WWKeywordLinks/Map 26
+  $WWKeywordLinks/Property 32
+  7zip.hhc 13418
+  7zip.hhk 12111
+  cmdline (folder)
+  cmdline/commands (folder)
+  cmdline/commands/add.htm 3448
+  cmdline/commands/bench.htm 8169
+  cmdline/commands/delete.htm 1947
+  cmdline/commands/extract.htm 4111
+  cmdline/commands/extract_full.htm 2896
+  cmdline/commands/hash.htm 3464
+  cmdline/commands/index.htm 1670
+  cmdline/commands/list.htm 2244
+  cmdline/commands/rename.htm 1421
+  cmdline/commands/style.css 2850
+  cmdline/commands/test.htm 1727
+  cmdline/commands/update.htm 2569
+  cmdline/exit_codes.htm 854
+  cmdline/index.htm 917
+  cmdline/style.css 2850
+  cmdline/switches (folder)
+  cmdline/switches/ar_exclude.htm 1534
+  cmdline/switches/ar_include.htm 2676
+  cmdline/switches/ar_no.htm 1398
+  cmdline/switches/bb.htm 1937
+  cmdline/switches/bs.htm 1997
+  cmdline/switches/charset.htm 1997
+  cmdline/switches/email.htm 962
+  cmdline/switches/exclude.htm 2548
+  cmdline/switches/include.htm 5870
+  cmdline/switches/index.htm 7621
+  cmdline/switches/large_pages.htm 2222
+  cmdline/switches/list_tech.htm 802
+  cmdline/switches/method.htm 53321
+  cmdline/switches/output_dir.htm 1362
+  cmdline/switches/overwrite.htm 1516
+  cmdline/switches/password.htm 2444
+  cmdline/switches/recurse.htm 3146
+  cmdline/switches/sa.htm 1436
+  cmdline/switches/scc.htm 914
+  cmdline/switches/scrc.htm 1366
+  cmdline/switches/sdel.htm 954
+  cmdline/switches/sfx.htm 5711
+  cmdline/switches/shared.htm 1011
+  cmdline/switches/sni.htm 1385
+  cmdline/switches/sns.htm 2249
+  cmdline/switches/spf.htm 2425
+  cmdline/switches/spm.htm 2349
+  cmdline/switches/ssc.htm 1466
+  cmdline/switches/stdin.htm 1587
+  cmdline/switches/stdout.htm 1438
+  cmdline/switches/stl.htm 978
+  cmdline/switches/stop_switch.htm 740
+  cmdline/switches/stx.htm 1388
+  cmdline/switches/style.css 2850
+  cmdline/switches/type.htm 4527
+  cmdline/switches/update.htm 8267
+  cmdline/switches/volume.htm 1325
+  cmdline/switches/working_dir.htm 1722
+  cmdline/switches/yes.htm 1255
+  cmdline/syntax.htm 3960
+  fm (folder)
+  fm/about.htm 518
+  fm/benchmark.htm 2113
+  fm/index.htm 1860
+  fm/menu.htm 9824
+  fm/options.htm 7738
+  fm/plugins (folder)
+  fm/plugins/7-zip (folder)
+  fm/plugins/7-zip/add.htm 16035
+  fm/plugins/7-zip/extract.htm 3131
+  fm/plugins/7-zip/index.htm 2288
+  fm/plugins/7-zip/style.css 2850
+  fm/plugins/index.htm 533
+  fm/plugins/style.css 2850
+  fm/style.css 2850
+  fm/temp.htm 5092
+  general (folder)
+  general/7z.htm 5808
+  general/faq.htm 6016
+  general/formats.htm 5027
+  general/index.htm 790
+  general/license.htm 837
+  general/performance.htm 1990
+  general/style.css 2850
+  general/thanks.htm 1664
+  start.htm 1174
+  style.css 2850
+extracted: 94 items
+  #IDXHDR 4096 71b2ad1a86dc47c66a62f7b5eba69384939a8914dc366208d2cbc6b3ae0bd97e
+  #ITBITS 0 e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+  #STRINGS 2122 4dd647bbabfcf2fc28ac731abda8bf6f0ad2c9746bfe65a89dd1cca71a470551
+  #SYSTEM 4252 826e67677aa04560e8cdb849944e8bd3eb6bdda93ebacefbdad463abc39ae812
+  #TOPICS 1120 1e021a5694e5264aa985f46885b906be44ec8005abb5fb143fb53d6f3724f05f
+  #URLSTR 2302 987e1670b1f618cb61c14b0a05e090f5626da1efb499a68a66ad839286e884c9
+  #URLTBL 840 6ce74a6071730333288bb1aa56473bea193fa6b9c6767c792d87829c0ce5b5fd
+  $FIftiMain 78723 43a27382094757a7f367f95299b4af33f513a667cd3437d225e5e02c214bf42a
+  $OBJINST 2751 6715341a64707a4102f3b4c56a3bb3be7955740e6c8ea99ba523e000a5e85faf
+  $WWAssociativeLinks/Property 4 df3f619804a92fdb4057192dc43dd748ea778adc52bc498ce80524c014b81119
+  $WWKeywordLinks/BTree 8268 2258f992d3c4e3a9c1dca8bb1ab0687e0da74dd235d0ccac3b64914b307a8ca3
+  $WWKeywordLinks/Data 897 ada283ea5e3903c09af6e3c5e513b21f7a42a6a04ba75a9730ba5fb9c8b0440f
+  $WWKeywordLinks/Map 26 e8aea34bc5fbd12ad76acec078348ff9a00fe1d50c698aeafb76e804b2b919f8
+  $WWKeywordLinks/Property 32 8c8fe85d632f58f554f84bc3d75385a9c52638b6e4653b736fa2a5d5dccaaf3f
+  7zip.hhc 13418 a7c846247ceaa282a192b39d95229d85535e4aa1f71f86dc119d271f3cbda190
+  7zip.hhk 12111 c5206058427e994af71e7f4aa95ed99f6567e9333f96f506d99e416de432e310
+  cmdline/commands/add.htm 3448 c83a8d52c57ee98c16772625bbf19a5ec6ee914bd3ed090331d50ae21e4dca29
+  cmdline/commands/bench.htm 8169 c6256370355d3b20841d67369aa11f000103bcb58fe9a611cb8efa2ed5bb7ddc
+  cmdline/commands/delete.htm 1947 cc0cab8f48b216fc4bce8a3e30aab945942e4dcc9a75915a498b73be386bf644
+  cmdline/commands/extract.htm 4111 c6151c65a7431e8e158b58ba2ab4a3863bc90d3a7df69b1e17189db6c74e1484
+  cmdline/commands/extract_full.htm 2896 69bc1c7dcfe1cd7f281e39859527f58716ee7db658cf266d7098d921553eb312
+  cmdline/commands/hash.htm 3464 1a6b766921ad400dbb87a05ec37f5f96a73b3538352b9742303bf10216b537c5
+  cmdline/commands/index.htm 1670 e12aafac94e6e755708f66cbbd4b00e2d6911c3fcca5d8865a5747593b7c1cb4
+  cmdline/commands/list.htm 2244 ae4cb15169dd8cc4725b17b8c8a6819a5b759dd023f8ef366d6ab4f5dbef1ec1
+  cmdline/commands/rename.htm 1421 72e5c63bfd1c23dbb89ab2845c7b4fdce8e3723c58b856ce5c3a6af437dda454
+  cmdline/commands/style.css 2850 9090681aff934b85ee02a32bb18254b5233ccfddf9d8d970d634b32c6103811d
+  cmdline/commands/test.htm 1727 57176018dcdd800f35a3d8a57d216d77d402b0816c75ef4674268b28c8f52f32
+  cmdline/commands/update.htm 2569 cb4c305cc0cfd41ca76a502a927c64dd4c7cf4064661cd6d31b4d18eddcb3242
+  cmdline/exit_codes.htm 854 7338c97de2ff2b6d227db20b177cfc86d657a11630e501b4175419d3ab2bc601
+  cmdline/index.htm 917 9135f275c5c328bb23e7296580eb1e834fa944771b27eab2e456403fc88ee165
+  cmdline/style.css 2850 9090681aff934b85ee02a32bb18254b5233ccfddf9d8d970d634b32c6103811d
+  cmdline/switches/ar_exclude.htm 1534 6d011eb3e89363be23b71e15df15251ffd5836d90f2728cdfa90dccd68c38a21
+  cmdline/switches/ar_include.htm 2676 cb5728288fab9a9560bfea94fcc23d7b0c96c17e3fbd18fadf8e30f475582f85
+  cmdline/switches/ar_no.htm 1398 6890e6f070ea46c5fe74b0b2e10497e923d79158fd6126ca7bb33bb7d73b52f4
+  cmdline/switches/bb.htm 1937 59b834c976ffa20099c0dd62986e8a039eaee0393bd7f2015c0780d25b16d811
+  cmdline/switches/bs.htm 1997 9cac39fd3fffc59b239dc37cbaab837a0804331841e6992877d69ea9d3e32aa0
+  cmdline/switches/charset.htm 1997 830d7f4c8b074f4cbda6c6931e5a8b608bf1903a05b217c134133394861cac00
+  cmdline/switches/email.htm 962 439d5711264e9bcc512729fb0873fcad0992ab1a25d1cd521e38bb37a8f5022f
+  cmdline/switches/exclude.htm 2548 a8389a9b123a02e3a61df1662cf98862e534367707f992c20ff58886b1f18369
+  cmdline/switches/include.htm 5870 5625d9866e99bc2827f9069ed633fe900e8e6132901cdb5bf18d182a465472be
+  cmdline/switches/index.htm 7621 d3c44363cf5b2ff924d95d115628b7e7eeb257a7181f0d6c7140e318a650e8e4
+  cmdline/switches/large_pages.htm 2222 ecb975974949b105d84094d0f2a411052aa0b03851afd34ab545e1bd80e244bc
+  cmdline/switches/list_tech.htm 802 9703866886afcee4c234ef499881b92b7e3167dfd9f7defe72f58f23ddf95808
+  cmdline/switches/method.htm 53321 c46164195173ffff726cf08f75a4c3fbdfb61af92e1a65d946f9e971e448cc79
+  cmdline/switches/output_dir.htm 1362 fa8ea512e9c4bb0bb103be1c59c1d1f1d1183d5e8f1073282b15a3bd78b4d17a
+  cmdline/switches/overwrite.htm 1516 94ff24d47a2a8fdbea2b16a7c0084c948be810958a154344cba978f50cb37f1a
+  cmdline/switches/password.htm 2444 04ed61d2d494343a02a7d1281de4755aed5690ccdd09584eabcff0e37daad223
+  cmdline/switches/recurse.htm 3146 45d55a33bc554ef1b4e1fe128380648939b38ad70c1efff8cfc3730f8013cd2e
+  cmdline/switches/sa.htm 1436 6ecbb883b5b8c1ca3cf22fef33619b2db7a7ee1ddc56a3578fa5cdb24c0c3e8c
+  cmdline/switches/scc.htm 914 2d734ff240553bfca74c96bb508fe0d9327b0d7ddac30e399a97ab2ab43256bc
+  cmdline/switches/scrc.htm 1366 f2cbe8c051d078de6347a6106830be6d30e6d4f0fcf883c01b55b0a8f6ef7dec
+  cmdline/switches/sdel.htm 954 7897256ddd225f565fe453fb9d468da42d1f1545f40ac778475c43b45e328853
+  cmdline/switches/sfx.htm 5711 0c100a7b474464fe5b067c22ea3ec702d48bacd086c55877628a646f9d5912b0
+  cmdline/switches/shared.htm 1011 127f3e0563b569fa70f554e176f9f312477d0a69442dd6c8800c9e50c1fb825f
+  cmdline/switches/sni.htm 1385 099bf04ad9e08b2c2b2ca1af66561d160824b79731d46030382a4de50b81423f
+  cmdline/switches/sns.htm 2249 c7f813ea49255687f36678b9458a8382eabc77b1b7cf4c25f7a3bce7dcb9c363
+  cmdline/switches/spf.htm 2425 5312383578c8948565ae999580825294c3fbda0394ec8d0ac71fd607ceeb6014
+  cmdline/switches/spm.htm 2349 217b3b3b76bc95c32358ad921203573fbf990100d934b248927da857ec895582
+  cmdline/switches/ssc.htm 1466 7b21f5254921da71fb5d8c5c2f2dc915c70a80ea3dfe820734998a2cc0cd4bef
+  cmdline/switches/stdin.htm 1587 da0091d1a30c865d29a14bb74482b4091247d27d9476a7521ed2b9da8cb2ce37
+  cmdline/switches/stdout.htm 1438 08fb73cac6617a4509fde9dd1b44173f10d183a79a46001e87d5aac2e4b02739
+  cmdline/switches/stl.htm 978 b5a5ede866dd5e5940b67d9d6c386c2630eb9432a24f0a0397ac3767a1382a00
+  cmdline/switches/stop_switch.htm 740 202b3db0588a5acd45ed3423ad0fbd40f26a78ba725b6288756b4d12d6fff46d
+  cmdline/switches/stx.htm 1388 79b59fed96a6f4fb32483d8222a9cb9b23ea54b9cf4fec7dbe5ed38619755e0b
+  cmdline/switches/style.css 2850 9090681aff934b85ee02a32bb18254b5233ccfddf9d8d970d634b32c6103811d
+  cmdline/switches/type.htm 4527 58bdca3bc13eb46f59ce6e7d923010fbfac081e914b6512fa971bea74e0d6477
+  cmdline/switches/update.htm 8267 c9d079d5b747598a97190ad293951fe843768d0f4dc180fd92910c336cd61a68
+  cmdline/switches/volume.htm 1325 454d7eec5e4c150a45f29858274722256b6dbc9aecf518299b255466713b5987
+  cmdline/switches/working_dir.htm 1722 9f6c69c5a997c534a66aac6eee6dc6e3cebdc758641a027f4db22c0d429141e9
+  cmdline/switches/yes.htm 1255 f6ee55e979f5622c9a4020611d2dc489b74d9b8ea03799f05e974974a61a16af
+  cmdline/syntax.htm 3960 b080a796b6f8959eb7a37c1d2398b99ff03ca6fb5841c80004ae680f921f51c0
+  fm/about.htm 518 8fbd18758aa6f599ff0f2e64501ef0948ed15d6627b88bb68f5cbfdb147e7d53
+  fm/benchmark.htm 2113 059ffa120739fb5038c73c909ec470b22267eeff9a2a94e4e316b8b7a3c53dee
+  fm/index.htm 1860 6355922914b165bc215c95a01227223c5efca010b78e0bbab161ec909a3c82be
+  fm/menu.htm 9824 674666f34b8a167dbe3858d5f6d598b505a133dfaeaff8fd486bb9ae1f14c0dc
+  fm/options.htm 7738 11c0f90d6bfbe6e7a1ae81adb144b0e2d92717122c2a74a0b7098114755b95f0
+  fm/plugins/7-zip/add.htm 16035 b6bff175f02f13a83cd585b3b959afa634b85bec8a082d6331ac3663cce41fb0
+  fm/plugins/7-zip/extract.htm 3131 eabab2a2dd41fb1ff62bf6cae1ea0bdd2a9a5f58120a5f4e1e84bd784f33a5a7
+  fm/plugins/7-zip/index.htm 2288 0eb27bc987a8397501d75bc7989c810e82a527ad5056aca6e98b2acbb83e8e79
+  fm/plugins/7-zip/style.css 2850 9090681aff934b85ee02a32bb18254b5233ccfddf9d8d970d634b32c6103811d
+  fm/plugins/index.htm 533 90dbc5dc02daed90be9c72d436e1fb003c55493597dfe546f3882fc341944c14
+  fm/plugins/style.css 2850 9090681aff934b85ee02a32bb18254b5233ccfddf9d8d970d634b32c6103811d
+  fm/style.css 2850 9090681aff934b85ee02a32bb18254b5233ccfddf9d8d970d634b32c6103811d
+  fm/temp.htm 5092 61bb6e956071fae616e8f58da71d14b7f6d0e6e5b4921ca9dc9e9bde6ad75fd7
+  general/7z.htm 5808 f7aa1e14318d856f7d7469a033232fffd1647fb111a046110d31ae1436bea2bc
+  general/faq.htm 6016 0cd775d2577f9474eb05958bc18609055b372fb8fa70c02431fa8b30193880e2
+  general/formats.htm 5027 3f6b7c7afec018b1398857060b7394d2af8572d68077c4727d76437aceff1579
+  general/index.htm 790 2bfe23c860c64f5407641c99eedaadeba29fdd84f6fd640fcfd545910986056b
+  general/license.htm 837 f9d5e69365784c883a2499833286e3fb12f65b037bf86edb73eec6125708fd50
+  general/performance.htm 1990 768c7aec64f6cfde314cce3dae560c4bd885ceac5ba0d195f0a883e50f781df4
+  general/style.css 2850 9090681aff934b85ee02a32bb18254b5233ccfddf9d8d970d634b32c6103811d
+  general/thanks.htm 1664 223be10d54a369991bf7eb558db0af15ef01c506f9980c3b6ce5e25244476c39
+  start.htm 1174 2ad08186aa0c150ac2dc25ba87b5148f2bec8d4aff43c511e00d8f8691efd8be
+  style.css 2850 9090681aff934b85ee02a32bb18254b5233ccfddf9d8d970d634b32c6103811d

@@ -1,0 +1,9 @@
+# Arcana regression reference (RegressionRunner --update)
+input: 12cbdcd27f623f1d14cc209a61b19e7b7435b802d7889fcdb9e80365134b3b30 204
+identify: archive | 7-Zip 0.04 - 7-Zip archive (format version 0.04)
+list: 2 entries
+  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.txt 10
+  café à la crème.txt 14
+extracted: 2 items
+  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.txt 10 1272a49868c41260330ce643f91dffd1114abc24bf149dfb4ebfb8833bbe5670
+  café à la crème.txt 14 190dc9cdd6661c9a3821146616aeea831f22de07ac121ea9ad83d8acd450d5a7

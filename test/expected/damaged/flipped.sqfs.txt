@@ -1,0 +1,17 @@
+# Arcana regression reference (RegressionRunner --update)
+input: 860076638527811a7dc9c89ec1a5f0444d5fc9068d66b7ee1aa0afe38aa5ecb5 8192
+identify: archive | SquashFS - SquashFS archive
+list: 12 entries
+  bin (folder)
+  bin/random.bin 4096
+  deep (folder)
+  deep/a (folder)
+  deep/a/b (folder)
+  deep/a/b/c (folder)
+  deep/a/b/c/leaf.txt 5
+  docs (folder)
+  docs/empty.txt 0
+  docs/notes.txt 29490
+  empty-dir (folder)
+  readme.txt 1520
+extract: ERROR CorruptedInputException: Compressed data is corrupt

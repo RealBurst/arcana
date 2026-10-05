@@ -1,0 +1,6 @@
+# Files of the corpus that are not samples by themselves: they are read through
+# another file (volumes after the first, cabinet headers...). One pattern per
+# line, relative to the corpus folder; "*", "?" and "[2-9]" are allowed.
+# Example for InstallShield sets: installshield/*/data[2-9].cab
+*/data[2-9].cab
+*/data*.hdr

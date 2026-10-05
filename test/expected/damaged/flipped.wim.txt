@@ -1,0 +1,17 @@
+# Arcana regression reference (RegressionRunner --update)
+input: 1f91cd90f2372c7dd7876c84b9bb56412aa49075c2e2db0401172bd4960ec18e 6909
+identify: archive | WIM - WIM archive
+list: 12 entries
+  bin (folder)
+  bin/random.bin 4096
+  deep (folder)
+  deep/a (folder)
+  deep/a/b (folder)
+  deep/a/b/c (folder)
+  deep/a/b/c/leaf.txt 5
+  docs (folder)
+  docs/empty.txt 0
+  docs/notes.txt 29490
+  empty-dir (folder)
+  readme.txt 1520
+extract: ERROR ArcanaCorruptedException: WIM data corrupted (SHA-1 mismatch): bin/random.bin

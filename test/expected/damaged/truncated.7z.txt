@@ -1,0 +1,5 @@
+# Arcana regression reference (RegressionRunner --update)
+input: 05e5ff1159e5fbf41e5aea82c4324c98d9417e29eedef0daac76181559d4bc83 5320
+identify: archive | 7-Zip 0.04 - 7-Zip archive (format version 0.04)
+list: ERROR IOException: nextHeaderOffset is out of bounds
+extract: ERROR IOException: nextHeaderOffset is out of bounds

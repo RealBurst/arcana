@@ -1,0 +1,18 @@
+# Arcana regression reference (RegressionRunner --update)
+input: cb4af02cc73bf5a43e001c98865171603dfa6b5c6afc5a46ae6ffea809e29b23 7460
+identify: archive | ZIP - ZIP archive
+  minimum version to extract: 2.0
+list: 12 entries
+  bin/ (folder)
+  bin/random.bin 4096
+  deep/ (folder)
+  deep/a/ (folder)
+  deep/a/b/ (folder)
+  deep/a/b/c/ (folder)
+  deep/a/b/c/leaf.txt 5
+  docs/ (folder)
+  docs/empty.txt 0
+  docs/notes.txt 29490
+  empty-dir/ (folder)
+  readme.txt 1520
+extract: ERROR ZipException: invalid distance too far back

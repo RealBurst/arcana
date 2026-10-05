@@ -1,0 +1,17 @@
+# Arcana regression reference (RegressionRunner --update)
+input: 0cf98add9ec00cada063e537ace345a2016c56c01ee601738f797ba7539d46a4 5764
+identify: archive | RAR 5 - RAR archive, version 5.0
+list: 12 entries
+  bin (folder)
+  bin/random.bin 4096
+  deep (folder)
+  deep/a (folder)
+  deep/a/b (folder)
+  deep/a/b/c (folder)
+  deep/a/b/c/leaf.txt 5
+  docs (folder)
+  docs/empty.txt 0
+  docs/notes.txt 29490
+  empty-dir (folder)
+  readme.txt 1520
+extract: ERROR ArcanaCorruptedException: RAR extraction failed for: flipped.rar   bin/random.bin: Exception during extraction - CRC mismatch - file may be corrupted.

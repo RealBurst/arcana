@@ -1,0 +1,7 @@
+# Arcana regression reference (RegressionRunner --update)
+input: 5399bff17e5bc83f268650144283e7fe43bc1bfb6526d0b2dc30da04bad31577 768
+identify: archive | XZ - XZ compressed stream
+list: 1 entries
+  notes.txt -1
+extracted: 1 items
+  notes.txt 29490 d7e02c884850cdfa9d78d1e322269a120fdce78e1178469a980945b2d27d0c66

@@ -1,0 +1,7 @@
+# Arcana regression reference (RegressionRunner --update)
+input: 93bf134e01f6637bfe3df04f421ae445464509f39d43b0354272f3305346a45f 4383
+identify: archive | MS compress (SZDD) - MS compress (SZDD) archive
+list: 1 entries
+  notes.txt 29490
+extracted: 1 items
+  notes.txt 29490 d7e02c884850cdfa9d78d1e322269a120fdce78e1178469a980945b2d27d0c66

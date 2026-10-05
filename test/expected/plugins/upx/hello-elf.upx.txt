@@ -1,0 +1,11 @@
+# Arcana regression reference (RegressionRunner --update)
+input: 2d4b8232afc7134d4c67fe05f6864c9337e8363464c302686cbbf69de87b18f9 283176
+identify: executable | ELF - ELF 64-bit executable - x86-64
+  class: 64-bit
+  endianness: little-endian
+  kind: executable
+  architecture: x86-64
+list: 1 entries
+  hello-elf.upx.unpacked 706576
+extracted: 1 items
+  hello-elf.upx.unpacked 706576 9137c1d4dda7c44fe89de679fb1ef47a1d54614ba406dd2e99ab7cd9a72c6e34

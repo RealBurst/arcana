@@ -1,0 +1,8 @@
+# Arcana regression reference (RegressionRunner --update)
+input: 617d4454acbe37a3b8dd590508bd3b82c40752d37cca93e2eb9b3c2f52fa880b 1099
+identify: archive | bzip2 - bzip2 compressed stream
+  block size: 900 KB
+list: 1 entries
+  notes.txt -1
+extracted: 1 items
+  notes.txt 29490 d7e02c884850cdfa9d78d1e322269a120fdce78e1178469a980945b2d27d0c66

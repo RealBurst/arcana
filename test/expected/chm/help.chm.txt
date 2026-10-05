@@ -1,0 +1,26 @@
+# Arcana regression reference (RegressionRunner --update)
+input: a6eac53f84ebc96957f4c799e5b556dceee71f6d71602a02752f9b79fffa5c62 13156
+identify: archive | CHM - CHM archive
+list: 11 entries
+  #IDXHDR 4096
+  #ITBITS 0
+  #STRINGS 1
+  #SYSTEM 4212
+  $OBJINST 2751
+  _#_README_#_ 136
+  index.html 90
+  pages (folder)
+  pages/p1.html 30718
+  pages/p2.html 30718
+  pages/p3.html 30718
+extracted: 10 items
+  #IDXHDR 4096 6b64d0dbcc3123994936547b8653dcac337507c106168c5355b6d06c23c7ce8a
+  #ITBITS 0 e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+  #STRINGS 1 6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d
+  #SYSTEM 4212 2682c482339a79ae188b7f55e9b38f3510d009dbdb69853bd071c5bd8abfbf3a
+  $OBJINST 2751 6715341a64707a4102f3b4c56a3bb3be7955740e6c8ea99ba523e000a5e85faf
+  _#_README_#_ 136 febc8fc87eb016f5a57f483e5ac49c07cdfd9080dba42f6f3bb2c909f8857c26
+  index.html 90 74dd7f24da510243698ddc5038db42d716c5ce409f34630fda4e9537e2af1b2d
+  pages/p1.html 30718 32854eab08bec45a4604e60ba4f6e42b01e42fc921191421e6489a7e2e288215
+  pages/p2.html 30718 a90a39f14e0ffb44c067b8db6ee03c038cc459858d31e12c5e8203511b072186
+  pages/p3.html 30718 5fb0a0437764484ff70f5917ba8eae36c2fed3796c375908c97d6f839f46c7f1

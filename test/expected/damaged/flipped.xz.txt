@@ -1,0 +1,5 @@
+# Arcana regression reference (RegressionRunner --update)
+input: 3dbefe3f7402ff5d560cd20ead52296e4e609d3645e4940ede504ac576101f57 768
+identify: archive | XZ - XZ compressed stream
+list: ERROR CorruptedInputException: Compressed data is corrupt
+extract: ERROR CorruptedInputException: Compressed data is corrupt

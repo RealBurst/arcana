@@ -1,0 +1,10 @@
+# Arcana regression reference (RegressionRunner --update)
+input: b3158100a5f10479e9b14d4aa73097e73d9fc1f2d1200431d3588c3858416a1a 215552
+identify: executable | PE32 - PE32 EXE x86
+  kind: EXE (application)
+  architecture: x86 (32-bit)
+  subsystem: Windows GUI
+list: 1 entries
+  EasyPythonDecompiler.unpacked.exe 286208
+extracted: 1 items
+  EasyPythonDecompiler.unpacked.exe 286208 d7c82812805e2697608aea6405e3d4eaeb88a22144ccd6172c422b37622a8a25

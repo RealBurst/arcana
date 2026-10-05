@@ -1,0 +1,5 @@
+# Arcana regression reference (RegressionRunner --update)
+input: 071dabca3f1d0f3848dc5f3586ca3e10e5c59693f148883587957316994d541f 35840
+identify: data | unknown - unrecognized data (no analyzer matched)
+list: ERROR IOException: Binary CPIO format is not supported (only newc/odc ASCII formats are)
+extract: ERROR ArcanaCorruptedException: Corrupted CPIO archive: bin.cpio

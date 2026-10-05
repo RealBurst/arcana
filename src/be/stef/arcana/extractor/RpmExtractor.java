@@ -30,12 +30,13 @@ import java.util.zip.GZIPInputStream;
 /**
  * Extractor for RPM packages (.rpm).
  * Structure: 96-byte Lead + Signature header (aligned 8) + Main header + CPIO payload.
- * The payload compressor is read from RPM tag 1124 (RPMTAG_PAYLOADCOMPRESSOR).
+ * The payload compressor is recognized from its signature, or else read from
+ * RPM tag 1125 (RPMTAG_PAYLOADCOMPRESSOR; tag 1124 is the payload format, "cpio").
  */
 public class RpmExtractor implements ArchiveExtractor {
 
     private static final int LEAD_SIZE             = 96;
-    private static final int TAG_PAYLOADCOMPRESSOR = 1124;
+    private static final int TAG_PAYLOADCOMPRESSOR = 1125;
     private static final int TYPE_STRING           = 6;
 
     @Override public boolean supportsStream() { return false; }
@@ -131,13 +132,34 @@ public class RpmExtractor implements ArchiveExtractor {
         if ((m[0]&0xFF)!=0x8E||(m[1]&0xFF)!=0xAD||(m[2]&0xFF)!=0xE8) throw new ArcanaCorruptedException("Invalid RPM header magic");
     }
 
-    private static InputStream wrapPayload(final InputStream in, final String comp) throws IOException {
+    private static InputStream wrapPayload(final InputStream raw, final String tag) throws IOException {
+        final InputStream in = raw.markSupported() ? raw : new BufferedInputStream(raw);
+        final byte[] m = new byte[6];
+        in.mark(16);
+        int n = 0;
+        while (n < m.length) {
+            final int r = in.read(m, n, m.length - n);
+            if (r < 0) break;
+            n += r;
+        }
+        in.reset();
+        final String comp = n < 6 ? tag : payloadSignature(m, tag);
         if ("gzip".equals(comp)||"gz".equals(comp))   return new GZIPInputStream(in);
         if ("bzip2".equals(comp)||"bz2".equals(comp)) return new be.stef.arcana.formats.bzip2.BZip2InputStream(in);
         if ("xz".equals(comp))                        return new be.stef.arcana.formats.xz.XZInputStream(in);
         if ("zstd".equals(comp)||"zst".equals(comp))  return new be.stef.arcana.formats.zstd.ZstdInputStream(in);
         if ("lzma".equals(comp))                      return new be.stef.arcana.formats.xz.LZMAInputStream(in);
         return in;
+    }
+
+    /** Compressor recognized from the first bytes of the payload, or the one of the header tag. */
+    private static String payloadSignature(final byte[] m, final String tag) {
+        if ((m[0] & 0xFF) == 0x1F && (m[1] & 0xFF) == 0x8B) return "gzip";
+        if (m[0] == 'B' && m[1] == 'Z' && m[2] == 'h') return "bzip2";
+        if ((m[0] & 0xFF) == 0xFD && m[1] == '7' && m[2] == 'z' && m[3] == 'X' && m[4] == 'Z' && m[5] == 0) return "xz";
+        if ((m[0] & 0xFF) == 0x28 && (m[1] & 0xFF) == 0xB5 && (m[2] & 0xFF) == 0x2F && (m[3] & 0xFF) == 0xFD) return "zstd";
+        if (m[0] == '0' && m[1] == '7' && m[2] == '0' && m[3] == '7') return "none";
+        return tag;
     }
 
     // ---- I/O helpers ----

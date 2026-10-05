@@ -1,0 +1,5 @@
+# Arcana regression reference (RegressionRunner --update)
+input: d3859081b6ebe8d1e0ff6387a734eeb63afe2142343e77be4f836b961e7b141f 3000
+identify: data | unknown - unrecognized data (no analyzer matched)
+list: ERROR ArcanaUnsupportedFormatException: Cannot detect archive format for: garbage.bin
+extract: ERROR ArcanaUnsupportedFormatException: Cannot detect archive format for: garbage.bin

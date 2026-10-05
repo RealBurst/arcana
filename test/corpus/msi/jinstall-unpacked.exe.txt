@@ -1,0 +1,33 @@
+# Arcana regression reference (RegressionRunner --update)
+input: 67961704970befc33fdb96c1c0f21e3ce45c6047054cd2ab996275dcaf0c2f67 1771296
+identify: executable | PE32 6.0.310.74 - PE32 EXE x86 (jinstall.exe)
+  kind: EXE (application)
+  architecture: x86 (32-bit)
+  subsystem: Windows GUI
+  internal name: jinstall.exe
+list: 12 entries
+  Program Files/Common Files/Java/Java Update/jaucheck.exe 254696
+  Program Files/Common Files/Java/Java Update/jaureg.exe 239336
+  Program Files/Common Files/Java/Java Update/jucheck.exe 508136
+  Program Files/Common Files/Java/Java Update/jusched.exe 254696
+  Program Files/Common Files/Java/Java Update/task.xml 1297
+  Program Files/Common Files/Java/Java Update/task64.xml 1302
+  [resources]/JAVA_INSTALLER/106.msi 207360
+  [resources]/JAVA_INSTALLER_UTIL/101.dll 152576
+  [resources]/SPONSOR_DLL/2044.dll 79488
+  [streams]/Binary.NewBinary9 4124
+  [streams]/Binary.auutilsDLL 105984
+  [streams]/MsiDigitalCertificate.DgtlCert0 1296
+extracted: 12 items
+  Program Files/Common Files/Java/Java Update/jaucheck.exe 254696 1e554e733715963303bdca186d16d18fb405acd33b791f7ade8976fe3a8ff9e7
+  Program Files/Common Files/Java/Java Update/jaureg.exe 239336 8a669a7746e21907cc71419902389b627dfb7ee2340b4395a50fb0e302677e4e
+  Program Files/Common Files/Java/Java Update/jucheck.exe 508136 33919a182edccfafa38330f6b5d4c0378d001b12497dc5f79c556c055654b32f
+  Program Files/Common Files/Java/Java Update/jusched.exe 254696 8fde679868958682feab801cbd1914f945b824cfce2c957d8ab51c66f171966b
+  Program Files/Common Files/Java/Java Update/task.xml 1297 53975e84848680d51e6ef3f0eecc5315e012982c7f83296edcba46a35a8cf534
+  Program Files/Common Files/Java/Java Update/task64.xml 1302 80cf035cec0c1a76cd6816e3e7192f9b82d278b6e4e14427f5219c88e42c3ce3
+  [resources]/JAVA_INSTALLER/106.msi 207360 87cd93990121af76598d2e2a6eed7a256bac92c3f1901772dd1de3a6479526be
+  [resources]/JAVA_INSTALLER_UTIL/101.dll 152576 2bd19e11b26d77f357cb583f9329aa37a34317888a4a670d5c8470364afbb26b
+  [resources]/SPONSOR_DLL/2044.dll 79488 e9f1d7fe6ef46cb3c5303d5fdb679e4462a22fc350c5b5adaf4d318ddf1e4e73
+  [streams]/Binary.NewBinary9 4124 6e54341b9a9e83d726eceff91d8e40d93a9a7bb2b809bec8bc04bcc5398eca33
+  [streams]/Binary.auutilsDLL 105984 1df6f90a835f73be55b05b48f30970709e6d38f50c73f40b21e5b76a41e00485
+  [streams]/MsiDigitalCertificate.DgtlCert0 1296 ebcfa98dbceb1c6c09685fa79980a22926ad837717a578319822d9207b2b68e6

@@ -1,0 +1,10 @@
+# Arcana regression reference (RegressionRunner --update)
+input: 10b7ac299cd1923acbabc78bfb8ddce00c774fd577ad9fa63d32b5435b7e8f27 10240
+identify: archive | TAR - TAR (POSIX ustar) archive
+list: 3 entries
+  ./ (folder)
+  ./aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.txt 10
+  ./café à la crème.txt 14
+extracted: 2 items
+  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.txt 10 1272a49868c41260330ce643f91dffd1114abc24bf149dfb4ebfb8833bbe5670
+  café à la crème.txt 14 190dc9cdd6661c9a3821146616aeea831f22de07ac121ea9ad83d8acd450d5a7

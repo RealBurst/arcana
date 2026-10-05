@@ -13,6 +13,7 @@ set "ARCANA_JAR=%ROOT%jar\Arcana-v%ARCANA_VERSION%.jar"
 
 if /i "%~1"=="arcana" goto :build_arcana
 if /i "%~1"=="all" goto :build_all
+if /i "%~1"=="test" goto :build_test
 goto :build_plugin
 
 :no_version
@@ -20,7 +21,9 @@ echo ERROR: file "%ROOT%VERSION" missing or empty (expected content: 1.0.0)
 exit /b 1
 
 :usage
-echo Usage: build.bat [arcana ^| plugin-pak ^| plugin-upx ^| all]
+echo Usage: build.bat [arcana ^| plugin-pak ^| plugin-upx ^| all ^| test [runner options]]
+echo   test: builds Arcana and the plugins, then runs the regression tests
+echo         (options: --update, --corpus DIR, filter; see test\README.md)
 exit /b 1
 
 :build_plugin
@@ -42,6 +45,36 @@ goto :end
 
 :build_arcana
 call :do_build_arcana
+goto :end
+
+rem ---------------------------------------------------------------------------
+rem Regression tests: build everything, compile test\src, run the runner
+rem (the runner options follow "test": --update, --corpus DIR, filter)
+rem ---------------------------------------------------------------------------
+:build_test
+call :do_build_arcana
+if errorlevel 1 goto :end
+for /d %%D in ("%ROOT%plugins\arcana-plugin-*") do call :do_build_plugin "%%D" "%%~nxD"
+if errorlevel 1 goto :end
+set "TBIN=%ROOT%test\bin"
+if exist "%TBIN%" rmdir /s /q "%TBIN%"
+mkdir "%TBIN%"
+set "SRCLIST=%TEMP%\arcana_test_sources.txt"
+if exist "%SRCLIST%" del /f /q "%SRCLIST%"
+for /r "%ROOT%test\src" %%F in (*.java) do call :write_path "%%F" "%SRCLIST%"
+javac -Xlint:-options -source 8 -target 8 -cp "%ROOT%bin" -d "%TBIN%" @"%SRCLIST%"
+if errorlevel 1 exit /b 1
+del /f /q "%SRCLIST%"
+echo.
+set "TESTARGS="
+shift
+:collect_args
+if "%~1"=="" goto :run_tests
+set TESTARGS=%TESTARGS% %1
+shift
+goto :collect_args
+:run_tests
+java -Dfile.encoding=UTF-8 -cp "%ROOT%bin;%TBIN%" be.stef.arcana.test.RegressionRunner --root "%ROOT%." %TESTARGS%
 goto :end
 
 rem ---------------------------------------------------------------------------

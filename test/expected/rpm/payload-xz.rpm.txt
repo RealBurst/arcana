@@ -1,0 +1,24 @@
+# Arcana regression reference (RegressionRunner --update)
+input: a029215d9ec5eb29854b79c664a686187353cbd202d2afa552b50f889d363ade 12557
+identify: archive | RPM - RPM archive
+list: 13 entries
+  usr/share/arcana-test (folder)
+  usr/share/arcana-test/bin (folder)
+  usr/share/arcana-test/bin/random.bin 4096
+  usr/share/arcana-test/deep (folder)
+  usr/share/arcana-test/deep/a (folder)
+  usr/share/arcana-test/deep/a/b (folder)
+  usr/share/arcana-test/deep/a/b/c (folder)
+  usr/share/arcana-test/deep/a/b/c/leaf.txt 5
+  usr/share/arcana-test/docs (folder)
+  usr/share/arcana-test/docs/empty.txt 0
+  usr/share/arcana-test/docs/notes.txt 29490
+  usr/share/arcana-test/empty-dir (folder)
+  usr/share/arcana-test/readme.txt 1520
+extracted: 6 items
+  usr/share/arcana-test/bin/random.bin 4096 8fe774a9e65a6c63fc7df534a66e2bafb44a73813a37b2abcc178749b237552e
+  usr/share/arcana-test/deep/a/b/c/leaf.txt 5 26d0bac9f0c7a35b2f3322a0f4ad4517265f56b2c0f4b2ed7cb5cbd30c5868e2
+  usr/share/arcana-test/docs/empty.txt 0 e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+  usr/share/arcana-test/docs/notes.txt 29490 d7e02c884850cdfa9d78d1e322269a120fdce78e1178469a980945b2d27d0c66
+  usr/share/arcana-test/empty-dir/ (empty folder)
+  usr/share/arcana-test/readme.txt 1520 ba2f1014c1181c953f32737172808623ce8dd59ba7c7598d2d73730ea4f6217c

@@ -1,0 +1,5 @@
+# Arcana regression reference (RegressionRunner --update)
+input: 7687210047bf250e0932199dd4373e211aef228dd09b0ff42c28b3795fa735c3 2114
+identify: archive | GZIP - GZIP compressed stream
+list: ERROR ZipException: Corrupt GZIP trailer
+extract: ERROR ZipException: Corrupt GZIP trailer

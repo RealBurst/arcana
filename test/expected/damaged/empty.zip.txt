@@ -1,0 +1,5 @@
+# Arcana regression reference (RegressionRunner --update)
+input: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855 0
+identify: data | unknown - unrecognized data (no analyzer matched)
+list: ERROR ArcanaCorruptedException: Not a ZIP archive (end of central directory not found): empty.zip
+extract: ERROR ArcanaCorruptedException: Not a ZIP archive (end of central directory not found): empty.zip

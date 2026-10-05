@@ -3,6 +3,8 @@
 /jar/
 /plugins/*/bin/
 /plugins/*/jar/
+/test/bin/
+/test/out/
 *.class
 
 # Local test classes in the default package be.stef (not part of Arcana)

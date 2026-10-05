@@ -1,0 +1,21 @@
+# Arcana regression reference (RegressionRunner --update)
+input: 6ef0d78c76169ff640b88e991501c8973d611af9cd841f619e9c9c2af734b762 588772
+identify: archive | JexePack 5.5a - Java program packed into an executable by JexePack 5.5a (extract it to check the jar files)
+  java code: Boot.class, java.jar
+  other files: 4
+  format: JexePack records, version 1 (JexePack 5)
+  main class: Boot
+list: 6 entries
+  Boot.class 8657
+  TrayIcon12.dll 51200
+  hswin32v13.dll 14336
+  java.jar 1214243
+  jexepack-settings.txt 97
+  jntsvcv5.dll 6656
+extracted: 6 items
+  Boot.class 8657 5189cd87e4d46dab11e7e204bde8adaf9226346c7428085fe182a380764a882e
+  TrayIcon12.dll 51200 5af610e19be86fe281c83b3429e0ba0a52fcabdc49e76537f68d4b2648b73dc9
+  hswin32v13.dll 14336 562664d170d81c1e8460d86fc009d9f4a8efa499d5675e6c16a2ba454b4628b3
+  java.jar 1214243 a90eb72dea596e640392721f57f0703368aa72ba6e3831fab3005ea29a38d4f4
+  jexepack-settings.txt 97 b171281a4db8344d932fd98fef3445b39b598f3ea27347d8a1d11f4270770255
+  jntsvcv5.dll 6656 790fec3d706b40c45f58f702a781f214b916492a4b2230c178b71dd39a178840

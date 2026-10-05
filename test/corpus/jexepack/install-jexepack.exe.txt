@@ -1,0 +1,123 @@
+# Arcana regression reference (RegressionRunner --update)
+input: 9d273fbb4b7e713d46a8cc63cde89094a9f965aabc545b7bd3dc7be19783b7a3 2304591
+identify: archive | JexePack 8.3a (build 4269) - Java program packed into an executable by JexePack 8.3a (build 4269) (extract it to check the jar files)
+  java code: jexepackboot.class, install.jar, src/bootstrap/Boot.class, src/bootstrap/MessageBox.class, src/DeadLock/DeadLock.class, src/dns/dns.class, src/MyFrame/MyFrame.class, src/MyFrame/TestPanel.class, src/SysProp/SysProp.class, src/tolower/app.jar, src/tolower/tolower.class
+  other files: 46
+  format: JexePack records, version 3 (JexePack 8)
+  main class: InstallProgram
+list: 57 entries
+  _installjava_.exe 910112
+  install.ini 310
+  install.jar 66251
+  jexepack-settings.txt 157
+  jexepackboot.class 8081
+  jwin32v18.dll 32256
+  packlist.txt 4662
+  setup.gif 249
+  src/DeadLock/DeadLock.class 3754
+  src/DeadLock/DeadLock.java 4177
+  src/DeadLock/jexepack.ini 102
+  src/DeadLock/make.bat 659
+  src/GetJava/jexepack.ini 162
+  src/GetJava/make.bat 657
+  src/MyFrame/MyFrame.class 1753
+  src/MyFrame/MyFrame.java 1955
+  src/MyFrame/TestPanel.class 1537
+  src/MyFrame/TestPanel.java 864
+  src/MyFrame/app.ico 766
+  src/MyFrame/jbox.gif 3816
+  src/MyFrame/jexepack.ini 149
+  src/MyFrame/make.bat 653
+  src/MyFrame/vsversioninfo.txt 494
+  src/SysProp/SysProp.class 3015
+  src/SysProp/SysProp.java 3928
+  src/SysProp/make.bat 718
+  src/TestService/TestService.exe 35412
+  src/TestService/doInstall.bat 29
+  src/TestService/doStart.bat 30
+  src/TestService/doStop.bat 29
+  src/TestService/doUninstall.bat 31
+  src/TestService/readme.txt 1983
+  src/Uninstall.exe 107410
+  src/bootstrap/Boot.class 1933
+  src/bootstrap/Boot.java 1248
+  src/bootstrap/MessageBox.class 2729
+  src/bootstrap/MessageBox.java 2369
+  src/bootstrap/make.bat 671
+  src/bootstrap/winopen.exe 8192
+  src/dns/dns.class 1075
+  src/dns/dns.java 1039
+  src/dns/make.bat 4662
+  src/images/background.jpg 853
+  src/images/byline.gif 353
+  src/images/jbox.gif 3816
+  src/images/logotop.gif 2205
+  src/images/purchaseinfo.gif 793
+  src/images/vista.gif 6894
+  src/jexepack-getjava-cached-jre-6u31-windows-i586-iftw.exe 910112
+  src/jexepack.exe 128418
+  src/jwalker.exe 133142
+  src/readme.html 6822
+  src/tolower/app.jar 595
+  src/tolower/lines.txt 75
+  src/tolower/make.bat 1068
+  src/tolower/tolower.class 622
+  src/tolower/tolower.java 745
+extracted: 57 items
+  _installjava_.exe 910112 3459073eab39129087f14717e7dcc7b75c0a9685c46c237cde9b1a0cdd37e1fc
+  install.ini 310 5ee7badf9ebcec226e6a8d23fdd131d500a683204f20dab03a12af60a925781c
+  install.jar 66251 7226e97040bf6b4d036a7e2836ba1ea95afe80396c34bdccd2aade2e7d3f9e4b
+  jexepack-settings.txt 157 1aafab4f3b307ab4cded58638e40518381137e709ee8ae3faea9dac9f4a50f49
+  jexepackboot.class 8081 8a039a761c87969dbd1b7e0d8120f53c98dbef6e7f4555969e9557d744bdd0ae
+  jwin32v18.dll 32256 2969fce953f7561c285b7ef7ac7fcd3db6e568034f752949524cfe46be4f964a
+  packlist.txt 4662 ba0b520f90666a0b56d0d68387a213f4a582f46e019336649a3a4651371954c6
+  setup.gif 249 2d7fc77ce8e13828fc952c192191e2e7e5651e7a60e5566c2bf7bbbbd8525a75
+  src/DeadLock/DeadLock.class 3754 9773908dc0532ad00cdb82e2c90cff263460d4ab82bc4c8fdeac8aa01a0ab904
+  src/DeadLock/DeadLock.java 4177 66981c4d6dd9f31fe6e49badc3df308ad8dfe4c8b0a5c4ce797a6a22d511bff4
+  src/DeadLock/jexepack.ini 102 2f0b20fddcdd3f46dcfe3da06e5ca4179ac6721232ca5299f01121c0676c6f72
+  src/DeadLock/make.bat 659 c19163bff19d35f6651978621ee7759de5f16eae289c2ade8ae66c87592a17c4
+  src/GetJava/jexepack.ini 162 8fe0d8c1d0c9153e11646262ef2a6d34e7bdd68a6591a1f831e5024033997478
+  src/GetJava/make.bat 657 9c2144faae4db4a498db3ea04221da819566916608f26975442c8623b89b030f
+  src/MyFrame/MyFrame.class 1753 a099103b92428a522ab8aba461d52a581ee1907c281bab187fe9433f5e375ad6
+  src/MyFrame/MyFrame.java 1955 c5746a3cb55c0815770905c3c36341f391b03bfe351720fd4ce8126cda3eba67
+  src/MyFrame/TestPanel.class 1537 41248edc9ea773f9e6728e8d322c4b014ede5ee603c5df6ac13c813a994eaee5
+  src/MyFrame/TestPanel.java 864 ce324b077d4b0d3137ce0c832db5254b2b9b31c7117b0b316cd1166bac5acc25
+  src/MyFrame/app.ico 766 b2883465dcf1666cddb0d1b7913a425c3e3165670c8b1655e75893582da64f53
+  src/MyFrame/jbox.gif 3816 f06c159497c2d4156cad432967ff089374287f1cab7240ebf933dcdaa4c3d529
+  src/MyFrame/jexepack.ini 149 0c4c35a9ac00d31d0c45bd66ebe918e38c221545cb8d057d15f8d83ab2de4c66
+  src/MyFrame/make.bat 653 5f32bf012dcb957c7886d184f03a3413559055b7507b04cd32622f988445c8bb
+  src/MyFrame/vsversioninfo.txt 494 614f53cbdf24ef6a1767990d602af74022fd23df9c1da0becf7c7b26f6247caf
+  src/SysProp/SysProp.class 3015 b0d3aac8b159ddb15d02a942b623b187e1d35baba5a4e482616083d8b6ce9980
+  src/SysProp/SysProp.java 3928 8bc30a64a737bae19b0a676bd6fad838d68ce7a110aff416c8ab095dbb729b06
+  src/SysProp/make.bat 718 f238db629aa8f16cc3d05f123a90c1c7a80e24bbd7de5a2f50d5da1805d68f30
+  src/TestService/TestService.exe 35412 10e3f5e1280a083334a7e645385fa231b943f976cf3ca100306194df88774af5
+  src/TestService/doInstall.bat 29 b92bdaaa6e59e6c279a11e29e367f7bb3cdf03985e329403b31c55f093625967
+  src/TestService/doStart.bat 30 e2c76463ec977eea659f790f93ea7da393d527cf6a6cfe2ee173159df48fcdef
+  src/TestService/doStop.bat 29 b75b4d4ecb8770212c6d69679faef10453ed93da21af5c03a7c7175c0ca44dc2
+  src/TestService/doUninstall.bat 31 cdecc782bd4eb193d794ddbaf6a38e6195e5b92751a809f8abde2bc3e71f3cb6
+  src/TestService/readme.txt 1983 d3cf999998f8886c091c99ad6f1260ac54e170865d6aae093c11faffea460f11
+  src/Uninstall.exe 107410 5321f663799287da50e372dc3d0dbb9054745a6b42112b1fc0f30829d46e8e42
+  src/bootstrap/Boot.class 1933 3305075fab8cc7332223267cb6cb5fae2e80050bf21e6fdd9b937bc051229c4a
+  src/bootstrap/Boot.java 1248 fbdea3f73ed263e10eb5ab1af092d31a8c5516b0fbf437217b1c1e7fb85ec384
+  src/bootstrap/MessageBox.class 2729 d1ac35f00c71827dd17f1ac89b7aa75d7d0055a15b37f152d368b31ab51aec2b
+  src/bootstrap/MessageBox.java 2369 7ee7ebc43497b9b945215fbb89b6ac509a94ea7d1c74c841900b5bb274e656b4
+  src/bootstrap/make.bat 671 12784cd15bbbd00e9ff2efadcdbfb1c463a41a20bf157bac2e09f5d7741830be
+  src/bootstrap/winopen.exe 8192 debee8db7903215c16ac63e55f37d9cb51ce3154edab7605c9c3b7b0945c99e5
+  src/dns/dns.class 1075 9b739c3e4896850c6fc0c4468aa235185272c7a9b29cfe20d4e139973465b9f8
+  src/dns/dns.java 1039 4a14895a2c969fec0f4eecc2b631e9ea5d37befa9b91491f40ce973e05a297b9
+  src/dns/make.bat 4662 aace535a7d5a14cd4350291004ca963a3592c07480eb149327fe9cf4c461fc73
+  src/images/background.jpg 853 e6660826a7e7827cbb287f6d9823e6d7c89ebf61d3d0c0aba3fcfe4d067cd69b
+  src/images/byline.gif 353 9dc91bcccd5fa669686334283a8e5cae02c004aa7830e9a5b77b1a13c92c13cf
+  src/images/jbox.gif 3816 f06c159497c2d4156cad432967ff089374287f1cab7240ebf933dcdaa4c3d529
+  src/images/logotop.gif 2205 6530f4c638134608cd53ecc04bf0f5cb227ebcbda373b5516e9c7824349f50a8
+  src/images/purchaseinfo.gif 793 76b8e4f5ff9f682620f3fbd1a355795610f9b6db3d2ce77e526e74f2e1362a21
+  src/images/vista.gif 6894 fae5fbf189e2816ba0f8c90275f8af75a7cd2260cdd08e8841c402bb3eda47c4
+  src/jexepack-getjava-cached-jre-6u31-windows-i586-iftw.exe 910112 3459073eab39129087f14717e7dcc7b75c0a9685c46c237cde9b1a0cdd37e1fc
+  src/jexepack.exe 128418 39496730e141bf2d211659d0fb7d2b3d59cb92bef6da53e4c0fd70c73a0c5280
+  src/jwalker.exe 133142 43c841f86bc6c25a0b2a817040f1d88ec46d92e73088cfe1cce51fd3ace819d4
+  src/readme.html 6822 32eacd11cc53a469d730e52e709438651e679552b981bcfd4f25e7d5666620a2
+  src/tolower/app.jar 595 57109397c950ee1021e809922779f9af66f93ec96197e7512a50d36b5f6d8b5a
+  src/tolower/lines.txt 75 ebf7c84178fe67bd4b679f8c5a17a6180f8eb4b01d7961576aa1f96e1a3747a4
+  src/tolower/make.bat 1068 60426c21aa79213a0f3d454cfe14f989086ba90062b65db54bc45fc385e7f2f4
+  src/tolower/tolower.class 622 65ee42cde1477d5ae2271bec66b35e6be0d6adc82077a006978c5445e03856e6
+  src/tolower/tolower.java 745 9f98c0dedf0e64d9dc032ba3aee4115e0c3571fb33b07df0b005ba0f921ceed0

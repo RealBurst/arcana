@@ -1,6 +1,6 @@
 #!/bin/bash
 # Build script for Arcana and its plugins.
-# Usage: ./build.sh [arcana | plugin-pak | plugin-upx | all]
+# Usage: ./build.sh [arcana | plugin-pak | plugin-upx | all | test [runner options]]
 
 ROOT="$(cd "$(dirname "$0")" && pwd)"
 ARCANA_VERSION=""
@@ -14,7 +14,9 @@ TMPDIR_BUILD="$(mktemp -d)"
 trap 'rm -rf "$TMPDIR_BUILD"' EXIT
 
 usage() {
-    echo "Usage: build.sh [arcana | plugin-pak | plugin-upx | all]"
+    echo "Usage: build.sh [arcana | plugin-pak | plugin-upx | all | test [runner options]]"
+    echo "  test: builds Arcana and the plugins, then runs the regression tests"
+    echo "        (options: --update, --corpus DIR, filter; see test/README.md)"
     exit 1
 }
 
@@ -95,12 +97,35 @@ do_build_plugin() {
     return 0
 }
 
+# ---------------------------------------------------------------------------
+# Regression tests: build everything, compile test/src, run the runner
+# ---------------------------------------------------------------------------
+do_test() {
+    do_build_arcana || return 1
+    local d
+    for d in "$ROOT/plugins/arcana-plugin-"*/; do
+        [ -d "$d" ] || continue
+        do_build_plugin "$d" "$(basename "$d")" || return 1
+    done
+    local tbin="$ROOT/test/bin" list="$TMPDIR_BUILD/test_sources.txt"
+    rm -rf "$tbin" && mkdir -p "$tbin" || return 1
+    write_sources "$ROOT/test/src" "$list" || return 1
+    javac -Xlint:-options -source 8 -target 8 -cp "$ROOT/bin" -d "$tbin" @"$list" || return 1
+    echo
+    (cd "$ROOT" && LC_ALL=C.UTF-8 java -cp "$ROOT/bin:$tbin" be.stef.arcana.test.RegressionRunner --root "$ROOT" "$@")
+}
+
 [ -z "$1" ] && usage
 arg="$(echo "$1" | tr '[:upper:]' '[:lower:]')"
 
 case "$arg" in
     arcana)
         do_build_arcana || exit 1
+        ;;
+    test)
+        shift
+        do_test "$@"
+        exit $?
         ;;
     all)
         do_build_arcana || exit 1

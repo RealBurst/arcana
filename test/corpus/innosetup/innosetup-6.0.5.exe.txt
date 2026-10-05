@@ -1,0 +1,181 @@
+# Arcana regression reference (RegressionRunner --update)
+input: ae6823b523df87e9441789e51845434e4e0e70aac0b88afe80f94f20f4b98acb 4218712
+identify: archive | Inno Setup 6.0.0 Unicode - Inno Setup installer of Inno Setup 6.0.5 (LZMA2)
+  application: Inno Setup 6.0.5
+  compression: LZMA2
+  files: 86
+  encryption: none
+list: 86 entries
+  Compil32.exe 2562680
+  Default.isl 19806
+  Examples/64Bit.iss 1156
+  Examples/64BitThreeArch.iss 1982
+  Examples/64BitTwoArch.iss 1763
+  Examples/AllPagesExample.iss 3781
+  Examples/CodeAutomation.iss 9647
+  Examples/CodeAutomation2.iss 10852
+  Examples/CodeClasses.iss 15857
+  Examples/CodeDlg.iss 7628
+  Examples/CodeDll.iss 3390
+  Examples/CodeExample1.iss 6378
+  Examples/CodePrepareToInstall.iss 4041
+  Examples/Components.iss 1271
+  Examples/Example1.iss 622
+  Examples/Example2.iss 902
+  Examples/Example3.iss 3616
+  Examples/ISPPExample1.iss 1300
+  Examples/ISPPExample1License.txt 75
+  Examples/Languages.iss 1900
+  Examples/License.txt 42
+  Examples/MyDll.dll 16040
+  Examples/MyDll/C#/MyDll.cs 843
+  Examples/MyDll/C#/MyDll.csproj 3015
+  Examples/MyDll/C#/MyDll.sln 978
+  Examples/MyDll/C#/Properties/AssemblyInfo.cs 1422
+  Examples/MyDll/C#/packages.config 143
+  Examples/MyDll/C/MyDll.c 155
+  Examples/MyDll/C/MyDll.def 20
+  Examples/MyDll/C/MyDll.dsp 2622
+  Examples/MyDll/Delphi/MyDll.dpr 229
+  Examples/MyProg-ARM64.exe 20368
+  Examples/MyProg-x64.exe 16552
+  Examples/MyProg.chm 12503
+  Examples/MyProg.exe 16048
+  Examples/Readme-Dutch.txt 43
+  Examples/Readme-German.txt 45
+  Examples/Readme.txt 41
+  Examples/UnicodeExample1.iss 871
+  Examples/UninstallCodeExample1.iss 1497
+  ISCC.exe 872568
+  ISCmplr.dll 1414776
+  ISPP.chm 67936
+  ISPP.dll 1012856
+  ISPPBuiltins.iss 12128
+  ISetup.chm 378026
+  Languages/Armenian.isl 26504
+  Languages/BrazilianPortuguese.isl 21064
+  Languages/Catalan.isl 19816
+  Languages/Corsican.isl 23658
+  Languages/Czech.isl 21605
+  Languages/Danish.isl 20299
+  Languages/Dutch.isl 20134
+  Languages/Finnish.isl 18466
+  Languages/French.isl 24622
+  Languages/German.isl 23464
+  Languages/Hebrew.isl 16532
+  Languages/Icelandic.isl 20055
+  Languages/Italian.isl 21687
+  Languages/Japanese.isl 19786
+  Languages/Norwegian.isl 19826
+  Languages/Polish.isl 21689
+  Languages/Portuguese.isl 20901
+  Languages/Russian.isl 19909
+  Languages/Slovak.isl 20548
+  Languages/Slovenian.isl 19560
+  Languages/Spanish.isl 21209
+  Languages/Turkish.isl 20618
+  Languages/Ukrainian.isl 20386
+  Setup.e32 2571264
+  SetupLdr.e32 780800
+  WizModernImage-IS.bmp 52574
+  WizModernImage.bmp 26494
+  WizModernSmallImage-IS.bmp 4158
+  WizModernSmallImage.bmp 1658
+  isbunzip.dll 30376
+  isbzip.dll 33968
+  islzma.dll 85160
+  islzma32.exe 83120
+  islzma64.exe 110760
+  isscint.dll 285352
+  isunzlib.dll 24240
+  iszlib.dll 29352
+  license.txt 1521
+  tmp/donate.bmp 3062
+  whatsnew.htm 29618
+extracted: 86 items
+  Compil32.exe 2562680 5a4270e74cbbc691a8be48f3d090c074b33a46002a52100d5c5a68cd1d349cab
+  Default.isl 19806 c3c51740b755c1cac31a8c9f0e8fe995631d94d77c1944b852d0ef3433203828
+  Examples/64Bit.iss 1156 907e10278187c48d6e818c19343a8e02bb872e32c4573085a2fcbe584ab5d06c
+  Examples/64BitThreeArch.iss 1982 184fb5475d178024cd787cb10e92961c97918905d91d22847635376389e03d73
+  Examples/64BitTwoArch.iss 1763 7a0e14b0cb7f05e63f0270fa936c4d7e23f56f04171ad85212b8ec67fdd23579
+  Examples/AllPagesExample.iss 3781 95f3b9689daa6ca16ad6a5ffe8fe5bae0a9a26e4fb3d34d352075ff0b08378fe
+  Examples/CodeAutomation.iss 9647 7ec98f4aa7b19e51092bdd2cecadeac044fb222a7191422152d051c37592af5a
+  Examples/CodeAutomation2.iss 10852 6d0d289ca3abd77fde65e3a1114f534ae7f625c58f58756854326f2e9f2d9510
+  Examples/CodeClasses.iss 15857 2ea5a99a7d21e94630afb997642a4564aa73b85b1c883ab7f6b38ef44b28027c
+  Examples/CodeDlg.iss 7628 63a7526a14d5a4d17b635a97083f214385f542bd470ff9e37dea4432a0125947
+  Examples/CodeDll.iss 3390 97dc0dc2fda21018e5cdb2bdbf3ab61a8b9d7df82e381173f3bf222537928b39
+  Examples/CodeExample1.iss 6378 933ba8d04bb93112b88744e71c2c90f4ef52f9ffd04fa777fc4796c6329c511c
+  Examples/CodePrepareToInstall.iss 4041 e2a3bd397444af6dbfbe3d10ebfe5bbd8de0cd870c5c4036e20d94e470816dbd
+  Examples/Components.iss 1271 8030aed62c63c4d5f626d80cce475091f19458e0c6db193de5e97aa932a3f200
+  Examples/Example1.iss 622 51bbe9a848916fbd57d75afa428b1c74680bf7ed018cba2b0f8cbe14d0ac105e
+  Examples/Example2.iss 902 b99b691381a3534edb09c3b3b2580f1a16a6a7e0cdf1725a759ac5921bc3afcf
+  Examples/Example3.iss 3616 27166b7ba7d8890ca08447cbf1985e828587d1af118655c24a5bdb17aa6b0984
+  Examples/ISPPExample1.iss 1300 f6c968c9ec19a5338ff4e7066c4b8e8412af34f676601de1bcd040d38bd9c4a3
+  Examples/ISPPExample1License.txt 75 ad9c38e411d3faf71c3e2a6c34f8547ff7f215d41d888c04d8c6dc812b838e83
+  Examples/Languages.iss 1900 6d570f0cc6150e0b36fb86e3ad838db967be5b0f49e61f4ac2c287aa771619bb
+  Examples/License.txt 42 603cac0aa33f63b50d12fa7a071a3376499498b9929c1dab2f2d5daff4903313
+  Examples/MyDll.dll 16040 76ad20399154d53374522f4ab1e804f565eaa224d304816c81e5f989ae8e45be
+  Examples/MyDll/C#/MyDll.cs 843 9e28bead7c5361312e8428401b04fccb738bcdb9b7facd73a3b2b9596808cd76
+  Examples/MyDll/C#/MyDll.csproj 3015 1291ff5b355118a033a3f4ece18dc24091bb7bf94628261035a36d625aae6ce0
+  Examples/MyDll/C#/MyDll.sln 978 db53eeaeede0ffb05627efcdb29b247b34281d88683e55c11fac25afce6986d4
+  Examples/MyDll/C#/Properties/AssemblyInfo.cs 1422 298fd8c4feed0b5aa00d38bb67baa547cab1dc2f58710c5ff9e180a8530a1222
+  Examples/MyDll/C#/packages.config 143 ddca8ecb97d5f2f30b779ebe6cc28485d4b0002911ba59f9acd85e6dee8c4954
+  Examples/MyDll/C/MyDll.c 155 46b8532187053872f0e10822bd1d3692b6c33ca06b14463036901fbc3c0d9b8b
+  Examples/MyDll/C/MyDll.def 20 0e885b880199a19c38fe3eae6f17443bb568c1596bd5fe05951c73a09589e90e
+  Examples/MyDll/C/MyDll.dsp 2622 3235009b304c2f08ddb056e08e15f51e321a367df4d8ec02688400c23093393a
+  Examples/MyDll/Delphi/MyDll.dpr 229 93e27469d273642d584c9a5696bd8f677df4626fd7cc2a76a07d7f9fa75b02bf
+  Examples/MyProg-ARM64.exe 20368 b62c47c833a77078c8f41eab58e7b82b97d9cee69818abdab16fd7bc07236eb1
+  Examples/MyProg-x64.exe 16552 e1711cbc3865efce09e5bbe16a75a83fea9fccec16ddb15873b6ce1f3c9e2d1f
+  Examples/MyProg.chm 12503 fc47e3f35ce2f2db1ad85dc320200424c406a3c7cb9c17fb5fd91af865644021
+  Examples/MyProg.exe 16048 5cda9e8a3b039b3f1b1d4f0fa72cd84b954f91fefbe91938100286ddb9a50693
+  Examples/Readme-Dutch.txt 43 c1a3c3c9fe7251f290c173ee35e7a76af68133328d5a3309136d937a60170619
+  Examples/Readme-German.txt 45 85b0678b9f6879a3fdd0dafa6a2556eb5deed3d4c467f10273b5fdef6adb9a41
+  Examples/Readme.txt 41 95b1274839c0cf1653a31d54610d7e16183dc154fe4b42901fdd262aec2268c6
+  Examples/UnicodeExample1.iss 871 9e94a05795976b76bbd200bd1aaf799442f3df93ee0de7ec0e9d345a30281ef5
+  Examples/UninstallCodeExample1.iss 1497 ae37290c5e0e7f445f7062604b9f28d1d7a4db88a6e4e1b03e88309354924a02
+  ISCC.exe 872568 fb1eae60165f94b8604eaf2181e67a55c7f61547e3647cdbd5e30df99368338f
+  ISCmplr.dll 1414776 b8965622bac7dab4f72ece94ee23f81869433a12fe3569aa470238d11456ec95
+  ISPP.chm 67936 2f5984888ec8bb1371a1bfa694e1c9ba4a7bfee06215892aa83ab109af15eff9
+  ISPP.dll 1012856 8af34899ac7d4f27c71c4c47861c49d3d108bad5b35af321bb4f4734c5728b3c
+  ISPPBuiltins.iss 12128 d4d0a5247443b3fb847e6512c0946e75ff6b44b19e57eb2dd58729593f004659
+  ISetup.chm 378026 8dd6cfcf9e27f7997d9c0af17ec9d3341633f378d98862a67b6ff1c29a6f4a50
+  Languages/Armenian.isl 26504 3cbda36b88ab95f719002df87af0ad908c512e910bbcf40bf7a9ffd5cdb731a2
+  Languages/BrazilianPortuguese.isl 21064 b36adc610310f8b710a461b53cd454056b91286cf32fee9dbd8047c4c443cc5a
+  Languages/Catalan.isl 19816 4beab9f9d1b76c5161e4783d31695775957746dc65007fcbbab586a8f058ab12
+  Languages/Corsican.isl 23658 2d064d3acb16a727dfd3a5242b99d543495bff7d4e3d22be7b36bc51121eeede
+  Languages/Czech.isl 21605 52ecf164aa219745b95a7182c2d66b6c5aee81b39986c15d68cfc1bfb09656f0
+  Languages/Danish.isl 20299 6af07df151a4f89ae663ccc87164f25dee49fb65cd3d61c6e1335a153675e055
+  Languages/Dutch.isl 20134 c9ba6ec7211e6633515478988fabdd3490e2a71918687e2a381416be2e6d96f3
+  Languages/Finnish.isl 18466 2d9a45f4799032f8410cc6fe09877db61bc980c75676ed35b95ca3d87b58d096
+  Languages/French.isl 24622 8046eec54a5189e74c25beafaa7ef69152e1e3602724fa24a673c7a7189681e8
+  Languages/German.isl 23464 4f7a4415995e2bd1994952c1f8cd21cd5449a7cd875343141cb8ce22704be8af
+  Languages/Hebrew.isl 16532 300101c11b1adefa1d1ce61fafca5faac293eb8abb2bfbfd7f8f5323a3d9d0c0
+  Languages/Icelandic.isl 20055 7f77a606f5dca379327c5bbe3a07d5ae3a3bc00bd562d497d684583a0d2bb9c3
+  Languages/Italian.isl 21687 1fb0e465306e5a1bb0d280514bdf2a8ef55a24c59626c27b4d5a726ae09853c1
+  Languages/Japanese.isl 19786 278a1617d04743dabcbff74dc82f00dc1f140b8ad86b2993f3eb14d6a1d19601
+  Languages/Norwegian.isl 19826 47cd8d5da81ae9c9fdfc7042bd0059da833d7c48949dbf336a51df4d7185a8e1
+  Languages/Polish.isl 21689 da6f1c1d3b1e60ec3f67a170311de39e145bcdfaaf66cebe8f706a299285c43a
+  Languages/Portuguese.isl 20901 6c950187ff11bb0221b7ac77b1f2db18ccb39a53f7c93be00466acfcd98c6ca3
+  Languages/Russian.isl 19909 f92156a940000b486a79e7a2bfc76e9737c8f98c90d3850d780b568de0d7d133
+  Languages/Slovak.isl 20548 7ac205342dda632913a092f7aa8a36257eee26b3e762c298f221d761c7af97d8
+  Languages/Slovenian.isl 19560 9b3cb733aa8da55d4cae528eb50e25e60476220356a3fa6f43610b19937a8437
+  Languages/Spanish.isl 21209 549f2300527dd76c154c6b74af2de3b2936d6a8de73d3c66327d80bf17b1362a
+  Languages/Turkish.isl 20618 a124f5f2a162d2bfb89eb4568864a46c780a98a163cbb3b8c338683a6a1620e1
+  Languages/Ukrainian.isl 20386 a63a8ec4a59de025eb9819039c79c50ee9f7e3fb162f57a71dc1e5dca9926575
+  Setup.e32 2571264 5be7e7cf7cd56aef8014a80032d7f8355108a54e6a1aa0c3c338af7a43eaf270
+  SetupLdr.e32 780800 342c9750495539812abe8be67df557f3ad5a57143a5a50401e3b056fad6d555c
+  WizModernImage-IS.bmp 52574 1b73df0b89a2943f34582cf81c2d8ed7b1ce4cfb54d86ce58ebd6dd0e1e05f5d
+  WizModernImage.bmp 26494 d148dc2569e9abc4b4da650b1920ef1ffdc10bbd6bc2e20a97ce44b1f9f78aea
+  WizModernSmallImage-IS.bmp 4158 ae94cd61179bc1869d0082b1fa8c189f8487d106712b48a2a6c6a035d370bfb4
+  WizModernSmallImage.bmp 1658 a7e560d419e85daf80cce980baa124ef7c73197d0f51a59a19f1866ee8edfe8c
+  isbunzip.dll 30376 6535ba91fcca7174c3974b19d9ab471f322c2bf49506ef03424517310080be1b
+  isbzip.dll 33968 236cc3be73ca36f797f94ecd30cd662ea3fb8d736265e7332b674b718803a803
+  islzma.dll 85160 ac12a3faa457ae0bb5c94b75b03717c610b221317e9718f04bbad54e0acd382a
+  islzma32.exe 83120 bb3bf67132be2a6962d2b9ac40bfc04a9fc1b133a3a3a44b5ddc945beffd4c4c
+  islzma64.exe 110760 a8c09d33bb85fa6398377641055148d1ba6a238b16c3c73261ab7aacb47b87d1
+  isscint.dll 285352 86407253cdd8ebaa39dcb965030959cefe3c00e71ad7cd2378b50798130e8631
+  isunzlib.dll 24240 5da7c8d33d3b7db46277012d92875c0b850c8abf1eb3c8c9c5b9532089a0bcf0
+  iszlib.dll 29352 46d4e5c28319fe9b6beda523e77064268dd63ec382ae200bc0b255817c199a04
+  license.txt 1521 6b11497e1eb95af29b5c2a254e9617bc19c01a281c93d9512790a4b921789698
+  tmp/donate.bmp 3062 c925160c8686390a4420ff9c35ded0654e2b7d4b432b0bf18290b843fc2e5b12
+  whatsnew.htm 29618 4370c67a863b9ed7a13adea5e7aeb8d6453be6301e8149b6e350b3fbec6323b5
