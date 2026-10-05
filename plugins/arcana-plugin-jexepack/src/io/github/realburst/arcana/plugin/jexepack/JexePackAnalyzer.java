@@ -38,14 +38,23 @@ public final class JexePackAnalyzer implements ArcanaAnalyzer {
         } catch (final IOException e) {
             return Identification.of("archive", "JexePack").description("Java program packed by JexePack (data not readable: " + e.getMessage() + ")").confidence(70).build();
         }
-        final StringBuilder files = new StringBuilder();
+        // the jar files (what the program runs) are named; the other files are counted
+        final StringBuilder jars = new StringBuilder();
+        int others = 0;
         for (final JexePackArchive.Item it : arc.items) {
-            if (files.length() > 0) files.append(", ");
-            files.append(it.name);
+            final String n = it.name.toLowerCase();
+            if (n.endsWith(".jar") || n.endsWith(".zip") || n.endsWith(".class")) {
+                if (jars.length() > 0) jars.append(", ");
+                jars.append(it.name);
+            } else {
+                others++;
+            }
         }
         final Identification.Builder b = Identification.of("archive", "JexePack")
                 .description("Java program packed into an executable by " + (arc.packager.isEmpty() ? "JexePack" : arc.packager) + " (extract it to check the jar files)")
-                .detail("files", files.toString())
+                .detail("java code", jars.length() == 0 ? "-" : jars.toString())
+                .detail("other files", others)
+                .detail("format", "JexePack records, version " + arc.version + (arc.version == 1 ? " (JexePack 5)" : arc.version == 2 ? " (JexePack 7)" : " (JexePack 8)"))
                 .confidence(95);
         if (!arc.packager.isEmpty()) b.version(arc.packager.replace("JexePack", "").trim());
         if (!arc.mainClass.isEmpty()) b.detail("main class", arc.mainClass);
