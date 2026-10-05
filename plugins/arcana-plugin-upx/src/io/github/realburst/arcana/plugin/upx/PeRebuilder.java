@@ -140,9 +140,30 @@ final class PeRebuilder {
     }
 
     private static void rebuildImports(RandomAccessFile in, byte[] image, byte[] nt, byte[] sections, long packedSections, int packedCount, long packedImportRva, int imdata, int namesRva, long rvamin, int width) throws IOException {
-        if (namesRva != 0) throw bad("Unsupported UPX import name table");
         long packedBase = packedRvaToFile(in, packedSections, packedCount, packedImportRva);
         int importDesc = imageOffset(image, dirRva(nt, width == 8 ? 0x88 : 0x78, 1), rvamin, 20);
+        // UPX moved the dll and function names to a new table at namesRva: dll names first (size rounded to 2), then the hint/name entries.
+        int dllNames = 0, importedNames = 0, importedStart = 0;
+        if (namesRva != 0) {
+            int size = 0, q = imdata, libs = 0;
+            while (true) {
+                range(image, q, 4);
+                long dllOffset = u32(image, q);
+                if (dllOffset == 0) break;
+                if (++libs > 512) throw bad("Too many imported libraries");
+                size += readCString(in, packedBase + dllOffset, 4096).length;
+                q += 8;
+                while (true) {
+                    range(image, q, 1);
+                    int tag = image[q] & 255;
+                    if (tag == 0) { ++q; break; }
+                    q += tag == 1 ? 1 + cString(image, q + 1, 4096).length : tag == 255 ? 3 : 5;
+                }
+            }
+            dllNames = imageOffset(image, namesRva & 0xffffffffL, rvamin, 0);
+            importedStart = dllNames + ((size + 1) & ~1);
+            importedNames = importedStart;
+        }
         int p = imdata, count = 0;
         while (true) {
             range(image, p, 4);
@@ -153,9 +174,16 @@ final class PeRebuilder {
             long iat = u32(image, p + 4) + rvamin;
             int desc = importDesc + (count - 1) * 20;
             range(image, desc, 20);
-            long dllNameRva = u32(image, desc + 12);
             byte[] dllName = readCString(in, packedBase + dllOffset, 4096);
-            System.arraycopy(dllName, 0, image, imageOffset(image, dllNameRva, rvamin, dllName.length), dllName.length);
+            if (namesRva != 0) {
+                range(image, dllNames, dllName.length);
+                System.arraycopy(dllName, 0, image, dllNames, dllName.length);
+                put32(image, desc + 12, dllNames + rvamin);
+                dllNames += dllName.length;
+            } else {
+                long dllNameRva = u32(image, desc + 12);
+                System.arraycopy(dllName, 0, image, imageOffset(image, dllNameRva, rvamin, dllName.length), dllName.length);
+            }
             put32(image, desc + 16, iat);
             p += 8;
             int imported = 0;
@@ -167,9 +195,17 @@ final class PeRebuilder {
                 if (++imported > 65536) throw bad("Too many imports");
                 if (tag == 1) {
                     byte[] name = cString(image, p + 1, 4096);
-                    long pointer = word(image, at, width);
-                    int target = imageOffset(image, pointer + 2, rvamin, name.length);
-                    System.arraycopy(name, 0, image, target, name.length);
+                    if (namesRva != 0) {
+                        if (((importedNames - importedStart) & 1) != 0) importedNames--;
+                        range(image, importedNames, 2 + name.length);
+                        System.arraycopy(name, 0, image, importedNames + 2, name.length);
+                        putWord(image, at, importedNames + rvamin, width);
+                        importedNames += 2 + name.length;
+                    } else {
+                        long pointer = word(image, at, width);
+                        int target = imageOffset(image, pointer + 2, rvamin, name.length);
+                        System.arraycopy(name, 0, image, target, name.length);
+                    }
                     p += 1 + name.length;
                 } else if (tag == 255) {
                     range(image, p, 3);
