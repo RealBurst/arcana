@@ -55,7 +55,7 @@ import javax.crypto.spec.SecretKeySpec;
  *   7z-aes-rounds IN OUT             7z (-mhc=off) whose AES rounds are patched to 2^30
  *   sfx-zip-inside PAYLOAD OUT       minimal PE holding a ZIP inside its section
  *   wim-lzx-uncompressed WORK OUT    WIM whose LZX chunks hold an uncompressed block (wimlib-imagex)
- *   dmg-hfsx PAYLOAD MODE OUT        HFSX volume in a UDIF image: MODE raw, adc or features (zlib, decmpfs, links...)
+ *   dmg-hfsx PAYLOAD MODE OUT        HFSX volume in a UDIF image: MODE raw, adc, features (zlib, decmpfs, links...) or whole (zlib, one "whole disk" entry holding an Apple partition map)
  *   dmg-encrypted OUT                header of an encrypted disk image (encrcdsa)
  * </pre>
  *
@@ -96,7 +96,7 @@ public final class SampleGenerator {
         else if ("7z-aes-rounds".equals(cmd) && a.length == 3) write(new File(a[2]), sevenZipAesRounds(read(new File(a[1]))));
         else if ("sfx-zip-inside".equals(cmd) && a.length == 3) write(new File(a[2]), sfxZipInside(new File(a[1])));
         else if ("wim-lzx-uncompressed".equals(cmd) && a.length == 3) wimLzxUncompressed(new File(a[1]), new File(a[2]));
-        else if ("dmg-hfsx".equals(cmd) && a.length == 4 && a[2].matches("raw|adc|features")) write(new File(a[3]), dmgHfsx(new File(a[1]), a[2]));
+        else if ("dmg-hfsx".equals(cmd) && a.length == 4 && a[2].matches("raw|adc|features|whole")) write(new File(a[3]), dmgHfsx(new File(a[1]), a[2]));
         else if ("dmg-encrypted".equals(cmd) && a.length == 2) write(new File(a[1]), dmgEncryptedHeader());
         else {
             usage();
@@ -117,7 +117,7 @@ public final class SampleGenerator {
         System.err.println("  7z-aes-rounds IN OUT            7z (-mhc=off) whose AES rounds are patched to 2^30");
         System.err.println("  sfx-zip-inside PAYLOAD OUT      minimal PE holding a ZIP inside its section");
         System.err.println("  wim-lzx-uncompressed WORK OUT   WIM whose LZX chunks hold an uncompressed block (needs wimlib-imagex)");
-        System.err.println("  dmg-hfsx PAYLOAD MODE OUT       HFSX volume in a UDIF image: MODE raw, adc or features (zlib, decmpfs, links...)");
+        System.err.println("  dmg-hfsx PAYLOAD MODE OUT       HFSX volume in a UDIF image: MODE raw, adc, features (zlib, decmpfs, links...) or whole (zlib, \"whole disk\" entry with an Apple partition map)");
         System.err.println("  dmg-encrypted OUT               header of an encrypted disk image (encrcdsa)");
     }
 
@@ -990,7 +990,9 @@ public final class SampleGenerator {
     /**
      * dmg-hfsx PAYLOAD MODE OUT: the payload tree in an HFSX volume, in a
      * one-partition UDIF image whose chunks are raw (MODE raw), ADC (adc) or
-     * zlib (features: with the extra entries of {@link #hfsFeatures}).
+     * zlib (features: with the extra entries of {@link #hfsFeatures}; whole:
+     * one "whole disk" entry holding a driver descriptor, an Apple partition
+     * map and the volume at sector 64, as some hdiutil images have).
      */
     private static byte[] dmgHfsx(final File payload, final String mode) throws IOException {
         final HfsItem root = new HfsItem();
@@ -999,7 +1001,32 @@ public final class SampleGenerator {
         hfsTree(payload, root);
         if (mode.equals("features")) hfsFeatures(root, payload);
         final byte[] volume = hfsVolume(root);
-        return udif(volume, mode.equals("raw") ? 1 : mode.equals("adc") ? 0x80000004 : 0x80000005);
+        if (mode.equals("whole")) return udif(wholeDisk(volume), 0x80000005, "whole disk (Apple_HFS : 0)");
+        return udif(volume, mode.equals("raw") ? 1 : mode.equals("adc") ? 0x80000004 : 0x80000005, "disk image (Apple_HFS : 0)");
+    }
+
+    /** Disk with a driver descriptor ("ER"), an Apple partition map (2 entries) and the volume from sector 64. */
+    private static byte[] wholeDisk(final byte[] volume) {
+        final int volSectors = volume.length / 512;
+        final byte[] disk = new byte[(64 + volSectors) * 512];
+        disk[0] = 'E';
+        disk[1] = 'R';
+        putBe16(disk, 2, 512);
+        putBe32(disk, 4, 64 + volSectors);
+        final String[][] entries = {{"Apple", "Apple_partition_map", "1", "63"}, {"disk image", "Apple_HFS", "64", String.valueOf(volSectors)}};
+        for (int i = 0; i < entries.length; i++) {
+            final int e = 512 * (i + 1);
+            disk[e] = 'P';
+            disk[e + 1] = 'M';
+            putBe32(disk, e + 4, entries.length);
+            putBe32(disk, e + 8, Integer.parseInt(entries[i][2]));
+            putBe32(disk, e + 12, Integer.parseInt(entries[i][3]));
+            System.arraycopy(ascii(entries[i][0]), 0, disk, e + 16, entries[i][0].length());
+            System.arraycopy(ascii(entries[i][1]), 0, disk, e + 48, entries[i][1].length());
+            putBe32(disk, e + 84, Integer.parseInt(entries[i][3]));
+        }
+        System.arraycopy(volume, 0, disk, 64 * 512, volume.length);
+        return disk;
     }
 
     private static void hfsTree(final File dir, final HfsItem parent) throws IOException {
@@ -1419,12 +1446,12 @@ public final class SampleGenerator {
     }
 
     /**
-     * One-partition UDIF image ("disk image (Apple_HFS : 0)"): chunks of 64
+     * One-partition UDIF image (entry name given, e.g. "disk image (Apple_HFS : 0)"): chunks of 64
      * sectors (8 for raw ones) of the given type, zero-fill or "ignore"
      * chunks for the zero runs; data fork, XML property list, koly trailer,
      * CRC32 checksums (the partition one leaves the "ignore" chunks out).
      */
-    private static byte[] udif(final byte[] volume, final int type) throws IOException {
+    private static byte[] udif(final byte[] volume, final int type, final String name) throws IOException {
         final int sectors = volume.length / 512;
         final int per = type == 1 ? 8 : 64;
         final ByteArrayOutputStream fork = new ByteArrayOutputStream();
@@ -1475,7 +1502,6 @@ public final class SampleGenerator {
         putBe32(mish, 68, 32);
         putBe32(mish, 72, (int) partCrc.getValue());
         putBe32(mish, 200, count);
-        final String name = "disk image (Apple_HFS : 0)";
         final String xml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<!DOCTYPE plist PUBLIC \"-//Apple//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">\n<plist version=\"1.0\">\n<dict>\n\t<key>resource-fork</key>\n\t<dict>\n\t\t<key>blkx</key>\n\t\t<array>\n\t\t\t<dict>\n\t\t\t\t<key>Attributes</key>\n\t\t\t\t<string>0x0050</string>\n\t\t\t\t<key>CFName</key>\n\t\t\t\t<string>" + name + "</string>\n\t\t\t\t<key>Data</key>\n\t\t\t\t<data>\n\t\t\t\t" + java.util.Base64.getEncoder().encodeToString(cat(mish, chunks.toByteArray())) + "\n\t\t\t\t</data>\n\t\t\t\t<key>ID</key>\n\t\t\t\t<string>0</string>\n\t\t\t\t<key>Name</key>\n\t\t\t\t<string>" + name + "</string>\n\t\t\t</dict>\n\t\t</array>\n\t</dict>\n</dict>\n</plist>\n";
         final byte[] data = fork.toByteArray();
         final byte[] x = ascii(xml);

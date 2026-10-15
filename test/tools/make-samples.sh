@@ -277,6 +277,7 @@ else skip "dmg (mkfs.hfsplus, hfsplus, dmg)"; fi
 "${GEN[@]}" dmg-hfsx "$P" raw "$OUT/dmg/udro-hfsx.dmg"
 "${GEN[@]}" dmg-hfsx "$P" adc "$OUT/dmg/udco-hfsx.dmg"
 "${GEN[@]}" dmg-hfsx "$P" features "$OUT/dmg/hfsx-features.dmg"
+"${GEN[@]}" dmg-hfsx "$P" whole "$OUT/dmg/whole-disk-apm.dmg"
 "${GEN[@]}" dmg-encrypted "$OUT/dmg/encrypted-header.dmg"
 
 # ---------------------------------------------------------------------------

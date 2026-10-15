@@ -29,6 +29,7 @@ Samples (`test/tools/make-samples.sh`, `dmg` section):
 | `udzo-renamed.bin` | copy of `udzo-hfsplus.dmg` | detection by the trailer, without the extension |
 | `udro-hfsx.dmg`, `udco-hfsx.dmg` | `SampleGenerator dmg-hfsx PAYLOAD raw\|adc` | the payload in an HFSX volume, one partition, raw (UDRO) or ADC (UDCO) chunks, zero-fill and "ignore" chunks |
 | `hfsx-features.dmg` | `SampleGenerator dmg-hfsx PAYLOAD features` | zlib chunks; decomposed Unicode names, hard links, a symbolic link, decmpfs files (zlib, LZVN, LZFSE), a file in 10 extents (extents overflow), a resource fork |
+| `whole-disk-apm.dmg` | `SampleGenerator dmg-hfsx PAYLOAD whole` | one "whole disk (Apple_HFS : 0)" entry holding a driver descriptor, an Apple partition map and the HFSX volume at sector 64 (zlib chunks) |
 | `encrypted-header.dmg` | `SampleGenerator dmg-encrypted` | a 4 KiB "encrcdsa" header only: reported as not supported |
 | `damaged/truncated.dmg` | first half of `udzo-hfsplus.dmg` | no trailer left |
 | `damaged/flipped.dmg` | `udzo-hfsplus.dmg` with byte 3000 changed | inside a zlib chunk of the data fork |
@@ -222,6 +223,16 @@ password or a certificate) are not supported:
   `<name>.img` for FAT, NTFS, exFAT, plain HFS and unknown file systems).
   With one HFS+ volume, its files are at the root of the output; with
   several, each volume goes into a folder named after it.
+- "Whole disk" entries: some images (for example the DbVisualizer 26.2 macOS
+  installer, UDZO, image variant 2) have a single `blkx` entry named
+  "whole disk (Apple_HFS : 0)" that holds the whole disk: driver descriptor
+  ("ER"), Apple partition map, and the HFS+ volume further on (sector 64).
+  When a partition has no known file system but starts with an Apple
+  partition map or a GPT, `DmgContent.plan` replaces it by the partitions of
+  that map (`UdifImage.readPartitionMap`, the code used for raw images); `i`
+  shows them as `partition 0.1 : whole disk (Apple_HFS : 0) / disk image
+  (Apple_HFS : 1): ...`. The CRC32 of the partition is still checked on the
+  whole entry.
 - Raw images (no trailer): a `.dmg` (or a file forced with `-f dmg`) with
   an HFS+ volume header at 1024, a GUID partition table ("EFI PART" at 512)
   or an Apple partition map ("ER" at 0, "PM" entries) is read as a disk of

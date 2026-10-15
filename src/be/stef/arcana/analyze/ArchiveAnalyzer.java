@@ -199,7 +199,7 @@ public final class ArchiveAnalyzer implements ArcanaAnalyzer {
                 } else if (it.kind == DmgContent.EMPTY) {
                     d = "empty, not extracted";
                 } else if (it.kind == DmgContent.HFS) {
-                    final HfsPlusReader r = new HfsPlusReader(img.openPartition(p));
+                    final HfsPlusReader r = new HfsPlusReader(DmgContent.view(img.openPartition(p), it));
                     d = (r.getSignature().equals("HX") ? "HFSX" : "HFS+") + " volume \"" + r.getVolumeName() + "\" (signature " + r.getSignature() + ", version " + r.getVersion() + ", " + r.getFileCount() + " files, " + r.getFolderCount() + " folders" + (r.isJournaled() ? ", journaled" : "") + ")";
                     r.walk(e -> { });
                     if (r.getResourceForkCount() > 0) d += ", " + r.getResourceForkCount() + " resource fork(s) not extracted";
@@ -207,7 +207,7 @@ public final class ArchiveAnalyzer implements ArcanaAnalyzer {
                 } else {
                     d = (it.fileSystem != null ? it.fileSystem : "unknown file system") + ", extracted as a raw image: " + it.target;
                 }
-                b.detail("partition " + p.id, p.name + ": " + d);
+                b.detail("partition " + p.id + (it.subIndex >= 0 ? "." + it.subIndex : ""), it.name + ": " + d);
             }
         } catch (final ArcanaUnsupportedFormatException e) {
             b.description("Apple disk image (UDIF): " + e.getMessage());

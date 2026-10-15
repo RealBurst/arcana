@@ -174,11 +174,17 @@ public final class UdifImage implements Closeable {
 
         /** True for the entries that only describe the partition scheme (maps, free space, boot records). */
         public boolean isPartitionScheme() {
-            final String t = type.toLowerCase();
+            return isSchemeType(type);
+        }
+
+        /** True for the partition types that only describe the partition scheme (maps, free space, boot records). */
+        public static boolean isSchemeType(final String partitionType) {
+            final String t = partitionType.toLowerCase();
             return t.equals("ddm") || t.equals("mbr") || t.contains("gpt") || t.equals("apple_partition_map") || t.equals("apple_free") || t.startsWith("apple_driver") || t.equals("apple_patches") || t.equals("apple_void") || t.equals("apple_scratch") || t.contains("driver descriptor");
         }
 
-        private static String typeOf(final String name) {
+        /** Partition type from a "name (type : n)" string, e.g. "Apple_HFS". */
+        public static String typeOf(final String name) {
             final int open = name.lastIndexOf('(');
             final int colon = name.lastIndexOf(" : ");
             if (open >= 0 && colon > open) return name.substring(open + 1, colon).trim();
@@ -423,49 +429,100 @@ public final class UdifImage implements Closeable {
             addRaw(0, "HFS+ volume (Apple_HFS : 0)", 0, sectors);
             return;
         }
-        if (b.length >= 1024 && b[512] == 'E' && b[513] == 'F' && b[514] == 'I' && b[515] == ' ' && b[516] == 'P' && b[517] == 'A' && b[518] == 'R' && b[519] == 'T') {
-            readGpt(b);
-            return;
-        }
-        if (b[0] == 'E' && b[1] == 'R') {
-            final int blk = be16(b, 2) == 0 ? SECTOR : be16(b, 2);
-            final byte[] e0 = readAt(blk, SECTOR);
-            if (e0[0] == 'P' && e0[1] == 'M') {
-                final long n = be32(e0, 4) & 0xffffffffL;
-                for (int i = 0; i < Math.min(n, 256); i++) {
-                    final byte[] e = readAt((long) blk * (i + 1), SECTOR);
-                    if (e[0] != 'P' || e[1] != 'M') break;
-                    final long start = (be32(e, 8) & 0xffffffffL) * blk / SECTOR;
-                    final long count = (be32(e, 12) & 0xffffffffL) * blk / SECTOR;
-                    final String pname = cString(e, 16, 32);
-                    final String ptype = cString(e, 48, 32);
-                    if (start + count <= sectors) addRaw(i, pname + " (" + ptype + " : " + i + ")", start, count);
-                }
-                if (!partitions.isEmpty()) return;
+        final HfsPlusReader.Source file = new HfsPlusReader.Source() {
+            @Override
+            public long length() {
+                return sectors * SECTOR;
             }
+
+            @Override
+            public void readFully(final long pos, final byte[] buf, final int off, final int len) throws IOException {
+                System.arraycopy(readAt(pos, len), 0, buf, off, len);
+            }
+        };
+        final List<MapEntry> map = readPartitionMap(file);
+        if (map != null) {
+            for (final MapEntry e : map) addRaw(e.index, e.name, e.firstSector, e.sectorCount);
+            if (!partitions.isEmpty()) return;
         }
         throw new ArcanaUnsupportedFormatException("No UDIF \"koly\" trailer (truncated or not a disk image) and no HFS+ volume or partition map found");
     }
 
-    private void readGpt(final byte[] b) throws IOException {
-        final long entriesLba = le64(b, 512 + 72);
-        final long n = le32(b, 512 + 80) & 0xffffffffL;
-        final int size = le32(b, 512 + 84);
-        if (size < 128 || size > 4096 || n > 1024 || entriesLba < 2) throw new ArcanaCorruptedException("Invalid GUID partition table");
-        for (int i = 0; i < n; i++) {
-            final long pos = entriesLba * SECTOR + (long) i * size;
-            if (pos + 128 > fileLength) break;
-            final byte[] e = readAt(pos, 128);
-            boolean used = false;
-            for (int j = 0; j < 16; j++) used |= e[j] != 0;
-            if (!used) continue;
-            final long first = le64(e, 32);
-            final long last = le64(e, 40);
-            if (first < 0 || last < first || last >= sectorCount) continue;
-            final String pname = new String(e, 56, 72, StandardCharsets.UTF_16LE).replace("\u0000", "").trim();
-            addRaw(i, pname + " (" + gptType(e) + " : " + i + ")", first, last - first + 1);
+    /** One partition of a partition map (Apple partition map or GPT). */
+    public static final class MapEntry {
+        /** Position of the entry in the map. */
+        public final int index;
+        /** Name with its type, e.g. "disk image (Apple_HFS : 1)". */
+        public final String name;
+        /** First sector (512 bytes) from the start of the mapped disk, and sector count. */
+        public final long firstSector;
+        public final long sectorCount;
+
+        MapEntry(final int index, final String name, final long firstSector, final long sectorCount) {
+            this.index = index;
+            this.name = name;
+            this.firstSector = firstSector;
+            this.sectorCount = sectorCount;
         }
-        if (partitions.isEmpty()) throw new ArcanaCorruptedException("Empty GUID partition table");
+    }
+
+    /**
+     * Reads the partition map at the start of a disk: an Apple partition map
+     * (driver descriptor "ER" in sector 0, "PM" entries from the next block)
+     * or a GUID partition table ("EFI PART" in sector 1). Entries that do not
+     * fit in the disk are left out.
+     *
+     * @return the entries in map order, or null if the disk has no partition map
+     * @throws ArcanaCorruptedException if a GUID partition table is invalid or empty
+     */
+    public static List<MapEntry> readPartitionMap(final HfsPlusReader.Source disk) throws IOException {
+        final long sectors = disk.length() / SECTOR;
+        if (sectors < 3) return null;
+        final byte[] b = new byte[(int) Math.min(disk.length(), 4096)];
+        disk.readFully(0, b, 0, b.length);
+        final List<MapEntry> map = new ArrayList<MapEntry>();
+        if (b.length >= 1024 && b[512] == 'E' && b[513] == 'F' && b[514] == 'I' && b[515] == ' ' && b[516] == 'P' && b[517] == 'A' && b[518] == 'R' && b[519] == 'T') {
+            final long entriesLba = le64(b, 512 + 72);
+            final long n = le32(b, 512 + 80) & 0xffffffffL;
+            final int size = le32(b, 512 + 84);
+            if (size < 128 || size > 4096 || n > 1024 || entriesLba < 2) throw new ArcanaCorruptedException("Invalid GUID partition table");
+            final byte[] e = new byte[128];
+            for (int i = 0; i < n; i++) {
+                final long pos = entriesLba * SECTOR + (long) i * size;
+                if (pos + 128 > disk.length()) break;
+                disk.readFully(pos, e, 0, 128);
+                boolean used = false;
+                for (int j = 0; j < 16; j++) used |= e[j] != 0;
+                if (!used) continue;
+                final long first = le64(e, 32);
+                final long last = le64(e, 40);
+                if (first < 0 || last < first || last >= sectors) continue;
+                final String pname = new String(e, 56, 72, StandardCharsets.UTF_16LE).replace("\u0000", "").trim();
+                map.add(new MapEntry(i, pname + " (" + gptType(e) + " : " + i + ")", first, last - first + 1));
+            }
+            if (map.isEmpty()) throw new ArcanaCorruptedException("Empty GUID partition table");
+            return map;
+        }
+        if (b[0] == 'E' && b[1] == 'R') {
+            final int blk = be16(b, 2) == 0 ? SECTOR : be16(b, 2);
+            final byte[] e = new byte[SECTOR];
+            if ((long) blk * 2 > disk.length()) return null;
+            disk.readFully(blk, e, 0, SECTOR);
+            if (e[0] != 'P' || e[1] != 'M') return null;
+            final long n = be32(e, 4) & 0xffffffffL;
+            for (int i = 0; i < Math.min(n, 256); i++) {
+                if ((long) blk * (i + 2) > disk.length()) break;
+                disk.readFully((long) blk * (i + 1), e, 0, SECTOR);
+                if (e[0] != 'P' || e[1] != 'M') break;
+                final long start = (be32(e, 8) & 0xffffffffL) * blk / SECTOR;
+                final long count = (be32(e, 12) & 0xffffffffL) * blk / SECTOR;
+                final String pname = cString(e, 16, 32);
+                final String ptype = cString(e, 48, 32);
+                if (start + count <= sectors) map.add(new MapEntry(i, pname + " (" + ptype + " : " + i + ")", start, count));
+            }
+            return map;
+        }
+        return null;
     }
 
     private static String gptType(final byte[] e) {

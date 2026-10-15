@@ -29,7 +29,9 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Extractor for Apple disk images (.dmg, UDIF): the files of the HFS+ / HFSX
@@ -39,7 +41,7 @@ import java.util.List;
  * <p>Symbolic links are extracted as empty files, like the CPIO, TAR and
  * SquashFS extractors; resource forks are skipped. The data fork CRC32 is
  * checked before the extraction and the CRC32 of each extracted partition
- * after it. A disk image needs random access, so
+ * at the end. A disk image needs random access, so
  * {@link #extract(InputStream, File)} is not supported.</p>
  *
  * @author Stef
@@ -57,10 +59,18 @@ public class DmgExtractor implements ArchiveExtractor {
         IOHelper.mkdirs(destination);
         try (UdifImage img = UdifImage.open(archive)) {
             img.verifyDataFork();
+            // one reader per partition (its cache and chunk checksums are shared by the items of a "whole disk" partition)
+            final Map<UdifImage.Partition, UdifImage.PartitionReader> readers = new LinkedHashMap<UdifImage.Partition, UdifImage.PartitionReader>();
             for (final DmgContent.Item it : DmgContent.plan(img)) {
-                final UdifImage.PartitionReader pr = img.openPartition(it.partition);
+                if (it.kind != DmgContent.HFS && it.kind != DmgContent.RAW) continue;
+                UdifImage.PartitionReader pr = readers.get(it.partition);
+                if (pr == null) {
+                    pr = img.openPartition(it.partition);
+                    readers.put(it.partition, pr);
+                }
+                final HfsPlusReader.Source src = DmgContent.view(pr, it);
                 if (it.kind == DmgContent.HFS) {
-                    final HfsPlusReader reader = new HfsPlusReader(pr);
+                    final HfsPlusReader reader = new HfsPlusReader(src);
                     reader.walk(e -> {
                         final File target = SafePathBuilder.buildSafePath(destination, join(it.target, e.path));
                         if (e.kind == HfsPlusReader.DIRECTORY) {
@@ -73,14 +83,14 @@ public class DmgExtractor implements ArchiveExtractor {
                         }
                         if (e.mtime > 0) target.setLastModified(e.mtime * 1000L);
                     });
-                    pr.verifyChecksum();
-                } else if (it.kind == DmgContent.RAW) {
+                } else {
                     final File target = SafePathBuilder.buildSafePath(destination, it.target);
                     try (BufferedOutputStream out = new BufferedOutputStream(ExtractionGuard.open(target), 65536)) {
-                        pr.copyTo(out);
+                        DmgContent.copy(src, out);
                     }
                 }
             }
+            for (final UdifImage.PartitionReader pr : readers.values()) pr.verifyChecksum();
         }
     }
 
@@ -96,9 +106,9 @@ public class DmgExtractor implements ArchiveExtractor {
             for (final DmgContent.Item it : DmgContent.plan(img)) {
                 if (it.kind == DmgContent.HFS) {
                     if (!it.target.isEmpty()) result.add(new ArcanaEntry.Builder(it.target).directory(true).format(ArcanaFormat.DMG).build());
-                    new HfsPlusReader(img.openPartition(it.partition)).walk(e -> result.add(new ArcanaEntry.Builder(join(it.target, e.path)).uncompressedSize(e.size).lastModifiedTime(e.mtime).directory(e.kind == HfsPlusReader.DIRECTORY).format(ArcanaFormat.DMG).build()));
+                    new HfsPlusReader(DmgContent.view(img.openPartition(it.partition), it)).walk(e -> result.add(new ArcanaEntry.Builder(join(it.target, e.path)).uncompressedSize(e.size).lastModifiedTime(e.mtime).directory(e.kind == HfsPlusReader.DIRECTORY).format(ArcanaFormat.DMG).build()));
                 } else if (it.kind == DmgContent.RAW) {
-                    result.add(new ArcanaEntry.Builder(it.target).uncompressedSize(it.partition.size()).format(ArcanaFormat.DMG).build());
+                    result.add(new ArcanaEntry.Builder(it.target).uncompressedSize(it.length).format(ArcanaFormat.DMG).build());
                 }
             }
         }

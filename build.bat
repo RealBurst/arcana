@@ -110,6 +110,7 @@ set "PDIR=%~1"
 set "PNAME=%~2"
 set "PBIN=%PDIR%\bin"
 set "PJAR=%PDIR%\jar\%PNAME%.jar"
+echo.
 echo Building %PNAME%...
 
 set "ARCANA_CP="

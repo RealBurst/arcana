@@ -15,8 +15,10 @@
  */
 package be.stef.arcana.formats.dmg;
 
+import be.stef.arcana.exceptions.ArcanaCorruptedException;
 import be.stef.arcana.formats.hfs.HfsPlusReader;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -28,7 +30,10 @@ import java.util.Set;
  * folder named after each volume), a raw image file
  * ("&lt;partition name&gt;.apfs.img", ".img") for the other file systems, and
  * nothing for the entries that only describe the partition scheme (partition
- * map, GPT, MBR, free space) or hold only zeros.
+ * map, GPT, MBR, free space) or hold only zeros. A partition without known
+ * file system that starts with its own partition map (a "whole disk" entry:
+ * driver descriptor and Apple partition map, or GPT) is replaced by the
+ * partitions of that map.
  *
  * @author Stef
  * @since 1.5
@@ -44,9 +49,16 @@ public final class DmgContent {
     /** Other partition: extracted as a raw image file. */
     public static final int RAW = 3;
 
-    /** Treatment of one partition. */
+    /** Treatment of one partition, or of one partition of a partition map found inside a partition. */
     public static final class Item {
         public final UdifImage.Partition partition;
+        /** Position in the partition map found inside the partition ("whole disk" entries), or -1. */
+        public final int subIndex;
+        /** Name, e.g. "disk image (Apple_HFS : 0)" or "whole disk (Apple_HFS : 0) / disk image (Apple_HFS : 1)". */
+        public final String name;
+        /** Start of the item in the decoded partition, and its size, in bytes. */
+        public final long offset;
+        public final long length;
         /** SCHEME, EMPTY, HFS or RAW. */
         public final int kind;
         /** File system found in the partition ("HFS+", "HFSX", "APFS", "FAT"...), or null. */
@@ -55,9 +67,25 @@ public final class DmgContent {
         public String target;
 
         Item(final UdifImage.Partition partition, final int kind, final String fileSystem) {
+            this(partition, -1, partition.name, 0, partition.size(), kind, fileSystem);
+        }
+
+        Item(final UdifImage.Partition partition, final int subIndex, final String name, final long offset, final long length, final int kind, final String fileSystem) {
             this.partition = partition;
+            this.subIndex = subIndex;
+            this.name = name;
+            this.offset = offset;
+            this.length = length;
             this.kind = kind;
             this.fileSystem = fileSystem;
+        }
+
+        /** Name without the "(type : n)" suffix, e.g. "disk image"; may be empty. */
+        public String shortName() {
+            final int p = name.lastIndexOf(" (");
+            final String n = p >= 0 && name.endsWith(")") ? name.substring(0, p) : name;
+            final int slash = n.lastIndexOf(" / ");
+            return (slash >= 0 ? n.substring(slash + 3) : n).trim();
         }
     }
 
@@ -74,10 +102,28 @@ public final class DmgContent {
             } else if (p.isEmpty() || p.sectorCount == 0) {
                 items.add(new Item(p, EMPTY, null));
             } else {
-                final String fs = fileSystem(img.openPartition(p));
-                final boolean isHfs = fs != null && fs.startsWith("HFS+") || "HFSX".equals(fs);
-                items.add(new Item(p, isHfs ? HFS : RAW, fs));
-                if (isHfs) hfs++;
+                final UdifImage.PartitionReader r = img.openPartition(p);
+                final String fs = fileSystem(r);
+                final List<UdifImage.MapEntry> map = fs == null ? innerMap(r) : null;
+                if (map != null) {
+                    // "whole disk" entry: the partition holds its own partition map (driver descriptor and Apple partition map, or GPT)
+                    for (final UdifImage.MapEntry e : map) {
+                        final String name = p.name + " / " + e.name;
+                        if (UdifImage.Partition.isSchemeType(UdifImage.Partition.typeOf(e.name)) || e.sectorCount == 0) {
+                            items.add(new Item(p, e.index, name, e.firstSector * UdifImage.SECTOR, e.sectorCount * UdifImage.SECTOR, SCHEME, null));
+                            continue;
+                        }
+                        final Slice s = new Slice(r, e.firstSector * UdifImage.SECTOR, e.sectorCount * UdifImage.SECTOR);
+                        final String sfs = fileSystem(s);
+                        final boolean isHfs = isHfs(sfs);
+                        items.add(new Item(p, e.index, name, s.offset, s.length, isHfs ? HFS : RAW, sfs));
+                        if (isHfs) hfs++;
+                    }
+                } else {
+                    final boolean isHfs = isHfs(fs);
+                    items.add(new Item(p, isHfs ? HFS : RAW, fs));
+                    if (isHfs) hfs++;
+                }
             }
         }
         final Set<String> used = new HashSet<String>();
@@ -85,13 +131,13 @@ public final class DmgContent {
             if (it.kind == HFS) {
                 String name = "";
                 if (hfs > 1) {
-                    name = new HfsPlusReader(img.openPartition(it.partition)).getVolumeName().replace('/', ':');
-                    if (name.isEmpty()) name = "volume " + it.partition.id;
+                    name = new HfsPlusReader(view(img.openPartition(it.partition), it)).getVolumeName().replace('/', ':');
+                    if (name.isEmpty()) name = "volume " + it.partition.id + (it.subIndex >= 0 ? "." + it.subIndex : "");
                 }
                 it.target = unique(name, used);
             } else if (it.kind == RAW) {
-                String base = it.partition.shortName().replace('/', ':');
-                if (base.isEmpty()) base = "partition " + it.partition.id;
+                String base = it.shortName().replace('/', ':');
+                if (base.isEmpty()) base = "partition " + it.partition.id + (it.subIndex >= 0 ? "." + it.subIndex : "");
                 it.target = unique(base + ("APFS".equals(it.fileSystem) ? ".apfs.img" : ".img"), used);
             }
         }
@@ -107,8 +153,63 @@ public final class DmgContent {
         }
     }
 
+    private static boolean isHfs(final String fs) {
+        return fs != null && fs.startsWith("HFS+") || "HFSX".equals(fs);
+    }
+
+    /** Partition map at the start of a partition without known file system, or null (an invalid one is ignored). */
+    private static List<UdifImage.MapEntry> innerMap(final UdifImage.PartitionReader r) throws IOException {
+        try {
+            final List<UdifImage.MapEntry> map = UdifImage.readPartitionMap(r);
+            return map == null || map.isEmpty() ? null : map;
+        } catch (final ArcanaCorruptedException e) {
+            return null;
+        }
+    }
+
+    /** Content of an item: the whole partition, or the part of it given by the partition map found inside. */
+    public static HfsPlusReader.Source view(final UdifImage.PartitionReader r, final Item it) {
+        return it.offset == 0 && it.length == r.length() ? r : new Slice(r, it.offset, it.length);
+    }
+
+    /** Writes the content of an item to out. */
+    public static void copy(final HfsPlusReader.Source src, final OutputStream out) throws IOException {
+        final byte[] buf = new byte[1 << 16];
+        long pos = 0;
+        while (pos < src.length()) {
+            final int n = (int) Math.min(buf.length, src.length() - pos);
+            src.readFully(pos, buf, 0, n);
+            out.write(buf, 0, n);
+            pos += n;
+        }
+    }
+
+    /** A range of a decoded partition. */
+    private static final class Slice implements HfsPlusReader.Source {
+        private final HfsPlusReader.Source base;
+        final long offset;
+        final long length;
+
+        Slice(final HfsPlusReader.Source base, final long offset, final long length) {
+            this.base = base;
+            this.offset = offset;
+            this.length = length;
+        }
+
+        @Override
+        public long length() {
+            return length;
+        }
+
+        @Override
+        public void readFully(final long pos, final byte[] b, final int off, final int len) throws IOException {
+            if (pos < 0 || len < 0 || pos > length - len) throw new ArcanaCorruptedException("Read beyond the end of a partition of the partition map");
+            base.readFully(offset + pos, b, off, len);
+        }
+    }
+
     /** File system of a partition, from its first 4 KiB, or null if unknown. */
-    public static String fileSystem(final UdifImage.PartitionReader r) throws IOException {
+    public static String fileSystem(final HfsPlusReader.Source r) throws IOException {
         final int n = (int) Math.min(4096, r.length());
         if (n < 1536) return null;
         final byte[] b = new byte[n];
