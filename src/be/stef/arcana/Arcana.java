@@ -312,6 +312,14 @@ public final class Arcana {
             final String n = archive.getName().toLowerCase();
             if (n.endsWith(".tar.lz4") || n.endsWith(".tlz4")) return ArcanaFormat.TAR_LZ4;
         }
+        if (detected == ArcanaFormat.LZIP) {
+            final String n = archive.getName().toLowerCase();
+            if (n.endsWith(".tar.lz") || n.endsWith(".tlz")) return ArcanaFormat.TAR_LZIP;
+        }
+        if (detected == ArcanaFormat.LZOP) {
+            final String n = archive.getName().toLowerCase();
+            if (n.endsWith(".tar.lzo") || n.endsWith(".tzo")) return ArcanaFormat.TAR_LZOP;
+        }
         if (detected == ArcanaFormat.UNKNOWN) {
             // Unknown prefix followed by an archive (script + ZIP, stub + 7z...)?
             try {

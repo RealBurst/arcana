@@ -18,6 +18,7 @@ package be.stef.arcana.formats.squashfs;
 import be.stef.arcana.exceptions.ArcanaCorruptedException;
 import be.stef.arcana.exceptions.ArcanaUnsupportedFormatException;
 import be.stef.arcana.formats.lz4.LZ4BlockInputStream;
+import be.stef.arcana.formats.lzo.Lzo1xDecompressor;
 import be.stef.arcana.formats.xz.LZMAInputStream;
 import be.stef.arcana.formats.xz.XZInputStream;
 import be.stef.arcana.formats.zstd.ZstdInputStream;

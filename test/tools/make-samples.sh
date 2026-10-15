@@ -8,9 +8,10 @@
 # Build first (./build.sh test): the hand-made samples come from test/bin.
 #
 # Tools: zip, 7zz (or 7z), rar, tar, gzip, bzip2, xz, lz4, zstd, brotli,
-# compress, arj, gcab, cpio, genisoimage, wimlib-imagex, mksquashfs, ar,
-# dpkg-deb, rpmbuild, xar, wixl, chmcmd, gcc, upx, java. A missing tool only
-# skips its samples. RAR, XAR, SEVENZ and UPX may point to the binaries.
+# lzip, lzop, compress, arj, gcab, cpio, genisoimage, wimlib-imagex,
+# mksquashfs, mkfs.hfsplus, hfsplus and dmg (libdmg-hfsplus), ar, dpkg-deb,
+# rpmbuild, xar, wixl, chmcmd, gcc, upx, java. A missing tool only skips its
+# samples. RAR, XAR, SEVENZ, UPX, HFSPLUS and DMG may point to the binaries.
 #
 # The payload and the hand-made samples (crafted or patched files: SZDD, PAK,
 # SFX, damaged files, WinZip AES variants, Zstandard skippable frames, LZX
@@ -128,6 +129,12 @@ tar "${TAROPT[@]}" -cf - . | xz -6 > "$OUT/tar/payload.tar.xz"
 have zstd && tar "${TAROPT[@]}" -cf - . | zstd -q -19 > "$OUT/tar/payload.tar.zst"
 have lz4 && tar "${TAROPT[@]}" -cf - . | lz4 -q -9 > "$OUT/tar/payload.tar.lz4"
 have brotli && tar "${TAROPT[@]}" -cf - . | brotli -c > "$OUT/tar/payload.tar.br"
+have lzip && tar "${TAROPT[@]}" -cf - . | lzip -9 > "$OUT/tar/payload.tar.lz"
+# lzop stores the mtime of its input (the current time for a pipe): compress a file
+if have lzop; then
+    tar "${TAROPT[@]}" -cf "$WORK/payload.tar" . && touch -d "$STAMP" "$WORK/payload.tar"
+    lzop -c "$WORK/payload.tar" > "$OUT/tar/payload.tar.lzo"
+fi
 
 mk stream
 F="$P/docs/notes.txt"
@@ -138,6 +145,14 @@ xz --format=lzma -c "$F" > "$OUT/stream/notes.txt.lzma"
 have zstd && zstd -q -c "$F" > "$OUT/stream/notes.txt.zst"
 have lz4 && lz4 -q -c "$F" > "$OUT/stream/notes.txt.lz4"
 have brotli && brotli -c "$F" > "$OUT/stream/notes.txt.br"
+# lzip: one member, and two members concatenated (-9 then -0)
+have lzip && lzip -c "$F" > "$OUT/stream/notes.txt.lz"
+have lzip && { lzip -9 -c "$F"; lzip -0 -c "$F"; } > "$OUT/stream/two-members.txt.lz"
+# lzop: -3 (LZO1X-1, default), -9 (LZO1X-999), -1 (LZO1X-1(15)) with CRC32 checksums;
+# the header holds the name notes.txt, used for the output file
+have lzop && lzop -c "$F" > "$OUT/stream/notes.txt.lzo"
+have lzop && lzop -9 -c "$F" > "$OUT/stream/notes-9.txt.lzo"
+have lzop && lzop -1 --crc32 -c "$F" > "$OUT/stream/notes-crc32.txt.lzo"
 have compress && compress -c "$F" > "$OUT/stream/notes.txt.Z"
 have compress && seq 1 10000 | compress -b 12 -c > "$OUT/stream/seq-b12.txt.Z"
 # Zstandard: frames without content size larger than the window (small window
@@ -241,6 +256,28 @@ if have mksquashfs; then
     mk squashfs
     for c in gzip xz zstd lz4; do mksquashfs . "$OUT/squashfs/$c.sqfs" -comp $c -noappend -quiet -all-root -mkfs-time 1704164645 -all-time 1704164645 >/dev/null 2>&1 || skip "squashfs $c"; done
 else skip "squashfs"; fi
+
+# Apple disk images: an HFS+ volume made by mkfs.hfsplus (hfsprogs), filled and
+# wrapped (zlib, bzip2, LZFSE, LZMA chunks) by libdmg-hfsplus
+# (github.com/mozilla/libdmg-hfsplus, tools hfsplus and dmg; HFSPLUS and DMG may
+# point to the binaries). The raw (UDRO), ADC (UDCO) and "features" images
+# (decmpfs, hard and symbolic links, decomposed names, extents overflow,
+# resource fork) and the encrypted header are written by SampleGenerator.
+HFSPLUS="${HFSPLUS:-$(command -v hfsplus || true)}"
+DMG="${DMG:-$(command -v dmg || true)}"
+mk dmg
+if have mkfs.hfsplus && have "$HFSPLUS" && have "$DMG"; then
+    H="$WORK/payload.hfs"
+    dd if=/dev/zero of="$H" bs=1024 count=1024 status=none
+    mkfs.hfsplus -v ArcanaTest "$H" >/dev/null
+    "$HFSPLUS" "$H" addall . / >/dev/null
+    for c in zlib:udzo bzip2:udbz lzfse:ulfo lzma:ulmo; do "$DMG" -c "${c%%:*}" build "$H" "$OUT/dmg/${c##*:}-hfsplus.dmg" >/dev/null || skip "dmg ${c##*:}"; done
+    cp "$OUT/dmg/udzo-hfsplus.dmg" "$OUT/dmg/udzo-renamed.bin"
+else skip "dmg (mkfs.hfsplus, hfsplus, dmg)"; fi
+"${GEN[@]}" dmg-hfsx "$P" raw "$OUT/dmg/udro-hfsx.dmg"
+"${GEN[@]}" dmg-hfsx "$P" adc "$OUT/dmg/udco-hfsx.dmg"
+"${GEN[@]}" dmg-hfsx "$P" features "$OUT/dmg/hfsx-features.dmg"
+"${GEN[@]}" dmg-encrypted "$OUT/dmg/encrypted-header.dmg"
 
 # ---------------------------------------------------------------------------
 # XAR, MSI, CHM, SZDD

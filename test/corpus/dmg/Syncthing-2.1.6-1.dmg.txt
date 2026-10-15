@@ -1,0 +1,618 @@
+# Arcana regression reference (RegressionRunner --update)
+input: f81d091bb19c42b3bb7a2fda9e80f1794cdb27fadb18b094b0c99b53ef571e2d 28069114
+identify: archive | DMG 4 - Apple disk image (UDIF), UDZO (zlib)
+  format: UDZO (zlib)
+  image variant: 1 (device image)
+  size: 97556480 bytes (190540 sectors)
+  data fork checksum: CRC32 d6d8fabf
+  partitions: 4
+  partition -1: Driver Descriptor Map (DDM : 0): partition scheme, not extracted
+  partition 0: Apple (Apple_partition_map : 1): partition scheme, not extracted
+  partition 1: DiscRecording 9.0.3d5 (Apple_HFS : 2): HFS+ volume "Syncthing" (signature H+, version 4, 248 files, 110 folders)
+  partition 2:  (Apple_Free : 3): partition scheme, not extracted
+list: 356 entries
+  .background (folder)
+  .background/background.png 2795
+  .fseventsd (folder)
+  .fseventsd/0000000001e59994 113
+  .fseventsd/0000000001e59995 72
+  .fseventsd/fseventsd-uuid 36
+  Applications 0
+  Syncthing.app (folder)
+  Syncthing.app/Contents (folder)
+  Syncthing.app/Contents/Frameworks (folder)
+  Syncthing.app/Contents/Frameworks/Sparkle.framework (folder)
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Resources 0
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Sparkle 0
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions (folder)
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A (folder)
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources (folder)
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app (folder)
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents (folder)
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Info.plist 1671
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/MacOS (folder)
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/MacOS/Autoupdate 393792
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/MacOS/fileop 238496
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/PkgInfo 8
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources (folder)
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/AppIcon.icns 37132
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/Base.lproj (folder)
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/Base.lproj/Sparkle.strings 10196
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/SUStatus.nib (folder)
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/SUStatus.nib/keyedobjects-101300.nib 10682
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/SUStatus.nib/keyedobjects.nib 12937
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/ar.lproj (folder)
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/ar.lproj/Sparkle.strings 8468
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/ca.lproj (folder)
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/ca.lproj/Sparkle.strings 6792
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/cs.lproj (folder)
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/cs.lproj/Sparkle.strings 10570
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/da.lproj (folder)
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/da.lproj/Sparkle.strings 8306
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/de.lproj (folder)
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/de.lproj/Sparkle.strings 10148
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/el.lproj (folder)
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/el.lproj/Sparkle.strings 7734
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/es.lproj (folder)
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/es.lproj/Sparkle.strings 10030
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/fi.lproj (folder)
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/fi.lproj/Sparkle.strings 6184
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/fr.lproj (folder)
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/fr.lproj/Sparkle.strings 10170
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/he.lproj (folder)
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/he.lproj/Sparkle.strings 5288
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/hr.lproj (folder)
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/hr.lproj/Sparkle.strings 9778
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/hu.lproj (folder)
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/hu.lproj/Sparkle.strings 10002
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/is.lproj (folder)
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/is.lproj/Sparkle.strings 5868
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/it.lproj (folder)
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/it.lproj/Sparkle.strings 8340
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/ja.lproj (folder)
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/ja.lproj/Sparkle.strings 8552
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/ko.lproj (folder)
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/ko.lproj/Sparkle.strings 6220
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/nb.lproj (folder)
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/nb.lproj/Sparkle.strings 9352
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/nl.lproj (folder)
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/nl.lproj/Sparkle.strings 8850
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/pl.lproj (folder)
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/pl.lproj/Sparkle.strings 7318
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/pt_BR.lproj (folder)
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/pt_BR.lproj/Sparkle.strings 9728
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/pt_PT.lproj (folder)
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/pt_PT.lproj/Sparkle.strings 7896
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/ro.lproj (folder)
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/ro.lproj/Sparkle.strings 9806
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/ru.lproj (folder)
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/ru.lproj/Sparkle.strings 7668
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/sk.lproj (folder)
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/sk.lproj/Sparkle.strings 7548
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/sl.lproj (folder)
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/sl.lproj/Sparkle.strings 7944
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/sv.lproj (folder)
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/sv.lproj/Sparkle.strings 7834
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/th.lproj (folder)
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/th.lproj/Sparkle.strings 8492
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/tr.lproj (folder)
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/tr.lproj/Sparkle.strings 9716
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/uk.lproj (folder)
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/uk.lproj/Sparkle.strings 7860
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/zh_CN.lproj (folder)
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/zh_CN.lproj/Sparkle.strings 6128
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/zh_TW.lproj (folder)
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/zh_TW.lproj/Sparkle.strings 5748
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/_CodeSignature (folder)
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/_CodeSignature/CodeResources 17427
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Base.lproj (folder)
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Base.lproj/SUAutomaticUpdateAlert.nib (folder)
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Base.lproj/SUAutomaticUpdateAlert.nib/keyedobjects-101300.nib 13681
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Base.lproj/SUAutomaticUpdateAlert.nib/keyedobjects.nib 16812
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Base.lproj/SUUpdateAlert.nib (folder)
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Base.lproj/SUUpdateAlert.nib/keyedobjects-101300.nib 17511
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Base.lproj/SUUpdateAlert.nib/keyedobjects.nib 21983
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Base.lproj/SUUpdatePermissionPrompt.nib (folder)
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Base.lproj/SUUpdatePermissionPrompt.nib/keyedobjects-101300.nib 17096
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Base.lproj/SUUpdatePermissionPrompt.nib/keyedobjects-110000.nib 17039
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Base.lproj/SUUpdatePermissionPrompt.nib/keyedobjects.nib 21550
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Base.lproj/Sparkle.strings 10196
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Info.plist 1350
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/ReleaseNotesColorStyle.css 203
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/SUModelTranslation.plist 11859
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/SUStatus.nib (folder)
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/SUStatus.nib/keyedobjects-101300.nib 10694
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/SUStatus.nib/keyedobjects.nib 12937
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/ar.lproj (folder)
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/ar.lproj/SUAutomaticUpdateAlert.strings 1038
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/ar.lproj/SUUpdateAlert.strings 1416
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/ar.lproj/SUUpdatePermissionPrompt.strings 2656
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/ar.lproj/Sparkle.strings 8468
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/ca.lproj (folder)
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/ca.lproj/SUAutomaticUpdateAlert.strings 544
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/ca.lproj/SUUpdateAlert.strings 792
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/ca.lproj/Sparkle.strings 6792
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/cs.lproj (folder)
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/cs.lproj/SUAutomaticUpdateAlert.strings 526
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/cs.lproj/SUUpdateAlert.strings 761
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/cs.lproj/SUUpdatePermissionPrompt.strings 1314
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/cs.lproj/Sparkle.strings 10570
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/da.lproj (folder)
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/da.lproj/SUAutomaticUpdateAlert.strings 1046
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/da.lproj/SUUpdateAlert.strings 1436
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/da.lproj/SUUpdatePermissionPrompt.strings 2504
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/da.lproj/Sparkle.strings 8306
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/de.lproj (folder)
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/de.lproj/SUAutomaticUpdateAlert.strings 1114
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/de.lproj/SUUpdateAlert.strings 1488
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/de.lproj/SUUpdatePermissionPrompt.strings 2556
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/de.lproj/Sparkle.strings 10148
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/el.lproj (folder)
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/el.lproj/SUAutomaticUpdateAlert.strings 1114
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/el.lproj/SUUpdateAlert.strings 1516
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/el.lproj/SUUpdatePermissionPrompt.strings 2612
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/el.lproj/Sparkle.strings 7734
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/en.lproj (folder)
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/en.lproj/SUAutomaticUpdateAlert.strings 516
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/en.lproj/SUUpdateAlert.strings 731
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/en.lproj/SUUpdatePermissionPrompt.strings 1277
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/es.lproj (folder)
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/es.lproj/SUAutomaticUpdateAlert.strings 1050
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/es.lproj/SUUpdateAlert.strings 1560
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/es.lproj/SUUpdatePermissionPrompt.strings 2808
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/es.lproj/Sparkle.strings 10030
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/fi.lproj (folder)
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/fi.lproj/SUAutomaticUpdateAlert.strings 1118
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/fi.lproj/SUUpdateAlert.strings 1500
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/fi.lproj/SUUpdatePermissionPrompt.strings 2648
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/fi.lproj/Sparkle.strings 6184
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/fr.lproj (folder)
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/fr.lproj/SUAutomaticUpdateAlert.strings 1042
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/fr.lproj/SUUpdateAlert.strings 1496
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/fr.lproj/SUUpdatePermissionPrompt.strings 2764
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/fr.lproj/Sparkle.strings 10170
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/he.lproj (folder)
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/he.lproj/SUAutomaticUpdateAlert.strings 538
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/he.lproj/SUUpdateAlert.strings 781
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/he.lproj/Sparkle.strings 5288
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/hr.lproj (folder)
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/hr.lproj/SUAutomaticUpdateAlert.strings 1078
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/hr.lproj/SUUpdateAlert.strings 1560
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/hr.lproj/SUUpdatePermissionPrompt.strings 2468
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/hr.lproj/Sparkle.strings 9778
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/hu.lproj (folder)
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/hu.lproj/SUAutomaticUpdateAlert.strings 1118
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/hu.lproj/SUUpdateAlert.strings 1584
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/hu.lproj/SUUpdatePermissionPrompt.strings 2596
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/hu.lproj/Sparkle.strings 10002
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/is.lproj (folder)
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/is.lproj/SUAutomaticUpdateAlert.strings 1034
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/is.lproj/SUUpdateAlert.strings 1452
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/is.lproj/SUUpdatePermissionPrompt.strings 2628
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/is.lproj/Sparkle.strings 5868
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/it.lproj (folder)
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/it.lproj/SUAutomaticUpdateAlert.strings 1058
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/it.lproj/SUUpdateAlert.strings 1540
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/it.lproj/SUUpdatePermissionPrompt.strings 2716
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/it.lproj/Sparkle.strings 8340
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/ja.lproj (folder)
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/ja.lproj/SUAutomaticUpdateAlert.strings 854
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/ja.lproj/SUUpdateAlert.strings 1256
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/ja.lproj/SUUpdatePermissionPrompt.strings 1876
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/ja.lproj/Sparkle.strings 8552
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/ko.lproj (folder)
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/ko.lproj/SUAutomaticUpdateAlert.strings 790
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/ko.lproj/SUUpdateAlert.strings 1192
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/ko.lproj/SUUpdatePermissionPrompt.strings 1892
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/ko.lproj/Sparkle.strings 6220
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/nb.lproj (folder)
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/nb.lproj/SUAutomaticUpdateAlert.strings 1026
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/nb.lproj/SUUpdateAlert.strings 1352
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/nb.lproj/SUUpdatePermissionPrompt.strings 2452
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/nb.lproj/Sparkle.strings 9352
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/nl.lproj (folder)
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/nl.lproj/SUAutomaticUpdateAlert.strings 1098
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/nl.lproj/SUUpdateAlert.strings 1508
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/nl.lproj/SUUpdatePermissionPrompt.strings 2660
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/nl.lproj/Sparkle.strings 8850
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/pl.lproj (folder)
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/pl.lproj/SUAutomaticUpdateAlert.strings 1098
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/pl.lproj/SUUpdateAlert.strings 1548
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/pl.lproj/SUUpdatePermissionPrompt.strings 2620
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/pl.lproj/Sparkle.strings 7318
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/pt_BR.lproj (folder)
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/pt_BR.lproj/SUAutomaticUpdateAlert.strings 1034
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/pt_BR.lproj/SUUpdateAlert.strings 1524
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/pt_BR.lproj/SUUpdatePermissionPrompt.strings 2676
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/pt_BR.lproj/Sparkle.strings 9728
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/pt_PT.lproj (folder)
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/pt_PT.lproj/SUAutomaticUpdateAlert.strings 1058
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/pt_PT.lproj/SUUpdatePermissionPrompt.strings 2760
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/pt_PT.lproj/Sparkle.strings 7896
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/ro.lproj (folder)
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/ro.lproj/SUAutomaticUpdateAlert.strings 1062
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/ro.lproj/SUUpdateAlert.strings 1556
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/ro.lproj/SUUpdatePermissionPrompt.strings 2604
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/ro.lproj/Sparkle.strings 9806
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/ru.lproj (folder)
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/ru.lproj/SUAutomaticUpdateAlert.strings 1118
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/ru.lproj/SUUpdateAlert.strings 1624
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/ru.lproj/SUUpdatePermissionPrompt.strings 2780
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/ru.lproj/Sparkle.strings 7668
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/sk.lproj (folder)
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/sk.lproj/SUAutomaticUpdateAlert.strings 1078
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/sk.lproj/SUUpdateAlert.strings 1532
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/sk.lproj/SUUpdatePermissionPrompt.strings 2604
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/sk.lproj/Sparkle.strings 7548
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/sl.lproj (folder)
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/sl.lproj/SUAutomaticUpdateAlert.strings 1010
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/sl.lproj/SUUpdateAlert.strings 1520
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/sl.lproj/SUUpdatePermissionPrompt.strings 2504
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/sl.lproj/Sparkle.strings 7944
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/sv.lproj (folder)
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/sv.lproj/SUAutomaticUpdateAlert.strings 1114
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/sv.lproj/SUUpdateAlert.strings 1596
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/sv.lproj/SUUpdatePermissionPrompt.strings 2640
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/sv.lproj/Sparkle.strings 7834
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/th.lproj (folder)
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/th.lproj/SUAutomaticUpdateAlert.strings 970
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/th.lproj/SUUpdateAlert.strings 1404
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/th.lproj/SUUpdatePermissionPrompt.strings 2272
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/th.lproj/Sparkle.strings 8492
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/tr.lproj (folder)
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/tr.lproj/SUAutomaticUpdateAlert.strings 1046
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/tr.lproj/SUUpdateAlert.strings 1428
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/tr.lproj/SUUpdatePermissionPrompt.strings 2612
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/tr.lproj/Sparkle.strings 9716
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/uk.lproj (folder)
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/uk.lproj/SUUpdateAlert.strings 1664
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/uk.lproj/SUUpdatePermissionPrompt.strings 2600
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/uk.lproj/Sparkle.strings 7860
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/zh_CN.lproj (folder)
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/zh_CN.lproj/SUAutomaticUpdateAlert.strings 726
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/zh_CN.lproj/SUUpdateAlert.strings 1080
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/zh_CN.lproj/SUUpdatePermissionPrompt.strings 1736
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/zh_CN.lproj/Sparkle.strings 6128
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/zh_TW.lproj (folder)
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/zh_TW.lproj/SUAutomaticUpdateAlert.strings 738
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/zh_TW.lproj/SUUpdateAlert.strings 1092
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/zh_TW.lproj/SUUpdatePermissionPrompt.strings 1756
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/zh_TW.lproj/Sparkle.strings 5748
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Sparkle 1120944
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/_CodeSignature (folder)
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/_CodeSignature/CodeResources 81929
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/Current 0
+  Syncthing.app/Contents/Frameworks/libswiftCore.dylib 6456320
+  Syncthing.app/Contents/Frameworks/libswiftCoreFoundation.dylib 42128
+  Syncthing.app/Contents/Frameworks/libswiftCoreGraphics.dylib 190560
+  Syncthing.app/Contents/Frameworks/libswiftCoreImage.dylib 50064
+  Syncthing.app/Contents/Frameworks/libswiftDarwin.dylib 99088
+  Syncthing.app/Contents/Frameworks/libswiftDispatch.dylib 328272
+  Syncthing.app/Contents/Frameworks/libswiftFoundation.dylib 3163408
+  Syncthing.app/Contents/Frameworks/libswiftIOKit.dylib 45664
+  Syncthing.app/Contents/Frameworks/libswiftMetal.dylib 84928
+  Syncthing.app/Contents/Frameworks/libswiftObjectiveC.dylib 62272
+  Syncthing.app/Contents/Frameworks/libswiftQuartzCore.dylib 58352
+  Syncthing.app/Contents/Frameworks/libswiftXPC.dylib 45744
+  Syncthing.app/Contents/Frameworks/libswiftos.dylib 72368
+  Syncthing.app/Contents/Frameworks/libswiftsimd.dylib 319344
+  Syncthing.app/Contents/Info.plist 2480
+  Syncthing.app/Contents/MacOS (folder)
+  Syncthing.app/Contents/MacOS/Syncthing 456336
+  Syncthing.app/Contents/PkgInfo 8
+  Syncthing.app/Contents/Resources (folder)
+  Syncthing.app/Contents/Resources/Assets.car 253976
+  Syncthing.app/Contents/Resources/Base.lproj (folder)
+  Syncthing.app/Contents/Resources/Base.lproj/STAboutWindow.nib 9865
+  Syncthing.app/Contents/Resources/Base.lproj/STApplication.nib 9475
+  Syncthing.app/Contents/Resources/Base.lproj/STPreferencesWindow.nib 5687
+  Syncthing.app/Contents/Resources/Base.lproj/STPreferencesWindowGeneralView.nib 19536
+  Syncthing.app/Contents/Resources/Syncthing.icns 36932
+  Syncthing.app/Contents/Resources/en.lproj (folder)
+  Syncthing.app/Contents/Resources/en.lproj/Localizable.strings 1850
+  Syncthing.app/Contents/Resources/en.lproj/STAboutWindow.strings 612
+  Syncthing.app/Contents/Resources/en.lproj/STApplication.strings 3741
+  Syncthing.app/Contents/Resources/en.lproj/STPreferencesWindow.strings 1273
+  Syncthing.app/Contents/Resources/en.lproj/STPreferencesWindowGeneralView.strings 1902
+  Syncthing.app/Contents/Resources/es.lproj (folder)
+  Syncthing.app/Contents/Resources/es.lproj/Localizable.strings 1998
+  Syncthing.app/Contents/Resources/es.lproj/STAboutWindow.strings 629
+  Syncthing.app/Contents/Resources/es.lproj/STApplication.strings 3839
+  Syncthing.app/Contents/Resources/es.lproj/STPreferencesWindow.strings 1289
+  Syncthing.app/Contents/Resources/es.lproj/STPreferencesWindowGeneralView.strings 1971
+  Syncthing.app/Contents/Resources/syncthing (folder)
+  Syncthing.app/Contents/Resources/syncthing/.metadata (folder)
+  Syncthing.app/Contents/Resources/syncthing/.metadata/release.sig 241
+  Syncthing.app/Contents/Resources/syncthing/AUTHORS.txt 17249
+  Syncthing.app/Contents/Resources/syncthing/LICENSE.txt 17099
+  Syncthing.app/Contents/Resources/syncthing/README.txt 4109
+  Syncthing.app/Contents/Resources/syncthing/etc (folder)
+  Syncthing.app/Contents/Resources/syncthing/etc/README.md 52
+  Syncthing.app/Contents/Resources/syncthing/etc/firewall-ufw (folder)
+  Syncthing.app/Contents/Resources/syncthing/etc/firewall-ufw/README.md 816
+  Syncthing.app/Contents/Resources/syncthing/etc/firewall-ufw/syncthing 175
+  Syncthing.app/Contents/Resources/syncthing/etc/freebsd-rc (folder)
+  Syncthing.app/Contents/Resources/syncthing/etc/freebsd-rc/README.md 586
+  Syncthing.app/Contents/Resources/syncthing/etc/freebsd-rc/syncthing 1709
+  Syncthing.app/Contents/Resources/syncthing/etc/linux-desktop (folder)
+  Syncthing.app/Contents/Resources/syncthing/etc/linux-desktop/README.md 838
+  Syncthing.app/Contents/Resources/syncthing/etc/linux-desktop/syncthing-start.desktop 299
+  Syncthing.app/Contents/Resources/syncthing/etc/linux-desktop/syncthing-ui.desktop 309
+  Syncthing.app/Contents/Resources/syncthing/etc/linux-runit (folder)
+  Syncthing.app/Contents/Resources/syncthing/etc/linux-runit/README.md 589
+  Syncthing.app/Contents/Resources/syncthing/etc/linux-runit/log (folder)
+  Syncthing.app/Contents/Resources/syncthing/etc/linux-runit/log/run 37
+  Syncthing.app/Contents/Resources/syncthing/etc/linux-runit/run 168
+  Syncthing.app/Contents/Resources/syncthing/etc/linux-sysctl (folder)
+  Syncthing.app/Contents/Resources/syncthing/etc/linux-sysctl/30-syncthing.conf 187
+  Syncthing.app/Contents/Resources/syncthing/etc/linux-sysctl/README.md 468
+  Syncthing.app/Contents/Resources/syncthing/etc/linux-systemd (folder)
+  Syncthing.app/Contents/Resources/syncthing/etc/linux-systemd/README.md 364
+  Syncthing.app/Contents/Resources/syncthing/etc/linux-systemd/system (folder)
+  Syncthing.app/Contents/Resources/syncthing/etc/linux-systemd/system/syncthing@.service 9234
+  Syncthing.app/Contents/Resources/syncthing/etc/linux-systemd/user (folder)
+  Syncthing.app/Contents/Resources/syncthing/etc/linux-systemd/user/syncthing.service 722
+  Syncthing.app/Contents/Resources/syncthing/etc/linux-upstart (folder)
+  Syncthing.app/Contents/Resources/syncthing/etc/linux-upstart/README.md 637
+  Syncthing.app/Contents/Resources/syncthing/etc/linux-upstart/system (folder)
+  Syncthing.app/Contents/Resources/syncthing/etc/linux-upstart/system/syncthing.conf 219
+  Syncthing.app/Contents/Resources/syncthing/etc/linux-upstart/user (folder)
+  Syncthing.app/Contents/Resources/syncthing/etc/linux-upstart/user/syncthing.conf 591
+  Syncthing.app/Contents/Resources/syncthing/etc/macos-launchd (folder)
+  Syncthing.app/Contents/Resources/syncthing/etc/macos-launchd/README.md 674
+  Syncthing.app/Contents/Resources/syncthing/etc/macos-launchd/syncthing.plist 1113
+  Syncthing.app/Contents/Resources/syncthing/etc/solaris-smf (folder)
+  Syncthing.app/Contents/Resources/syncthing/etc/solaris-smf/README.md 492
+  Syncthing.app/Contents/Resources/syncthing/etc/solaris-smf/syncthing.xml 1533
+  Syncthing.app/Contents/Resources/syncthing/syncthing 57418016
+  Syncthing.app/Contents/_CodeSignature (folder)
+  Syncthing.app/Contents/_CodeSignature/CodeResources 21895
+extracted: 248 items
+  .background/background.png 2795 58d13aeaa59832b9b53b268f4c1ba0e23ba15a31922ff055a913737921fb9eb3
+  .fseventsd/0000000001e59994 113 ad203b493f2b78727b362bd8472162dede2f9cb1984cd746ee05f70bcd341ad5
+  .fseventsd/0000000001e59995 72 b4fa5c80988b51b9cfc1aaec3f2ca62193a82125f0d39a145506ac89fd682e09
+  .fseventsd/fseventsd-uuid 36 d85e8a170d9a4abcb93fb8915db43711d60b05fb1fcd5b1bbe42c873f9ee1c80
+  Applications 0 e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Resources 0 e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Sparkle 0 e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Info.plist 1671 4b3fbfc5cf2dfa4a147ea36964b238738386c6ebd3a847af196261616b9e03ae
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/MacOS/Autoupdate 393792 1c9e8c5e683a2d9890803073157ff6e513e84cacacd930f50b528bae64cf5a31
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/MacOS/fileop 238496 c7eed922f1b36e8f90b047e335c836f38cb2e67c8e0857471a3118a72f3180b0
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/PkgInfo 8 82502191c9484b04d685374f9879a0066069c49b8acae7a04b01d38d07e8eca0
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/AppIcon.icns 37132 9eaee3d2e810c3235b267ffbcc6170c484749e3c14de2ee1018284c9986f51f1
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/Base.lproj/Sparkle.strings 10196 dfd09d7d9675090433d46775f94931a362479745c44a873f72a58a174f755949
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/SUStatus.nib/keyedobjects-101300.nib 10682 095b15d57ce34afee1c718439fe71f0c8cf7b72d95390d57d46342709e1be717
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/SUStatus.nib/keyedobjects.nib 12937 cc650a628e436a5f1efa9287d4a55f5eba2089f9a1f405aa0dd00bfe77924201
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/ar.lproj/Sparkle.strings 8468 d9c009279353c70a51829db809adc4b935df688233b18747dd8f5c3426a565f7
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/ca.lproj/Sparkle.strings 6792 a26e48ea32a57ae4680b08dfad146a29641bb3697c94b8fc406292e3b731c9b0
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/cs.lproj/Sparkle.strings 10570 f2adb6c8a5217ca25538e5ed79441901556485fccf40ace848976754d9033e8f
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/da.lproj/Sparkle.strings 8306 c2ed02a46a84efdf935ca2109beabbc9c3d3b9784e97046bff00f9b861c9ccb3
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/de.lproj/Sparkle.strings 10148 6c0e5bc444b266e0bf746d9529f37e790ec255bdaa016af07eef782292785e2d
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/el.lproj/Sparkle.strings 7734 c2dfb6c72bac996010b89e6401095196f15bd703b82fbfeb15d1be56636397e6
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/es.lproj/Sparkle.strings 10030 9ad3a829da13a46cde4cdcb3c6454638cb04d19dd964eb2620a0df800f5a8fc7
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/fi.lproj/Sparkle.strings 6184 f808a229611d1f795eb28ccb2419f7b5f2babe2fd5488d7f4e759598875556c7
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/fr.lproj/Sparkle.strings 10170 f0f2ae2a9da5ca65987d1f81a89d795169713902949777c4bde7ac78705f693c
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/he.lproj/Sparkle.strings 5288 e205255a4c1300d57f8ddee7e0e6685f24fc08072059593fb48ddadb9c26b8b8
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/hr.lproj/Sparkle.strings 9778 4f092586ba281d35e057a43d7dbbef001de63c887ba836c4b0db54ce8d9f42e5
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/hu.lproj/Sparkle.strings 10002 b11929f1cdc1c75a9676185235d39aa753db7e6893ce220dcb51f119e6b74965
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/is.lproj/Sparkle.strings 5868 c5c575ca1ff35375374ec4544fabc6c9bbc8422b5ff9386ba2037fb8e5a60fc9
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/it.lproj/Sparkle.strings 8340 63e71a356fa0d26b7b1cfe09ac1c49c3eb83c0dde3d7d5186feab9afd721e0ec
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/ja.lproj/Sparkle.strings 8552 7523c8be915b7a51d1bfc9622633774d454f6e00f50df855486984f92f7daae2
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/ko.lproj/Sparkle.strings 6220 f9bc67d0d3e09317472dad4c1d14fe2519589b2d63a48b9a7a7a6cb79453f910
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/nb.lproj/Sparkle.strings 9352 146fb0f8e9cb23b9f09cd09688c4f9d0b53df155a3d5dd3c1257d7e24ece938c
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/nl.lproj/Sparkle.strings 8850 c67424ab168ef333f5c698d8de7ca339de057b4809a27d836ede39eae91dfc6c
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/pl.lproj/Sparkle.strings 7318 a43abee358e17c44a025ab9e76b6277056353b910c114de747297b9a6c988feb
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/pt_BR.lproj/Sparkle.strings 9728 958e44649c0f73f4667e1c35828b64784281f80357a995253361bddac6707497
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/pt_PT.lproj/Sparkle.strings 7896 454aba5498e7fd0cb276435ba6494bc1f0a0445eb6fae1e15de9f67582c136e4
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/ro.lproj/Sparkle.strings 9806 34dbc3b1e720950feeb51e9812ac72323e4af7be9845689e0880bf3d9b960ad4
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/ru.lproj/Sparkle.strings 7668 faf0964916c40aa41cb11e8d77c7ab41d6bfef1fa4bbf910494bd9b53bde9b24
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/sk.lproj/Sparkle.strings 7548 7b7732cc9f3ba210b57dffc1cd9e4ed34327c11134d94f89d4ac1795265e4928
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/sl.lproj/Sparkle.strings 7944 b7c402fbd4c138dc0a2d0bd5ddf295d2e9ac9c04bc643a6a3e291592c14fb567
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/sv.lproj/Sparkle.strings 7834 98963a69e5c59d2c77f1b17adf4cf994d3e63edb2861503069d874282fbdbdf4
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/th.lproj/Sparkle.strings 8492 9e53fbadea5b333e84a87a37b195a72b7b73c78ed62925a750b7541c260f80a9
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/tr.lproj/Sparkle.strings 9716 c445d47ebca53e577e7851ab3f28f8c1344f8fbbd458e6767fde2c5b276ad373
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/uk.lproj/Sparkle.strings 7860 bb4e7bd9065887ab01d0641d30631e3da94e7f8ce4c44ed8406ee9a7cf7c4848
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/zh_CN.lproj/Sparkle.strings 6128 cef31b15d815188d25b3dbc8453fac89eedd8f683552342eee24bea4e832068e
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/zh_TW.lproj/Sparkle.strings 5748 5657ffe100fbff74b4485ab1993596712c2d4cb58848a512bcb8e98166fb9714
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/_CodeSignature/CodeResources 17427 5642abcc81cbfa93f30201e933dc8aa906cfff12dd44bcaf35f20f968425120c
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Base.lproj/SUAutomaticUpdateAlert.nib/keyedobjects-101300.nib 13681 5d45ae4eb98d863e1c636b688b044c64a83931d01ac19da11b40ebdc2f0b9119
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Base.lproj/SUAutomaticUpdateAlert.nib/keyedobjects.nib 16812 08d2844c135028609d89a1974cd1df66bcaf3de9f59e37818a882ffaac1cc586
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Base.lproj/SUUpdateAlert.nib/keyedobjects-101300.nib 17511 4a107d5df93f5c16748960d6f1700aaf73c794dab736f01fd9ce6d436288fdf2
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Base.lproj/SUUpdateAlert.nib/keyedobjects.nib 21983 08c04823602b8e7c4f02f4c719ffe0488177dcd5c7523e072094b37e4529b4c4
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Base.lproj/SUUpdatePermissionPrompt.nib/keyedobjects-101300.nib 17096 6913b0664ea6cb8fbf86ad6fd8151d4012e1802daf2d034824e051880ddc1fc3
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Base.lproj/SUUpdatePermissionPrompt.nib/keyedobjects-110000.nib 17039 b555e2df83734458d5057604b264f1b93defd45cfb0c12a4862b8bbb31c154f4
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Base.lproj/SUUpdatePermissionPrompt.nib/keyedobjects.nib 21550 402ffd6984e806f5ffdd80b8e99080a59b83f07c5e5d4b6d81849d139fc4821c
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Base.lproj/Sparkle.strings 10196 dfd09d7d9675090433d46775f94931a362479745c44a873f72a58a174f755949
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Info.plist 1350 6c1bd6f133dc5fda39f338a81d3adc5314b84f95906cf1edf751f279322f33cd
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/ReleaseNotesColorStyle.css 203 cf8e47ba3f7a64354d75ba3f3d556f96dffd15b0356f04845aacc4859b2ea5b3
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/SUModelTranslation.plist 11859 6f19e94508513895d32f6c6e21e7df477a7e84ebae8e2ede3a80de36a498a938
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/SUStatus.nib/keyedobjects-101300.nib 10694 f86b7802c4e44f309f43a767743687bc57ad62027de9a61a87e4684521d4f33b
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/SUStatus.nib/keyedobjects.nib 12937 cc650a628e436a5f1efa9287d4a55f5eba2089f9a1f405aa0dd00bfe77924201
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/ar.lproj/SUAutomaticUpdateAlert.strings 1038 3e7e4b59eef064708f5b69f2cb8da4cf80352abebe702aca1402fd393811b3dc
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/ar.lproj/SUUpdateAlert.strings 1416 b91c79090d29c3e696e2320cd2aa26e7904dab99c69ea2d2227d1cf8c376f655
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/ar.lproj/SUUpdatePermissionPrompt.strings 2656 465d97bc202f7e7a809ce674158aef02843f247fe69b648a7e3cbba019e0d015
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/ar.lproj/Sparkle.strings 8468 d9c009279353c70a51829db809adc4b935df688233b18747dd8f5c3426a565f7
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/ca.lproj/SUAutomaticUpdateAlert.strings 544 bdb97e898bdc9f67fd56a17788c9dd5be1bae78c8db13f4b3d5f71324ce348b4
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/ca.lproj/SUUpdateAlert.strings 792 d7ca8bb1346725f8b4c037fa03ce576e231718e4529aea3d525dc82b89b982ad
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/ca.lproj/Sparkle.strings 6792 a26e48ea32a57ae4680b08dfad146a29641bb3697c94b8fc406292e3b731c9b0
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/cs.lproj/SUAutomaticUpdateAlert.strings 526 1a8453e65341972dfb54a9132b459a9c2c4d3535c442d7da3f3c00bbed94091b
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/cs.lproj/SUUpdateAlert.strings 761 a92a039743c862ff8ead2c6d25f51893dc5e422866cdf6b101ff9e80acb0e32e
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/cs.lproj/SUUpdatePermissionPrompt.strings 1314 f48079b0f918606c01fe7914fc540993a25a1acdc6346be8caa8069c75fc29ad
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/cs.lproj/Sparkle.strings 10570 f2adb6c8a5217ca25538e5ed79441901556485fccf40ace848976754d9033e8f
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/da.lproj/SUAutomaticUpdateAlert.strings 1046 a74cebbadf9580fa53c88336bd06d1d51454fe0992918a82f00df6d5ded79244
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/da.lproj/SUUpdateAlert.strings 1436 fdacdc27042bc73d5fc08d422006e12c29df547e41a86750082cab6bc02ff697
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/da.lproj/SUUpdatePermissionPrompt.strings 2504 b4fd5dbfd6547447809f85ee95c48eb9ff1f55ded7b2f5600bd106528ecd58c4
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/da.lproj/Sparkle.strings 8306 c2ed02a46a84efdf935ca2109beabbc9c3d3b9784e97046bff00f9b861c9ccb3
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/de.lproj/SUAutomaticUpdateAlert.strings 1114 de64cf80270508999ea4501c4939c816095b973e20199b127d29370388337a31
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/de.lproj/SUUpdateAlert.strings 1488 3301e59bdb602525a143ef1b8f41237985c63909923407d944042831fc68eaff
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/de.lproj/SUUpdatePermissionPrompt.strings 2556 98dc4ecd0aca6821b58109e733c9a923415ab142ed2dd9dad0643f38e7980f58
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/de.lproj/Sparkle.strings 10148 6c0e5bc444b266e0bf746d9529f37e790ec255bdaa016af07eef782292785e2d
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/el.lproj/SUAutomaticUpdateAlert.strings 1114 6e1e6adbe29f184f7f89c7788b32eb35284c3ceedda3f0d77e98e8ac85e7fad6
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/el.lproj/SUUpdateAlert.strings 1516 8992828a115a7d7b7ad6c919190a3974ad0c3ab27cf9d5f58cf9996866faf6be
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/el.lproj/SUUpdatePermissionPrompt.strings 2612 7f2f975d00aa1326f39c983c3a46ce8cb66635248d3f54df99ca6499af97e1d5
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/el.lproj/Sparkle.strings 7734 c2dfb6c72bac996010b89e6401095196f15bd703b82fbfeb15d1be56636397e6
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/en.lproj/SUAutomaticUpdateAlert.strings 516 e82da12540a3d5c857489ae370749d3789a13814a748228ba5d18cbb83d37252
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/en.lproj/SUUpdateAlert.strings 731 101552f197c4209c464a084ed7b7a6c281d0a342d5596cc124c16cf11c2f2968
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/en.lproj/SUUpdatePermissionPrompt.strings 1277 0e0edb618b6b6180c554251e2779c941b2ca3c5bb04f07743283b3c0b220be45
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/es.lproj/SUAutomaticUpdateAlert.strings 1050 b7ab9fa08cc7678365552535c19db55981221c408aab5dabddb45c305cf9ad92
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/es.lproj/SUUpdateAlert.strings 1560 f7ae0fb07333e91611cc78e60f86876cd7e76340591b0dd96a4c5809bef569ed
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/es.lproj/SUUpdatePermissionPrompt.strings 2808 b2e347984ed644966af263452e9f5061f555f7ae010f3473da94611cb80dad9a
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/es.lproj/Sparkle.strings 10030 9ad3a829da13a46cde4cdcb3c6454638cb04d19dd964eb2620a0df800f5a8fc7
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/fi.lproj/SUAutomaticUpdateAlert.strings 1118 a6402246106046a28e0d6bd3d386d49848685ccfff3b0ccb30c69c1d50a42c79
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/fi.lproj/SUUpdateAlert.strings 1500 072109499c5b3ea079d8f33be25cb0406c587ecdf07cd6d04225225f0b216af4
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/fi.lproj/SUUpdatePermissionPrompt.strings 2648 f5dbde3d82c94fabea41997099f271fa6962692255f825472743b84983fd49a8
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/fi.lproj/Sparkle.strings 6184 f808a229611d1f795eb28ccb2419f7b5f2babe2fd5488d7f4e759598875556c7
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/fr.lproj/SUAutomaticUpdateAlert.strings 1042 5d8fbf5bba01f3ad823c99560429baca8568c4832e910bf9c40ce6d1baf30a8a
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/fr.lproj/SUUpdateAlert.strings 1496 e47c8bc4d5c0eab86bfe306d3ef9f0d3ec8924bf5755ef82b7be8bd01224def9
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/fr.lproj/SUUpdatePermissionPrompt.strings 2764 baed98391714773feb924118592ef6f69456656ea82473e89f54127147c0312a
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/fr.lproj/Sparkle.strings 10170 f0f2ae2a9da5ca65987d1f81a89d795169713902949777c4bde7ac78705f693c
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/he.lproj/SUAutomaticUpdateAlert.strings 538 1bc33a2e08265411afb3c6d1f50abcd81b3cfdc11056797a896f1e8637764ea0
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/he.lproj/SUUpdateAlert.strings 781 1603ecd3b40d68fcbfe4015843a133dfc23b7087f933d753f6e0e78251b85a90
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/he.lproj/Sparkle.strings 5288 e205255a4c1300d57f8ddee7e0e6685f24fc08072059593fb48ddadb9c26b8b8
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/hr.lproj/SUAutomaticUpdateAlert.strings 1078 dff1fe1f0232241871a6b0e92ac3e1647c96aa3553d36124c7129aa672ed51c3
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/hr.lproj/SUUpdateAlert.strings 1560 d3a8bff4eef01ba2c60b9ef647edf0a30a6a49bdcff8cc184932c59c5172bcfe
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/hr.lproj/SUUpdatePermissionPrompt.strings 2468 976424eaa7e9ad038ad285de673db88c04d6efbbfc858400915bd4f65a2efa41
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/hr.lproj/Sparkle.strings 9778 4f092586ba281d35e057a43d7dbbef001de63c887ba836c4b0db54ce8d9f42e5
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/hu.lproj/SUAutomaticUpdateAlert.strings 1118 95188bdebe280d81d18bdb5fc0a24004026a90fde63ec7807fd18c204a8f3c68
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/hu.lproj/SUUpdateAlert.strings 1584 9a98cfac801553b4a9668f97fb1adc0f5fb2e29074a392b101e60dad73b61ee2
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/hu.lproj/SUUpdatePermissionPrompt.strings 2596 bacb00fdd5970cea29d540bab48c64e167bd999b5a39159fa815dcad86cbc180
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/hu.lproj/Sparkle.strings 10002 b11929f1cdc1c75a9676185235d39aa753db7e6893ce220dcb51f119e6b74965
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/is.lproj/SUAutomaticUpdateAlert.strings 1034 c52d1864a4484f9b9d4ccdf6da4faf821d730641de09c52d5aacdb1f91fc487e
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/is.lproj/SUUpdateAlert.strings 1452 c46c528eeb8468a0f2c66439161746f7862a028bcef9f5a757af3d51a2ad502d
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/is.lproj/SUUpdatePermissionPrompt.strings 2628 e58fd45adb12f1212ccf0bf05c51d80aaa9b733a223f2d5607d899f1bd8743aa
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/is.lproj/Sparkle.strings 5868 c5c575ca1ff35375374ec4544fabc6c9bbc8422b5ff9386ba2037fb8e5a60fc9
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/it.lproj/SUAutomaticUpdateAlert.strings 1058 788242ce793aa37ccd88ec811c86e7bedb4a3767caf558f87ee8ea9c2d43abbe
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/it.lproj/SUUpdateAlert.strings 1540 480b9702fb0dea77985d64523e9475684508b0bcba8b97347a8da770a32c0cfb
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/it.lproj/SUUpdatePermissionPrompt.strings 2716 8d11547c19e09f16db76b6dac1f771d5734c8b4d5dac12c63503ea4929afc578
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/it.lproj/Sparkle.strings 8340 63e71a356fa0d26b7b1cfe09ac1c49c3eb83c0dde3d7d5186feab9afd721e0ec
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/ja.lproj/SUAutomaticUpdateAlert.strings 854 c535582e30d72371dd6e0465466e5b61c967d402dec63b432e3e675f8b1750fa
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/ja.lproj/SUUpdateAlert.strings 1256 bac5c1a83f09e321f8a68fdb6321c7775866e4c60e3e73acd5df546c742c5b82
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/ja.lproj/SUUpdatePermissionPrompt.strings 1876 f55bb3319c860389e7ec30c25f057f9afb6f94a62fe78af7951a8fa603044598
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/ja.lproj/Sparkle.strings 8552 7523c8be915b7a51d1bfc9622633774d454f6e00f50df855486984f92f7daae2
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/ko.lproj/SUAutomaticUpdateAlert.strings 790 93e9a1bf4d1b8906dc11f3e1a12f04cf32f46b6c6cb1b6188e4c1a979b85870b
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/ko.lproj/SUUpdateAlert.strings 1192 c94a8dbcb721872276047dd8ab75353672f8e822f4c3a55107825536ec33ea0e
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/ko.lproj/SUUpdatePermissionPrompt.strings 1892 3d7d92bca7089213f671ec8b6764a978533313810fdc34d44dc9bdd437604187
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/ko.lproj/Sparkle.strings 6220 f9bc67d0d3e09317472dad4c1d14fe2519589b2d63a48b9a7a7a6cb79453f910
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/nb.lproj/SUAutomaticUpdateAlert.strings 1026 c11ad895b35861891bb2df64230070e0041fca6e58d1079297b88f31f34b9358
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/nb.lproj/SUUpdateAlert.strings 1352 5116219d920c6bc3af17cb0153e1543dd147ec188d336bd54e256f2d9cc6dd76
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/nb.lproj/SUUpdatePermissionPrompt.strings 2452 262ea9258ec14870c888d927f8344cbf0065cf5d9184422cf871e9a625f58bb1
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/nb.lproj/Sparkle.strings 9352 146fb0f8e9cb23b9f09cd09688c4f9d0b53df155a3d5dd3c1257d7e24ece938c
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/nl.lproj/SUAutomaticUpdateAlert.strings 1098 56a360b651a28cc73be4dbb78bafac4df9e828ce7b21e8788b1b89174afdfad0
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/nl.lproj/SUUpdateAlert.strings 1508 2c260a9ee2129dc72b504f08e08254b93e3eb8393fcc8ae53a943efefbaf4990
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/nl.lproj/SUUpdatePermissionPrompt.strings 2660 482e3358f419ab2e9a6133ac9050adb875345cd19c07d7be62be98202fbbb396
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/nl.lproj/Sparkle.strings 8850 c67424ab168ef333f5c698d8de7ca339de057b4809a27d836ede39eae91dfc6c
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/pl.lproj/SUAutomaticUpdateAlert.strings 1098 6253f196aa7c60ff575088f35fb31a8d57f4dc676288ce047928ea2d8305974d
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/pl.lproj/SUUpdateAlert.strings 1548 9b520e438f541dfc3b8abd40683bf62d23b4bd4dc416e42116e698aa18b73be6
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/pl.lproj/SUUpdatePermissionPrompt.strings 2620 3ec235840b2354dd196c0771bae41574878a53ac6b3dddd72a33fcbe7ef98d4e
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/pl.lproj/Sparkle.strings 7318 a43abee358e17c44a025ab9e76b6277056353b910c114de747297b9a6c988feb
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/pt_BR.lproj/SUAutomaticUpdateAlert.strings 1034 7878e400a569ad068354d7bede962a85a575a9008487851b7e12cbb68bf648f1
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/pt_BR.lproj/SUUpdateAlert.strings 1524 abf0528a8ddd32eba7bfa042e7c4afda5fe0be9fb6c09cec7f67b9e8f71011b5
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/pt_BR.lproj/SUUpdatePermissionPrompt.strings 2676 08cedad45e75f98ad1eba048d10567a1b6c86c6c314e2eba3cdf4f2029eb7a15
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/pt_BR.lproj/Sparkle.strings 9728 958e44649c0f73f4667e1c35828b64784281f80357a995253361bddac6707497
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/pt_PT.lproj/SUAutomaticUpdateAlert.strings 1058 703cd70036b539f9123e6ae3f6c63e695ae2b4b95da06372be26acd4c46cabec
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/pt_PT.lproj/SUUpdatePermissionPrompt.strings 2760 c8c340b83e778ac076851162b3c2f4c72fbdff4ba87b2fa5ecae9f878a4128df
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/pt_PT.lproj/Sparkle.strings 7896 454aba5498e7fd0cb276435ba6494bc1f0a0445eb6fae1e15de9f67582c136e4
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/ro.lproj/SUAutomaticUpdateAlert.strings 1062 c3100f8e35275c6b06e3d85e41f6be790da69de7427e41c0932d40c2d43b7c33
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/ro.lproj/SUUpdateAlert.strings 1556 5d842374b4b8f7478db77031fe4cc548bc8a6bbf0790c29093806bf64c288285
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/ro.lproj/SUUpdatePermissionPrompt.strings 2604 36f98c1d6d221f7610d67e18b52544157f3a51397547e0f5535e8e1433178740
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/ro.lproj/Sparkle.strings 9806 34dbc3b1e720950feeb51e9812ac72323e4af7be9845689e0880bf3d9b960ad4
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/ru.lproj/SUAutomaticUpdateAlert.strings 1118 9b19df1bf3f356722baae36dc73f718a51f31922d42e7aa25239b2e303ebd486
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/ru.lproj/SUUpdateAlert.strings 1624 95fcf1fd3637014570d8efc411d2210e5553852569745899967fe190cc3a9ac1
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/ru.lproj/SUUpdatePermissionPrompt.strings 2780 f23396a38a31c221797792fc09993f1d970f732969f8e5d23ce25fc2ceb90dc2
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/ru.lproj/Sparkle.strings 7668 faf0964916c40aa41cb11e8d77c7ab41d6bfef1fa4bbf910494bd9b53bde9b24
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/sk.lproj/SUAutomaticUpdateAlert.strings 1078 616e18015cddf5dc684e94c2ae39bc86a0d67b80a7b98770b35d30ffe8e8e91f
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/sk.lproj/SUUpdateAlert.strings 1532 db2254c4904f46b9d8bb5f7db2c4ff14364f61801c4d522505335c26583baa89
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/sk.lproj/SUUpdatePermissionPrompt.strings 2604 a8d6b3e8e57ad0b2aa24fa145c5706ec86c43d96cecdd372d14f44ddcd58e8c9
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/sk.lproj/Sparkle.strings 7548 7b7732cc9f3ba210b57dffc1cd9e4ed34327c11134d94f89d4ac1795265e4928
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/sl.lproj/SUAutomaticUpdateAlert.strings 1010 c7bb5cb62e3b01fa579a15ed8ac277459074f655620691c4d33495405866581a
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/sl.lproj/SUUpdateAlert.strings 1520 6f107d20d36d7b22ce55c4facbd68b90ca0772915f07c05b2c5c6f3f6c08fd95
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/sl.lproj/SUUpdatePermissionPrompt.strings 2504 4f6d4e808ca7f6e31d425cf888c278cf0850a741cbeffb78570ad52466eadce1
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/sl.lproj/Sparkle.strings 7944 b7c402fbd4c138dc0a2d0bd5ddf295d2e9ac9c04bc643a6a3e291592c14fb567
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/sv.lproj/SUAutomaticUpdateAlert.strings 1114 db84dcc78b2b9e8e5be57de33ddcc97f9d5407763bad8c4b237ca8fedc49bf81
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/sv.lproj/SUUpdateAlert.strings 1596 12a63623f2ae6eca3b2b540d54dea216a03176bb3daf54b4e93dcb4264f8b023
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/sv.lproj/SUUpdatePermissionPrompt.strings 2640 bb7562c0d1631c31f52f463001b301864e234ae1205b58b5c15922712d76d87a
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/sv.lproj/Sparkle.strings 7834 98963a69e5c59d2c77f1b17adf4cf994d3e63edb2861503069d874282fbdbdf4
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/th.lproj/SUAutomaticUpdateAlert.strings 970 d608787ab6d17654c6cf66a3ccdebfaf578e7a3aabae6e2d1011a42c226f3e35
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/th.lproj/SUUpdateAlert.strings 1404 240b87fc38ab8e87f4e2baca2bcb45d0acea40f23cca8e838fe591bc668d032a
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/th.lproj/SUUpdatePermissionPrompt.strings 2272 5fb83a000260dccd82cbe1ec84d7a8d1600092b987e6b48e68f70eafcc6932ce
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/th.lproj/Sparkle.strings 8492 9e53fbadea5b333e84a87a37b195a72b7b73c78ed62925a750b7541c260f80a9
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/tr.lproj/SUAutomaticUpdateAlert.strings 1046 1a814a094c3e512e770b4117491b701bc2e3b6fdc7279426a91822172c86f0c2
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/tr.lproj/SUUpdateAlert.strings 1428 3de188efb092b1462b85b40743bca59088627844722de5bc58c0f3e77ae3a4a4
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/tr.lproj/SUUpdatePermissionPrompt.strings 2612 960dae32ce7b46be4a24e2ea963652aec5c056b1699c6d39ae74ac7fd0aa9d1b
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/tr.lproj/Sparkle.strings 9716 c445d47ebca53e577e7851ab3f28f8c1344f8fbbd458e6767fde2c5b276ad373
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/uk.lproj/SUUpdateAlert.strings 1664 0f3e84446827c305b8f729241dc4b943a63a75153d25c75d163c4a8979bfa092
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/uk.lproj/SUUpdatePermissionPrompt.strings 2600 569839d417d9bd4c753962aa998681f9f9b0834c26c74a8b8b2ab2588afa4809
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/uk.lproj/Sparkle.strings 7860 bb4e7bd9065887ab01d0641d30631e3da94e7f8ce4c44ed8406ee9a7cf7c4848
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/zh_CN.lproj/SUAutomaticUpdateAlert.strings 726 31c054e56488b7df27d00f0d535f9025ada62a9969b9852255fd5a6af4e6dea3
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/zh_CN.lproj/SUUpdateAlert.strings 1080 9f2c0eb44053ff370cdbf4a5aa361f2ccbc10c68d37f77040d0b4b17ec6e20ac
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/zh_CN.lproj/SUUpdatePermissionPrompt.strings 1736 8cbd4e4eb32f7769ff914e9f4e0d554ddcbf1e0eb233051844b07eabc903e85a
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/zh_CN.lproj/Sparkle.strings 6128 cef31b15d815188d25b3dbc8453fac89eedd8f683552342eee24bea4e832068e
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/zh_TW.lproj/SUAutomaticUpdateAlert.strings 738 1efabbf202a205a235e1e087201175a96b4d14b441a78605734e939561ee872d
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/zh_TW.lproj/SUUpdateAlert.strings 1092 1ab57269d1ebb3e34d677411134cc614a45a80103177a4c6e06c08a703bf5c96
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/zh_TW.lproj/SUUpdatePermissionPrompt.strings 1756 f22b4aa8cbd920dcfadea6cae3b4d32a7fe699e20d8d4ec84cf350d2d07ff23b
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/zh_TW.lproj/Sparkle.strings 5748 5657ffe100fbff74b4485ab1993596712c2d4cb58848a512bcb8e98166fb9714
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/Sparkle 1120944 931a0a834c5c427f52ae0c72ae1526eb32050fc7241625a2c9cb0fbbd3fcbc76
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/A/_CodeSignature/CodeResources 81929 605ca2d5d355373d25c7f666a42a72a56e7994d563e7495a45cf928c235dc725
+  Syncthing.app/Contents/Frameworks/Sparkle.framework/Versions/Current 0 e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+  Syncthing.app/Contents/Frameworks/libswiftCore.dylib 6456320 7ec11ff0562c9b6a22383af654848ae37d7a958b8c287af63174d1b421e43c06
+  Syncthing.app/Contents/Frameworks/libswiftCoreFoundation.dylib 42128 92ecd319c94e14f201229fe0deae65efcc2162ce4915a854a27ffd25a0f03b13
+  Syncthing.app/Contents/Frameworks/libswiftCoreGraphics.dylib 190560 c5003b802400e6e2065140dab7646fe56e8bb0f74f1a628d996a1fe7999f6123
+  Syncthing.app/Contents/Frameworks/libswiftCoreImage.dylib 50064 b8ae1ca9bab20bd8217fd7889f166406736ae2b41b93834c989df5596767da52
+  Syncthing.app/Contents/Frameworks/libswiftDarwin.dylib 99088 3e43fc83e68fe8663b3fc970228f050625b93008f3079d2c4d6803d54b106400
+  Syncthing.app/Contents/Frameworks/libswiftDispatch.dylib 328272 7892314fe0540b9c101b8df07dacec5bbad80d052fdf209cd2de55a96aada8b7
+  Syncthing.app/Contents/Frameworks/libswiftFoundation.dylib 3163408 e647430425d5fe91bf1c0aaf0fdb69e5aa47729f7288b9ff7b55b48372659e0b
+  Syncthing.app/Contents/Frameworks/libswiftIOKit.dylib 45664 0a4306167041dab9e0a7ccd4409749df9ad484e753d8c8c1c146ad0ed8de29c3
+  Syncthing.app/Contents/Frameworks/libswiftMetal.dylib 84928 391188ece3cb2e9784841cbbfe94369fc00ca55435d7ac0bfb5e3dfa5d34f682
+  Syncthing.app/Contents/Frameworks/libswiftObjectiveC.dylib 62272 5b31bdd0413b914fdb22e2fea52357b037546c4e5ddad548c2d43d8446759847
+  Syncthing.app/Contents/Frameworks/libswiftQuartzCore.dylib 58352 2a4b93623a53b89aa3747db0184ceaf530f7a5e7d0f1e85dea3099b1e6298900
+  Syncthing.app/Contents/Frameworks/libswiftXPC.dylib 45744 6c3d661885a8cc1711a6e7c02520c0a56bade4c8af980fa25abc30909d474952
+  Syncthing.app/Contents/Frameworks/libswiftos.dylib 72368 9d9f639ebc086ab2eb96660cf9d99259b8f5d82bfeaae91eff5919218e932310
+  Syncthing.app/Contents/Frameworks/libswiftsimd.dylib 319344 f98ed23186f9070bf4223e55f3d21aab704122fb589878920d86ee9c4a1f51cb
+  Syncthing.app/Contents/Info.plist 2480 1dd4dde9895e9440cff6d9f37129dfcde10cc7c33de2f9e7a8c566de2de0ddfd
+  Syncthing.app/Contents/MacOS/Syncthing 456336 1415ca62533717197082dea84039945597ee07ac533f18f11f80c7e7b63282df
+  Syncthing.app/Contents/PkgInfo 8 82502191c9484b04d685374f9879a0066069c49b8acae7a04b01d38d07e8eca0
+  Syncthing.app/Contents/Resources/Assets.car 253976 5d1663be6f37db4873cbdc3e4ee03cf55b5526027d52b8bf71c0b2abcb421935
+  Syncthing.app/Contents/Resources/Base.lproj/STAboutWindow.nib 9865 e8d7e8d9da5dc9a0d5f4af7688916104fa1e6bc64fd5b4a77bf3c10404f6c69c
+  Syncthing.app/Contents/Resources/Base.lproj/STApplication.nib 9475 22209da8e43e981ad9c3286e1372715128e09c1be1fbb36e238626df67329dff
+  Syncthing.app/Contents/Resources/Base.lproj/STPreferencesWindow.nib 5687 2b1c75217128bc40b46591b5551f4913cb8c3b3b252c3ee88d058072f0cb359d
+  Syncthing.app/Contents/Resources/Base.lproj/STPreferencesWindowGeneralView.nib 19536 ca8202bc331f1808f0ddb2eb1eb2da0966d28dc141aaa5bdc0b5ce0be9c95b03
+  Syncthing.app/Contents/Resources/Syncthing.icns 36932 ff93a1a292976fec6a25ac2b4c1eb5bf05eb2e338dc83a84cce10b3c40ce34d5
+  Syncthing.app/Contents/Resources/en.lproj/Localizable.strings 1850 aa25cb71f7d56bcc23943e76d4d19e190af4c89eeaaa12f13393b8c46882613c
+  Syncthing.app/Contents/Resources/en.lproj/STAboutWindow.strings 612 0d70a808a5eed10220240cc2eb122b823e8c9cd1a1a776d9dade9d89018a9132
+  Syncthing.app/Contents/Resources/en.lproj/STApplication.strings 3741 e082fc5c4c6c2b7e2202944b2885831d9c0e44e3cd27c12ae20bb0e4e441f64f
+  Syncthing.app/Contents/Resources/en.lproj/STPreferencesWindow.strings 1273 2031decd2979f1cbd7756297decf122e055c614cd50f9ae3edaecf0b198fec1f
+  Syncthing.app/Contents/Resources/en.lproj/STPreferencesWindowGeneralView.strings 1902 c8adb1eb424e47634582d0c9f810ed5deb0efa30a2c519e9b1d276f3962bc9b6
+  Syncthing.app/Contents/Resources/es.lproj/Localizable.strings 1998 1a715b8f67982c5c5cf90f16b250fc8235b5f38a421a2537bd410cf5d6717832
+  Syncthing.app/Contents/Resources/es.lproj/STAboutWindow.strings 629 985336ef86219b7d3ffaec2a4c9c2bd45654e2f1cd2b4ee5ad560591bb81c9a7
+  Syncthing.app/Contents/Resources/es.lproj/STApplication.strings 3839 c81a9115d4ffb122c177913e487de66a858c1f96b66b7dfa984173308fa3dd2e
+  Syncthing.app/Contents/Resources/es.lproj/STPreferencesWindow.strings 1289 df9b7c4e1fdf671ff20bfa5b7316ac52875aebe2e7ab26160f0234ed10ee51e7
+  Syncthing.app/Contents/Resources/es.lproj/STPreferencesWindowGeneralView.strings 1971 1c59d7cb5d906d25e4bd3dffa579672990b82865692ee8baf9cdd59c26ee35db
+  Syncthing.app/Contents/Resources/syncthing/.metadata/release.sig 241 6e6c600cf90d84bdcb5ed534a590e6c3c112211c217bab654fb7924b7e24c617
+  Syncthing.app/Contents/Resources/syncthing/AUTHORS.txt 17249 2981b9b7604222e3042f748652654ece919ff059f5dba430520ea729c67adeb2
+  Syncthing.app/Contents/Resources/syncthing/LICENSE.txt 17099 9221c2f936159b8446d329249fb4c0f25be510f447383a0f13336ac7985668a3
+  Syncthing.app/Contents/Resources/syncthing/README.txt 4109 0d776cc170ff90a413a285357f37d1a9cefa1aa74c9e0d9ff1e7f249ba0a490b
+  Syncthing.app/Contents/Resources/syncthing/etc/README.md 52 eb1213822c3539ce8d6c41cf7dfa37d1d2bf5152d4b4fd046744d55af419fff5
+  Syncthing.app/Contents/Resources/syncthing/etc/firewall-ufw/README.md 816 563083a6fc0614657c3924c30f079076a277e0a7a98797886a1554844fd277aa
+  Syncthing.app/Contents/Resources/syncthing/etc/firewall-ufw/syncthing 175 135a355a39e0d160aec5e87011ce9b995343e81ea7e0afd320638c997790f2be
+  Syncthing.app/Contents/Resources/syncthing/etc/freebsd-rc/README.md 586 053e89d7389ae7523a705fa5d107fc5dd7f17f7d4ddbf907bba36989ec795f41
+  Syncthing.app/Contents/Resources/syncthing/etc/freebsd-rc/syncthing 1709 6c5ac5be8c4d8cbe68186e5e1a8949c4bc62ea0372df5172893b5ad60d5c60bf
+  Syncthing.app/Contents/Resources/syncthing/etc/linux-desktop/README.md 838 11cf7a1ea09591ff0b82ceb59d5e87d1071d720688f314f776f4c5faf1fa6930
+  Syncthing.app/Contents/Resources/syncthing/etc/linux-desktop/syncthing-start.desktop 299 c614dc27de5e1e5bbc9cd96ba013a4b8fd4ed83945195e70f10ce2ae54816bed
+  Syncthing.app/Contents/Resources/syncthing/etc/linux-desktop/syncthing-ui.desktop 309 1029080fe8cf057504f9378b015b0b1d7f78475d90bc2997992daf26d22e7b81
+  Syncthing.app/Contents/Resources/syncthing/etc/linux-runit/README.md 589 6813c638de1276b4f3174c64d96b0226f858bc3d6db3db648544fbd881b0d1f3
+  Syncthing.app/Contents/Resources/syncthing/etc/linux-runit/log/run 37 d6f92e0df71b81b7fc3d02468364e9ffcf0be299a7a68440339713e81c500e5b
+  Syncthing.app/Contents/Resources/syncthing/etc/linux-runit/run 168 281d76b4882a23a6301ae7c8a08f34d60b32f5398a72c13d88c980533b63a32f
+  Syncthing.app/Contents/Resources/syncthing/etc/linux-sysctl/30-syncthing.conf 187 1aa3db0d23d1531948d784eb6c0055364940122d225e8b6cedc018297dd5dc1f
+  Syncthing.app/Contents/Resources/syncthing/etc/linux-sysctl/README.md 468 36783cdca8ece128bf66fa644cb9f4fe2b6126412be96847670372bfe0d18cf9
+  Syncthing.app/Contents/Resources/syncthing/etc/linux-systemd/README.md 364 541eb2f570fef18427faaa1aded057ffba2ed415ecadc342b5e400c53fa4a254
+  Syncthing.app/Contents/Resources/syncthing/etc/linux-systemd/system/syncthing@.service 9234 efadf5cec952c89642bf009cc8724758e27029df4efcbbec30d4eb4b5f0e2814
+  Syncthing.app/Contents/Resources/syncthing/etc/linux-systemd/user/syncthing.service 722 9b3ede4c5b54acd453a81daca9e37bb5fd9af2079e216e4111200b7e638e40c2
+  Syncthing.app/Contents/Resources/syncthing/etc/linux-upstart/README.md 637 1e1272d342ba185e8ba8ae11f3216ce5eb2f033fa6a8162bd30a55b7e291d12d
+  Syncthing.app/Contents/Resources/syncthing/etc/linux-upstart/system/syncthing.conf 219 5be21ffe8c5ce924564ca034f37d42c30906688c85431af3b05d07af06425697
+  Syncthing.app/Contents/Resources/syncthing/etc/linux-upstart/user/syncthing.conf 591 fddb0c139ecfe016b388522491eb619bc1bc98c8aaf485563b05edc060551f13
+  Syncthing.app/Contents/Resources/syncthing/etc/macos-launchd/README.md 674 7cd8de3738387e179de80e3703cddc6de503bd7a6f10ea8c556fed51a4777779
+  Syncthing.app/Contents/Resources/syncthing/etc/macos-launchd/syncthing.plist 1113 d58226c547e25362c68cb21940e832827c2056eed40e7cb7f016a4c64fa7186d
+  Syncthing.app/Contents/Resources/syncthing/etc/solaris-smf/README.md 492 ae8a02eb36ce76a79071075ad9b04e8ca868045583f5634532081029a40c48bc
+  Syncthing.app/Contents/Resources/syncthing/etc/solaris-smf/syncthing.xml 1533 e7c720fd2d754d43f74020dc5d54d829b2da961e0b2f14fd7d0ce38167298609
+  Syncthing.app/Contents/Resources/syncthing/syncthing 57418016 c563213beff99e0150acee6b87c9ce835b1f123208e90a2380c2de49fc5c5bac
+  Syncthing.app/Contents/_CodeSignature/CodeResources 21895 2355ae4545e5d647159785e7494a8a5685188b36e2e9df34034156f0e58d5196

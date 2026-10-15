@@ -42,6 +42,9 @@ import be.stef.arcana.ArcanaFormat;
  *   BZIP2 : 42 5A 68 ('B','Z','h')
  *   ZSTD  : 28 B5 2F FD (little-endian magic 0xFD2FB528)
  *   TAR   : 75 73 74 61 72 at offset 257 ("ustar")
+ *   LZIP  : 4C 5A 49 50 01 ("LZIP" + version 1)
+ *   LZOP  : 89 4C 5A 4F 00 0D 0A 1A 0A
+ *   DMG   : "koly" trailer in the last 512 bytes (UDIF), "encrcdsa" (encrypted)
  * </pre>
  *
  * @author Stef
@@ -75,6 +78,9 @@ public final class ArchiveDetector {
     private static final byte[] MAGIC_CHM       = {0x49, 0x54, 0x53, 0x46};             // "ITSF"
     private static final byte[] MAGIC_SZDD      = {0x53, 0x5A, 0x44, 0x44, (byte) 0x88, (byte) 0xF0, 0x27, 0x33}; // "SZDD"
     private static final byte[] MAGIC_ARJ       = {0x60, (byte) 0xEA};
+    private static final byte[] MAGIC_LZIP      = {0x4C, 0x5A, 0x49, 0x50, 0x01};       // "LZIP" + version 1
+    private static final byte[] MAGIC_LZOP      = {(byte) 0x89, 0x4C, 0x5A, 0x4F, 0x00, 0x0D, 0x0A, 0x1A, 0x0A};
+    private static final byte[] MAGIC_DMG_ENCRYPTED = {0x65, 0x6E, 0x63, 0x72, 0x63, 0x64, 0x73, 0x61}; // "encrcdsa"
     private static final byte[] MAGIC_OLE       = {(byte) 0xD0, (byte) 0xCF, 0x11, (byte) 0xE0, (byte) 0xA1, (byte) 0xB1, 0x1A, (byte) 0xE1};
 
     /** Number of bytes to read for magic-byte detection (must cover TAR offset 257+5). */
@@ -103,6 +109,7 @@ public final class ArchiveDetector {
      * @since 1.3
      */
     public static ArcanaFormat detectByContent(File file) throws IOException {
+        if (hasUdifTrailer(file)) return ArcanaFormat.DMG;
         ArcanaFormat byMagic = detectByMagic(readProbe(file));
         if (byMagic != ArcanaFormat.UNKNOWN) return byMagic;
         return discFormat(file);
@@ -117,6 +124,8 @@ public final class ArchiveDetector {
      * @throws IOException if the file cannot be opened or read
      */
     public static ArcanaFormat detect(File file) throws IOException {
+        // before the magic bytes: the data fork of a disk image may start with any stream ("BZh"...)
+        if (hasUdifTrailer(file)) return ArcanaFormat.DMG;
         byte[] probe = readProbe(file);
         ArcanaFormat byMagic = detectByMagic(probe);
         if (byMagic != ArcanaFormat.UNKNOWN) return byMagic;
@@ -157,6 +166,23 @@ public final class ArchiveDetector {
         }
     }
 
+    /**
+     * Apple disk image (UDIF): "koly" trailer with a 512-byte header size in the
+     * last 512 bytes of the file. Found whatever the file name is.
+     */
+    private static boolean hasUdifTrailer(File file) {
+        final long len = file.length();
+        if (len < 512) return false;
+        try (java.io.RandomAccessFile raf = new java.io.RandomAccessFile(file, "r")) {
+            raf.seek(len - 512);
+            final byte[] t = new byte[12];
+            raf.readFully(t);
+            return t[0] == 'k' && t[1] == 'o' && t[2] == 'l' && t[3] == 'y' && t[8] == 0 && t[9] == 0 && t[10] == 2 && t[11] == 0;
+        } catch (java.io.IOException e) {
+            return false;
+        }
+    }
+
     private static boolean isIso9660(File file) {
        if (file.length() < 32769L + 5L) return false;
        try (java.io.RandomAccessFile raf = new java.io.RandomAccessFile(file, "r")) {
@@ -192,6 +218,8 @@ public final class ArchiveDetector {
         if (startsWith(probe, MAGIC_XZ))    return detectXzOrTarXz(probe);
         if (startsWith(probe, MAGIC_LZ4))   return detectLz4OrTarLz4(probe);
         if (startsWith(probe, MAGIC_SNAPPY))    return ArcanaFormat.SNAPPY;
+        if (startsWith(probe, MAGIC_LZIP))  return ArcanaFormat.LZIP;
+        if (startsWith(probe, MAGIC_LZOP))  return ArcanaFormat.LZOP;
         if (startsWith(probe, MAGIC_CPIO_NEWC) || startsWith(probe, MAGIC_CPIO_CRC) || startsWith(probe, MAGIC_CPIO_ODC)) return ArcanaFormat.CPIO;
         if (startsWith(probe, MAGIC_Z))     return ArcanaFormat.Z;
         if (startsWith(probe, MAGIC_AR))    return ArcanaFormat.AR;
@@ -202,6 +230,7 @@ public final class ArchiveDetector {
         if (startsWith(probe, MAGIC_WIM))   return ArcanaFormat.WIM;
         if (startsWith(probe, MAGIC_SQUASHFS)) return ArcanaFormat.SQUASHFS;
         if (startsWith(probe, MAGIC_OLE))   return ArcanaFormat.OLE;
+        if (startsWith(probe, MAGIC_DMG_ENCRYPTED)) return ArcanaFormat.DMG; // reported as not supported
         if (startsWith(probe, MAGIC_CHM))   return ArcanaFormat.CHM;
         if (startsWith(probe, MAGIC_SZDD))  return ArcanaFormat.MSLZ;
         // ARJ: 60 EA, basic header size 1..2600, archive header type 2 at offset 10
@@ -237,6 +266,8 @@ public final class ArchiveDetector {
         if (lower.endsWith(".tar.xz") || lower.endsWith(".txz"))            return ArcanaFormat.TAR_XZ;
         if (lower.endsWith(".tar.bz2") || lower.endsWith(".tbz2") || lower.endsWith(".tbz")) return ArcanaFormat.TAR_BZ2;
         if (lower.endsWith(".tar.br")  || lower.endsWith(".tbr"))           return ArcanaFormat.TAR_BROTLI;
+        if (lower.endsWith(".tar.lz")  || lower.endsWith(".tlz"))           return ArcanaFormat.TAR_LZIP;
+        if (lower.endsWith(".tar.lzo") || lower.endsWith(".tzo"))           return ArcanaFormat.TAR_LZOP;
         if (lower.endsWith(".tar") || lower.endsWith(".gem")) return ArcanaFormat.TAR;
         if (lower.endsWith(".rar") || lower.endsWith(".cbr")) return ArcanaFormat.RAR;
         // ZIP and ZIP-based formats
@@ -266,6 +297,8 @@ public final class ArchiveDetector {
         if (lower.endsWith(".snappy"))                                      return ArcanaFormat.SNAPPY;
         if (lower.endsWith(".cpio"))                                        return ArcanaFormat.CPIO;
         if (lower.endsWith(".lzma"))                                        return ArcanaFormat.LZMA;
+        if (lower.endsWith(".lz"))                                          return ArcanaFormat.LZIP;
+        if (lower.endsWith(".lzo"))                                         return ArcanaFormat.LZOP;
         if (lower.endsWith(".z"))                                           return ArcanaFormat.Z;
         if (lower.endsWith(".a") || lower.endsWith(".deb"))                return ArcanaFormat.AR;
         if (lower.endsWith(".rpm"))                                         return ArcanaFormat.RPM;
@@ -277,6 +310,7 @@ public final class ArchiveDetector {
         if (lower.endsWith(".iso"))                                         return ArcanaFormat.ISO;
         if (lower.endsWith(".udf"))                                         return ArcanaFormat.UDF;
         if (lower.endsWith(".wim") || lower.endsWith(".swm") || lower.endsWith(".esd")) return ArcanaFormat.WIM;
+        if (lower.endsWith(".dmg") || lower.endsWith(".sparseimage"))      return ArcanaFormat.DMG;
         if (lower.endsWith(".sqfs") || lower.endsWith(".squashfs") || lower.endsWith(".snap")) return ArcanaFormat.SQUASHFS;
         if (lower.endsWith(".msi") || lower.endsWith(".msp"))              return ArcanaFormat.OLE;
         if (lower.endsWith(".chm"))                                         return ArcanaFormat.CHM;

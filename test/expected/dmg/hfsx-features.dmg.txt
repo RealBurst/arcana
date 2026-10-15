@@ -1,0 +1,56 @@
+# Arcana regression reference (RegressionRunner --update)
+input: 8fa146c158f2a44145a13a27575b488ee6c3f61743c5e1ed377987fd7ef8f58c 15002
+identify: archive | DMG 4 - Apple disk image (UDIF), UDZO (zlib)
+  format: UDZO (zlib)
+  image variant: 1 (device image)
+  size: 454656 bytes (888 sectors)
+  data fork checksum: CRC32 28203f52
+  partitions: 1
+  partition 0: disk image (Apple_HFS : 0): HFSX volume "ArcanaTest" (signature HX, version 5, 18 files, 11 folders), 1 resource fork(s) not extracted
+list: 27 entries
+  bin (folder)
+  bin/random.bin 4096
+  café à la crème.txt 14
+  compressed (folder)
+  compressed/lzfse-fork.txt 88470
+  compressed/lzvn-fork.txt 88470
+  compressed/lzvn-inline.txt 1520
+  compressed/zlib-fork.txt 88470
+  compressed/zlib-inline.txt 1520
+  deep (folder)
+  deep/a (folder)
+  deep/a/b (folder)
+  deep/a/b/c (folder)
+  deep/a/b/c/leaf.txt 5
+  docs (folder)
+  docs/empty.txt 0
+  docs/notes.txt 29490
+  docs/with-resource-fork.txt 10
+  déjà vu (folder)
+  déjà vu/über.txt 33
+  empty-dir (folder)
+  fragmented.bin 40960
+  links (folder)
+  links/hard-1.txt 17
+  links/hard-2.txt 17
+  links/symlink.txt 0
+  readme.txt 1520
+extracted: 18 items
+  bin/random.bin 4096 8fe774a9e65a6c63fc7df534a66e2bafb44a73813a37b2abcc178749b237552e
+  café à la crème.txt 14 190dc9cdd6661c9a3821146616aeea831f22de07ac121ea9ad83d8acd450d5a7
+  compressed/lzfse-fork.txt 88470 89e11f1aa40fcf265afc75a74cf347b133d1373d52f63ad3a0123df97250068e
+  compressed/lzvn-fork.txt 88470 89e11f1aa40fcf265afc75a74cf347b133d1373d52f63ad3a0123df97250068e
+  compressed/lzvn-inline.txt 1520 ba2f1014c1181c953f32737172808623ce8dd59ba7c7598d2d73730ea4f6217c
+  compressed/zlib-fork.txt 88470 89e11f1aa40fcf265afc75a74cf347b133d1373d52f63ad3a0123df97250068e
+  compressed/zlib-inline.txt 1520 ba2f1014c1181c953f32737172808623ce8dd59ba7c7598d2d73730ea4f6217c
+  deep/a/b/c/leaf.txt 5 26d0bac9f0c7a35b2f3322a0f4ad4517265f56b2c0f4b2ed7cb5cbd30c5868e2
+  docs/empty.txt 0 e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+  docs/notes.txt 29490 d7e02c884850cdfa9d78d1e322269a120fdce78e1178469a980945b2d27d0c66
+  docs/with-resource-fork.txt 10 f080b24373c7b6f0bc3c0f894907f6cb643a305a7b5f8975282922d7b50b56df
+  déjà vu/über.txt 33 7aaadd102bf106e2113397b10e4cd187f67e6c26dcc04ae61f3225aa22669a25
+  empty-dir/ (empty folder)
+  fragmented.bin 40960 56ba5f7c2f732ec7d02af9e38d36f276acbd40b18c682af90b943e592d4ac808
+  links/hard-1.txt 17 1517a0e660e66e344afb7b0ec8a17f6cdf28745043cd27075415aeccb4d68672
+  links/hard-2.txt 17 1517a0e660e66e344afb7b0ec8a17f6cdf28745043cd27075415aeccb4d68672
+  links/symlink.txt 0 e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+  readme.txt 1520 ba2f1014c1181c953f32737172808623ce8dd59ba7c7598d2d73730ea4f6217c

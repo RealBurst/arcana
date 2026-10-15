@@ -1,0 +1,33 @@
+# Arcana regression reference (RegressionRunner --update)
+input: 4837c0db31fd479444c15157ec77f70b5d98524c3511ec8ea9b087ada611608d 18452616
+identify: archive | WiX Burn 3.x - WiX Burn bundle of Dokan Library 2.1.0.1000 Bundle (2 packages)
+  bundle: Dokan Library 2.1.0.1000 Bundle
+  publisher: Dokany Project
+  bundle id: {966ab681-c9f2-4117-bd5b-468578b2ae08}
+  WiX engine: 3.x
+  packages: 2 (2 Msi)
+  package ids: Dokan_x86.msi, Dokan_x64.msi
+  payloads: 9
+  containers: 2 in the file (UX + 1 attached)
+list: 10 entries
+  Dokan_x64.msi 11931648
+  Dokan_x86.msi 6524928
+  ux/BootstrapperApplicationData.xml 5078
+  ux/BurnManifest.xml 5903
+  ux/Resources/1033/RtfTheme.wxl 4179
+  ux/license.rtf 1993
+  ux/logo.png 4123
+  ux/thm.wxl 4179
+  ux/thm.xml 8246
+  ux/wixstdba.dll 188848
+extracted: 10 items
+  Dokan_x64.msi 11931648 930b596d6cd7a8f3508f39bd4eab8c2f178178d39d11a9e135180b69820df47f
+  Dokan_x86.msi 6524928 4282546c46d8302467997b38a56bebb409f0488d8bd7b2426719c5d5128cf7ef
+  ux/BootstrapperApplicationData.xml 5078 d927bab01ae690b20e9fafa635c38bbfded8cb1f5b3123789787c48f6631b137
+  ux/BurnManifest.xml 5903 14216232ebc8a8f1e12d9cb98b8078ae75d35ed184d20493e0a8c22c9139d049
+  ux/Resources/1033/RtfTheme.wxl 4179 26e71086ffa57fe9368adf58f697da58046a8c3f5cf7de89d22dbc29cd4a9a5f
+  ux/license.rtf 1993 11e20bb40acec4606eac22d2470ff9908776a02f2148fbf8dd1782ca494df4fb
+  ux/logo.png 4123 4e716f8dc1fdf9a803ea2441e2a6a185f7bbccd25dcb4a389742f056f9b4e74e
+  ux/thm.wxl 4179 26e71086ffa57fe9368adf58f697da58046a8c3f5cf7de89d22dbc29cd4a9a5f
+  ux/thm.xml 8246 e2b45ef7a41f9d968b6825155f177aead57c9c8ee4959b76e0198b02b5966dc2
+  ux/wixstdba.dll 188848 2bea14d70943a42d344e09b7c9de5562fa7e109946e1c615dd584da30d06cc80

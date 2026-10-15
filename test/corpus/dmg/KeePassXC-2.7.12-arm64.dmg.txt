@@ -1,0 +1,272 @@
+# Arcana regression reference (RegressionRunner --update)
+input: 65f4f63607180c0a15794b4a4068f85e99ed5391c87c1fb9312648f1b36fed40 34360675
+identify: archive | DMG 4 - Apple disk image (UDIF), UDBZ (bzip2)
+  format: UDBZ (bzip2)
+  image variant: 1 (device image)
+  size: 102684672 bytes (200556 sectors)
+  data fork checksum: CRC32 b7b9a23e
+  partitions: 8
+  partition -1: Protective Master Boot Record (MBR : 0): partition scheme, not extracted
+  partition 0: GPT Header (Primary GPT Header : 1): partition scheme, not extracted
+  partition 1: GPT Partition Data (Primary GPT Table : 2): partition scheme, not extracted
+  partition 2:  (Apple_Free : 3): partition scheme, not extracted
+  partition 3: disk image (Apple_HFS : 4): HFS+ volume "KeePassXC" (signature H+, version 4, 116 files, 24 folders)
+  partition 4:  (Apple_Free : 5): partition scheme, not extracted
+  partition 5: GPT Partition Data (Backup GPT Table : 6): partition scheme, not extracted
+  partition 6: GPT Header (Backup GPT Header : 7): partition scheme, not extracted
+list: 138 entries
+  .DS_Store 10244
+  .background (folder)
+  .background/background.tiff 17836
+  Applications 0
+  KeePassXC.app (folder)
+  KeePassXC.app/Contents (folder)
+  KeePassXC.app/Contents/Frameworks (folder)
+  KeePassXC.app/Contents/Frameworks/libQt5Concurrent.5.15.18.dylib 91152
+  KeePassXC.app/Contents/Frameworks/libQt5Core.5.15.18.dylib 5419008
+  KeePassXC.app/Contents/Frameworks/libQt5DBus.5.15.18.dylib 538800
+  KeePassXC.app/Contents/Frameworks/libQt5Gui.5.15.18.dylib 5461936
+  KeePassXC.app/Contents/Frameworks/libQt5MacExtras.5.15.18.dylib 114432
+  KeePassXC.app/Contents/Frameworks/libQt5Network.5.15.18.dylib 1449744
+  KeePassXC.app/Contents/Frameworks/libQt5PrintSupport.5.15.18.dylib 348272
+  KeePassXC.app/Contents/Frameworks/libQt5Svg.5.15.18.dylib 363776
+  KeePassXC.app/Contents/Frameworks/libQt5Widgets.5.15.18.dylib 5745456
+  KeePassXC.app/Contents/Frameworks/libargon2.dylib 86304
+  KeePassXC.app/Contents/Frameworks/libbotan-3.10.10.0.dylib 6129120
+  KeePassXC.app/Contents/Frameworks/libbrotlicommon.1.2.0.dylib 200080
+  KeePassXC.app/Contents/Frameworks/libbrotlidec.1.2.0.dylib 102720
+  KeePassXC.app/Contents/Frameworks/libbz2.1.0.8.dylib 120032
+  KeePassXC.app/Contents/Frameworks/libcrypto.3.dylib 5012576
+  KeePassXC.app/Contents/Frameworks/libdouble-conversion.3.4.0.dylib 124224
+  KeePassXC.app/Contents/Frameworks/libexpat.1.11.1.dylib 205264
+  KeePassXC.app/Contents/Frameworks/libfontconfig.1.dylib 347104
+  KeePassXC.app/Contents/Frameworks/libfreetype.6.20.2.dylib 743648
+  KeePassXC.app/Contents/Frameworks/libharfbuzz.0.dylib 1096720
+  KeePassXC.app/Contents/Frameworks/libjpeg.62.4.0.dylib 647136
+  KeePassXC.app/Contents/Frameworks/liblzma.5.8.2.dylib 207952
+  KeePassXC.app/Contents/Frameworks/libmd4c.0.5.2.dylib 117840
+  KeePassXC.app/Contents/Frameworks/libminizip.dylib 105296
+  KeePassXC.app/Contents/Frameworks/libpcre2-16.0.15.0.dylib 667120
+  KeePassXC.app/Contents/Frameworks/libpng16.16.53.0.dylib 272960
+  KeePassXC.app/Contents/Frameworks/libqrencode.4.1.1.dylib 105888
+  KeePassXC.app/Contents/Frameworks/libreadline.8.3.dylib 333744
+  KeePassXC.app/Contents/Frameworks/libsharpyuv.0.1.2.dylib 85184
+  KeePassXC.app/Contents/Frameworks/libssl.3.dylib 1001856
+  KeePassXC.app/Contents/Frameworks/libtiff.6.2.0.dylib 517040
+  KeePassXC.app/Contents/Frameworks/libwebp.7.2.0.dylib 502016
+  KeePassXC.app/Contents/Frameworks/libwebpdecoder.3.2.0.dylib 285472
+  KeePassXC.app/Contents/Frameworks/libwebpdemux.2.0.17.dylib 69472
+  KeePassXC.app/Contents/Frameworks/libwebpmux.3.1.2.dylib 104384
+  KeePassXC.app/Contents/Frameworks/libz.1.3.1.dylib 139232
+  KeePassXC.app/Contents/Info.plist 1750
+  KeePassXC.app/Contents/MacOS (folder)
+  KeePassXC.app/Contents/MacOS/KeePassXC 6174112
+  KeePassXC.app/Contents/MacOS/keepassxc-cli 6387472
+  KeePassXC.app/Contents/MacOS/keepassxc-proxy 76608
+  KeePassXC.app/Contents/PlugIns (folder)
+  KeePassXC.app/Contents/PlugIns/iconengines (folder)
+  KeePassXC.app/Contents/PlugIns/iconengines/libqsvgicon.dylib 94304
+  KeePassXC.app/Contents/PlugIns/imageformats (folder)
+  KeePassXC.app/Contents/PlugIns/imageformats/libqgif.dylib 90288
+  KeePassXC.app/Contents/PlugIns/imageformats/libqicns.dylib 93488
+  KeePassXC.app/Contents/PlugIns/imageformats/libqico.dylib 92208
+  KeePassXC.app/Contents/PlugIns/imageformats/libqjpeg.dylib 98240
+  KeePassXC.app/Contents/PlugIns/imageformats/libqmacheif.dylib 93040
+  KeePassXC.app/Contents/PlugIns/imageformats/libqmacjp2.dylib 93040
+  KeePassXC.app/Contents/PlugIns/imageformats/libqtga.dylib 90128
+  KeePassXC.app/Contents/PlugIns/imageformats/libqtiff.dylib 94160
+  KeePassXC.app/Contents/PlugIns/imageformats/libqwbmp.dylib 74128
+  KeePassXC.app/Contents/PlugIns/imageformats/libqwebp.dylib 94496
+  KeePassXC.app/Contents/PlugIns/libkeepassxc-autotype-cocoa.so 6135008
+  KeePassXC.app/Contents/PlugIns/platforms (folder)
+  KeePassXC.app/Contents/PlugIns/platforms/libqcocoa.dylib 1055744
+  KeePassXC.app/Contents/PlugIns/printsupport (folder)
+  KeePassXC.app/Contents/PlugIns/printsupport/libcocoaprintersupport.dylib 71264
+  KeePassXC.app/Contents/PlugIns/styles (folder)
+  KeePassXC.app/Contents/PlugIns/styles/libqmacstyle.dylib 249696
+  KeePassXC.app/Contents/Resources (folder)
+  KeePassXC.app/Contents/Resources/Assets.car 1420024
+  KeePassXC.app/Contents/Resources/docs (folder)
+  KeePassXC.app/Contents/Resources/docs/KeePassXC_GettingStarted.html 2321129
+  KeePassXC.app/Contents/Resources/docs/KeePassXC_KeyboardShortcuts.html 45217
+  KeePassXC.app/Contents/Resources/docs/KeePassXC_UserGuide.html 6417121
+  KeePassXC.app/Contents/Resources/icons (folder)
+  KeePassXC.app/Contents/Resources/icons/application (folder)
+  KeePassXC.app/Contents/Resources/icons/application/256x256 (folder)
+  KeePassXC.app/Contents/Resources/icons/application/256x256/apps (folder)
+  KeePassXC.app/Contents/Resources/icons/application/256x256/apps/keepassxc.png 32938
+  KeePassXC.app/Contents/Resources/keepassxc.icns 64177
+  KeePassXC.app/Contents/Resources/man (folder)
+  KeePassXC.app/Contents/Resources/man/man1 (folder)
+  KeePassXC.app/Contents/Resources/man/man1/keepassxc-cli.1 15213
+  KeePassXC.app/Contents/Resources/man/man1/keepassxc.1 2620
+  KeePassXC.app/Contents/Resources/qt.conf 78
+  KeePassXC.app/Contents/Resources/translations (folder)
+  KeePassXC.app/Contents/Resources/translations/keepassxc_ar.qm 280936
+  KeePassXC.app/Contents/Resources/translations/keepassxc_be.qm 272917
+  KeePassXC.app/Contents/Resources/translations/keepassxc_bg.qm 349144
+  KeePassXC.app/Contents/Resources/translations/keepassxc_ca.qm 123431
+  KeePassXC.app/Contents/Resources/translations/keepassxc_cs.qm 293544
+  KeePassXC.app/Contents/Resources/translations/keepassxc_da.qm 176985
+  KeePassXC.app/Contents/Resources/translations/keepassxc_de.qm 352206
+  KeePassXC.app/Contents/Resources/translations/keepassxc_el.qm 322983
+  KeePassXC.app/Contents/Resources/translations/keepassxc_en.qm 319917
+  KeePassXC.app/Contents/Resources/translations/keepassxc_en_GB.qm 320041
+  KeePassXC.app/Contents/Resources/translations/keepassxc_en_US.qm 319917
+  KeePassXC.app/Contents/Resources/translations/keepassxc_es.qm 352350
+  KeePassXC.app/Contents/Resources/translations/keepassxc_et.qm 336712
+  KeePassXC.app/Contents/Resources/translations/keepassxc_fi.qm 337856
+  KeePassXC.app/Contents/Resources/translations/keepassxc_fil.qm 288739
+  KeePassXC.app/Contents/Resources/translations/keepassxc_fr.qm 370846
+  KeePassXC.app/Contents/Resources/translations/keepassxc_fr_CA.qm 370915
+  KeePassXC.app/Contents/Resources/translations/keepassxc_he.qm 297198
+  KeePassXC.app/Contents/Resources/translations/keepassxc_hr.qm 127149
+  KeePassXC.app/Contents/Resources/translations/keepassxc_hu.qm 339846
+  KeePassXC.app/Contents/Resources/translations/keepassxc_id.qm 308443
+  KeePassXC.app/Contents/Resources/translations/keepassxc_it.qm 348636
+  KeePassXC.app/Contents/Resources/translations/keepassxc_ja.qm 250342
+  KeePassXC.app/Contents/Resources/translations/keepassxc_km.qm 284788
+  KeePassXC.app/Contents/Resources/translations/keepassxc_ko.qm 235484
+  KeePassXC.app/Contents/Resources/translations/keepassxc_lt.qm 286742
+  KeePassXC.app/Contents/Resources/translations/keepassxc_my.qm 298012
+  KeePassXC.app/Contents/Resources/translations/keepassxc_nb.qm 293441
+  KeePassXC.app/Contents/Resources/translations/keepassxc_nl.qm 345382
+  KeePassXC.app/Contents/Resources/translations/keepassxc_pl.qm 342550
+  KeePassXC.app/Contents/Resources/translations/keepassxc_pt_BR.qm 351091
+  KeePassXC.app/Contents/Resources/translations/keepassxc_pt_PT.qm 348287
+  KeePassXC.app/Contents/Resources/translations/keepassxc_ro.qm 231111
+  KeePassXC.app/Contents/Resources/translations/keepassxc_ru.qm 342125
+  KeePassXC.app/Contents/Resources/translations/keepassxc_si.qm 263315
+  KeePassXC.app/Contents/Resources/translations/keepassxc_sk.qm 235317
+  KeePassXC.app/Contents/Resources/translations/keepassxc_sl.qm 122390
+  KeePassXC.app/Contents/Resources/translations/keepassxc_sq.qm 320010
+  KeePassXC.app/Contents/Resources/translations/keepassxc_sr.qm 192660
+  KeePassXC.app/Contents/Resources/translations/keepassxc_sv.qm 328420
+  KeePassXC.app/Contents/Resources/translations/keepassxc_th.qm 259917
+  KeePassXC.app/Contents/Resources/translations/keepassxc_tr.qm 336615
+  KeePassXC.app/Contents/Resources/translations/keepassxc_uk.qm 343801
+  KeePassXC.app/Contents/Resources/translations/keepassxc_vi.qm 314644
+  KeePassXC.app/Contents/Resources/translations/keepassxc_zh_CN.qm 231350
+  KeePassXC.app/Contents/Resources/translations/keepassxc_zh_TW.qm 231860
+  KeePassXC.app/Contents/Resources/wordlists (folder)
+  KeePassXC.app/Contents/Resources/wordlists/eff_large.wordlist 62122
+  KeePassXC.app/Contents/_CodeSignature (folder)
+  KeePassXC.app/Contents/_CodeSignature/CodeResources 38900
+  KeePassXC.app/Contents/embedded.provisionprofile 12153
+extracted: 116 items
+  .DS_Store 10244 8767342d2d2d9019c34c6eac7af59430cee3d8289ad438dac238b4f94e0fde4c
+  .background/background.tiff 17836 457d0916fadfb1d271581b3b24a1d66612ab6aafba61ba811ac319c95c112ee7
+  Applications 0 e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+  KeePassXC.app/Contents/Frameworks/libQt5Concurrent.5.15.18.dylib 91152 641f592b526c4ce9b214dc775177394900090d3aa1ec36a2c428128acb0b7ced
+  KeePassXC.app/Contents/Frameworks/libQt5Core.5.15.18.dylib 5419008 ffd2fd914adf5cf01c3e0f711cc5a7c515ce67613136a32f135ef86d7096c840
+  KeePassXC.app/Contents/Frameworks/libQt5DBus.5.15.18.dylib 538800 229d2eb8a2ac8f247e94a5da6698bdd3b1e4e73e39936c5bbbb0e4d811528ce5
+  KeePassXC.app/Contents/Frameworks/libQt5Gui.5.15.18.dylib 5461936 6965a61da22f9f7b92831e00990accb2b5568abd69cbe1cf1e567da9575566af
+  KeePassXC.app/Contents/Frameworks/libQt5MacExtras.5.15.18.dylib 114432 2d7aa83433e71205aae08101f9613ebe71a014ee1936555c250dc6afa8e47e1e
+  KeePassXC.app/Contents/Frameworks/libQt5Network.5.15.18.dylib 1449744 75c5d9dc8409fed0e58c2bdb003757500cd31a3ef8aed060edf5d30523d19524
+  KeePassXC.app/Contents/Frameworks/libQt5PrintSupport.5.15.18.dylib 348272 dd5d713a07b42eba333da8ceb25e99f6efab183a2f8afd289399ca0f17f7d56d
+  KeePassXC.app/Contents/Frameworks/libQt5Svg.5.15.18.dylib 363776 c7021f80c37e130a3c904a4ddbd9ec3ce42e90e6e09dc38bb1a48cb7c461c9c2
+  KeePassXC.app/Contents/Frameworks/libQt5Widgets.5.15.18.dylib 5745456 8a91d55516d021eb33669ad5be5dcbc16aebb44589969c9a07636b84e31be9ac
+  KeePassXC.app/Contents/Frameworks/libargon2.dylib 86304 b11994cd44661e219b549dcc70d639263ef746dfda1aca119acdfa60cfaae073
+  KeePassXC.app/Contents/Frameworks/libbotan-3.10.10.0.dylib 6129120 8b548b03259bb820ea2b6531d2eea03471ca5423ebb3c2b286b2256b27bc65ea
+  KeePassXC.app/Contents/Frameworks/libbrotlicommon.1.2.0.dylib 200080 f1deaec71cea1bad786b83727911a033db86776c8cf1aa203813ba916e43b43c
+  KeePassXC.app/Contents/Frameworks/libbrotlidec.1.2.0.dylib 102720 4fd83b9baafb9939a15b1295ef07e5da916809f22c597d5c15df2cc9fec32d45
+  KeePassXC.app/Contents/Frameworks/libbz2.1.0.8.dylib 120032 0f50c49feebf5eb4cf94031d7acd625ab5d45e93414bbdc3acb3afe04ad8e8a2
+  KeePassXC.app/Contents/Frameworks/libcrypto.3.dylib 5012576 4032c585621f86c51f3a8183210c763b55e046381a92bcef095b1484de45989b
+  KeePassXC.app/Contents/Frameworks/libdouble-conversion.3.4.0.dylib 124224 e0b52e3129b2d83ad8af1d3c738101e3fa943eea4690f69a46b854c54b9478bc
+  KeePassXC.app/Contents/Frameworks/libexpat.1.11.1.dylib 205264 ce25553196f4243fc94c1d449cff25485d752924633295f76d42eb23d74cd854
+  KeePassXC.app/Contents/Frameworks/libfontconfig.1.dylib 347104 45f09ae3c9e90fe4048290cf099b77f4988e4fd278ed3dd645b6ddcb693f16db
+  KeePassXC.app/Contents/Frameworks/libfreetype.6.20.2.dylib 743648 d204105d94063d656d881f2ddf21aee54a3e8b8527a0cb023ab6ce4f9cf9eaeb
+  KeePassXC.app/Contents/Frameworks/libharfbuzz.0.dylib 1096720 1e8a5060823d6f13c105c9e12d5f0ca45e3d0bb9af4f1f37d432291d95183986
+  KeePassXC.app/Contents/Frameworks/libjpeg.62.4.0.dylib 647136 20fd3337ea24f17e95910e523f41754555a6d8acdca88ee9d3a061c94c36acfc
+  KeePassXC.app/Contents/Frameworks/liblzma.5.8.2.dylib 207952 3e8f0e5794fbb9635a64cd83c59dd7ca2d96c6b9db83df5f903d01dda15c4f8e
+  KeePassXC.app/Contents/Frameworks/libmd4c.0.5.2.dylib 117840 2c68011f15c7fe9bbb420bbc2184b26a33bbaf1fa1208d72d83a1bb3946c60e5
+  KeePassXC.app/Contents/Frameworks/libminizip.dylib 105296 2ceb0535d58b8e1611a076f476405112094a100660fbc41a4705c634b0815814
+  KeePassXC.app/Contents/Frameworks/libpcre2-16.0.15.0.dylib 667120 e6553631811e1f94cf3eb3e93ddc3306fd432e6f3a8569a2fa8d11154f4bc211
+  KeePassXC.app/Contents/Frameworks/libpng16.16.53.0.dylib 272960 db308f54ce693fcbf07641ece02a7e42f9eed1437765c93e8a3fe7dc20e57d9d
+  KeePassXC.app/Contents/Frameworks/libqrencode.4.1.1.dylib 105888 7f8a15b8526747446346095b4c9de575fcef53b05aa33362e7a7dbe6432e878c
+  KeePassXC.app/Contents/Frameworks/libreadline.8.3.dylib 333744 437e984b0ab3d9ab32453fb63c398e180b0cd38706859bfc3ca1305608587845
+  KeePassXC.app/Contents/Frameworks/libsharpyuv.0.1.2.dylib 85184 f08b29c2e2fbcf0a5ffbe7e0b4a071a0a529ce69f9320c13e51bb96e55cf4ae1
+  KeePassXC.app/Contents/Frameworks/libssl.3.dylib 1001856 a0aaf0ff2fc6733d251a4f539c95e5eb597bfcb8a70d964042d6b4d95046025e
+  KeePassXC.app/Contents/Frameworks/libtiff.6.2.0.dylib 517040 ceec2a2c0f621248b8041d4e60116c6e0901a3b316aa6f5446ce9e6f00387127
+  KeePassXC.app/Contents/Frameworks/libwebp.7.2.0.dylib 502016 1a7432c4b4693682de405356dc8545dc0445d94342b116c7d3cceaf8d682be2c
+  KeePassXC.app/Contents/Frameworks/libwebpdecoder.3.2.0.dylib 285472 0b2ff50d68c15d60e6b90173e3e5115eda420be6932c7c93d820b4ec75e73f65
+  KeePassXC.app/Contents/Frameworks/libwebpdemux.2.0.17.dylib 69472 98dd25380ff566683470e5502dee6c7cbe39364561fd78484b934a4ff11537d2
+  KeePassXC.app/Contents/Frameworks/libwebpmux.3.1.2.dylib 104384 41d08261ae9d30c70f7aec51d814dac4fc809a332517e2b8ca2fbca7de99e81b
+  KeePassXC.app/Contents/Frameworks/libz.1.3.1.dylib 139232 cf76f83d46a46ef82019ec360cfc976f9d66769c137901d1bc60932859f1e521
+  KeePassXC.app/Contents/Info.plist 1750 51b39585f9ade7d82476d3755b9f972943eaa3260c0408f5fd092db9934f9214
+  KeePassXC.app/Contents/MacOS/KeePassXC 6174112 d57cc09437bacccc581d5f9450cca1a9c218e060c5e3b7352e338ab978946090
+  KeePassXC.app/Contents/MacOS/keepassxc-cli 6387472 a5b8a8662d54d82bbb77bc458836aec9bc7a1576280509dc858676aa5922a2d6
+  KeePassXC.app/Contents/MacOS/keepassxc-proxy 76608 d57424b758d736098b85dcb729f1b0d66c2f137e6ee8b7cf503cac1f1c4b3574
+  KeePassXC.app/Contents/PlugIns/iconengines/libqsvgicon.dylib 94304 f67deb7a6d36a21c7ea3c1fd9541125b421567706f7871d272c078bafb3132c1
+  KeePassXC.app/Contents/PlugIns/imageformats/libqgif.dylib 90288 b49be2fa69b10056c01f637bf17255d533a966e268d90d299cdf7fa6d0638212
+  KeePassXC.app/Contents/PlugIns/imageformats/libqicns.dylib 93488 af85c61f81ed82a26d6efb488a14af95da1f354d6ba2c1ee15b6237ef1fe742b
+  KeePassXC.app/Contents/PlugIns/imageformats/libqico.dylib 92208 5cc1bf3042a99eb3cf011d0f305a09d3de1c9bd9bb63234b0c3e797789d8a591
+  KeePassXC.app/Contents/PlugIns/imageformats/libqjpeg.dylib 98240 a193c296beb0bc1b615f31c88fc51e79ecf9300f0a48171d761fabf5d74d70f6
+  KeePassXC.app/Contents/PlugIns/imageformats/libqmacheif.dylib 93040 4356261079c1ccd0ce0f2480f5ce60cb70c7daed9bcd1f14a27e3367823fbd39
+  KeePassXC.app/Contents/PlugIns/imageformats/libqmacjp2.dylib 93040 1094fee5c319d209554130b987e65ca1229b275b4ded93fc2d70f740593858c2
+  KeePassXC.app/Contents/PlugIns/imageformats/libqtga.dylib 90128 6e8bda28d83a84ed86cf68b23fe78cbb2f23e488829b01afd1239dcbf632ea70
+  KeePassXC.app/Contents/PlugIns/imageformats/libqtiff.dylib 94160 a8c2e29f60ad58e523f30347a329f88e2be4c628b61ab8786f3f485caeb08e84
+  KeePassXC.app/Contents/PlugIns/imageformats/libqwbmp.dylib 74128 b76931aee414435e5e825d53235c9e61a789fcc4915cd52d5e0518e351ec3265
+  KeePassXC.app/Contents/PlugIns/imageformats/libqwebp.dylib 94496 0d6da8d7202fd5719bcb0369d4c0303db5f7bd25b48cc051717753c5b57f4da1
+  KeePassXC.app/Contents/PlugIns/libkeepassxc-autotype-cocoa.so 6135008 b98830476e1f149bf8be2e7e89e65ed40139b2ff359f43108becb5889d3b6c28
+  KeePassXC.app/Contents/PlugIns/platforms/libqcocoa.dylib 1055744 563b57c107277f12852686efbe424164fb7328ae8f7ff5f5e87bf7873836a5c8
+  KeePassXC.app/Contents/PlugIns/printsupport/libcocoaprintersupport.dylib 71264 1c7af4cb4c36bedaf2fe52e0dfad7807d035af15b1774dc4f478de727faf6dd2
+  KeePassXC.app/Contents/PlugIns/styles/libqmacstyle.dylib 249696 6ff191e1d738a9d672248cbd62db848ad805c516ffef3389798c14da3744b7c3
+  KeePassXC.app/Contents/Resources/Assets.car 1420024 24db36a43104d97b8d7dfcf9668961188b4779b6c31e62c9c2c56615b8c5b6c4
+  KeePassXC.app/Contents/Resources/docs/KeePassXC_GettingStarted.html 2321129 cd5e5b057287c17cbbe75ac5201d0f5a4468f89fd77adfefa42b766d52f8be82
+  KeePassXC.app/Contents/Resources/docs/KeePassXC_KeyboardShortcuts.html 45217 c5820907929d5f524261911b05a1aa3970c82af73c2ae5e4b3bee19b8eeaf163
+  KeePassXC.app/Contents/Resources/docs/KeePassXC_UserGuide.html 6417121 56ac7f237dd9b0a5e714b42fb86cfd6cd7877952784754b3d2a54f08fd83b424
+  KeePassXC.app/Contents/Resources/icons/application/256x256/apps/keepassxc.png 32938 517e021ae33591d41139ac187d84b3d6a64564de4942858bf8d789f25c17f9c5
+  KeePassXC.app/Contents/Resources/keepassxc.icns 64177 285e9aac64312dfedb1b63234401cd3a70395166af4e9585781ce039983477ff
+  KeePassXC.app/Contents/Resources/man/man1/keepassxc-cli.1 15213 2102b60d146c62dc36c9eb9b01a30ae94cbbd66b88da68e1091e7cb6a80f6570
+  KeePassXC.app/Contents/Resources/man/man1/keepassxc.1 2620 7a326034624e0d70278eb007b4e5a177b77cfa05ef0fe3eb954da0d634671a94
+  KeePassXC.app/Contents/Resources/qt.conf 78 aa97375f75685d268b1db060f26bc955931c1688312300b61d998115f8001fb0
+  KeePassXC.app/Contents/Resources/translations/keepassxc_ar.qm 280936 89248e0f48eefca302443e1ba6575a20588eaba7e8e54de962cb8ac18238bc65
+  KeePassXC.app/Contents/Resources/translations/keepassxc_be.qm 272917 13e7402ebd7b06fc456ed3c51e7c1c2c570b4e4fe44ae3204a1e4a3492eeda8d
+  KeePassXC.app/Contents/Resources/translations/keepassxc_bg.qm 349144 9e0b6984a7ddd3293443721e9602b17279771707188da5318ef57cf51f9451c1
+  KeePassXC.app/Contents/Resources/translations/keepassxc_ca.qm 123431 9d65de2e1cb75994e303ac560749c8dde06850245baec1d70fd962c2fc98ad3f
+  KeePassXC.app/Contents/Resources/translations/keepassxc_cs.qm 293544 f031ca835b5196430da65184fdd5b0996b31434178e1f0db41073effe60af91d
+  KeePassXC.app/Contents/Resources/translations/keepassxc_da.qm 176985 7341adc9dc060c0627dba4f83800e8a0c63d70bbf79b88bad503d0e86c8256ec
+  KeePassXC.app/Contents/Resources/translations/keepassxc_de.qm 352206 d7497c4b5b1aec060514fc2e6ec255257910bad2f27f6cfa776adaf52912b0f5
+  KeePassXC.app/Contents/Resources/translations/keepassxc_el.qm 322983 314fae2ea8d61de1458bff77d13ee2dc11f03b487fa5fe3de56d07c12c9f28e1
+  KeePassXC.app/Contents/Resources/translations/keepassxc_en.qm 319917 dec776b938bdea2b1d558080365c905e71b389e763bcdf125a53b1de91647738
+  KeePassXC.app/Contents/Resources/translations/keepassxc_en_GB.qm 320041 167b9d0dfb2f31823d3c0445a64b090fe2d489ca585390028560639185d325b8
+  KeePassXC.app/Contents/Resources/translations/keepassxc_en_US.qm 319917 dec776b938bdea2b1d558080365c905e71b389e763bcdf125a53b1de91647738
+  KeePassXC.app/Contents/Resources/translations/keepassxc_es.qm 352350 d41d1520eb5217b01e7e4444a01a251140fa06b4b52541066f894addd9f04bab
+  KeePassXC.app/Contents/Resources/translations/keepassxc_et.qm 336712 0756fd410219247aee7b708563da328c4d4db1e2607f5aeb6eb48a263f711b04
+  KeePassXC.app/Contents/Resources/translations/keepassxc_fi.qm 337856 116ff848b9487a18abb85e3861f26d216ede0eb5ef77c3526b39ef8ec28022b5
+  KeePassXC.app/Contents/Resources/translations/keepassxc_fil.qm 288739 bf12cf522c5d4ebef55d54beda0fb0ee4d3fd4ada9454e1bcf50f11accd43c61
+  KeePassXC.app/Contents/Resources/translations/keepassxc_fr.qm 370846 8591c4ec087c6ae6348b98684537f1ad5e4425b05c709c32a26a792af75d4155
+  KeePassXC.app/Contents/Resources/translations/keepassxc_fr_CA.qm 370915 9b19c22ea359139569f9fe0d66448038378a24d33fd3b7716a793b041c6e03d0
+  KeePassXC.app/Contents/Resources/translations/keepassxc_he.qm 297198 1a8b6fd3a2c61bc5d6f1c106207319297f7c06a0901f973e610b21589002f981
+  KeePassXC.app/Contents/Resources/translations/keepassxc_hr.qm 127149 7bad3ec786ef5269c202f5571c2d69809acced910676eea1069a957cead1fb7d
+  KeePassXC.app/Contents/Resources/translations/keepassxc_hu.qm 339846 fd20034dd9ede68526a6f7f1a86f0d0ac59c13d7ce994e9ac097a61be8377c98
+  KeePassXC.app/Contents/Resources/translations/keepassxc_id.qm 308443 ddd0757301868a4f662a0b52f80097151fa7197c5e901100ba84f57fe6cca7f0
+  KeePassXC.app/Contents/Resources/translations/keepassxc_it.qm 348636 9b5964162eec9e2b22b9f36c07b65ca489dab8ba247d487a927bb401f016f8ff
+  KeePassXC.app/Contents/Resources/translations/keepassxc_ja.qm 250342 071abcc39a19fe503a2c05ed554ee5f4789ffd06b69fbbe5ef6f467379d10470
+  KeePassXC.app/Contents/Resources/translations/keepassxc_km.qm 284788 e75d1fc363da1645e9dc2df91ef01b9a133761ab5fee36f5265a6d4a2464d719
+  KeePassXC.app/Contents/Resources/translations/keepassxc_ko.qm 235484 8b4c87ed21c5d3986e3a0920e9d010f759bed08b98e83fa05824eed5e3575c18
+  KeePassXC.app/Contents/Resources/translations/keepassxc_lt.qm 286742 7986855308f1f32cbeade630721c57ce34832fe952dc557bd53ba366cff74462
+  KeePassXC.app/Contents/Resources/translations/keepassxc_my.qm 298012 7a5ce6c7778e87a420fe66bdf3c210cd7368153b83d1665b684a656d6e3c01c1
+  KeePassXC.app/Contents/Resources/translations/keepassxc_nb.qm 293441 3ffa3a65509d75597428dd0530fc8d0124b09c87f9bccf52d5b082ee22dca5a7
+  KeePassXC.app/Contents/Resources/translations/keepassxc_nl.qm 345382 e9ee89cbc431bec1075880da996ae6b8dbe0595f6e7aba43c1100909e448bddc
+  KeePassXC.app/Contents/Resources/translations/keepassxc_pl.qm 342550 5d2f654d0ac576cd3eb82e32488a12205a144f5b0f389f12719d87a6f131fb67
+  KeePassXC.app/Contents/Resources/translations/keepassxc_pt_BR.qm 351091 6d9a4644bf3e5b60ecc2f7ac0b472ee4c6925a1fb3cdc849c75c8e1efd9a114b
+  KeePassXC.app/Contents/Resources/translations/keepassxc_pt_PT.qm 348287 f5185ddfbdb0fe0b27fd8a42d09606f031d96f1ea485d3aa54530b5a3a9701a9
+  KeePassXC.app/Contents/Resources/translations/keepassxc_ro.qm 231111 882c6120f3e1463bb1941b662e0c75feb8e953d35f4ff198fc753a411eaea304
+  KeePassXC.app/Contents/Resources/translations/keepassxc_ru.qm 342125 2853437fe86e56413b07227534c3a87e81f404ba520059ff7591e42bd1bf5437
+  KeePassXC.app/Contents/Resources/translations/keepassxc_si.qm 263315 6d52763e5ed6c008325ba238599711790653a24d449adde679bd3c47d007eee1
+  KeePassXC.app/Contents/Resources/translations/keepassxc_sk.qm 235317 47cc39dd197adbff42bb25a2632d699690d83e5b1e738666c002715c621d8b88
+  KeePassXC.app/Contents/Resources/translations/keepassxc_sl.qm 122390 ef42e40ab5464c4eee608a870bbadbe351a9a9836d2010b86835f4666db88b6a
+  KeePassXC.app/Contents/Resources/translations/keepassxc_sq.qm 320010 b7f8f622851853e4f8c925e7e39401a0dae085dd611e318e0e8f4c1ce67f73fb
+  KeePassXC.app/Contents/Resources/translations/keepassxc_sr.qm 192660 bae1d99904d18b9d4fb5aef7baa5ff13a2e4b6e78eb518202332aed4c5714517
+  KeePassXC.app/Contents/Resources/translations/keepassxc_sv.qm 328420 1d6f312a1513b075f48ed4d52410a816a2659dff0f8d5dc6338eb2901b624c80
+  KeePassXC.app/Contents/Resources/translations/keepassxc_th.qm 259917 97f715a53baa8f50386a6382f63dc4747e4aae736141f1e053810baded4ec43b
+  KeePassXC.app/Contents/Resources/translations/keepassxc_tr.qm 336615 f75f2a80b9984e410e3b8e07b6fa1e397d371a761e295499a115c7041087a3cb
+  KeePassXC.app/Contents/Resources/translations/keepassxc_uk.qm 343801 89dee94230da9b12c6962ec71341849884d8a82490f6ab83fcac770cd6ab783b
+  KeePassXC.app/Contents/Resources/translations/keepassxc_vi.qm 314644 a236f8ce98c5124415aee5fc62a915f154216e5cae8c1f80393184f80d64ffc8
+  KeePassXC.app/Contents/Resources/translations/keepassxc_zh_CN.qm 231350 6cca3b80b4d35e900424119a6bdcf9322d42c24b911fc0b5ea7213716971fd6c
+  KeePassXC.app/Contents/Resources/translations/keepassxc_zh_TW.qm 231860 f597a9793d4c0ae7c900e861e8f6bba7203ac8c1c2ac355b41a3325f799ac04d
+  KeePassXC.app/Contents/Resources/wordlists/eff_large.wordlist 62122 df895130803573b14caa684e8cba982a9ed21f4898c98c711f204acf600efedd
+  KeePassXC.app/Contents/_CodeSignature/CodeResources 38900 729bbcaab8757cc490c4d6c502a61a7c4016843f7f07bf281112be566a101056
+  KeePassXC.app/Contents/embedded.provisionprofile 12153 c00300a2cd88f67b1e1b8d7c93a3e33bf5add48fd5661d43393d191cfc99dc84

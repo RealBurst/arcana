@@ -35,6 +35,17 @@
       "summary": "InstallShield cabinets and setups"
     },
     {
+      "name": "arcana-plugin-wixburn",
+      "url": "https://github.com/RealBurst/arcana/tree/main/plugins/arcana-plugin-wixburn",
+      "description": "Extracts WiX Burn bundles (setup.exe bootstrappers made by the WiX toolset 3.x to 6): packages (MSI, MSU, EXE...) at their real paths, bootstrapper application files and manifest; size and hash of every payload checked. Requires Arcana 1.0.4.",
+      "files": "Windows installers (.exe), by content",
+      "capabilities": "extract, identify",
+      "author": "Stephane Bury",
+      "license": "Apache-2.0",
+      "jar": "arcana-plugin-wixburn.jar",
+      "summary": "WiX Burn bundles"
+    },
+    {
       "name": "arcana-plugin-jexepack",
       "url": "https://github.com/RealBurst/arcana/tree/main/plugins/arcana-plugin-jexepack",
       "description": "Java programs packed into an executable by JexePack (Duckware): extracts the jar files, DLLs, bootstrap class and settings, to check what the program contains.",

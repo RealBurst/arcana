@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Arcana - pure-Java archive library and command-line tool</title>
-<meta name="description" content="Arcana extracts, creates, identifies and repairs ZIP, 7z, RAR, TAR, XZ, Zstandard, CAB, MSI, CHM, ISO, UDF, WIM, SquashFS and 20 more formats in pure Java 8. No native code, no dependencies, extensible with plugins.">
+<meta name="description" content="Arcana extracts, creates, identifies and repairs ZIP, 7z, RAR, TAR, XZ, Zstandard, CAB, MSI, CHM, ISO, UDF, WIM, SquashFS, DMG and 20 more formats in pure Java 8. No native code, no dependencies, extensible with plugins.">
 <meta property="og:title" content="Arcana - pure-Java archive library and command-line tool">
 <meta property="og:description" content="ZIP, 7z, RAR 4/5, TAR, XZ, Zstandard, CAB, ISO and more, in pure Java 8. No native code, no dependencies.">
 <meta property="og:type" content="website">
@@ -38,7 +38,7 @@
     <h1>Arcana</h1>
     <p class="lede">Open, create and repair archives from Java or from the command line. One JAR, written entirely in Java 8, with nothing else to install.</p>
     <ul class="facts">
-      <li>ZIP, 7z, RAR 4 and 5, TAR, XZ, Zstandard, CAB, MSI, CHM, ISO 9660, UDF, WIM, SquashFS and 20 more formats</li>
+      <li>ZIP, 7z, RAR 4 and 5, TAR, XZ, Zstandard, CAB, MSI, CHM, ISO 9660, UDF, WIM, SquashFS, DMG and 20 more formats</li>
       <li>Encrypted ZIP, 7z and RAR, including encrypted headers and multi-volume RAR</li>
       <li>No native library, no JNI, no dependency: runs wherever Java 8 runs</li>
       <li>Apache License 2.0, extensible with plugins</li>
@@ -122,7 +122,7 @@ Done.</pre>
     <section id="overview">
       <h2>Overview</h2>
       <p class="section-intro">Arcana is a single JAR that is both a command-line tool and a Java library. It reads the archive formats you meet in practice, writes the most common ones, and tells you what an unknown file is.</p>
-      <p>Everything is implemented in Java: the decompressors (Deflate, Deflate64, LZMA, LZMA2, PPMd, BZip2, LZ4, Zstandard, Brotli, LZX, the RAR 4 and RAR 5 algorithms...), the encryption (AES, ZipCrypto) and the container formats. There is no call to a native library and no third-party JAR, so Arcana behaves the same on Windows, Linux and macOS and can be dropped into any Java 8 application.</p>
+      <p>Everything is implemented in Java: the decompressors (Deflate, Deflate64, LZMA, LZMA2, PPMd, BZip2, LZ4, LZO, Zstandard, Brotli, LZX, the RAR 4 and RAR 5 algorithms...), the encryption (AES, ZipCrypto) and the container formats. There is no call to a native library and no third-party JAR, so Arcana behaves the same on Windows, Linux and macOS and can be dropped into any Java 8 application.</p>
       <h3>What you can do with it</h3>
       <dl class="ref plain">
         <dt>Extract</dt>
@@ -158,6 +158,8 @@ Done.</pre>
             <tr><th scope="row">TAR + LZ4</th><td class="yes">yes</td><td class="yes">yes</td><td><span class="hex">04 22 4D 18</span></td><td>.tar.lz4</td></tr>
             <tr><th scope="row">TAR + Zstandard</th><td class="yes">yes</td><td class="no">no</td><td><span class="hex">FD 2F B5 28</span></td><td>.tar.zst, .tzst</td></tr>
             <tr><th scope="row">TAR + Brotli</th><td class="yes">yes</td><td class="no">no</td><td>none</td><td>.tar.br, .tbr</td></tr>
+            <tr><th scope="row">TAR + lzip</th><td class="yes">yes</td><td class="no">no</td><td><span class="hex">"LZIP" 01</span></td><td>.tar.lz, .tlz</td></tr>
+            <tr><th scope="row">TAR + lzop</th><td class="yes">yes</td><td class="no">no</td><td><span class="hex">89 4C 5A 4F 00 0D 0A 1A 0A</span></td><td>.tar.lzo, .tzo</td></tr>
             <tr><th scope="row">GZIP</th><td class="yes">yes</td><td class="yes">yes</td><td><span class="hex">1F 8B</span></td><td>Single file.</td></tr>
             <tr><th scope="row">BZIP2</th><td class="yes">yes</td><td class="yes">yes</td><td><span class="hex">42 5A 68</span></td><td>Single file.</td></tr>
             <tr><th scope="row">XZ</th><td class="yes">yes</td><td class="yes">yes</td><td><span class="hex">FD 37 7A 58 5A 00</span></td><td>Single file, LZMA2, levels 0 to 9.</td></tr>
@@ -166,6 +168,8 @@ Done.</pre>
             <tr><th scope="row">Zstandard</th><td class="yes">yes</td><td class="no">no</td><td><span class="hex">FD 2F B5 28</span></td><td>.zst, .zstd</td></tr>
             <tr><th scope="row">Snappy</th><td class="yes">yes</td><td class="no">no</td><td><span class="hex">FF 06 00 00 73 4E 61 50 70 59</span></td><td>Framing format.</td></tr>
             <tr><th scope="row">Brotli</th><td class="yes">yes</td><td class="no">no</td><td>none</td><td>.br, recognized by its extension.</td></tr>
+            <tr><th scope="row">lzip</th><td class="yes">yes</td><td class="no">no</td><td><span class="hex">"LZIP" 01</span></td><td>.lz; LZMA members, CRC32 and sizes checked.</td></tr>
+            <tr><th scope="row">lzop</th><td class="yes">yes</td><td class="no">no</td><td><span class="hex">89 4C 5A 4F 00 0D 0A 1A 0A</span></td><td>.lzo; LZO1X-1 and LZO1X-999, checksums verified; the stored name is restored.</td></tr>
             <tr><th scope="row">Unix compress</th><td class="yes">yes</td><td class="no">no</td><td><span class="hex">1F 9D</span></td><td>.Z (LZW)</td></tr>
             <tr><th scope="row">MS compress (SZDD)</th><td class="yes">yes</td><td class="no">no</td><td><span class="hex">"SZDD"</span></td><td>Files packed by COMPRESS.EXE on old setup disks (.ex_, .dl_...); the original name is restored.</td></tr>
             <tr><th scope="row">LHA / LZH</th><td class="yes">yes</td><td class="yes">yes</td><td><span class="hex">"-lh"</span> at byte 2</td><td>Extracts -lh0-, -lh4- to -lh7-; creates -lh5- (default), -lh6-, -lh7-.</td></tr>
@@ -179,6 +183,7 @@ Done.</pre>
             <tr><th scope="row">UDF</th><td class="yes">yes</td><td class="no">no</td><td><span class="hex">"NSR02"</span> or <span class="hex">"NSR03"</span> from byte 32769</td><td>DVD, Blu-ray and Windows install images, UDF 1.02 to 2.60 (physical, sparable, virtual and metadata partitions). On discs that are both UDF and ISO 9660, the UDF side is read.</td></tr>
             <tr><th scope="row">WIM</th><td class="yes">yes</td><td class="no">no</td><td><span class="hex">"MSWIM"</span></td><td>Windows Imaging Format: XPRESS, LZX, LZMS (.esd files, such as the install.esd of Windows ISO images), uncompressed and solid resources; SHA-1 of every file checked; one directory per image when there are several. Not supported: split .swm files.</td></tr>
             <tr><th scope="row">SquashFS</th><td class="yes">yes</td><td class="no">no</td><td><span class="hex">"hsqs"</span></td><td>Version 4.0: gzip, LZMA, LZO, XZ, LZ4 and Zstandard. Linux live systems, Snap packages (.snap), firmware images.</td></tr>
+            <tr><th scope="row">Apple disk image</th><td class="yes">yes</td><td class="no">no</td><td><span class="hex">"koly"</span> in the last 512 bytes</td><td>.dmg (UDIF): zlib, bzip2, LZFSE, LZMA, ADC and raw chunks, CRC32 checked. The files of the HFS+ / HFSX volumes (Unicode names, hard links, compressed files); APFS and other partitions are extracted as raw images. Not supported: encrypted, sparse and segmented images.</td></tr>
             <tr><th scope="row">AR / Debian package</th><td class="yes">yes</td><td class="no">no</td><td><span class="hex">"!&lt;arch&gt;"</span></td><td>.a, .deb (contents unpacked, control files in <code>DEBIAN/</code>).</td></tr>
             <tr><th scope="row">RPM</th><td class="yes">yes</td><td class="no">no</td><td><span class="hex">ED AB EE DB</span></td><td>gzip, bzip2, xz and zstd payloads.</td></tr>
             <tr><th scope="row">XAR</th><td class="yes">yes</td><td class="no">no</td><td><span class="hex">"xar!"</span></td><td>Apple.</td></tr>

@@ -1,0 +1,8 @@
+# Arcana regression reference (RegressionRunner --update)
+input: 08aa7805c82324b06ff85b65e608739a4d22233d5363e5f525447c4bff1494e4 1565
+identify: archive | lzip 1 - lzip compressed stream (LZMA)
+  dictionary size: 30 KB
+list: 1 entries
+  two-members.txt -1
+extracted: 1 items
+  two-members.txt 58980 07273edc11c64de44ad999a486c4fa3c1e369825e725313398d8c1a563277a53

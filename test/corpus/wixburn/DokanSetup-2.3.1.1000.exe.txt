@@ -1,0 +1,39 @@
+# Arcana regression reference (RegressionRunner --update)
+input: bf602263a594f595b4fdd8c4e822172b103de93f07fd6a51a8ff69569bfd1460 19194904
+identify: archive | WiX Burn 5.0.1.0 - WiX Burn bundle of Dokan Library 2.3.1.1000 Bundle (3 packages)
+  bundle: Dokan Library 2.3.1.1000 Bundle
+  publisher: Dokany Project
+  bundle id: {FF3E91D8-59CF-4326-BEFB-426D9DB883CE}
+  WiX engine: 5.0.1.0
+  packages: 3 (3 Msi)
+  package ids: Dokan_x86.msi, Dokan_x64.msi, Dokan_ARM64.msi
+  payloads: 12
+  containers: 2 in the file (UX + 1 attached)
+list: 13 entries
+  Dokan_ARM64.msi 5128192
+  Dokan_x64.msi 9269248
+  Dokan_x86.msi 5128192
+  ux/BootstrapperApplicationData.xml 7212
+  ux/BootstrapperExtensionData.xml 276
+  ux/BurnManifest.xml 7659
+  ux/Resources/RtfTheme.wxl 5100
+  ux/dokan.ico 130756
+  ux/license.rtf 1993
+  ux/logo.png 4123
+  ux/thm.wxl 5100
+  ux/thm.xml 9089
+  ux/wixstdba.exe 437016
+extracted: 13 items
+  Dokan_ARM64.msi 5128192 f812a5bf11c15bc3910a1f0f53830ff771ceb3c80458f10686b0f45b0db91d2e
+  Dokan_x64.msi 9269248 69ff8cb37bfec3a75921c85ffd1c6370b50a9ec4ecef2cf3a009d488dcbf5465
+  Dokan_x86.msi 5128192 c833fd51f67c44a467eeade419b8934033445ee847119f82cbef1fddc84ef618
+  ux/BootstrapperApplicationData.xml 7212 fe6ff611617662f432f406fd78e30ea88764ad70eeb23a4f3c6981297d1f23ff
+  ux/BootstrapperExtensionData.xml 276 258fac237622533e7f9ec3f95bcec8abcc31ae87e2017e5717af0841c61e9df4
+  ux/BurnManifest.xml 7659 b004adc5c97c2a24ff101954eea9d725c8cef3ce408f702958e87e1c373d57ae
+  ux/Resources/RtfTheme.wxl 5100 d93e58d913928e52e7afb798530d56fce6eac07a3523f9e5216434de4230d559
+  ux/dokan.ico 130756 86e327eaf7be221f1760a7180ed18dd286e29f548317ecf70ef33234ffe955c8
+  ux/license.rtf 1993 11e20bb40acec4606eac22d2470ff9908776a02f2148fbf8dd1782ca494df4fb
+  ux/logo.png 4123 4e716f8dc1fdf9a803ea2441e2a6a185f7bbccd25dcb4a389742f056f9b4e74e
+  ux/thm.wxl 5100 d93e58d913928e52e7afb798530d56fce6eac07a3523f9e5216434de4230d559
+  ux/thm.xml 9089 8f74171034c3a867d2207422ca0ceb7d9c5776dc4ece419d2adcafd30c0baa43
+  ux/wixstdba.exe 437016 b8674fed5476b36dd1644930a0daf0acaeefcb9d85cb65e226de230d0f800509

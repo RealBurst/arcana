@@ -5,7 +5,7 @@
 | Extensions | `.sqfs`, `.squashfs`, `.snap` |
 | Signature | `68 73 71 73` ("hsqs") at offset 0 |
 | Arcana support | list, extract (version 4.0; gzip, LZMA, LZO, XZ, LZ4, Zstandard) |
-| Main classes | `be.stef.arcana.formats.squashfs.SquashfsReader`, `be.stef.arcana.formats.squashfs.Lzo1xDecompressor`, `be.stef.arcana.extractor.SquashfsExtractor` |
+| Main classes | `be.stef.arcana.formats.squashfs.SquashfsReader`, `be.stef.arcana.formats.lzo.Lzo1xDecompressor`, `be.stef.arcana.extractor.SquashfsExtractor` |
 | Test samples | `test/samples/squashfs/` (`gzip.sqfs`, `xz.sqfs`, `zstd.sqfs`, `lz4.sqfs`), `test/samples/damaged/flipped.sqfs` |
 
 ## Overview
@@ -124,7 +124,7 @@ with the compressor of the superblock (`SquashfsReader.decompress`):
 |---|---|---|
 | 1 | gzip (zlib stream) | `java.util.zip.Inflater` |
 | 2 | lzma (LZMA "alone" format) | `be.stef.arcana.formats.xz.LZMAInputStream` |
-| 3 | lzo (LZO1X) | `Lzo1xDecompressor` |
+| 3 | lzo (LZO1X) | `be.stef.arcana.formats.lzo.Lzo1xDecompressor` (shared with lzop, see [lzop.md](lzop.md)) |
 | 4 | xz | `be.stef.arcana.formats.xz.XZInputStream` (see [xz-lzma.md](xz-lzma.md)) |
 | 5 | lz4 (raw block) | `be.stef.arcana.formats.lz4.LZ4BlockInputStream` (see [lz4.md](lz4.md)) |
 | 6 | zstd | `be.stef.arcana.formats.zstd.ZstdInputStream` (see [zstd.md](zstd.md)) |

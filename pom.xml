@@ -13,7 +13,7 @@
   <packaging>jar</packaging>
 
   <name>Arcana</name>
-  <description>Pure Java archive library and command-line tool, no dependencies: ZIP, 7z, RAR 4/5, TAR, GZIP, BZIP2, XZ, LZMA, Zstandard, LZ4, Brotli, CAB, MSI, CHM, ISO, UDF, WIM, SquashFS, CPIO, AR/DEB, RPM, XAR, ARJ, LHA and more; self-extracting executables and installers</description>
+  <description>Pure Java archive library and command-line tool, no dependencies: ZIP, 7z, RAR 4/5, TAR, GZIP, BZIP2, XZ, LZMA, Zstandard, LZ4, lzip, lzop, Brotli, CAB, MSI, CHM, ISO, UDF, WIM, SquashFS, DMG, HFS+, CPIO, AR/DEB, RPM, XAR, ARJ, LHA and more; self-extracting executables and installers</description>
   <url>https://github.com/RealBurst/arcana</url>
 
   <licenses>

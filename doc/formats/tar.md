@@ -2,7 +2,7 @@
 
 | | |
 |---|---|
-| Extensions | `.tar`, `.gem`; compressed: `.tar.gz` `.tgz`, `.tar.bz2` `.tbz2` `.tbz`, `.tar.xz` `.txz`, `.tar.lz4` `.tlz4`, `.tar.zst` `.tzst`, `.tar.br` `.tbr` |
+| Extensions | `.tar`, `.gem`; compressed: `.tar.gz` `.tgz`, `.tar.bz2` `.tbz2` `.tbz`, `.tar.xz` `.txz`, `.tar.lz4` `.tlz4`, `.tar.zst` `.tzst`, `.tar.br` `.tbr`, `.tar.lz` `.tlz`, `.tar.lzo` `.tzo` |
 | Signature | `75 73 74 61 72` ("ustar") at offset 257; none for old v7 headers |
 | Arcana support | list, extract; create for `.tar`, `.tar.gz`, `.tar.bz2`, `.tar.xz`, `.tar.lz4` |
 | Main classes | `be.stef.arcana.formats.tar.TarInputStream`, `be.stef.arcana.formats.tar.TarEntry`, `be.stef.arcana.formats.tar.TarOutputStream`, `be.stef.arcana.extractor.TarExtractor` (+ `TarGzExtractor`, `TarBz2Extractor`, `TarXzExtractor`, `TarLz4Extractor`, `TarZstdExtractor`, `TarBrotliExtractor`), `be.stef.arcana.compressor.TarCompressor` (+ `TarGzCompressor`, `TarBz2Compressor`, `TarXzCompressor`, `TarLz4Compressor`) |
@@ -24,9 +24,11 @@ distribution formats, almost always behind a stream compressor.
   GNU magic (`ustar ` followed by a space). A v7 header has no magic and is
   only recognized through the extension (`.tar`, `.gem`).
 - Compressed TARs are first detected as the compressor (`GZIP`, `BZIP2`,
-  `XZ`, `LZ4`, `ZSTD`). `Arcana.resolveFormat` promotes them to `TAR_GZ`,
-  `TAR_BZ2`, `TAR_XZ`, `TAR_ZSTD`, `TAR_LZ4` when the file name has the
-  matching double or short extension. Brotli has no signature, so `TAR_BROTLI`
+  `XZ`, `LZ4`, `ZSTD`, `LZIP`, `LZOP`). `Arcana.resolveFormat` promotes them
+  to `TAR_GZ`, `TAR_BZ2`, `TAR_XZ`, `TAR_ZSTD`, `TAR_LZ4`, `TAR_LZIP`,
+  `TAR_LZOP` when the file name has the matching double or short extension
+  (`TAR_LZIP` and `TAR_LZOP` are handled by `CompressedStreamExtractor`, see
+  [lzip.md](lzip.md) and [lzop.md](lzop.md)). Brotli has no signature, so `TAR_BROTLI`
   is chosen only by `.tar.br` / `.tbr` in `detectByExtension`.
 - A compressed file without a TAR extension goes through
   `CompressedStreamExtractor`: it decompresses the first 512 bytes and

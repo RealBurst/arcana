@@ -1,0 +1,6 @@
+# Arcana regression reference (RegressionRunner --update)
+input: fb37ce8cbfd58d65d2dd5ebaa5d5ec87f6b2c6ceded1db7c5b18919daae99e67 4096
+identify: archive | DMG - Apple disk image, encrypted (AES): not supported
+  encrypted: yes (not supported)
+list: ERROR ArcanaUnsupportedFormatException: Encrypted disk image (AES, encrcdsa / cdsaencr header): not supported
+extract: ERROR ArcanaUnsupportedFormatException: Encrypted disk image (AES, encrcdsa / cdsaencr header): not supported

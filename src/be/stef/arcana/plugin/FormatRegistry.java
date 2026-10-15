@@ -42,11 +42,14 @@ import be.stef.arcana.extractor.ChmExtractor;
 import be.stef.arcana.extractor.MsLzExtractor;
 import be.stef.arcana.extractor.CompressedStreamExtractor;
 import be.stef.arcana.extractor.CpioExtractor;
+import be.stef.arcana.extractor.DmgExtractor;
 import be.stef.arcana.extractor.GzipExtractor;
 import be.stef.arcana.extractor.IsoExtractor;
 import be.stef.arcana.extractor.LZ4Extractor;
 import be.stef.arcana.extractor.LhaExtractor;
+import be.stef.arcana.extractor.LzipExtractor;
 import be.stef.arcana.extractor.LzmaExtractor;
+import be.stef.arcana.extractor.LzopExtractor;
 import be.stef.arcana.extractor.OleExtractor;
 import be.stef.arcana.extractor.RarExtractor;
 import be.stef.arcana.extractor.RpmExtractor;
@@ -105,6 +108,8 @@ public final class FormatRegistry {
         l.add(new BuiltinFormat(ArcanaFormat.TAR_LZ4, ARCHIVE, names("tar.lz4", "tlz4"), "tar.lz4  tlz4", "TAR + LZ4", pw -> new TarLz4Extractor(), "TAR + LZ4   (files + directories)", (level, pw) -> new TarLz4Compressor()));
         l.add(new BuiltinFormat(ArcanaFormat.TAR_ZSTD, ARCHIVE, names("tar.zst", "tzst"), "tar.zst  tzst", "TAR + Zstandard", pw -> new TarZstdExtractor(), null, null));
         l.add(new BuiltinFormat(ArcanaFormat.TAR_BROTLI, ARCHIVE, names("tar.br", "tbr"), "tar.br   tbr", "TAR + Brotli", pw -> new TarBrotliExtractor(), null, null));
+        l.add(new BuiltinFormat(ArcanaFormat.TAR_LZIP, ARCHIVE, names("tar.lz", "tlz"), "tar.lz   tlz", "TAR + lzip", pw -> new CompressedStreamExtractor(ArcanaFormat.LZIP, new LzipExtractor()), null, null));
+        l.add(new BuiltinFormat(ArcanaFormat.TAR_LZOP, ARCHIVE, names("tar.lzo", "tzo"), "tar.lzo  tzo", "TAR + lzop", pw -> new CompressedStreamExtractor(ArcanaFormat.LZOP, new LzopExtractor()), null, null));
         l.add(new BuiltinFormat(ArcanaFormat.LHA, ARCHIVE, names("lzh", "lha"), "lzh  lha", "LHA/LZH archive (-lh0-, -lh4- to -lh7-)", pw -> new LhaExtractor(),
                 "LHA (files + directories) [-l 5|6|7: -lh5- (default) / -lh6- / -lh7-]", (level, pw) -> new LhaCompressor(level == 7 ? Lh5Encoder.LH7 : level == 6 ? Lh5Encoder.LH6 : Lh5Encoder.LH5)));
         l.add(new BuiltinFormat(ArcanaFormat.CAB, ARCHIVE, names("cab"), "cab", "Microsoft Cabinet (stored, MSZIP, LZX)", pw -> new CabExtractor(), "Cabinet MSZIP (files + directories)", (level, pw) -> new CabCompressor()));
@@ -115,6 +120,7 @@ public final class FormatRegistry {
         l.add(new BuiltinFormat(ArcanaFormat.ISO, ARCHIVE, names("iso"), "iso", "ISO 9660 disc image", pw -> new IsoExtractor(), null, null));
         l.add(new BuiltinFormat(ArcanaFormat.UDF, ARCHIVE, names("udf"), "udf", "UDF disc image (DVD, Blu-ray, Windows media), revisions 1.02 to 2.60", pw -> new UdfExtractor(), null, null));
         l.add(new BuiltinFormat(ArcanaFormat.SQUASHFS, ARCHIVE, names("sqfs", "squashfs", "snap"), "sqfs squashfs snap", "SquashFS 4.0 (gzip, LZMA, LZO, XZ, LZ4, Zstandard)", pw -> new SquashfsExtractor(), null, null));
+        l.add(new BuiltinFormat(ArcanaFormat.DMG, ARCHIVE, names("dmg"), "dmg", "Apple disk image (UDIF: zlib, bzip2, LZFSE, LZMA, ADC, raw; HFS+ files, other partitions as raw images)", pw -> new DmgExtractor(), null, null));
         l.add(new BuiltinFormat(ArcanaFormat.WIM, ARCHIVE, names("wim", "swm", "esd"), "wim  esd", "Windows Imaging Format (XPRESS, LZX; not LZMS)", pw -> new WimExtractor(), null, null));
         l.add(new BuiltinFormat(ArcanaFormat.OLE, ARCHIVE, names("msi", "msp", "doc", "xls", "ppt", "msg"), "msi  msp  doc  xls  ppt  msg", "OLE compound file (MSI: installed file tree; Office 97-2003, Outlook: streams)", pw -> new OleExtractor(), null, null));
         l.add(new BuiltinFormat(ArcanaFormat.ARJ, ARCHIVE, names("arj"), "arj", "ARJ archive (methods 0 to 4)", pw -> new ArjExtractor(), null, null));
@@ -130,6 +136,8 @@ public final class FormatRegistry {
         l.add(new BuiltinFormat(ArcanaFormat.ZSTD, SINGLE_FILE, names("zst", "zstd"), "zst  zstd", "Zstandard", pw -> new CompressedStreamExtractor(ArcanaFormat.ZSTD, new ZstdExtractor()), null, null));
         l.add(new BuiltinFormat(ArcanaFormat.SNAPPY, SINGLE_FILE, names("snappy"), "snappy", "Snappy", pw -> new CompressedStreamExtractor(ArcanaFormat.SNAPPY, new SnappyExtractor()), null, null));
         l.add(new BuiltinFormat(ArcanaFormat.BROTLI, SINGLE_FILE, names("br"), "br", "Brotli", pw -> new CompressedStreamExtractor(ArcanaFormat.BROTLI, new BrotliExtractor()), null, null));
+        l.add(new BuiltinFormat(ArcanaFormat.LZIP, SINGLE_FILE, names("lz", "lzip"), "lz", "lzip (LZMA, CRC32)", pw -> new CompressedStreamExtractor(ArcanaFormat.LZIP, new LzipExtractor()), null, null));
+        l.add(new BuiltinFormat(ArcanaFormat.LZOP, SINGLE_FILE, names("lzo", "lzop"), "lzo", "lzop (LZO1X)", pw -> new CompressedStreamExtractor(ArcanaFormat.LZOP, new LzopExtractor()), null, null));
         // ---- Other ----
         l.add(new BuiltinFormat(ArcanaFormat.SFX, OTHER, names("exe", "sfx"), "exe", "Self-extracting archive (ZIP, RAR, 7z, CAB/IExpress inside an executable)", pw -> new SfxExtractor(f -> builtin(f).createExtractor(pw)), null, null));
         BUILTINS = Collections.unmodifiableList(l);

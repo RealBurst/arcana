@@ -157,7 +157,7 @@ public final class ForceUnpacker {
                 }
                 return r;
             }
-            case GZIP: case TAR_GZ: case ZSTD: case TAR_ZSTD: case LZ4: case TAR_LZ4: case LZMA: case BROTLI: case TAR_BROTLI: case SNAPPY: {
+            case GZIP: case TAR_GZ: case ZSTD: case TAR_ZSTD: case LZ4: case TAR_LZ4: case LZMA: case BROTLI: case TAR_BROTLI: case SNAPPY: case LZIP: case TAR_LZIP: case LZOP: case TAR_LZOP: {
                 final RecoveryReport r = new RecoveryReport(displayName, "stream decoded up to the damage (this format cannot restart after it)");
                 final File tmp = File.createTempFile("arcana-recover-", ".bin");
                 try {
@@ -332,6 +332,8 @@ public final class ForceUnpacker {
             case TAR_ZSTD:   return ArcanaFormat.ZSTD;
             case TAR_LZ4:    return ArcanaFormat.LZ4;
             case TAR_BROTLI: return ArcanaFormat.BROTLI;
+            case TAR_LZIP:   return ArcanaFormat.LZIP;
+            case TAR_LZOP:   return ArcanaFormat.LZOP;
             default:         return f;
         }
     }

@@ -1,0 +1,29 @@
+# Arcana regression reference (RegressionRunner --update)
+input: 0dc8b6bff138aadbed0e5d1350e7792195c3b106dfe6b82f2f33b4e613f28f04 81540
+identify: archive | DMG 4 - Apple disk image (UDIF), UDRO (uncompressed)
+  format: UDRO (uncompressed)
+  image variant: 1 (device image)
+  size: 315392 bytes (616 sectors)
+  data fork checksum: CRC32 9c211a6c
+  partitions: 1
+  partition 0: disk image (Apple_HFS : 0): HFSX volume "ArcanaTest" (signature HX, version 5, 5 files, 7 folders)
+list: 12 entries
+  bin (folder)
+  bin/random.bin 4096
+  deep (folder)
+  deep/a (folder)
+  deep/a/b (folder)
+  deep/a/b/c (folder)
+  deep/a/b/c/leaf.txt 5
+  docs (folder)
+  docs/empty.txt 0
+  docs/notes.txt 29490
+  empty-dir (folder)
+  readme.txt 1520
+extracted: 6 items
+  bin/random.bin 4096 8fe774a9e65a6c63fc7df534a66e2bafb44a73813a37b2abcc178749b237552e
+  deep/a/b/c/leaf.txt 5 26d0bac9f0c7a35b2f3322a0f4ad4517265f56b2c0f4b2ed7cb5cbd30c5868e2
+  docs/empty.txt 0 e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+  docs/notes.txt 29490 d7e02c884850cdfa9d78d1e322269a120fdce78e1178469a980945b2d27d0c66
+  empty-dir/ (empty folder)
+  readme.txt 1520 ba2f1014c1181c953f32737172808623ce8dd59ba7c7598d2d73730ea4f6217c

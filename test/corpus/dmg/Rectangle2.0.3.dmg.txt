@@ -1,0 +1,444 @@
+# Arcana regression reference (RegressionRunner --update)
+input: a48883b56fbe3fbbd699a05bc8ddbfce65c0c73c66f71eaebbe9f1fdc5a3dcb5 4730793
+identify: archive | DMG 4 - Apple disk image (UDIF), UDZO (zlib)
+  format: UDZO (zlib)
+  image variant: 1 (device image)
+  size: 36740096 bytes (71758 sectors)
+  data fork checksum: CRC32 c39f922e
+  partitions: 8
+  partition -1: Protective Master Boot Record (MBR : 0): partition scheme, not extracted
+  partition 0: GPT Header (Primary GPT Header : 1): partition scheme, not extracted
+  partition 1: GPT Partition Data (Primary GPT Table : 2): partition scheme, not extracted
+  partition 2:  (Apple_Free : 3): partition scheme, not extracted
+  partition 3: disk image (Apple_HFS : 4): HFS+ volume "Rectangle2.0.3" (signature H+, version 4, 156 files, 116 folders)
+  partition 4:  (Apple_Free : 5): partition scheme, not extracted
+  partition 5: GPT Partition Data (Backup GPT Table : 6): partition scheme, not extracted
+  partition 6: GPT Header (Backup GPT Header : 7): partition scheme, not extracted
+list: 270 entries
+  .DS_Store 10244
+  .background (folder)
+  .background/rectangleDmg.png 5907
+  Applications 0
+  Rectangle.app (folder)
+  Rectangle.app/Contents (folder)
+  Rectangle.app/Contents/CodeResources 1926
+  Rectangle.app/Contents/Frameworks (folder)
+  Rectangle.app/Contents/Frameworks/Sparkle.framework (folder)
+  Rectangle.app/Contents/Frameworks/Sparkle.framework/Autoupdate 0
+  Rectangle.app/Contents/Frameworks/Sparkle.framework/Resources 0
+  Rectangle.app/Contents/Frameworks/Sparkle.framework/Sparkle 0
+  Rectangle.app/Contents/Frameworks/Sparkle.framework/Updater.app 0
+  Rectangle.app/Contents/Frameworks/Sparkle.framework/Versions (folder)
+  Rectangle.app/Contents/Frameworks/Sparkle.framework/Versions/B (folder)
+  Rectangle.app/Contents/Frameworks/Sparkle.framework/Versions/B/Autoupdate 708528
+  Rectangle.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources (folder)
+  Rectangle.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/Base.lproj (folder)
+  Rectangle.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/Base.lproj/Sparkle.strings 6249
+  Rectangle.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/Info.plist 1341
+  Rectangle.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/ReleaseNotesColorStyle.css 231
+  Rectangle.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/SUUpdateAlert.nib 18490
+  Rectangle.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/SUUpdatePermissionPrompt.nib 25390
+  Rectangle.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/ar.lproj (folder)
+  Rectangle.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/ar.lproj/Sparkle.strings 3554
+  Rectangle.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/ca.lproj (folder)
+  Rectangle.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/ca.lproj/Sparkle.strings 3501
+  Rectangle.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/cs.lproj (folder)
+  Rectangle.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/cs.lproj/Sparkle.strings 10774
+  Rectangle.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/da.lproj (folder)
+  Rectangle.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/da.lproj/Sparkle.strings 4882
+  Rectangle.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/de.lproj (folder)
+  Rectangle.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/de.lproj/Sparkle.strings 11559
+  Rectangle.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/el.lproj (folder)
+  Rectangle.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/el.lproj/Sparkle.strings 5934
+  Rectangle.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/es.lproj (folder)
+  Rectangle.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/es.lproj/Sparkle.strings 7026
+  Rectangle.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/fa.lproj (folder)
+  Rectangle.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/fa.lproj/Sparkle.strings 5716
+  Rectangle.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/fi.lproj (folder)
+  Rectangle.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/fi.lproj/Sparkle.strings 3252
+  Rectangle.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/fr.lproj (folder)
+  Rectangle.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/fr.lproj/Sparkle.strings 7855
+  Rectangle.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/he.lproj (folder)
+  Rectangle.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/he.lproj/Sparkle.strings 9657
+  Rectangle.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/hr.lproj (folder)
+  Rectangle.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/hr.lproj/Sparkle.strings 6367
+  Rectangle.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/hu.lproj (folder)
+  Rectangle.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/hu.lproj/Sparkle.strings 4449
+  Rectangle.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/is.lproj (folder)
+  Rectangle.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/is.lproj/Sparkle.strings 3954
+  Rectangle.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/it.lproj (folder)
+  Rectangle.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/it.lproj/Sparkle.strings 10956
+  Rectangle.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/ja.lproj (folder)
+  Rectangle.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/ja.lproj/Sparkle.strings 8697
+  Rectangle.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/ko.lproj (folder)
+  Rectangle.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/ko.lproj/Sparkle.strings 7797
+  Rectangle.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/nb.lproj (folder)
+  Rectangle.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/nb.lproj/Sparkle.strings 5539
+  Rectangle.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/nl.lproj (folder)
+  Rectangle.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/nl.lproj/Sparkle.strings 9574
+  Rectangle.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/nn.lproj (folder)
+  Rectangle.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/nn.lproj/Sparkle.strings 5671
+  Rectangle.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/pl.lproj (folder)
+  Rectangle.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/pl.lproj/Sparkle.strings 5453
+  Rectangle.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/pt-BR.lproj (folder)
+  Rectangle.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/pt-BR.lproj/Sparkle.strings 9976
+  Rectangle.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/pt-PT.lproj (folder)
+  Rectangle.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/pt-PT.lproj/Sparkle.strings 5827
+  Rectangle.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/ro.lproj (folder)
+  Rectangle.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/ro.lproj/Sparkle.strings 6115
+  Rectangle.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/ru.lproj (folder)
+  Rectangle.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/ru.lproj/Sparkle.strings 5784
+  Rectangle.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/sk.lproj (folder)
+  Rectangle.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/sk.lproj/Sparkle.strings 5675
+  Rectangle.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/sl.lproj (folder)
+  Rectangle.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/sl.lproj/Sparkle.strings 5646
+  Rectangle.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/sv.lproj (folder)
+  Rectangle.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/sv.lproj/Sparkle.strings 5160
+  Rectangle.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/th.lproj (folder)
+  Rectangle.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/th.lproj/Sparkle.strings 5339
+  Rectangle.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/tr.lproj (folder)
+  Rectangle.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/tr.lproj/Sparkle.strings 6183
+  Rectangle.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/uk.lproj (folder)
+  Rectangle.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/uk.lproj/Sparkle.strings 5842
+  Rectangle.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/vi.lproj (folder)
+  Rectangle.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/vi.lproj/Sparkle.strings 12418
+  Rectangle.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/zh_CN.lproj (folder)
+  Rectangle.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/zh_CN.lproj/Sparkle.strings 7475
+  Rectangle.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/zh_HK.lproj (folder)
+  Rectangle.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/zh_HK.lproj/Sparkle.strings 6469
+  Rectangle.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/zh_TW.lproj (folder)
+  Rectangle.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/zh_TW.lproj/Sparkle.strings 7625
+  Rectangle.app/Contents/Frameworks/Sparkle.framework/Versions/B/Sparkle 976464
+  Rectangle.app/Contents/Frameworks/Sparkle.framework/Versions/B/Updater.app (folder)
+  Rectangle.app/Contents/Frameworks/Sparkle.framework/Versions/B/Updater.app/Contents (folder)
+  Rectangle.app/Contents/Frameworks/Sparkle.framework/Versions/B/Updater.app/Contents/Info.plist 2400
+  Rectangle.app/Contents/Frameworks/Sparkle.framework/Versions/B/Updater.app/Contents/MacOS (folder)
+  Rectangle.app/Contents/Frameworks/Sparkle.framework/Versions/B/Updater.app/Contents/MacOS/Updater 339968
+  Rectangle.app/Contents/Frameworks/Sparkle.framework/Versions/B/Updater.app/Contents/PkgInfo 8
+  Rectangle.app/Contents/Frameworks/Sparkle.framework/Versions/B/Updater.app/Contents/_CodeSignature (folder)
+  Rectangle.app/Contents/Frameworks/Sparkle.framework/Versions/B/Updater.app/Contents/_CodeSignature/CodeResources 2200
+  Rectangle.app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices (folder)
+  Rectangle.app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Downloader.xpc (folder)
+  Rectangle.app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Downloader.xpc/Contents (folder)
+  Rectangle.app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Downloader.xpc/Contents/Info.plist 1717
+  Rectangle.app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Downloader.xpc/Contents/MacOS (folder)
+  Rectangle.app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Downloader.xpc/Contents/MacOS/Downloader 188928
+  Rectangle.app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Downloader.xpc/Contents/_CodeSignature (folder)
+  Rectangle.app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Downloader.xpc/Contents/_CodeSignature/CodeResources 2200
+  Rectangle.app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Installer.xpc (folder)
+  Rectangle.app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Installer.xpc/Contents (folder)
+  Rectangle.app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Installer.xpc/Contents/Info.plist 1605
+  Rectangle.app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Installer.xpc/Contents/MacOS (folder)
+  Rectangle.app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Installer.xpc/Contents/MacOS/Installer 207296
+  Rectangle.app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Installer.xpc/Contents/_CodeSignature (folder)
+  Rectangle.app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Installer.xpc/Contents/_CodeSignature/CodeResources 2200
+  Rectangle.app/Contents/Frameworks/Sparkle.framework/Versions/B/_CodeSignature (folder)
+  Rectangle.app/Contents/Frameworks/Sparkle.framework/Versions/B/_CodeSignature/CodeResources 18167
+  Rectangle.app/Contents/Frameworks/Sparkle.framework/Versions/Current 0
+  Rectangle.app/Contents/Frameworks/Sparkle.framework/XPCServices 0
+  Rectangle.app/Contents/Info.plist 2145
+  Rectangle.app/Contents/MacOS (folder)
+  Rectangle.app/Contents/MacOS/Rectangle 3779792
+  Rectangle.app/Contents/PkgInfo 8
+  Rectangle.app/Contents/Resources (folder)
+  Rectangle.app/Contents/Resources/AppIcon.icns 47944
+  Rectangle.app/Contents/Resources/Assets.car 2153736
+  Rectangle.app/Contents/Resources/Base.lproj (folder)
+  Rectangle.app/Contents/Resources/Base.lproj/Main.storyboardc (folder)
+  Rectangle.app/Contents/Resources/Base.lproj/Main.storyboardc/Info.plist 163
+  Rectangle.app/Contents/Resources/Base.lproj/Main.storyboardc/MainMenu.nib 13536
+  Rectangle.app/Contents/Resources/InternetAccessPolicy.plist 779
+  Rectangle.app/Contents/Resources/LogViewer.storyboardc (folder)
+  Rectangle.app/Contents/Resources/LogViewer.storyboardc/Info.plist 384
+  Rectangle.app/Contents/Resources/LogViewer.storyboardc/LogViewController.nib 1532
+  Rectangle.app/Contents/Resources/LogViewer.storyboardc/LogWindowController.nib 11232
+  Rectangle.app/Contents/Resources/LogViewer.storyboardc/PiU-lX-bsA-view-ptq-Cu-Bka.nib 11912
+  Rectangle.app/Contents/Resources/MASShortcut_MASShortcut.bundle (folder)
+  Rectangle.app/Contents/Resources/MASShortcut_MASShortcut.bundle/Contents (folder)
+  Rectangle.app/Contents/Resources/MASShortcut_MASShortcut.bundle/Contents/Info.plist 1142
+  Rectangle.app/Contents/Resources/MASShortcut_MASShortcut.bundle/Contents/Resources (folder)
+  Rectangle.app/Contents/Resources/MASShortcut_MASShortcut.bundle/Contents/Resources/cs.lproj (folder)
+  Rectangle.app/Contents/Resources/MASShortcut_MASShortcut.bundle/Contents/Resources/cs.lproj/Localizable.strings 2133
+  Rectangle.app/Contents/Resources/MASShortcut_MASShortcut.bundle/Contents/Resources/de.lproj (folder)
+  Rectangle.app/Contents/Resources/MASShortcut_MASShortcut.bundle/Contents/Resources/de.lproj/Localizable.strings 2272
+  Rectangle.app/Contents/Resources/MASShortcut_MASShortcut.bundle/Contents/Resources/en.lproj (folder)
+  Rectangle.app/Contents/Resources/MASShortcut_MASShortcut.bundle/Contents/Resources/en.lproj/Localizable.strings 2160
+  Rectangle.app/Contents/Resources/MASShortcut_MASShortcut.bundle/Contents/Resources/es.lproj (folder)
+  Rectangle.app/Contents/Resources/MASShortcut_MASShortcut.bundle/Contents/Resources/es.lproj/Localizable.strings 2365
+  Rectangle.app/Contents/Resources/MASShortcut_MASShortcut.bundle/Contents/Resources/fr.lproj (folder)
+  Rectangle.app/Contents/Resources/MASShortcut_MASShortcut.bundle/Contents/Resources/fr.lproj/Localizable.strings 2304
+  Rectangle.app/Contents/Resources/MASShortcut_MASShortcut.bundle/Contents/Resources/it.lproj (folder)
+  Rectangle.app/Contents/Resources/MASShortcut_MASShortcut.bundle/Contents/Resources/it.lproj/Localizable.strings 2398
+  Rectangle.app/Contents/Resources/MASShortcut_MASShortcut.bundle/Contents/Resources/ja.lproj (folder)
+  Rectangle.app/Contents/Resources/MASShortcut_MASShortcut.bundle/Contents/Resources/ja.lproj/Localizable.strings 2652
+  Rectangle.app/Contents/Resources/MASShortcut_MASShortcut.bundle/Contents/Resources/ko.lproj (folder)
+  Rectangle.app/Contents/Resources/MASShortcut_MASShortcut.bundle/Contents/Resources/ko.lproj/Localizable.strings 2300
+  Rectangle.app/Contents/Resources/MASShortcut_MASShortcut.bundle/Contents/Resources/nl.lproj (folder)
+  Rectangle.app/Contents/Resources/MASShortcut_MASShortcut.bundle/Contents/Resources/nl.lproj/Localizable.strings 2236
+  Rectangle.app/Contents/Resources/MASShortcut_MASShortcut.bundle/Contents/Resources/pl.lproj (folder)
+  Rectangle.app/Contents/Resources/MASShortcut_MASShortcut.bundle/Contents/Resources/pl.lproj/Localizable.strings 2124
+  Rectangle.app/Contents/Resources/MASShortcut_MASShortcut.bundle/Contents/Resources/pt.lproj (folder)
+  Rectangle.app/Contents/Resources/MASShortcut_MASShortcut.bundle/Contents/Resources/pt.lproj/Localizable.strings 2179
+  Rectangle.app/Contents/Resources/MASShortcut_MASShortcut.bundle/Contents/Resources/ru.lproj (folder)
+  Rectangle.app/Contents/Resources/MASShortcut_MASShortcut.bundle/Contents/Resources/ru.lproj/Localizable.strings 2833
+  Rectangle.app/Contents/Resources/MASShortcut_MASShortcut.bundle/Contents/Resources/sk.lproj (folder)
+  Rectangle.app/Contents/Resources/MASShortcut_MASShortcut.bundle/Contents/Resources/sk.lproj/Localizable.strings 2250
+  Rectangle.app/Contents/Resources/MASShortcut_MASShortcut.bundle/Contents/Resources/sv.lproj (folder)
+  Rectangle.app/Contents/Resources/MASShortcut_MASShortcut.bundle/Contents/Resources/sv.lproj/Localizable.strings 2318
+  Rectangle.app/Contents/Resources/MASShortcut_MASShortcut.bundle/Contents/Resources/zh-Hans.lproj (folder)
+  Rectangle.app/Contents/Resources/MASShortcut_MASShortcut.bundle/Contents/Resources/zh-Hans.lproj/Localizable.strings 2193
+  Rectangle.app/Contents/Resources/MASShortcut_MASShortcut.bundle/Contents/Resources/zh-Hant.lproj (folder)
+  Rectangle.app/Contents/Resources/MASShortcut_MASShortcut.bundle/Contents/Resources/zh-Hant.lproj/Localizable.strings 2205
+  Rectangle.app/Contents/Resources/MessageView.nib 7743
+  Rectangle.app/Contents/Resources/ar.lproj (folder)
+  Rectangle.app/Contents/Resources/ar.lproj/Localizable.strings 24948
+  Rectangle.app/Contents/Resources/ar.lproj/Main.strings 17996
+  Rectangle.app/Contents/Resources/ca-ES.lproj (folder)
+  Rectangle.app/Contents/Resources/ca-ES.lproj/Localizable.strings 25828
+  Rectangle.app/Contents/Resources/ca-ES.lproj/Main.strings 19354
+  Rectangle.app/Contents/Resources/ca.lproj (folder)
+  Rectangle.app/Contents/Resources/ca.lproj/Localizable.strings 25970
+  Rectangle.app/Contents/Resources/ca.lproj/Main.strings 19354
+  Rectangle.app/Contents/Resources/cs.lproj (folder)
+  Rectangle.app/Contents/Resources/cs.lproj/Localizable.strings 24394
+  Rectangle.app/Contents/Resources/cs.lproj/Main.strings 7730
+  Rectangle.app/Contents/Resources/de.lproj (folder)
+  Rectangle.app/Contents/Resources/de.lproj/Localizable.strings 29662
+  Rectangle.app/Contents/Resources/de.lproj/Main.strings 21522
+  Rectangle.app/Contents/Resources/en-GB.lproj (folder)
+  Rectangle.app/Contents/Resources/en-GB.lproj/Localizable.strings 3628
+  Rectangle.app/Contents/Resources/en-GB.lproj/Main.strings 1082
+  Rectangle.app/Contents/Resources/en.lproj (folder)
+  Rectangle.app/Contents/Resources/en.lproj/Localizable.strings 52312
+  Rectangle.app/Contents/Resources/en.lproj/Main.strings 16392
+  Rectangle.app/Contents/Resources/es-419.lproj (folder)
+  Rectangle.app/Contents/Resources/es-419.lproj/Localizable.strings 27426
+  Rectangle.app/Contents/Resources/es-419.lproj/Main.strings 19768
+  Rectangle.app/Contents/Resources/es.lproj (folder)
+  Rectangle.app/Contents/Resources/es.lproj/Localizable.strings 27464
+  Rectangle.app/Contents/Resources/es.lproj/Main.strings 19768
+  Rectangle.app/Contents/Resources/fr.lproj (folder)
+  Rectangle.app/Contents/Resources/fr.lproj/Localizable.strings 27380
+  Rectangle.app/Contents/Resources/fr.lproj/Main.strings 19986
+  Rectangle.app/Contents/Resources/id.lproj (folder)
+  Rectangle.app/Contents/Resources/id.lproj/Localizable.strings 26014
+  Rectangle.app/Contents/Resources/id.lproj/Main.strings 19096
+  Rectangle.app/Contents/Resources/it.lproj (folder)
+  Rectangle.app/Contents/Resources/it.lproj/Localizable.strings 26960
+  Rectangle.app/Contents/Resources/it.lproj/Main.strings 19276
+  Rectangle.app/Contents/Resources/ja.lproj (folder)
+  Rectangle.app/Contents/Resources/ja.lproj/Localizable.strings 25070
+  Rectangle.app/Contents/Resources/ja.lproj/Main.strings 19104
+  Rectangle.app/Contents/Resources/ko.lproj (folder)
+  Rectangle.app/Contents/Resources/ko.lproj/Localizable.strings 29014
+  Rectangle.app/Contents/Resources/ko.lproj/Main.strings 19674
+  Rectangle.app/Contents/Resources/lt.lproj (folder)
+  Rectangle.app/Contents/Resources/lt.lproj/Localizable.strings 26346
+  Rectangle.app/Contents/Resources/lt.lproj/Main.strings 19534
+  Rectangle.app/Contents/Resources/nb.lproj (folder)
+  Rectangle.app/Contents/Resources/nb.lproj/Localizable.strings 25936
+  Rectangle.app/Contents/Resources/nb.lproj/Main.strings 18746
+  Rectangle.app/Contents/Resources/nl.lproj (folder)
+  Rectangle.app/Contents/Resources/nl.lproj/Localizable.strings 25112
+  Rectangle.app/Contents/Resources/nl.lproj/Main.strings 19068
+  Rectangle.app/Contents/Resources/nn.lproj (folder)
+  Rectangle.app/Contents/Resources/nn.lproj/Localizable.strings 25768
+  Rectangle.app/Contents/Resources/nn.lproj/Main.strings 18748
+  Rectangle.app/Contents/Resources/pl.lproj (folder)
+  Rectangle.app/Contents/Resources/pl.lproj/Localizable.strings 25510
+  Rectangle.app/Contents/Resources/pl.lproj/Main.strings 19192
+  Rectangle.app/Contents/Resources/pt-BR.lproj (folder)
+  Rectangle.app/Contents/Resources/pt-BR.lproj/Localizable.strings 26070
+  Rectangle.app/Contents/Resources/pt-BR.lproj/Main.strings 19202
+  Rectangle.app/Contents/Resources/pt-PT.lproj (folder)
+  Rectangle.app/Contents/Resources/pt-PT.lproj/Localizable.strings 25840
+  Rectangle.app/Contents/Resources/pt-PT.lproj/Main.strings 19184
+  Rectangle.app/Contents/Resources/ro.lproj (folder)
+  Rectangle.app/Contents/Resources/ro.lproj/Localizable.strings 23770
+  Rectangle.app/Contents/Resources/ro.lproj/Main.strings 7046
+  Rectangle.app/Contents/Resources/ru.lproj (folder)
+  Rectangle.app/Contents/Resources/ru.lproj/Localizable.strings 27332
+  Rectangle.app/Contents/Resources/ru.lproj/Main.strings 19946
+  Rectangle.app/Contents/Resources/sk.lproj (folder)
+  Rectangle.app/Contents/Resources/sk.lproj/Localizable.strings 27568
+  Rectangle.app/Contents/Resources/sk.lproj/Main.strings 9560
+  Rectangle.app/Contents/Resources/sv-SE.lproj (folder)
+  Rectangle.app/Contents/Resources/sv-SE.lproj/Localizable.strings 25690
+  Rectangle.app/Contents/Resources/sv-SE.lproj/Main.strings 18752
+  Rectangle.app/Contents/Resources/tr.lproj (folder)
+  Rectangle.app/Contents/Resources/tr.lproj/Localizable.strings 24860
+  Rectangle.app/Contents/Resources/tr.lproj/Main.strings 7656
+  Rectangle.app/Contents/Resources/uk.lproj (folder)
+  Rectangle.app/Contents/Resources/uk.lproj/Localizable.strings 26320
+  Rectangle.app/Contents/Resources/uk.lproj/Main.strings 7894
+  Rectangle.app/Contents/Resources/vi.lproj (folder)
+  Rectangle.app/Contents/Resources/vi.lproj/Localizable.strings 33594
+  Rectangle.app/Contents/Resources/vi.lproj/Main.strings 22340
+  Rectangle.app/Contents/Resources/zh-Hans.lproj (folder)
+  Rectangle.app/Contents/Resources/zh-Hans.lproj/Localizable.strings 23382
+  Rectangle.app/Contents/Resources/zh-Hans.lproj/Main.strings 18400
+  Rectangle.app/Contents/Resources/zh-Hant-HK.lproj (folder)
+  Rectangle.app/Contents/Resources/zh-Hant-HK.lproj/Localizable.strings 20530
+  Rectangle.app/Contents/Resources/zh-Hant-HK.lproj/Main.strings 6918
+  Rectangle.app/Contents/Resources/zh-Hant.lproj (folder)
+  Rectangle.app/Contents/Resources/zh-Hant.lproj/Localizable.strings 22372
+  Rectangle.app/Contents/Resources/zh-Hant.lproj/Main.strings 7582
+  Rectangle.app/Contents/_CodeSignature (folder)
+  Rectangle.app/Contents/_CodeSignature/CodeResources 35970
+extracted: 156 items
+  .DS_Store 10244 78a12ab561551f9084840000f408f3743ad232a5d982a43dd870fe6317c4635e
+  .background/rectangleDmg.png 5907 299d4dffef54412d7a7cea3c3e22ddb53e0e48d473eefd050fe1c40925a27c64
+  Applications 0 e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+  Rectangle.app/Contents/CodeResources 1926 d9d916b76a65901de938be7fa655855f08e4d443803c15c906e685ef51757e57
+  Rectangle.app/Contents/Frameworks/Sparkle.framework/Autoupdate 0 e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+  Rectangle.app/Contents/Frameworks/Sparkle.framework/Resources 0 e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+  Rectangle.app/Contents/Frameworks/Sparkle.framework/Sparkle 0 e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+  Rectangle.app/Contents/Frameworks/Sparkle.framework/Updater.app 0 e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+  Rectangle.app/Contents/Frameworks/Sparkle.framework/Versions/B/Autoupdate 708528 a2afc1db8d348a17263327dadf09761f35e95aad91b6a2f541167db3dea1f7b5
+  Rectangle.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/Base.lproj/Sparkle.strings 6249 bf93bdde8ad020f2ba210ecfa0e84b5365d0342355a3ca39d88fec0acb1e4a40
+  Rectangle.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/Info.plist 1341 5fa024aa416c13614fb5588d378aa6c16371737d9980c57fcb3e32f8208f1b86
+  Rectangle.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/ReleaseNotesColorStyle.css 231 76bd6999758fd8e51d17e6b482db434f9b4768c02b037af6bd2e3a000ce8cbc1
+  Rectangle.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/SUUpdateAlert.nib 18490 3987a333da7c2728ef2cb9656e5eeaf0832884873cabf78353fcb9099c5d8fbe
+  Rectangle.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/SUUpdatePermissionPrompt.nib 25390 2e62b9d5a736d53b1eaf217432c4d0ad05217e897787cf1bdf1071ff22308d46
+  Rectangle.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/ar.lproj/Sparkle.strings 3554 441182787471a3998908044515fe13e92230edaa7e2730638e72a49610f56cba
+  Rectangle.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/ca.lproj/Sparkle.strings 3501 7ed0d5ca300649a7f13304015008f2dede98ad743a625c17d5a5fedacc1a3b1a
+  Rectangle.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/cs.lproj/Sparkle.strings 10774 99e66decf9bc46cf5622eead4e65b3b502e3775a4e8e0f03ef1b41683ea8d518
+  Rectangle.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/da.lproj/Sparkle.strings 4882 8d0ff69b79460185f941372655433bad3934f49e63bef0b4171bd66da71e55f0
+  Rectangle.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/de.lproj/Sparkle.strings 11559 311035a15227fb12e85eba2a46f3f6198d98ac5590d1d38c43c4ff7430d06599
+  Rectangle.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/el.lproj/Sparkle.strings 5934 638981a4f095d8b1dabb6230d452e470359711b81803bc5df8c21e1211fd3757
+  Rectangle.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/es.lproj/Sparkle.strings 7026 047b9affd0e995039072c24b8d7aa830624d03c89c524e4f58d7d6f13eca8352
+  Rectangle.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/fa.lproj/Sparkle.strings 5716 ed9dda9e271f7a97b8a7f327e71a1b6d06e5e061b367e7da3d153e47dc319263
+  Rectangle.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/fi.lproj/Sparkle.strings 3252 c14af9bac3fce436222a4ea277a7a6c0f9b42b2d84aceea75e758ce7538acae2
+  Rectangle.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/fr.lproj/Sparkle.strings 7855 3d554dcd167b085e25a75248533f21f389593aeace912ab9952c825ffe141ce1
+  Rectangle.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/he.lproj/Sparkle.strings 9657 1d795bd7329d04b7ce84b6bdc845f917369e858b2b292f117b89a6666a185723
+  Rectangle.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/hr.lproj/Sparkle.strings 6367 920041380a08b3ba50d44e8a83f59de551139845a72748d58f2387c65920b33a
+  Rectangle.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/hu.lproj/Sparkle.strings 4449 cc2a16e4d487c6fab357b4f7d0fbbf7ec882371b2130413ffcb1b69cd540d2cf
+  Rectangle.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/is.lproj/Sparkle.strings 3954 403feba503410e9455cd0eaafe592a2576eedb24130ccf2cdb13dda4b101f87e
+  Rectangle.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/it.lproj/Sparkle.strings 10956 56a7445c1b68d76849ac59b98aa5c20c9002d5e07e9f0a2720486160f85b7366
+  Rectangle.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/ja.lproj/Sparkle.strings 8697 e404910028af70579cfa208bb4fadd9e3592505fc89af208f4071f2309553fb2
+  Rectangle.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/ko.lproj/Sparkle.strings 7797 a6269eb3f5a07d0c4f5d7467d5065372085aef7484c518a9d784ffd6c8f5aae4
+  Rectangle.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/nb.lproj/Sparkle.strings 5539 ef6f0dcae90c440b47ece09909e9cdf35f3383f34e72a614c8c5c0752ecbffe0
+  Rectangle.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/nl.lproj/Sparkle.strings 9574 ca9adf34fb93fe3f394ccc92114bf6a6b1f8a128bb5f362cb9f3247d7c26c77d
+  Rectangle.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/nn.lproj/Sparkle.strings 5671 1db8c6853a550aa25382da2d55431a1c1d308d6a37676c4f8593cc1633f8a5ae
+  Rectangle.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/pl.lproj/Sparkle.strings 5453 5c54b3f8e1eb3026e142e710e2167f2f839b73ab5ad7f18719230f33ae682aa9
+  Rectangle.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/pt-BR.lproj/Sparkle.strings 9976 0292cadc2acfc34875c1e0b54e2d50de3833cd5e20c8660c8effe2b859aac84c
+  Rectangle.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/pt-PT.lproj/Sparkle.strings 5827 31b28f3e5b5f9fe3d7abf71a779751d51ff632f3190155ef3cd97d2791a40fb1
+  Rectangle.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/ro.lproj/Sparkle.strings 6115 b2bf064222c38a3672b01fe09406f799718cb0fc4e715121662639d6fdfea6ed
+  Rectangle.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/ru.lproj/Sparkle.strings 5784 7193af28eb2a09b9fe7119cf6065a2150c6590971b22f98c56f356cd90851923
+  Rectangle.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/sk.lproj/Sparkle.strings 5675 e158daaa4f3f91b57cee05ab896f2c1bc467317932cc53bb7c01e7daee9e5238
+  Rectangle.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/sl.lproj/Sparkle.strings 5646 c62770c604a6c8c89e283357c8b322d8ce6a85f4d85c09002048331f65f8d980
+  Rectangle.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/sv.lproj/Sparkle.strings 5160 4a21ad5bcf8d836d265710c2e4a0a64f07c9551f1c49694d6734a931d23efd39
+  Rectangle.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/th.lproj/Sparkle.strings 5339 4b6c8dc2ab69a0425de3aa9dc386c6539348e3983e47aa10f94c17e345a157a5
+  Rectangle.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/tr.lproj/Sparkle.strings 6183 b040d3f02d341eba047c15dfcafb60406d0847096a94466ecab512dcfb16abb5
+  Rectangle.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/uk.lproj/Sparkle.strings 5842 ff44d58635b3e8409d54b42b72c876a43e17fa98f6ea96b32583b9e88c747ab6
+  Rectangle.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/vi.lproj/Sparkle.strings 12418 2b3b4acbadf534cd0e812b97e589f80a4e1655b07c8907e98cc31df458ffd8b7
+  Rectangle.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/zh_CN.lproj/Sparkle.strings 7475 e7f543b92977e9abc907241c411d8db0f59c4fee480859b3e88e4b495e0976c8
+  Rectangle.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/zh_HK.lproj/Sparkle.strings 6469 3fc210132f33d89af3d25d27c7ea19426cf6d304be50254538456e0ec4fb7858
+  Rectangle.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/zh_TW.lproj/Sparkle.strings 7625 76321e1dd844c9b6568cb4af7c63bb57d9d1b700109aeedd7e5721d78727b12d
+  Rectangle.app/Contents/Frameworks/Sparkle.framework/Versions/B/Sparkle 976464 8b31f999ae7fab2c736d8dfa46512a629ac4d5b18be7e4600fa235e06167bd10
+  Rectangle.app/Contents/Frameworks/Sparkle.framework/Versions/B/Updater.app/Contents/Info.plist 2400 59ccb021c4e784681a2042e96feaf7c47eaa7c2a6468ce5c73d6f38274385c40
+  Rectangle.app/Contents/Frameworks/Sparkle.framework/Versions/B/Updater.app/Contents/MacOS/Updater 339968 bf34092068235a6b03e8b3f987199e386f1b0f0069d2e231dc9e33b142861e50
+  Rectangle.app/Contents/Frameworks/Sparkle.framework/Versions/B/Updater.app/Contents/PkgInfo 8 82502191c9484b04d685374f9879a0066069c49b8acae7a04b01d38d07e8eca0
+  Rectangle.app/Contents/Frameworks/Sparkle.framework/Versions/B/Updater.app/Contents/_CodeSignature/CodeResources 2200 6686de10a28a2fe11b36cbb86dcbacc827cfc4ea116b4dabf1845e5aee629e9b
+  Rectangle.app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Downloader.xpc/Contents/Info.plist 1717 098634fc77fd96310eff2a63d6080b76139e3b2138dade393cf1cd0ef9a4dd93
+  Rectangle.app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Downloader.xpc/Contents/MacOS/Downloader 188928 9b1745ad2d83473aa85eec84d2492eb541d05916c69f6ab15f9257b14b93c10e
+  Rectangle.app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Downloader.xpc/Contents/_CodeSignature/CodeResources 2200 6686de10a28a2fe11b36cbb86dcbacc827cfc4ea116b4dabf1845e5aee629e9b
+  Rectangle.app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Installer.xpc/Contents/Info.plist 1605 c382d031b287e64e0d4e6e7eec4208600e8b2abbe100f348c3b12f8baf4a348d
+  Rectangle.app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Installer.xpc/Contents/MacOS/Installer 207296 fd414ed6a88f757ca4e951e431bc8e07037349967e87f1013682828fa15d8ce7
+  Rectangle.app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Installer.xpc/Contents/_CodeSignature/CodeResources 2200 6686de10a28a2fe11b36cbb86dcbacc827cfc4ea116b4dabf1845e5aee629e9b
+  Rectangle.app/Contents/Frameworks/Sparkle.framework/Versions/B/_CodeSignature/CodeResources 18167 5f5ac2cab7271501cc746d7868ae9730a3e16ca0d5e11fa0bb337d163ce14040
+  Rectangle.app/Contents/Frameworks/Sparkle.framework/Versions/Current 0 e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+  Rectangle.app/Contents/Frameworks/Sparkle.framework/XPCServices 0 e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+  Rectangle.app/Contents/Info.plist 2145 b3301096bc5c7478491986a3787c4755f2f912d9be6c21d461a6373764d1f00f
+  Rectangle.app/Contents/MacOS/Rectangle 3779792 dc4d5c75baf1d5edab0f0798b89a03da4c8cfd8312484062d35271b88820aefd
+  Rectangle.app/Contents/PkgInfo 8 82502191c9484b04d685374f9879a0066069c49b8acae7a04b01d38d07e8eca0
+  Rectangle.app/Contents/Resources/AppIcon.icns 47944 84e91c7482e09ec2d6c3484162315939641f0f897a005078b05da03c754d5189
+  Rectangle.app/Contents/Resources/Assets.car 2153736 e2cad641c2b4c15e89701fa2e9e72b22ec7af604f047284f72bf081c4c399d3e
+  Rectangle.app/Contents/Resources/Base.lproj/Main.storyboardc/Info.plist 163 ebfd876a0a4abb31a1c45810539e4b73f6f1811df4aa6e5ea87495fa9f5ee3fe
+  Rectangle.app/Contents/Resources/Base.lproj/Main.storyboardc/MainMenu.nib 13536 fe7f637ad206a16366893a633e110ff52d09601508984377e5d7fc14057b1882
+  Rectangle.app/Contents/Resources/InternetAccessPolicy.plist 779 f46f0fcb0f18f841ba2fe61a2a0830273aa40ff3e7e913976da7cc5a3cb5c0b7
+  Rectangle.app/Contents/Resources/LogViewer.storyboardc/Info.plist 384 dfa48d5402214dd2292d20859df71629faa30e83c32b0882891eb813717461fe
+  Rectangle.app/Contents/Resources/LogViewer.storyboardc/LogViewController.nib 1532 3d4f5c308943e083e1ecf35084ada72fafed1fec88018fb1faa1f8db1181b265
+  Rectangle.app/Contents/Resources/LogViewer.storyboardc/LogWindowController.nib 11232 38dfd7f91e92c2db4436c2117e431365bfe8d43801568c30eecab0569fad14b4
+  Rectangle.app/Contents/Resources/LogViewer.storyboardc/PiU-lX-bsA-view-ptq-Cu-Bka.nib 11912 d9ecd6a01e115c1bac58304f63c197838ae209659ce12c5346b13eaeee9bddb5
+  Rectangle.app/Contents/Resources/MASShortcut_MASShortcut.bundle/Contents/Info.plist 1142 2ecc8659971c238c0d1e773fa174f7db1a27ece4d01dbfefe150de9d112c08b7
+  Rectangle.app/Contents/Resources/MASShortcut_MASShortcut.bundle/Contents/Resources/cs.lproj/Localizable.strings 2133 1909be99b4fc1f590ba06566ac6be50b208c13fe2f0e585667b135557ae7c1cf
+  Rectangle.app/Contents/Resources/MASShortcut_MASShortcut.bundle/Contents/Resources/de.lproj/Localizable.strings 2272 bc79cb6b73d25d21ccb18ed0ba32093620be2c72d648991db7b6ef0eaf8a67d8
+  Rectangle.app/Contents/Resources/MASShortcut_MASShortcut.bundle/Contents/Resources/en.lproj/Localizable.strings 2160 847a5f97aea098bf0056807e7730114261b52378a046d9ee2298272224fe46a0
+  Rectangle.app/Contents/Resources/MASShortcut_MASShortcut.bundle/Contents/Resources/es.lproj/Localizable.strings 2365 a666b7e2800003b6ece641ba9086ddd681257fedf8229c0992f0d097b923f115
+  Rectangle.app/Contents/Resources/MASShortcut_MASShortcut.bundle/Contents/Resources/fr.lproj/Localizable.strings 2304 f8cc9ebed5a6e247c588e4b11bba9906c9e39683e77dc963d7bfa05fecf877c0
+  Rectangle.app/Contents/Resources/MASShortcut_MASShortcut.bundle/Contents/Resources/it.lproj/Localizable.strings 2398 a9b10fd20392a47464dc3ff2194a6e283db074110e9cd01ce802e082fb247d52
+  Rectangle.app/Contents/Resources/MASShortcut_MASShortcut.bundle/Contents/Resources/ja.lproj/Localizable.strings 2652 a927ed3b58c00c5872e2a42afdf6ad69846b3abbe9196f4d75db3fcb1f1f4a5b
+  Rectangle.app/Contents/Resources/MASShortcut_MASShortcut.bundle/Contents/Resources/ko.lproj/Localizable.strings 2300 9fd01c327795b49127537f55538ec064274c3e323daf4d089fe89de5444d78ba
+  Rectangle.app/Contents/Resources/MASShortcut_MASShortcut.bundle/Contents/Resources/nl.lproj/Localizable.strings 2236 729d882a452b564073b100bc433d7ccc1f9dd2c0aa6cb08e93cdc8db5f063051
+  Rectangle.app/Contents/Resources/MASShortcut_MASShortcut.bundle/Contents/Resources/pl.lproj/Localizable.strings 2124 a7bb48545806b1a6d6896ff8e3f70dcfbd8a51c51ffe69d758c5882c75260e8e
+  Rectangle.app/Contents/Resources/MASShortcut_MASShortcut.bundle/Contents/Resources/pt.lproj/Localizable.strings 2179 d7c24fa992a3b31d8768ad0c5fc5bc96ff63e5a061d8a88b6eb43ead1fc76023
+  Rectangle.app/Contents/Resources/MASShortcut_MASShortcut.bundle/Contents/Resources/ru.lproj/Localizable.strings 2833 ee10aeb5f0012dd679ad3557c369f43697406b3e3c725a26a3419e3ae49a4b09
+  Rectangle.app/Contents/Resources/MASShortcut_MASShortcut.bundle/Contents/Resources/sk.lproj/Localizable.strings 2250 d549af0c0c49ca3711c46c61beabbad12434a35df4b46902257bdb2d44ddaf48
+  Rectangle.app/Contents/Resources/MASShortcut_MASShortcut.bundle/Contents/Resources/sv.lproj/Localizable.strings 2318 caa4f5ac55f383c40a5b7509c4379a4c7271f1b9a9426d3beac2bf2a6d0f3a21
+  Rectangle.app/Contents/Resources/MASShortcut_MASShortcut.bundle/Contents/Resources/zh-Hans.lproj/Localizable.strings 2193 ceb5c1ebaf586c1e00d7daa736bb4d6d1f716413c66179774e2278229d3e9af0
+  Rectangle.app/Contents/Resources/MASShortcut_MASShortcut.bundle/Contents/Resources/zh-Hant.lproj/Localizable.strings 2205 104553d53e427274e28e11917c3f0c515a2d914ada2cb1cc1381162e69727227
+  Rectangle.app/Contents/Resources/MessageView.nib 7743 80ecdbd1df4f55989e3cb5c68926bd239335dcb58db52757cd219cd073134f68
+  Rectangle.app/Contents/Resources/ar.lproj/Localizable.strings 24948 01916b1f8db925d040155a726e42d811f4ba6ccce124ae4aa8c33d7aca47522d
+  Rectangle.app/Contents/Resources/ar.lproj/Main.strings 17996 8ed7cdf61f64307481c4557b8fa64f9fa5629a7e73b6a572233979235ed3b09a
+  Rectangle.app/Contents/Resources/ca-ES.lproj/Localizable.strings 25828 1226174fad486b95c3cc44ecf5906d8c91753849b35cd1518da4abca4e4cf344
+  Rectangle.app/Contents/Resources/ca-ES.lproj/Main.strings 19354 1dd576489e00419ba8202fe243e8a4ebc1136a4235960600c54c8517700e6952
+  Rectangle.app/Contents/Resources/ca.lproj/Localizable.strings 25970 30ac83d544734ff89950a3b97a60060802e54b2bb1ec22a8ba313206a3bb5609
+  Rectangle.app/Contents/Resources/ca.lproj/Main.strings 19354 1dd576489e00419ba8202fe243e8a4ebc1136a4235960600c54c8517700e6952
+  Rectangle.app/Contents/Resources/cs.lproj/Localizable.strings 24394 c7a43da53097b73c107dabe0bd565403b7798a24fbe93e8a487ffa3e0e43343a
+  Rectangle.app/Contents/Resources/cs.lproj/Main.strings 7730 aad6efcb97041b916e0920ad2556b24d26b8884625b55dbc6e8daa7b095f6c89
+  Rectangle.app/Contents/Resources/de.lproj/Localizable.strings 29662 2d5b29edbdb643084b4ca1aaf62f4baf4fcad63b054ee6b0501fc1d07882e22f
+  Rectangle.app/Contents/Resources/de.lproj/Main.strings 21522 cb9964aff7ab41096f63b4154178cb213190514f965e37ed8b55aa62d3bce563
+  Rectangle.app/Contents/Resources/en-GB.lproj/Localizable.strings 3628 0722465e7a6b7f029f69e244fc44f5d860809904a9cdc64e26b9a108ee52a6bc
+  Rectangle.app/Contents/Resources/en-GB.lproj/Main.strings 1082 fe9500c1ea56fb789cea8d837f41ef53f175289882e9fbf311609150dbd3ab6d
+  Rectangle.app/Contents/Resources/en.lproj/Localizable.strings 52312 01789634eeeeb6e7a2707228a36f272a29b8e498361ec418ed8b4871a81e1cb4
+  Rectangle.app/Contents/Resources/en.lproj/Main.strings 16392 8e5005de902cf716ebad3ea1ccb84488040684a586a5a13330cc671cf5a8af5a
+  Rectangle.app/Contents/Resources/es-419.lproj/Localizable.strings 27426 af8088f2948b10092422fa4237efd24b1bfbf3317d66979079ad203e9a0a3781
+  Rectangle.app/Contents/Resources/es-419.lproj/Main.strings 19768 a840e91ca875a9e4458a994382e154d6b7926b30d0b8d54890ffb318b7ee20ec
+  Rectangle.app/Contents/Resources/es.lproj/Localizable.strings 27464 6e269d5c550df9ffee903635b09551a44f6c4baf00d61a31c7fbfd079744d0d1
+  Rectangle.app/Contents/Resources/es.lproj/Main.strings 19768 a840e91ca875a9e4458a994382e154d6b7926b30d0b8d54890ffb318b7ee20ec
+  Rectangle.app/Contents/Resources/fr.lproj/Localizable.strings 27380 a80c8a5a289e4a7bec2f7dd84a68cc876cb84e4093c90513b97a44ec06429ede
+  Rectangle.app/Contents/Resources/fr.lproj/Main.strings 19986 9bc62fb9cc9f441a8b64986a9c71d04d4c0edf647b1a9f0c38bf7282b1ad39d4
+  Rectangle.app/Contents/Resources/id.lproj/Localizable.strings 26014 2855f43882d3cd473f88d5b61d71c526dee64ba7b9ffeacda89674acc9d74ee4
+  Rectangle.app/Contents/Resources/id.lproj/Main.strings 19096 367c2b8e79c71107ee02871a796cfba8d71b3ebddcf107996b665f6b5ed82501
+  Rectangle.app/Contents/Resources/it.lproj/Localizable.strings 26960 5943c754afda8697ec3b5cd070f9d4a8e6032d0d8646202bfcf2606d33e4a4d2
+  Rectangle.app/Contents/Resources/it.lproj/Main.strings 19276 02457340e6756c4c4492952b1e0dc7ec5e44e891bdc5dda7ab99050904e310ee
+  Rectangle.app/Contents/Resources/ja.lproj/Localizable.strings 25070 4c889db6de6d6801e7407e5f266f099d43f0eca71365000db7e5b1970ebb38b8
+  Rectangle.app/Contents/Resources/ja.lproj/Main.strings 19104 e40c1bc69637431619f07e45ad948654839afce534d930bfbb8d7a9d91ee6405
+  Rectangle.app/Contents/Resources/ko.lproj/Localizable.strings 29014 75c06052821b3784095a1bbddb207de46e9779ebc28a3ce3e365c2decee31b26
+  Rectangle.app/Contents/Resources/ko.lproj/Main.strings 19674 7e1bfa4b19a2e5f1e2d870b994dec57a823cbd99e748362c10b8885bbf310647
+  Rectangle.app/Contents/Resources/lt.lproj/Localizable.strings 26346 a6b2f271cfb68a3a6cb1591f73f90d1fad165beda0f83668058af3683c1e4677
+  Rectangle.app/Contents/Resources/lt.lproj/Main.strings 19534 6da816ec40e6fd6e209a011c385005424c3b9ce2f63453c73c4fd55f0615c4c8
+  Rectangle.app/Contents/Resources/nb.lproj/Localizable.strings 25936 f8075e635048a89aad633247d2befef6f88dec6f1f6a3d65363428fdde46b60d
+  Rectangle.app/Contents/Resources/nb.lproj/Main.strings 18746 58ce5e138b2aae89bb43e3d96535bbeb0ac41f498b69f1b9b2cb50045ae42867
+  Rectangle.app/Contents/Resources/nl.lproj/Localizable.strings 25112 52ad54ebfa2d142751b448b7a8e6b75c06f264c2cd430deaeeb1e83dc0e99380
+  Rectangle.app/Contents/Resources/nl.lproj/Main.strings 19068 d740cf8215380492710d468965d4f4d10ca149b086ea5ff422e87434a7d6a37f
+  Rectangle.app/Contents/Resources/nn.lproj/Localizable.strings 25768 d259518bb6b13ebe431ef41595cb4d76af759e4c6870394e4fc7289849b2552e
+  Rectangle.app/Contents/Resources/nn.lproj/Main.strings 18748 9fa0f2cada4e4fdfde61625d5a1e3bb3c09eddffecf6b986b6e3f5a2a10d65a7
+  Rectangle.app/Contents/Resources/pl.lproj/Localizable.strings 25510 edf687870cac16a29723dd5d78cdc8e4c5dbe122a92a2e0a17eaca8b3affc16d
+  Rectangle.app/Contents/Resources/pl.lproj/Main.strings 19192 a49e5115ac094bfba849b34ac2ec2a80e7aeca9b64d4657f70dd9751cb911120
+  Rectangle.app/Contents/Resources/pt-BR.lproj/Localizable.strings 26070 fbb60dcfa57733bc6c15cc952b3ac2ea6c4bdfbe3fe9d9ca16e20146c4e0896e
+  Rectangle.app/Contents/Resources/pt-BR.lproj/Main.strings 19202 1412188cecc59d4d342fbe4fff2485abdad8888f4e947ace749d09370fd99235
+  Rectangle.app/Contents/Resources/pt-PT.lproj/Localizable.strings 25840 c28d8cdb923db5fff60d3492eab560223746e4b8fd18403903be1f78b990e050
+  Rectangle.app/Contents/Resources/pt-PT.lproj/Main.strings 19184 bea84b7fcdd8b8a67579b1b2d60fc7b9a5d6906e8e5f846804fcd842d8a9dde3
+  Rectangle.app/Contents/Resources/ro.lproj/Localizable.strings 23770 b43a3aeb46060bb0937b27615f04a27826acf14915072fe40d8246c12370f3f6
+  Rectangle.app/Contents/Resources/ro.lproj/Main.strings 7046 e011683027eba9feee3111006bdb01d2a00427867c849d1fd063334a1486a6c1
+  Rectangle.app/Contents/Resources/ru.lproj/Localizable.strings 27332 1c1eb1399017334e95b53165e8e84f24bfa7d1b5b7abb2e1937264e973d1422a
+  Rectangle.app/Contents/Resources/ru.lproj/Main.strings 19946 5ed9f211b7c7add980e366d8e2f0c39135ad1d6a999f69e4c2908ae83481b56c
+  Rectangle.app/Contents/Resources/sk.lproj/Localizable.strings 27568 042143024dd3592186f567504843030642ece2f0b336a699cc436022e9c322c6
+  Rectangle.app/Contents/Resources/sk.lproj/Main.strings 9560 6261b033bcf522d849462db2dbab23a6494cf05f4c024b6ed261b93bef68e279
+  Rectangle.app/Contents/Resources/sv-SE.lproj/Localizable.strings 25690 09b0c6611eb79cb7b11c6b4418876c11c6fd85cfe0c2b5f45f2db4029e59dd60
+  Rectangle.app/Contents/Resources/sv-SE.lproj/Main.strings 18752 263043e2344bfbedff574e2a5b2fea9fff10b85738777c106a9f574c2a1a5f8c
+  Rectangle.app/Contents/Resources/tr.lproj/Localizable.strings 24860 992ee5c5b68f4914c4b2d8c3fd729b3890d39f786a9d0983cf51880d9e9d5726
+  Rectangle.app/Contents/Resources/tr.lproj/Main.strings 7656 1b0dceed9eece9f118a3f38aa0f22128e37f56f780773a3b068cbc61293f0bc5
+  Rectangle.app/Contents/Resources/uk.lproj/Localizable.strings 26320 7d2c1bd88514624894225379eecf34bf9af8151fe76ff9f032bb062290c26404
+  Rectangle.app/Contents/Resources/uk.lproj/Main.strings 7894 e2b9c4fb52dca7a1569a026a2989626c7e3f158ae8016aa154fd355d2400f6aa
+  Rectangle.app/Contents/Resources/vi.lproj/Localizable.strings 33594 11b8fd03798351a36cbfb77cc5266788588a3c160d5d60a4bebf243dd5b92e7e
+  Rectangle.app/Contents/Resources/vi.lproj/Main.strings 22340 9cae89a01524adfe015ee5056290869e24f36ae28f844381f818b020431ec624
+  Rectangle.app/Contents/Resources/zh-Hans.lproj/Localizable.strings 23382 dd5f97c272d06db8a11a9f76a91d025860a4087776417ade86ac83e4ae5888ed
+  Rectangle.app/Contents/Resources/zh-Hans.lproj/Main.strings 18400 41fced7e9090aa5de1e4f029d098ccb96feb6ae757f5a6f0b8d5e9f452b6ef50
+  Rectangle.app/Contents/Resources/zh-Hant-HK.lproj/Localizable.strings 20530 8508bfdf7ea64229d7429c0751728883570c3e73574a811fc8fb42ff3bf3afca
+  Rectangle.app/Contents/Resources/zh-Hant-HK.lproj/Main.strings 6918 1e8a9111fe6bf901b269537abd03781e1f875a389f4445f0c743e47a38566838
+  Rectangle.app/Contents/Resources/zh-Hant.lproj/Localizable.strings 22372 5b6b9e8d365c603a5ae92d7a326b845bd7d630b728a424f2b3c421b5b60a766b
+  Rectangle.app/Contents/Resources/zh-Hant.lproj/Main.strings 7582 dd2060e51193a42dd80440dd38dfe3a3f2494c16350cc76ff78ba8b9f003d0d8
+  Rectangle.app/Contents/_CodeSignature/CodeResources 35970 731f87e12c5f55906385c7516c4a55a7b0b287afdc6911ec0111807fb9aeb4c1

@@ -51,6 +51,7 @@ None left: see "Fixed in 1.0.6" at the end.
 | Unix compress | `-b 9` files: two incompatible rules exist (switch to 10 bits when the 9-bit table is full, as compress 4.0 and gzip do, or stay at 9 bits, as ncompress after 5.0 and 7-Zip do); Arcana follows the second one | `extractor/ZExtractor.java` | confirmed |
 | Zstandard | A file that starts with a skippable frame is not recognized by content (its magic is shared with LZ4) | `detector/ArchiveDetector.java`, `analyze/ArchiveAnalyzer.java` | confirmed |
 | RAR | Listing a RAR archive (without encrypted headers) that cannot be parsed returns an empty list instead of an error (extraction reports it) | `formats/rar/Unrar5j.java` (`listRar5`, `listRar4`) | code |
+| HFS+ (DMG) | A file with an unsupported decmpfs compression type (sparse, LZBITMAP...) stops the whole extraction instead of being skipped | `formats/hfs/HfsPlusReader.java:597` (`copyCompressed`) | code |
 
 ## Low
 
@@ -71,6 +72,8 @@ None left: see "Fixed in 1.0.6" at the end.
 | Zstandard | Test-archive generator `Rar5ZstdTestArchiveBuilder` in a production package | `formats/zstd/` |
 | SFX / carving | Javadoc omits CAB overlays and WEBP; `hasCliHeader` does not check the directory count | `SfxExtractor.java`, `FileCarver.java:56`, `analyze/ExecutableAnalyzer.java:112-123` |
 | Recovery | Dead extension fallback in `doForceUnpack` | `Arcana.java:135-139` |
+| DMG | `i` does not recognize a .dmg without UDIF trailer (UDRW image, dmg2img output) that `l` and `x` read as a raw disk | `analyze/ArchiveAnalyzer.java:164` (`dmg`) |
+| DMG | The partition CRC32 is checked after the files of the volume are written: on a mismatch they stay in the destination | `extractor/DmgExtractor.java:76` |
 
 ## Test samples to revisit
 

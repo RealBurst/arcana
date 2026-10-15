@@ -1,0 +1,6 @@
+# Arcana regression reference (RegressionRunner --update)
+input: effa5d21e822487301d015d3f4ff700bbfea494203e8c2132d4f01bad19eee20 886
+identify: archive | lzip 1 - lzip compressed stream (LZMA)
+  dictionary size: 30 KB
+list: ERROR ArcanaCorruptedException: lzip: unexpected end of file in member 1
+extract: ERROR ArcanaCorruptedException: lzip: unexpected end of file in member 1

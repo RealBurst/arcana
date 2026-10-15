@@ -23,6 +23,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.security.GeneralSecurityException;
 import java.security.MessageDigest;
+import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -54,6 +55,8 @@ import javax.crypto.spec.SecretKeySpec;
  *   7z-aes-rounds IN OUT             7z (-mhc=off) whose AES rounds are patched to 2^30
  *   sfx-zip-inside PAYLOAD OUT       minimal PE holding a ZIP inside its section
  *   wim-lzx-uncompressed WORK OUT    WIM whose LZX chunks hold an uncompressed block (wimlib-imagex)
+ *   dmg-hfsx PAYLOAD MODE OUT        HFSX volume in a UDIF image: MODE raw, adc or features (zlib, decmpfs, links...)
+ *   dmg-encrypted OUT                header of an encrypted disk image (encrcdsa)
  * </pre>
  *
  * <p>The outputs are byte-identical to the ones of the former Python scripts.
@@ -93,6 +96,8 @@ public final class SampleGenerator {
         else if ("7z-aes-rounds".equals(cmd) && a.length == 3) write(new File(a[2]), sevenZipAesRounds(read(new File(a[1]))));
         else if ("sfx-zip-inside".equals(cmd) && a.length == 3) write(new File(a[2]), sfxZipInside(new File(a[1])));
         else if ("wim-lzx-uncompressed".equals(cmd) && a.length == 3) wimLzxUncompressed(new File(a[1]), new File(a[2]));
+        else if ("dmg-hfsx".equals(cmd) && a.length == 4 && a[2].matches("raw|adc|features")) write(new File(a[3]), dmgHfsx(new File(a[1]), a[2]));
+        else if ("dmg-encrypted".equals(cmd) && a.length == 2) write(new File(a[1]), dmgEncryptedHeader());
         else {
             usage();
             return false;
@@ -112,6 +117,8 @@ public final class SampleGenerator {
         System.err.println("  7z-aes-rounds IN OUT            7z (-mhc=off) whose AES rounds are patched to 2^30");
         System.err.println("  sfx-zip-inside PAYLOAD OUT      minimal PE holding a ZIP inside its section");
         System.err.println("  wim-lzx-uncompressed WORK OUT   WIM whose LZX chunks hold an uncompressed block (needs wimlib-imagex)");
+        System.err.println("  dmg-hfsx PAYLOAD MODE OUT       HFSX volume in a UDIF image: MODE raw, adc or features (zlib, decmpfs, links...)");
+        System.err.println("  dmg-encrypted OUT               header of an encrypted disk image (encrcdsa)");
     }
 
     // -----------------------------------------------------------------------
@@ -337,7 +344,16 @@ public final class SampleGenerator {
         put(dir, "garbage.bin", garbage);
         final byte[] zz = src(out, "stream/notes.txt.Z");
         put(dir, "truncated-notes.txt.Z", zz == null ? null : Arrays.copyOf(zz, Math.min(2002, zz.length)));
+        final byte[] lz = src(out, "stream/notes.txt.lz");
+        put(dir, "bad-crc.lz", flip(lz, -20)); // first byte of the CRC32 in the trailer
+        put(dir, "truncated.lz", lz == null ? null : Arrays.copyOf(lz, lz.length - 30));
+        final byte[] lo = src(out, "stream/notes.txt.lzo");
+        put(dir, "truncated.lzo", lo == null ? null : Arrays.copyOf(lo, lo.length / 2));
+        put(dir, "flipped.lzo", flip(lo, 2000)); // inside the compressed data: Adler-32 or LZO error
         damagedIso(dir);
+        final byte[] dmg = src(out, "dmg/udzo-hfsplus.dmg");
+        put(dir, "truncated.dmg", dmg == null ? null : Arrays.copyOf(dmg, dmg.length / 2)); // no koly trailer left
+        put(dir, "flipped.dmg", flip(dmg, 3000)); // inside a zlib chunk: data fork CRC32 or zlib error
     }
 
     /** Content of a sample, or null when it is missing or empty (the sample is then skipped). */
@@ -945,6 +961,684 @@ public final class SampleGenerator {
     }
 
     // -----------------------------------------------------------------------
+    // Apple disk images: HFSX volume (TN1150) in a one-partition UDIF image
+    // -----------------------------------------------------------------------
+
+    private static final int HFS_BLOCK = 4096;
+    private static final int HFS_FIRST_DATA_BLOCK = 64;
+    private static final long MAC_EPOCH = 2082844800L;
+
+    /** One catalog entry of the volume being written. */
+    private static final class HfsItem {
+        String name;
+        HfsItem parent;
+        final List<HfsItem> children = new ArrayList<HfsItem>();
+        boolean dir;
+        int id;
+        byte[] data = new byte[0];
+        byte[] rsrc = new byte[0];
+        byte[] decmpfs;
+        int mode;
+        int ownerFlags;
+        int special;
+        String fdType = "\0\0\0\0";
+        String fdCreator = "\0\0\0\0";
+        long[] dataExtents = new long[0];
+        long[] rsrcExtents = new long[0];
+    }
+
+    /**
+     * dmg-hfsx PAYLOAD MODE OUT: the payload tree in an HFSX volume, in a
+     * one-partition UDIF image whose chunks are raw (MODE raw), ADC (adc) or
+     * zlib (features: with the extra entries of {@link #hfsFeatures}).
+     */
+    private static byte[] dmgHfsx(final File payload, final String mode) throws IOException {
+        final HfsItem root = new HfsItem();
+        root.name = "ArcanaTest";
+        root.dir = true;
+        hfsTree(payload, root);
+        if (mode.equals("features")) hfsFeatures(root, payload);
+        final byte[] volume = hfsVolume(root);
+        return udif(volume, mode.equals("raw") ? 1 : mode.equals("adc") ? 0x80000004 : 0x80000005);
+    }
+
+    private static void hfsTree(final File dir, final HfsItem parent) throws IOException {
+        for (final String n : sortedNames(dir, true)) {
+            final HfsItem d = hfsAdd(parent, n, true);
+            hfsTree(new File(dir, n), d);
+        }
+        for (final String n : sortedNames(dir, false)) hfsAdd(parent, n, false).data = read(new File(dir, n));
+    }
+
+    private static HfsItem hfsAdd(final HfsItem parent, final String name, final boolean dir) {
+        final HfsItem i = new HfsItem();
+        i.name = Normalizer.normalize(name, Normalizer.Form.NFD);
+        i.parent = parent;
+        i.dir = dir;
+        i.mode = dir ? 040755 : 0100644;
+        parent.children.add(i);
+        return i;
+    }
+
+    private static HfsItem hfsChild(final HfsItem parent, final String name) {
+        for (final HfsItem c : parent.children) if (c.name.equals(name)) return c;
+        return hfsAdd(parent, name, true);
+    }
+
+    /**
+     * Entries the HFS+ tools cannot write: decomposed Unicode names, a hard
+     * link pair, a symbolic link, files compressed with decmpfs (types 3, 4,
+     * 7, 8, 12), a fragmented file (extents overflow record) and a resource fork.
+     */
+    private static void hfsFeatures(final HfsItem root, final File payload) throws IOException {
+        hfsAdd(root, "caf\u00e9 \u00e0 la cr\u00e8me.txt", false).data = ascii("accented name\n");
+        final HfsItem deja = hfsAdd(root, "d\u00e9j\u00e0 vu", true);
+        hfsAdd(deja, "\u00fcber.txt", false).data = ascii("decomposed folder and file names\n");
+        final byte[] readme = read(new File(payload, "readme.txt"));
+        final byte[] notes = read(new File(payload, "docs/notes.txt"));
+        final byte[] big = cat(notes, notes, notes);
+        // hard links: two "hlnk" records pointing to iNode<n> in the private metadata folder
+        final HfsItem priv = hfsAdd(root, "\u0000\u0000\u0000\u0000HFS+ Private Data", true);
+        final HfsItem inode = hfsAdd(priv, "iNode", false);
+        inode.data = ascii("hard link target\n");
+        inode.special = 2;
+        final HfsItem links = hfsAdd(root, "links", true);
+        for (final String n : new String[] {"hard-1.txt", "hard-2.txt"}) {
+            final HfsItem l = hfsAdd(links, n, false);
+            l.fdType = "hlnk";
+            l.fdCreator = "hfs+";
+            l.special = -1; // set to the iNode number once numbered
+        }
+        final HfsItem sym = hfsAdd(links, "symlink.txt", false);
+        sym.data = ascii("../readme.txt");
+        sym.mode = 0120755;
+        sym.fdType = "slnk";
+        sym.fdCreator = "rhap";
+        // decmpfs: 16-byte header ("fpmc", type, size; little-endian), data inline or in the resource fork
+        final HfsItem comp = hfsAdd(root, "compressed", true);
+        hfsCompressed(hfsAdd(comp, "zlib-inline.txt", false), 3, readme, cat(new byte[] {0x78, (byte) 0xDA}, deflate(readme, 9), adler(readme)));
+        hfsCompressed(hfsAdd(comp, "lzvn-inline.txt", false), 7, readme, lzvn(readme));
+        final HfsItem zf = hfsAdd(comp, "zlib-fork.txt", false);
+        hfsCompressed(zf, 4, big, null);
+        zf.rsrc = decmpfsFork(big, 4);
+        final HfsItem vf = hfsAdd(comp, "lzvn-fork.txt", false);
+        hfsCompressed(vf, 8, big, null);
+        vf.rsrc = decmpfsFork(big, 8);
+        final HfsItem ff = hfsAdd(comp, "lzfse-fork.txt", false);
+        hfsCompressed(ff, 12, big, null);
+        ff.rsrc = decmpfsFork(big, 12);
+        // 10 blocks in 10 extents: 8 in the catalog record, 2 in the extents overflow file
+        final byte[] frag = new byte[10 * HFS_BLOCK];
+        for (int i = 0; i < frag.length; i++) frag[i] = (byte) (i / HFS_BLOCK * 16 + i % 13);
+        hfsAdd(root, "fragmented.bin", false).data = frag;
+        final HfsItem rf = hfsAdd(hfsChild(root, "docs"), "with-resource-fork.txt", false);
+        rf.data = ascii("data fork\n");
+        rf.rsrc = ascii("resource fork (not extracted)\n");
+    }
+
+    private static void hfsCompressed(final HfsItem f, final int type, final byte[] data, final byte[] inline) {
+        final byte[] h = new byte[16];
+        System.arraycopy(ascii("fpmc"), 0, h, 0, 4);
+        putLe32(h, 4, type);
+        putLe64(h, 8, data.length);
+        f.decmpfs = inline != null ? cat(h, inline) : h;
+        f.ownerFlags = 0x20; // UF_COMPRESSED
+    }
+
+    /** Resource fork of a decmpfs file: 64 KiB blocks, zlib (type 4, resource file layout), LZVN (8) or LZFSE (12) with an offset table. */
+    private static byte[] decmpfsFork(final byte[] data, final int type) {
+        final int n = (data.length + 65535) / 65536;
+        final List<byte[]> blocks = new ArrayList<byte[]>();
+        for (int i = 0; i < n; i++) {
+            final byte[] b = Arrays.copyOfRange(data, i * 65536, Math.min(data.length, (i + 1) * 65536));
+            if (type == 4) blocks.add(cat(new byte[] {0x78, (byte) 0xDA}, deflate(b, 9), adler(b)));
+            else if (type == 8) blocks.add(lzvn(b));
+            else blocks.add(lzfseOfLzvn(b));
+        }
+        final ByteArrayOutputStream out = new ByteArrayOutputStream();
+        if (type == 4) {
+            // resource file: header (data offset, map offset, data length, map length), the "cmpf" resource
+            // (length, block count, block table, blocks), then a resource map naming it
+            int resLength = 4 + 8 * n;
+            for (final byte[] b : blocks) resLength += b.length;
+            writeBe32(out, 0x100);
+            writeBe32(out, 0x100 + 4 + resLength);
+            writeBe32(out, 4 + resLength);
+            writeBe32(out, 50);
+            out.write(new byte[0x100 - 16], 0, 0x100 - 16);
+            writeBe32(out, resLength);
+            writeLe32(out, n);
+            int off = 4 + 8 * n;
+            for (final byte[] b : blocks) {
+                writeLe32(out, off);
+                writeLe32(out, b.length);
+                off += b.length;
+            }
+        } else {
+            int off = 4 * (n + 1);
+            writeLe32(out, off);
+            for (final byte[] b : blocks) writeLe32(out, off += b.length);
+        }
+        for (final byte[] b : blocks) out.write(b, 0, b.length);
+        if (type == 4) {
+            // resource map: type list at 28 ("cmpf", 1 resource), reference list (ID 1, data at 0), no names
+            final byte[] map = new byte[50];
+            putBe16(map, 24, 28);
+            putBe16(map, 26, 50);
+            System.arraycopy(ascii("cmpf"), 0, map, 30, 4);
+            putBe16(map, 36, 10);
+            putBe16(map, 38, 1);
+            putBe16(map, 40, 0xFFFF);
+            out.write(map, 0, map.length);
+        }
+        return out.toByteArray();
+    }
+
+    /** LZFSE stream made of one LZVN block ("bvxn") and the end marker. */
+    private static byte[] lzfseOfLzvn(final byte[] b) {
+        final byte[] v = lzvn(b);
+        final ByteArrayOutputStream out = new ByteArrayOutputStream();
+        out.write(ascii("bvxn"), 0, 4);
+        writeLe32(out, b.length);
+        writeLe32(out, v.length);
+        out.write(v, 0, v.length);
+        out.write(ascii("bvx$"), 0, 4);
+        return out.toByteArray();
+    }
+
+    /** Builds the volume: header, allocation bitmap, extents / attributes / catalog B-trees, then the data. */
+    private static byte[] hfsVolume(final HfsItem root) throws IOException {
+        // number the entries (root 2, others from 16) and allocate the forks
+        final List<HfsItem> all = new ArrayList<HfsItem>();
+        hfsCollect(root, all);
+        root.id = 2;
+        int next = 16;
+        HfsItem inode = null;
+        for (final HfsItem i : all) {
+            if (i != root) i.id = next++;
+            if (i.name.equals("iNode")) inode = i;
+        }
+        if (inode != null) {
+            inode.name = "iNode" + inode.id;
+            for (final HfsItem i : all) if (i.special == -1) i.special = inode.id;
+        }
+        long block = HFS_FIRST_DATA_BLOCK;
+        final List<byte[]> extentRecords = new ArrayList<byte[]>();
+        for (final HfsItem i : all) {
+            if (i.dir) continue;
+            final int nd = (i.data.length + HFS_BLOCK - 1) / HFS_BLOCK;
+            if (i.name.equals("fragmented.bin")) {
+                i.dataExtents = new long[2 * nd];
+                for (int k = 0; k < nd; k++) {
+                    i.dataExtents[2 * k] = block;
+                    i.dataExtents[2 * k + 1] = 1;
+                    block += 2; // one free block between the extents
+                }
+                final byte[] key = new byte[12];
+                putBe16(key, 0, 10);
+                putBe32(key, 4, i.id);
+                putBe32(key, 8, 8);
+                final byte[] rec = new byte[64];
+                for (int k = 8; k < nd; k++) {
+                    putBe32(rec, 8 * (k - 8), (int) i.dataExtents[2 * k]);
+                    putBe32(rec, 8 * (k - 8) + 4, 1);
+                }
+                extentRecords.add(cat(key, rec));
+            } else if (nd > 0) {
+                i.dataExtents = new long[] {block, nd};
+                block += nd;
+            }
+            final int nr = (i.rsrc.length + HFS_BLOCK - 1) / HFS_BLOCK;
+            if (nr > 0) {
+                i.rsrcExtents = new long[] {block, nr};
+                block += nr;
+            }
+        }
+        final long totalBlocks = block + 2;
+        // catalog: folder / file records and their threads, sorted by (parent ID, UTF-16 name): HFSX binary order
+        final List<byte[]> catalog = new ArrayList<byte[]>();
+        final List<byte[]> attributes = new ArrayList<byte[]>();
+        final long now = STAMP_MS / 1000 + MAC_EPOCH;
+        for (final HfsItem i : all) {
+            final int parentId = i == root ? 1 : i.parent.id;
+            final byte[] rec;
+            if (i.dir) {
+                rec = new byte[88];
+                putBe16(rec, 0, 1);
+                putBe32(rec, 4, i.children.size());
+            } else {
+                rec = new byte[248];
+                putBe16(rec, 0, 2);
+                putBe16(rec, 2, 0x0002 | (i.decmpfs != null ? 0x0004 : 0));
+                rec[41] = (byte) i.ownerFlags;
+                putBe32(rec, 44, i.special);
+                System.arraycopy(i.fdType.getBytes(StandardCharsets.ISO_8859_1), 0, rec, 48, 4);
+                System.arraycopy(i.fdCreator.getBytes(StandardCharsets.ISO_8859_1), 0, rec, 52, 4);
+                hfsFork(rec, 88, i.decmpfs != null ? 0 : i.data.length, i.dataExtents);
+                hfsFork(rec, 168, i.rsrc.length, i.rsrcExtents);
+                if (i.decmpfs != null) {
+                    final byte[] name = "com.apple.decmpfs".getBytes(StandardCharsets.UTF_16BE);
+                    final byte[] key = new byte[14 + name.length];
+                    putBe16(key, 0, 12 + name.length);
+                    putBe32(key, 4, i.id);
+                    putBe16(key, 12, name.length / 2);
+                    System.arraycopy(name, 0, key, 14, name.length);
+                    final byte[] value = new byte[16 + (i.decmpfs.length + 1) / 2 * 2];
+                    putBe32(value, 0, 0x10);
+                    putBe32(value, 12, i.decmpfs.length);
+                    System.arraycopy(i.decmpfs, 0, value, 16, i.decmpfs.length);
+                    attributes.add(cat(key, value));
+                }
+            }
+            putBe32(rec, 8, i.id);
+            for (int d = 12; d < 32; d += 4) putBe32(rec, d, (int) now);
+            putBe16(rec, 42, i.mode);
+            catalog.add(cat(hfsKey(parentId, i.name), rec));
+            final byte[] name = i.name.getBytes(StandardCharsets.UTF_16BE);
+            final byte[] thread = new byte[10 + name.length];
+            putBe16(thread, 0, i.dir ? 3 : 4);
+            putBe32(thread, 4, parentId);
+            putBe16(thread, 8, name.length / 2);
+            System.arraycopy(name, 0, thread, 10, name.length);
+            catalog.add(cat(hfsKey(i.id, ""), thread));
+        }
+        catalog.sort(SampleGenerator::compareHfsKeys);
+        // special files: extents (2 nodes of 4 KiB), attributes (2), catalog (8 KiB nodes)
+        final byte[] extentsTree = btree(extentRecords, 4096, 2, 0, 10, 2);
+        final byte[] attributesTree = btree(attributes, 4096, 2 | 4, 0, 266, 2);
+        final byte[] catalogTree = btree(catalog, 8192, 2 | 4, 0xBC, 516, 8);
+        final byte[] img = new byte[(int) (totalBlocks * HFS_BLOCK)];
+        System.arraycopy(extentsTree, 0, img, 2 * HFS_BLOCK, extentsTree.length);
+        System.arraycopy(attributesTree, 0, img, 4 * HFS_BLOCK, attributesTree.length);
+        System.arraycopy(catalogTree, 0, img, 8 * HFS_BLOCK, catalogTree.length);
+        int files = 0;
+        for (final HfsItem i : all) {
+            if (i.dir) continue;
+            files++;
+            final byte[] data = i.decmpfs != null ? new byte[0] : i.data;
+            for (int k = 0, pos = 0; k < i.dataExtents.length; k += 2) {
+                final int n = (int) Math.min(data.length - pos, i.dataExtents[k + 1] * HFS_BLOCK);
+                System.arraycopy(data, pos, img, (int) (i.dataExtents[k] * HFS_BLOCK), n);
+                pos += n;
+            }
+            if (i.rsrc.length > 0) System.arraycopy(i.rsrc, 0, img, (int) (i.rsrcExtents[0] * HFS_BLOCK), i.rsrc.length);
+        }
+        // allocation bitmap (block 1): the special files, the data, the last block (alternate header)
+        final boolean[] used = new boolean[(int) totalBlocks];
+        for (int b = 0; b < 8 + catalogTree.length / HFS_BLOCK; b++) used[b] = true;
+        for (final HfsItem i : all) {
+            for (int k = 0; k < i.dataExtents.length; k += 2) for (long b = 0; b < i.dataExtents[k + 1]; b++) used[(int) (i.dataExtents[k] + b)] = true;
+            for (int k = 0; k < i.rsrcExtents.length; k += 2) for (long b = 0; b < i.rsrcExtents[k + 1]; b++) used[(int) (i.rsrcExtents[k] + b)] = true;
+        }
+        used[used.length - 1] = true;
+        int free = 0;
+        for (int b = 0; b < used.length; b++) {
+            if (used[b]) img[HFS_BLOCK + b / 8] |= (byte) (0x80 >>> (b % 8));
+            else free++;
+        }
+        // volume header at 1024 and its copy 1024 bytes before the end
+        final byte[] vh = new byte[512];
+        System.arraycopy(ascii("HX"), 0, vh, 0, 2);
+        putBe16(vh, 2, 5);
+        putBe32(vh, 4, 1 << 8); // cleanly unmounted
+        System.arraycopy(ascii("10.0"), 0, vh, 8, 4);
+        for (int d = 16; d < 32; d += 4) putBe32(vh, d, (int) now);
+        putBe32(vh, 32, files);
+        putBe32(vh, 36, all.size() - files - 1);
+        putBe32(vh, 40, HFS_BLOCK);
+        putBe32(vh, 44, (int) totalBlocks);
+        putBe32(vh, 48, free);
+        putBe32(vh, 60, 65536);
+        putBe32(vh, 64, next);
+        putBe32(vh, 68, 1);
+        putBe32(vh, 76, 1);
+        hfsFork(vh, 112, HFS_BLOCK, new long[] {1, 1});
+        putBe32(vh, 112 + 8, HFS_BLOCK);
+        hfsFork(vh, 192, extentsTree.length, new long[] {2, 2});
+        hfsFork(vh, 272, catalogTree.length, new long[] {8, catalogTree.length / HFS_BLOCK});
+        hfsFork(vh, 352, attributesTree.length, new long[] {4, 2});
+        System.arraycopy(vh, 0, img, 1024, 512);
+        System.arraycopy(vh, 0, img, img.length - 1024, 512);
+        return img;
+    }
+
+    private static void hfsCollect(final HfsItem i, final List<HfsItem> out) {
+        out.add(i);
+        for (final HfsItem c : i.children) hfsCollect(c, out);
+    }
+
+    /** HFSPlusForkData: logical size, total blocks, up to 8 extents. */
+    private static void hfsFork(final byte[] b, final int off, final long size, final long[] extents) {
+        putBe32(b, off, (int) (size >>> 32));
+        putBe32(b, off + 4, (int) size);
+        long blocks = 0;
+        for (int k = 0; k < extents.length; k += 2) {
+            blocks += extents[k + 1];
+            if (k < 16) {
+                putBe32(b, off + 16 + 4 * k, (int) extents[k]);
+                putBe32(b, off + 20 + 4 * k, (int) extents[k + 1]);
+            }
+        }
+        putBe32(b, off + 12, (int) blocks);
+    }
+
+    /** Catalog key: key length, parent ID, UTF-16 name with its length. */
+    private static byte[] hfsKey(final int parent, final String name) {
+        final byte[] n = name.getBytes(StandardCharsets.UTF_16BE);
+        final byte[] k = new byte[8 + n.length];
+        putBe16(k, 0, 6 + n.length);
+        putBe32(k, 2, parent);
+        putBe16(k, 6, n.length / 2);
+        System.arraycopy(n, 0, k, 8, n.length);
+        return k;
+    }
+
+    /** Order of catalog records: parent ID, then the UTF-16 code units (HFSX binary compare). */
+    private static int compareHfsKeys(final byte[] a, final byte[] b) {
+        final int p = Long.compare(be32(a, 2), be32(b, 2));
+        if (p != 0) return p;
+        final int la = be16(a, 6);
+        final int lb = be16(b, 6);
+        for (int i = 0; i < Math.min(la, lb); i++) {
+            final int c = Integer.compare(be16(a, 8 + 2 * i), be16(b, 8 + 2 * i));
+            if (c != 0) return c;
+        }
+        return Integer.compare(la, lb);
+    }
+
+    /**
+     * B-tree file of sorted records (key with its length, then data): header
+     * node 0, leaf nodes from 1, one index node above them when there is more
+     * than one leaf. The file is {@code nodes} nodes long.
+     */
+    private static byte[] btree(final List<byte[]> records, final int nodeSize, final int attributes, final int compareType, final int maxKeyLength, final int nodes) throws IOException {
+        final List<List<byte[]>> leaves = new ArrayList<List<byte[]>>();
+        List<byte[]> cur = null;
+        int used = 0;
+        for (final byte[] r : records) {
+            if (cur == null || used + r.length + 2 > nodeSize - 14 - 2) {
+                leaves.add(cur = new ArrayList<byte[]>());
+                used = 0;
+            }
+            cur.add(r);
+            used += r.length + 2;
+        }
+        final int nLeaves = leaves.size();
+        final int total = nLeaves + 1 + (nLeaves > 1 ? 1 : 0);
+        if (total > nodes) throw new IOException("B-tree larger than " + nodes + " nodes");
+        final byte[] f = new byte[nodes * nodeSize];
+        for (int l = 0; l < nLeaves; l++) btreeNode(f, (l + 1) * nodeSize, nodeSize, l + 2 <= nLeaves ? l + 2 : 0, l, -1, 1, leaves.get(l));
+        final int root = nLeaves == 0 ? 0 : nLeaves == 1 ? 1 : nLeaves + 1;
+        if (nLeaves > 1) {
+            final List<byte[]> index = new ArrayList<byte[]>();
+            for (int l = 0; l < nLeaves; l++) {
+                final byte[] first = leaves.get(l).get(0);
+                final byte[] key = Arrays.copyOf(first, 2 + be16(first, 0));
+                final byte[] ptr = new byte[4];
+                putBe32(ptr, 0, l + 1);
+                index.add(cat(key, ptr));
+            }
+            btreeNode(f, root * nodeSize, nodeSize, 0, 0, 0, 2, index);
+        }
+        // header node: descriptor, header record, user data record (128 bytes), map record
+        f[8] = 1;
+        putBe16(f, 10, 3);
+        putBe16(f, 14, nLeaves == 0 ? 0 : nLeaves > 1 ? 2 : 1);
+        putBe32(f, 16, root);
+        putBe32(f, 20, records.size());
+        putBe32(f, 24, nLeaves == 0 ? 0 : 1);
+        putBe32(f, 28, nLeaves);
+        putBe16(f, 32, nodeSize);
+        putBe16(f, 34, maxKeyLength);
+        putBe32(f, 36, nodes);
+        putBe32(f, 40, nodes - total);
+        putBe32(f, 46, nodeSize);
+        f[51] = (byte) compareType;
+        putBe32(f, 52, attributes);
+        for (int n = 0; n < total; n++) f[248 + n / 8] |= (byte) (0x80 >>> (n % 8));
+        putBe16(f, nodeSize - 2, 14);
+        putBe16(f, nodeSize - 4, 120);
+        putBe16(f, nodeSize - 6, 248);
+        putBe16(f, nodeSize - 8, nodeSize - 8);
+        return f;
+    }
+
+    private static void btreeNode(final byte[] f, final int base, final int nodeSize, final int fLink, final int bLink, final int kind, final int height, final List<byte[]> recs) {
+        putBe32(f, base, fLink);
+        putBe32(f, base + 4, bLink);
+        f[base + 8] = (byte) kind;
+        f[base + 9] = (byte) height;
+        putBe16(f, base + 10, recs.size());
+        int off = 14;
+        for (int i = 0; i < recs.size(); i++) {
+            putBe16(f, base + nodeSize - 2 * (i + 1), off);
+            System.arraycopy(recs.get(i), 0, f, base + off, recs.get(i).length);
+            off += recs.get(i).length;
+        }
+        putBe16(f, base + nodeSize - 2 * (recs.size() + 1), off);
+    }
+
+    /**
+     * One-partition UDIF image ("disk image (Apple_HFS : 0)"): chunks of 64
+     * sectors (8 for raw ones) of the given type, zero-fill or "ignore"
+     * chunks for the zero runs; data fork, XML property list, koly trailer,
+     * CRC32 checksums (the partition one leaves the "ignore" chunks out).
+     */
+    private static byte[] udif(final byte[] volume, final int type) throws IOException {
+        final int sectors = volume.length / 512;
+        final int per = type == 1 ? 8 : 64;
+        final ByteArrayOutputStream fork = new ByteArrayOutputStream();
+        final ByteArrayOutputStream chunks = new ByteArrayOutputStream();
+        final CRC32 partCrc = new CRC32();
+        int count = 0;
+        int s = 0;
+        while (s < sectors) {
+            final int n = Math.min(per, sectors - s);
+            final byte[] d = Arrays.copyOfRange(volume, s * 512, (s + n) * 512);
+            int t = type;
+            byte[] c = d;
+            int len = n;
+            if (isZero(volume, s * 512, n * 512)) {
+                // zero run: zero-fill chunk, or "ignore" chunk (as hdiutil writes for free space) from 64 sectors on
+                while (s + len < sectors && isZero(volume, (s + len) * 512, 512)) len++;
+                t = len >= 64 ? 2 : 0;
+                c = new byte[0];
+            } else if (type == 0x80000004) {
+                c = adc(d);
+            } else if (type == 0x80000005) {
+                c = cat(new byte[] {0x78, (byte) 0xDA}, deflate(d, 9), adler(d));
+            }
+            if (t != 2) partCrc.update(volume, s * 512, len * 512);
+            writeBe32(chunks, t);
+            writeBe32(chunks, 0);
+            writeBe64(chunks, s);
+            writeBe64(chunks, len);
+            writeBe64(chunks, fork.size());
+            writeBe64(chunks, c.length);
+            fork.write(c, 0, c.length);
+            count++;
+            s += len;
+        }
+        writeBe32(chunks, 0xFFFFFFFF);
+        writeBe32(chunks, 0);
+        writeBe64(chunks, sectors);
+        writeBe64(chunks, 0);
+        writeBe64(chunks, fork.size());
+        writeBe64(chunks, 0);
+        count++;
+        final byte[] mish = new byte[204];
+        System.arraycopy(ascii("mish"), 0, mish, 0, 4);
+        putBe32(mish, 4, 1);
+        putBe32(mish, 20, sectors);
+        putBe32(mish, 32, 0x208);
+        putBe32(mish, 64, 2);
+        putBe32(mish, 68, 32);
+        putBe32(mish, 72, (int) partCrc.getValue());
+        putBe32(mish, 200, count);
+        final String name = "disk image (Apple_HFS : 0)";
+        final String xml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<!DOCTYPE plist PUBLIC \"-//Apple//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">\n<plist version=\"1.0\">\n<dict>\n\t<key>resource-fork</key>\n\t<dict>\n\t\t<key>blkx</key>\n\t\t<array>\n\t\t\t<dict>\n\t\t\t\t<key>Attributes</key>\n\t\t\t\t<string>0x0050</string>\n\t\t\t\t<key>CFName</key>\n\t\t\t\t<string>" + name + "</string>\n\t\t\t\t<key>Data</key>\n\t\t\t\t<data>\n\t\t\t\t" + java.util.Base64.getEncoder().encodeToString(cat(mish, chunks.toByteArray())) + "\n\t\t\t\t</data>\n\t\t\t\t<key>ID</key>\n\t\t\t\t<string>0</string>\n\t\t\t\t<key>Name</key>\n\t\t\t\t<string>" + name + "</string>\n\t\t\t</dict>\n\t\t</array>\n\t</dict>\n</dict>\n</plist>\n";
+        final byte[] data = fork.toByteArray();
+        final byte[] x = ascii(xml);
+        final byte[] koly = new byte[512];
+        System.arraycopy(ascii("koly"), 0, koly, 0, 4);
+        putBe32(koly, 4, 4);
+        putBe32(koly, 8, 512);
+        putBe32(koly, 12, 1);
+        putBe32(koly, 36, data.length);
+        putBe32(koly, 56, 1);
+        putBe32(koly, 60, 1);
+        for (int i = 0; i < 16; i++) koly[64 + i] = (byte) (0xA0 + i);
+        putBe32(koly, 80, 2);
+        putBe32(koly, 84, 32);
+        putBe32(koly, 88, crc32(data, 0, data.length));
+        putBe32(koly, 220, data.length);
+        putBe32(koly, 228, x.length);
+        final byte[] sum = new byte[4];
+        putBe32(sum, 0, (int) partCrc.getValue());
+        putBe32(koly, 352, 2);
+        putBe32(koly, 356, 32);
+        putBe32(koly, 360, crc32(sum, 0, 4));
+        putBe32(koly, 488, 1);
+        putBe32(koly, 496, sectors);
+        return cat(data, x, koly);
+    }
+
+    private static boolean isZero(final byte[] b, final int off, final int len) {
+        for (int i = off; i < off + len; i++) if (b[i] != 0) return false;
+        return true;
+    }
+
+    /** Greedy ADC encoder (Apple Data Compression, UDCO images). */
+    private static byte[] adc(final byte[] in) {
+        final ByteArrayOutputStream out = new ByteArrayOutputStream();
+        final int[] head = new int[1 << 16];
+        Arrays.fill(head, -1);
+        int lit = 0;
+        int i = 0;
+        while (i < in.length) {
+            int best = 0;
+            int dist = 0;
+            if (i + 3 <= in.length) {
+                final int h = ((in[i] & 0xff) << 8 ^ (in[i + 1] & 0xff) << 4 ^ (in[i + 2] & 0xff)) & 0xffff;
+                final int cand = head[h];
+                head[h] = i;
+                if (cand >= 0 && i - cand <= 65536) {
+                    while (i + best < in.length && best < 67 && in[cand + best] == in[i + best]) best++;
+                    dist = i - cand;
+                }
+            }
+            if (best >= 4 || best == 3 && dist <= 1024) {
+                adcLiterals(out, in, lit, i);
+                if (best <= 18 && dist <= 1024) {
+                    out.write((best - 3) << 2 | (dist - 1) >>> 8);
+                    out.write((dist - 1) & 0xff);
+                } else {
+                    out.write(0x40 | (best - 4));
+                    out.write((dist - 1) >>> 8);
+                    out.write((dist - 1) & 0xff);
+                }
+                i += best;
+                lit = i;
+            } else {
+                i++;
+            }
+        }
+        adcLiterals(out, in, lit, i);
+        return out.toByteArray();
+    }
+
+    private static void adcLiterals(final ByteArrayOutputStream out, final byte[] in, int from, final int to) {
+        while (from < to) {
+            final int k = Math.min(128, to - from);
+            out.write(0x80 | (k - 1));
+            out.write(in, from, k);
+            from += k;
+        }
+    }
+
+    /** Greedy LZVN encoder: literal runs, lrg_d matches (L = 0, M 3-10) extended with sml_m / lrg_m, end-of-stream. */
+    private static byte[] lzvn(final byte[] in) {
+        final ByteArrayOutputStream out = new ByteArrayOutputStream();
+        final int[] head = new int[1 << 16];
+        Arrays.fill(head, -1);
+        int lit = 0;
+        int i = 0;
+        while (i < in.length) {
+            int best = 0;
+            int dist = 0;
+            if (i + 4 <= in.length) {
+                final int h = ((in[i] & 0xff) << 8 ^ (in[i + 1] & 0xff) << 4 ^ (in[i + 2] & 0xff) ^ (in[i + 3] & 0xff) << 12) & 0xffff;
+                final int cand = head[h];
+                head[h] = i;
+                if (cand >= 0 && i - cand < 65536) {
+                    while (i + best < in.length && in[cand + best] == in[i + best]) best++;
+                    dist = i - cand;
+                }
+            }
+            if (best >= 3) {
+                lzvnLiterals(out, in, lit, i);
+                final int m = Math.min(best, 10);
+                out.write((m - 3) << 3 | 7);
+                out.write(dist & 0xff);
+                out.write(dist >>> 8);
+                for (int rem = best - m; rem > 0;) {
+                    final int k = Math.min(rem, 271);
+                    if (k >= 16) {
+                        out.write(0xF0);
+                        out.write(k - 16);
+                    } else {
+                        out.write(0xF0 | k);
+                    }
+                    rem -= k;
+                }
+                i += best;
+                lit = i;
+            } else {
+                i++;
+            }
+        }
+        lzvnLiterals(out, in, lit, i);
+        out.write(new byte[] {6, 0, 0, 0, 0, 0, 0, 0}, 0, 8);
+        return out.toByteArray();
+    }
+
+    private static void lzvnLiterals(final ByteArrayOutputStream out, final byte[] in, int from, final int to) {
+        while (from < to) {
+            final int k = Math.min(271, to - from);
+            if (k >= 16) {
+                out.write(0xE0);
+                out.write(k - 16);
+            } else {
+                out.write(0xE0 | k);
+            }
+            out.write(in, from, k);
+            from += k;
+        }
+    }
+
+    /** Adler-32 (big-endian) closing a zlib stream. */
+    private static byte[] adler(final byte[] d) {
+        final java.util.zip.Adler32 a = new java.util.zip.Adler32();
+        a.update(d);
+        final byte[] b = new byte[4];
+        putBe32(b, 0, (int) a.getValue());
+        return b;
+    }
+
+    /** Minimal encrypted disk image header ("encrcdsa", version 2): reported as not supported. */
+    private static byte[] dmgEncryptedHeader() {
+        final byte[] b = new byte[4096];
+        System.arraycopy(ascii("encrcdsa"), 0, b, 0, 8);
+        putBe32(b, 8, 2);
+        putBe32(b, 12, 16);
+        putBe32(b, 16, 0x80000001);
+        putBe32(b, 32, 128);
+        putBe32(b, 52, 4096);
+        for (int i = 128; i < b.length; i++) b[i] = (byte) (i * 151 + 7);
+        return b;
+    }
+
+    // -----------------------------------------------------------------------
     // Helpers
     // -----------------------------------------------------------------------
 
@@ -1054,6 +1748,32 @@ public final class SampleGenerator {
 
     private static void putLe64(final byte[] b, final int off, final long v) {
         for (int i = 0; i < 8; i++) b[off + i] = (byte) (v >>> (8 * i));
+    }
+
+    private static int be16(final byte[] b, final int off) {
+        return (b[off] & 0xFF) << 8 | (b[off + 1] & 0xFF);
+    }
+
+    private static long be32(final byte[] b, final int off) {
+        return ((long) be16(b, off) << 16 | be16(b, off + 2)) & 0xFFFFFFFFL;
+    }
+
+    private static void putBe16(final byte[] b, final int off, final int v) {
+        b[off] = (byte) (v >>> 8);
+        b[off + 1] = (byte) v;
+    }
+
+    private static void putBe32(final byte[] b, final int off, final int v) {
+        for (int i = 0; i < 4; i++) b[off + i] = (byte) (v >>> (24 - 8 * i));
+    }
+
+    private static void writeBe32(final ByteArrayOutputStream out, final int v) {
+        for (int i = 0; i < 4; i++) out.write(v >>> (24 - 8 * i) & 0xFF);
+    }
+
+    private static void writeBe64(final ByteArrayOutputStream out, final long v) {
+        writeBe32(out, (int) (v >>> 32));
+        writeBe32(out, (int) v);
     }
 
     private static void writeLe16(final ByteArrayOutputStream out, final int v) {

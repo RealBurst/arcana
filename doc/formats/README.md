@@ -13,7 +13,7 @@ page and its test samples (see [test/README.md](../../test/README.md)).
 | ZIP (ZipCrypto, WinZip AES, Deflate64, Zip64) | [zip.md](zip.md) | list, extract, create (Deflate, optional AES-256 or ZipCrypto) |
 | 7z | [7z.md](7z.md) | list, extract (AES-256, encrypted headers, split volumes), create (LZMA2, optional AES-256) |
 | RAR 4 and 5 | [rar.md](rar.md) | list, extract (solid, volumes, encryption, RAR 5 encrypted headers) |
-| TAR and .tar.gz / .bz2 / .xz / .lz4 / .zst / .br | [tar.md](tar.md) | list, extract; create .tar, .tar.gz, .tar.bz2, .tar.xz, .tar.lz4 |
+| TAR and .tar.gz / .bz2 / .xz / .lz4 / .zst / .br / .lz / .lzo | [tar.md](tar.md) | list, extract; create .tar, .tar.gz, .tar.bz2, .tar.xz, .tar.lz4 |
 | CPIO | [cpio.md](cpio.md) | list, extract (newc, crc, odc) |
 | AR and Debian .deb | [ar-deb.md](ar-deb.md) | list, extract (.deb unpacked like `dpkg-deb -R`) |
 | RPM | [rpm.md](rpm.md) | list, extract (gzip, bzip2, xz, zstd, lzma payloads) |
@@ -32,6 +32,8 @@ page and its test samples (see [test/README.md](../../test/README.md)).
 | UDF | [udf.md](udf.md) | list, extract (UDF 1.02 to 2.60) |
 | WIM / ESD | [wim.md](wim.md) | list, extract (XPRESS, LZX, LZMS, solid resources) |
 | SquashFS | [squashfs.md](squashfs.md) | list, extract (version 4.0, all compressors) |
+| Apple disk image (DMG, UDIF) | [dmg.md](dmg.md) | list, extract (zlib, bzip2, LZFSE, LZMA, ADC, raw chunks; APFS and other partitions as raw images) |
+| HFS+ / HFSX | [hfsplus.md](hfsplus.md) | list, extract (inside disk images: hard links, decmpfs compression) |
 
 ## Single-file compressors
 
@@ -42,6 +44,8 @@ page and its test samples (see [test/README.md](../../test/README.md)).
 | XZ and LZMA | [xz-lzma.md](xz-lzma.md) | list, extract; create XZ |
 | Zstandard | [zstd.md](zstd.md) | list, extract |
 | LZ4 | [lz4.md](lz4.md) | list, extract (create as .tar.lz4) |
+| lzip | [lzip.md](lzip.md) | list, extract (multi-member, CRC32 and sizes checked) |
+| lzop | [lzop.md](lzop.md) | list, extract (LZO1X-1, LZO1X-999, checksums verified) |
 | Snappy | [snappy.md](snappy.md) | list, extract |
 | Brotli | [brotli.md](brotli.md) | list, extract |
 | Unix compress (.Z) | [compress-z.md](compress-z.md) | list, extract |
@@ -53,6 +57,9 @@ page and its test samples (see [test/README.md](../../test/README.md)).
 |---|---|---|
 | LZX | [lzx.md](lzx.md) | CAB, CHM, WIM |
 | LZMS | [wim.md](wim.md) (section LZMS) | WIM / ESD |
+| LZO1X | [lzop.md](lzop.md), [squashfs.md](squashfs.md) | lzop, SquashFS |
+| LZFSE, LZVN | [dmg.md](dmg.md) (section LZFSE and LZVN) | DMG (ULFO), HFS+ compressed files |
+| ADC | [dmg.md](dmg.md) | DMG (UDCO) |
 
 ## Executables and tools
 
@@ -73,6 +80,7 @@ Formats handled by the official plugins are documented with each plugin:
 | JexePack | [plugins/arcana-plugin-jexepack/README.md](../../plugins/arcana-plugin-jexepack/README.md) |
 | NSIS | [plugins/arcana-plugin-nsis/README.md](../../plugins/arcana-plugin-nsis/README.md) |
 | UPX | [plugins/arcana-plugin-upx/README-upx.md](../../plugins/arcana-plugin-upx/README-upx.md) |
+| WiX Burn | [plugins/arcana-plugin-wixburn/README.md](../../plugins/arcana-plugin-wixburn/README.md) |
 | Quake PAK | sources in `plugins/arcana-plugin-pak/` |
 
 ## Known issues

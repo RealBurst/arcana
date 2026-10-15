@@ -1,0 +1,115 @@
+# Arcana regression reference (RegressionRunner --update)
+input: 6bf6d03d6923d9ef827ae1d943b90b42b8ebb1b0f68ef6d55f868fa34c738a29 32438176
+identify: archive | WiX Burn 3.x - WiX Burn bundle of WiX Toolset v3.14.1.8722 (9 packages, 1 payload not in the bundle)
+  bundle: WiX Toolset v3.14.1.8722
+  publisher: .NET Foundation
+  bundle id: {87475ca3-0418-47e5-a51f-de5bd3d0d9fb}
+  WiX engine: 3.x
+  packages: 9 (1 Exe, 8 Msi)
+  package ids: NetFx462Redist, core.msi, wix64.msi, msdk.msi, nsdk2010.msi, nsdk2012.msi, nsdk2013.msi, nsdk2015.msi, nsdk2017.msi
+  payloads: 50
+  containers: 2 in the file (UX + 1 attached)
+  not in the bundle: redist/NDP462-KB3151800-x86-x64-AllOS-ENU.exe (external, downloaded)
+list: 51 entries
+  data/core.msi 335872
+  data/core1.cab 12091814
+  data/msdk.msi 49152
+  data/msdk1.cab 2251583
+  data/n20101.cab 2542051
+  data/n20121.cab 3029557
+  data/n20131.cab 3052129
+  data/n20151.cab 3495019
+  data/n20171.cab 5047961
+  data/nsdk2010.msi 40960
+  data/nsdk2012.msi 40960
+  data/nsdk2013.msi 40960
+  data/nsdk2015.msi 40960
+  data/nsdk2017.msi 40960
+  data/wix64.msi 32768
+  data/wix641.cab 484
+  redist/NDP462-KB3151800-x86-x64-AllOS-ENU.exe (not in the bundle: external, downloaded) 62000832
+  ux/1028/mbapreq.wxl 2025
+  ux/1029/mbapreq.wxl 2458
+  ux/1030/mbapreq.wxl 2286
+  ux/1031/mbapreq.wxl 2442
+  ux/1032/mbapreq.wxl 3400
+  ux/1035/mbapreq.wxl 2235
+  ux/1036/mbapreq.wxl 2306
+  ux/1038/mbapreq.wxl 2392
+  ux/1040/mbapreq.wxl 2304
+  ux/1041/mbapreq.wxl 2545
+  ux/1042/mbapreq.wxl 2236
+  ux/1043/mbapreq.wxl 2312
+  ux/1044/mbapreq.wxl 2171
+  ux/1045/mbapreq.wxl 2368
+  ux/1046/mbapreq.wxl 2147
+  ux/1049/mbapreq.wxl 2880
+  ux/1051/mbapreq.wxl 2701
+  ux/1053/mbapreq.wxl 2132
+  ux/1055/mbapreq.wxl 2303
+  ux/1060/mbapreq.wxl 2200
+  ux/2052/mbapreq.wxl 1980
+  ux/2070/mbapreq.wxl 2211
+  ux/3082/mbapreq.wxl 2400
+  ux/BootstrapperApplicationData.xml 15770
+  ux/BootstrapperCore.config 858
+  ux/BootstrapperCore.dll 93968
+  ux/BurnManifest.xml 21862
+  ux/License.txt 3369
+  ux/WixBA.dll 86016
+  ux/mbahost.dll 142616
+  ux/mbapreq.dll 210200
+  ux/mbapreq.png 797
+  ux/mbapreq.thm 3915
+  ux/mbapreq.wxl 2464
+extracted: 50 items
+  data/core.msi 335872 15d0ecaed13e3a493119c8a2fdbda5dcfd58157a437c62af3701e5fba447734e
+  data/core1.cab 12091814 81c0fbe5fcfc8b613a5f5873a58d7540d11eba5d137ec404b6fe341d1a1899f8
+  data/msdk.msi 49152 0cf7a3f1df0aaa1e5c81844444d6f42c72725a5e7d9c2fb25723886a949a67af
+  data/msdk1.cab 2251583 8e8f7b358083bad4e6d92182e4b10177a3230f0d537736f919b294c4ecdb43c1
+  data/n20101.cab 2542051 992e5f7e243302670596887a8fc74111cd5f2eed97c9f627669692ed82e01a1a
+  data/n20121.cab 3029557 f0dd06074cb63d6a2203dd8b3f9ad2cc8c20e21ebbc0ab3bc7ed370acef189d2
+  data/n20131.cab 3052129 fbf9ffee3d342940623a7d766557269e1092e693008d93d17ca49876e95ad195
+  data/n20151.cab 3495019 97aef9172d4b3bf568546b9a031c0abc0dd471d38dc083ce39c45a9a5b9b88c2
+  data/n20171.cab 5047961 85f17c6e776158abd7df48f21e1b0671290d96eafc355fd2e0dfec096d32a7c1
+  data/nsdk2010.msi 40960 e5185b0c5629fe45be1fb4ab741c3ed4cee582bbf218048eb2b6f9e06008c18e
+  data/nsdk2012.msi 40960 bed295b6c3ca0ca52afc2ac09fe917a8dddb05d7918b370c0525823e20bfc5a1
+  data/nsdk2013.msi 40960 9eb08b37f9528730ef09dd945e718f5a537e74d334533e2fbf0ed4585430d5b4
+  data/nsdk2015.msi 40960 b32c075a614bb6cee807a45b5bdb749db3bb7f1df32308219c08c26c8eed3ee6
+  data/nsdk2017.msi 40960 f00b16d3eea75a19d5136b094c32737d5ed34a5be33e8956cda7978fbd94f525
+  data/wix64.msi 32768 8cbfe74ea04d577f048f5b15a4965ada33f924ca6f8c1328f0822ddceaea3268
+  data/wix641.cab 484 1be31dffb3f0008bd08d0b873d6e76f7ffaa84a8b6b55f3d5a59f16d6697b999
+  ux/1028/mbapreq.wxl 2025 1b93556f07c35ac0564d57e0743ccba231950962c6506c8d4a74a31cd66fd04c
+  ux/1029/mbapreq.wxl 2458 dc445e2457ed31abf536871f90ff7cc96800a40b6bc033f37d45e3156a3b4fa9
+  ux/1030/mbapreq.wxl 2286 cac263e0e90a4087446a290055257b1c39f17e11f065598cb2286df4332c7696
+  ux/1031/mbapreq.wxl 2442 631d46cb048fb6cf0b9a1362f8e5a1854c46e9525a0260c7841a04b2316c8295
+  ux/1032/mbapreq.wxl 3400 b8e90e20edf110aaaaea54fbc8533872831777be5589e380cfdd17e1f93147b5
+  ux/1035/mbapreq.wxl 2235 b7d9528f29761c82c3d926efe5e0d5036a0e0d83eb4cca7282846c86a9d6f9f3
+  ux/1036/mbapreq.wxl 2306 88e7ddacd6b714d94d5322876bd50051479b7a0c686dc2e9eb06b3b7a0bc06c9
+  ux/1038/mbapreq.wxl 2392 55cf62d54efb79801a9d94b24b3c9ba221c2465417a068950d40a67c52ba66ef
+  ux/1040/mbapreq.wxl 2304 a40c94eb33f8841c79e9f6958433affd517f97b4570f731666af572e63178bb7
+  ux/1041/mbapreq.wxl 2545 ccdcdb111efa152c5f9ff4930033698b843390a549699ae802098d87431f16fe
+  ux/1042/mbapreq.wxl 2236 d22f6ada97dbffc1e7548e52163807f982b30b11a2a5109e71f42985102cccbd
+  ux/1043/mbapreq.wxl 2312 226b778604236931b4ae45f6f272586c884a11517444a34bf45cd5cae49be62e
+  ux/1044/mbapreq.wxl 2171 41545ac1247b61c3c3e2a7e4659d9fad2bcca8347c69f2eb7b9d0cf5fc31e113
+  ux/1045/mbapreq.wxl 2368 f4aa983e39fb29c95e3306082f034b3a43e1d26489c997b8e6697b6a3b2f9f3c
+  ux/1046/mbapreq.wxl 2147 ecb5c22e6c2423caf07aebe69f4faf22450164eee9587b64ef45a2d7f658ca15
+  ux/1049/mbapreq.wxl 2880 c91c9e87ab4a6db078f1991f4a2cdc726b58a40e47bce49d39168a8f8f151c3b
+  ux/1051/mbapreq.wxl 2701 63ec83f825844c8f568130fa0ca5fc72266b2f55196769327024e66e04ca2483
+  ux/1053/mbapreq.wxl 2132 6dd61cc6b87b53eaf28430068a2a459730fd4b2bcf876ccdf040212d04c4fe7d
+  ux/1055/mbapreq.wxl 2303 06bfb6dfbc38105c699dea226a029df3ef673c33e4b8928dc4ec7fb8f761487d
+  ux/1060/mbapreq.wxl 2200 c015247d022bdc108b4ffcae89cb55d1e313034d7e6eed18744c1bb55f108f8c
+  ux/2052/mbapreq.wxl 1980 89c559c6765f8d643469e3c8f4aa93023f09369b0395ea647fad5af3c2893eb6
+  ux/2070/mbapreq.wxl 2211 e2bfdb2cf3beae2e988827c52c58006d7eead4aba5312b5eae1f6ccf3863c385
+  ux/3082/mbapreq.wxl 2400 b884c4abb8867553c1ffadd6721c2135ec5f9f1455c3f668d711ccea65363d1a
+  ux/BootstrapperApplicationData.xml 15770 f1b1e85fcf35657656bce90bc39c11ab84c3d5818adb0dd2bb635a6adb71071a
+  ux/BootstrapperCore.config 858 0e59c7072581c46ea5cae0882b789cac595c11847fc183b0176f0772b9cf4606
+  ux/BootstrapperCore.dll 93968 cf2ae76d1da5af70a72259e7e51dae62c715bc32239daf5da6b1bde122bcdab6
+  ux/BurnManifest.xml 21862 fc1a8726f34b0d745e6dd5974c171d7380991b173693c16adad196c153b552a9
+  ux/License.txt 3369 4004370957cfc16afa52582f0cbd56c98a2f00846d6dadc51c7c7ab0500c0000
+  ux/WixBA.dll 86016 b6cf308ad7473adc260f0e7b94c6d2db01e4af5c4d87534d126b59392713fe5d
+  ux/mbahost.dll 142616 d728e7449243bc7099890badb6fae3f2b082a80d9c950e498051f89a65d48687
+  ux/mbapreq.dll 210200 b7de0a0ca3a94738747abd708e30ba1f9638a8c8b7d8173c76d4f39fae3d9346
+  ux/mbapreq.png 797 a401a225addaf89110b4b0f6e8cf94779e7c0640bcdd2d670ffcf05aab0dad03
+  ux/mbapreq.thm 3915 f8c3a03f47f0b9b3c20f0522a2481da28c77fecdbb302f8dd8fbed87758cbaea
+  ux/mbapreq.wxl 2464 c63de5f309502f9272402587a6be22624d1bc2feacd1bd33fb11e44cd6614b96

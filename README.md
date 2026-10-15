@@ -1,7 +1,7 @@
 # Arcana
 
 **Pure-Java archive library and command-line tool.**
-ZIP, 7z, RAR 4 and 5, TAR, GZIP, BZIP2, XZ, LZMA, LZ4, Zstandard, Snappy, Brotli, Unix compress, LHA, ARJ, CAB, MSI and OLE compound files, CHM, CPIO, ISO 9660, UDF, WIM, SquashFS, AR / DEB, RPM, XAR, self-extracting archives, and more through plugins.
+ZIP, 7z, RAR 4 and 5, TAR, GZIP, BZIP2, XZ, LZMA, lzip, LZ4, lzop, Zstandard, Snappy, Brotli, Unix compress, LHA, ARJ, CAB, MSI and OLE compound files, CHM, CPIO, ISO 9660, UDF, WIM, SquashFS, Apple disk images (DMG, HFS+), AR / DEB, RPM, XAR, self-extracting archives, and more through plugins.
 
 No native libraries. No JNI. No external dependencies. Runs on Java 8 or later.
 
@@ -43,6 +43,8 @@ Each format has a technical page (detection, file layout, methods, limits, sourc
 | TAR+LZ4 (.tar.lz4) | yes | yes | - |
 | TAR+Zstandard (.tar.zst) | yes | - | - |
 | TAR+Brotli (.tar.br) | yes | - | - |
+| TAR+lzip (.tar.lz, .tlz) | yes | - | - |
+| TAR+lzop (.tar.lzo, .tzo) | yes | - | - |
 | GZIP | yes | yes | - |
 | BZIP2 | yes | yes | - |
 | XZ | yes | yes | - |
@@ -51,6 +53,8 @@ Each format has a technical page (detection, file layout, methods, limits, sourc
 | Zstandard | yes | - | - |
 | Snappy | yes | - | - |
 | Brotli | yes | - | - |
+| lzip (.lz) | yes | - | - |
+| lzop (.lzo) | yes | - | - |
 | Unix compress (.Z) | yes | - | - |
 | MS compress.exe (SZDD: .ex_, .dl_...) | yes | - | - |
 | LHA / LZH | yes | yes (-lh5-, -lh6-, -lh7-) | - |
@@ -64,6 +68,7 @@ Each format has a technical page (detection, file layout, methods, limits, sourc
 | UDF (DVD, Blu-ray, Windows media; revisions 1.02 to 2.60) | yes | - | - |
 | WIM / ESD (XPRESS, LZX, LZMS; not split .swm) | yes | - | - |
 | SquashFS 4.0 (gzip, LZMA, LZO, XZ, LZ4, Zstandard) | yes | - | - |
+| Apple disk image (.dmg: zlib, bzip2, LZFSE, LZMA, ADC, raw; HFS+ files, APFS and other partitions as raw images) | yes | - | - |
 | AR / Debian package (.a, .deb) | yes | - | - |
 | RPM (gzip, bzip2, xz, zstd payload) | yes | - | - |
 | XAR | yes | - | - |
@@ -375,6 +380,7 @@ When running from an IDE (classes not packaged in a JAR), `arcana version` print
 | [arcana-plugin-pak](plugins/arcana-plugin-pak) | Quake PAK archives (id Software, 1996) | `.pak` | extract, compress, recover, split | Stephane Bury | Apache-2.0 | 1.0.0 |
 | [arcana-plugin-upx](plugins/arcana-plugin-upx) | Unpacks UPX-compressed executables (NRV2B/2D/2E and LZMA) for static analysis, without ever running them | Windows PE32 / PE32+, Linux ELF (by content) | extract | Stephane Bury | GPL-3.0-or-later | 1.0.0 |
 | [arcana-plugin-nsis](plugins/arcana-plugin-nsis) | NSIS installer | Windows exe | extract | Stephane Bury | Apache-2.0 | 1.0.0 |
+| [arcana-plugin-wixburn](plugins/arcana-plugin-wixburn) | WiX Burn bundles (WiX 3.x to 6): packages, bootstrapper application files and manifest | Windows exe (by content) | extract, identify | Stephane Bury | Apache-2.0 | 1.0.6 |
 
 
 ### Submit your plugin

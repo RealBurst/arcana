@@ -1,0 +1,20 @@
+# Arcana regression reference (RegressionRunner --update)
+input: c27fb8948328074dcb81f45b7d88ff4e123a86c06eaf3d5b330369bc39ffab69 25939870
+identify: archive | DMG 4 - Apple disk image (UDIF), ULFO (LZFSE)
+  format: ULFO (LZFSE)
+  image variant: 1 (device image)
+  size: 129013760 bytes (251980 sectors)
+  data fork checksum: CRC32 c69c8549
+  partitions: 8
+  partition -1: Protective Master Boot Record (MBR : 0): partition scheme, not extracted
+  partition 0: GPT Header (Primary GPT Header : 1): partition scheme, not extracted
+  partition 1: GPT Partition Data (Primary GPT Table : 2): partition scheme, not extracted
+  partition 2:  (Apple_Free : 3): partition scheme, not extracted
+  partition 3: disk image (Apple_APFS : 4): APFS, extracted as a raw image: disk image.apfs.img
+  partition 4:  (Apple_Free : 5): partition scheme, not extracted
+  partition 5: GPT Partition Data (Backup GPT Table : 6): partition scheme, not extracted
+  partition 6: GPT Header (Backup GPT Header : 7): partition scheme, not extracted
+list: 1 entries
+  disk image.apfs.img 128974848
+extracted: 1 items
+  disk image.apfs.img 128974848 59db71f94e6bee7378ca216056142af470c5ac34e0f34e1c021e1fa385282251

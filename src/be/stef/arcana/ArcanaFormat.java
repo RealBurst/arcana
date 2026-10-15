@@ -103,6 +103,9 @@ public enum ArcanaFormat {
     /** SquashFS 4.0 file system (.sqfs, .squashfs, .snap). gzip, LZMA, LZO, XZ, LZ4 and Zstandard. */
     SQUASHFS("SquashFS", new String[]{"sqfs", "squashfs", "snap"}),
 
+    /** Apple disk image (.dmg, UDIF): HFS+ volumes extracted, other partitions as raw images. Extraction only. */
+    DMG("Apple disk image", new String[]{"dmg"}),
+
     /** OLE compound file: Windows Installer package (.msi, real file tree), .msp, legacy Office documents, Outlook messages. */
     OLE("OLE compound file", new String[]{"msi", "msp", "doc", "xls", "ppt", "msg"}),
 
@@ -126,6 +129,18 @@ public enum ArcanaFormat {
 
     /** TAR archive compressed with Brotli (.tar.br, .tbr). Extraction only. */
     TAR_BROTLI("TAR+Brotli", new String[]{"tar.br", "tbr"}),
+
+    /** lzip-compressed single file (.lz): LZMA members with CRC32 and sizes. Extraction only. */
+    LZIP("lzip", new String[]{"lz"}),
+
+    /** TAR archive compressed with lzip (.tar.lz, .tlz). Extraction only. */
+    TAR_LZIP("TAR+lzip", new String[]{"tar.lz", "tlz"}),
+
+    /** lzop-compressed single file (.lzo): LZO1X blocks. Extraction only. */
+    LZOP("lzop", new String[]{"lzo"}),
+
+    /** TAR archive compressed with lzop (.tar.lzo, .tzo). Extraction only. */
+    TAR_LZOP("TAR+lzop", new String[]{"tar.lzo", "tzo"}),
 
     /** Self-extracting executable (Windows EXE carrying a ZIP, RAR, 7z, CAB... archive). */
     SFX("Self-extracting executable", new String[]{"exe"}),

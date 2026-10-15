@@ -1,0 +1,6 @@
+# Arcana regression reference (RegressionRunner --update)
+input: dfe6d89a3356feba08f252025e46dde0bf0ea02a3eb0b4e81ec0f5f2b97600c1 916
+identify: archive | lzip 1 - lzip compressed stream (LZMA)
+  dictionary size: 30 KB
+list: ERROR ArcanaCorruptedException: lzip: CRC32 mismatch in member 1 (stored 53EB6E96, computed 53EB6EC3)
+extract: ERROR ArcanaCorruptedException: lzip: CRC32 mismatch in member 1 (stored 53EB6E96, computed 53EB6EC3)

@@ -1,0 +1,27 @@
+# Arcana regression reference (RegressionRunner --update)
+input: 8f8b07833322d78fd4ad3abb1713f78ff930fa98cd97f61b1b52749a5bc5384b 19817
+identify: archive | DMG 4 - Apple disk image (UDIF), UDZO (zlib)
+  format: UDZO (zlib)
+  image variant: 1 (device image)
+  size: 1090560 bytes (2130 sectors)
+  data fork checksum: CRC32 10d810a0
+  partitions: 5
+  partition -1: Driver Descriptor Map (DDM : 0): partition scheme, not extracted
+  partition 0: Apple (Apple_partition_map : 1): partition scheme, not extracted
+  partition 1: Macintosh (Apple_Driver_ATAPI : 2): partition scheme, not extracted
+  partition 2: Mac_OS_X (Apple_HFSX : 3): HFS+ volume "ArcanaTest" (signature H+, version 4, 5 files, 7 folders)
+  partition 3:  (Apple_Free : 4): partition scheme, not extracted
+list: 12 entries
+  bin (folder)
+  bin/random.bin 4096
+  deep (folder)
+  deep/a (folder)
+  deep/a/b (folder)
+  deep/a/b/c (folder)
+  deep/a/b/c/leaf.txt 5
+  docs (folder)
+  docs/empty.txt 0
+  docs/notes.txt 29490
+  empty-dir (folder)
+  readme.txt 1520
+extract: ERROR ArcanaCorruptedException: Disk image data fork CRC32 mismatch (stored 10d810a0, computed 41f380f6)

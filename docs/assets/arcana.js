@@ -223,6 +223,9 @@
   // (and in the "Signature" column of the formats table in index.html).
   function identify(b, name) {
     var e = ext(name), m;
+    // Apple disk image: Arcana checks the "koly" trailer in the last 512 bytes before any magic; only the start of the file is read here
+    if (e === ".dmg") return { off: -1, len: 0, title: "Apple disk image (DMG: Arcana finds its \"koly\" trailer in the last 512 bytes)", how: "x" };
+    if (at(b, 0, ascii("encrcdsa"))) return { off: 0, len: 8, title: "Encrypted Apple disk image (not supported)", how: "i" };
     if (at(b, 0, bytes("52 61 72 21 1A 07 01 00"))) return { off: 0, len: 8, title: "RAR 5 archive", how: "x", fmt: "rar" };
     if (at(b, 0, bytes("52 61 72 21 1A 07 00"))) return { off: 0, len: 7, title: "RAR 4 archive", how: "x", fmt: "rar" };
     if (at(b, 0, bytes("50 4B 03 04"))) { m = zipKind(b, name); return { off: 0, len: 4, title: m[0], inside: m[1], how: "x", fmt: "zip" }; }

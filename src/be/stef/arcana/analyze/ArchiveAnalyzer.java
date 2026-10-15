@@ -15,14 +15,19 @@
  */
 package be.stef.arcana.analyze;
 
+import be.stef.arcana.exceptions.ArcanaUnsupportedFormatException;
 import be.stef.arcana.formats.carve.ByteSource;
+import be.stef.arcana.formats.dmg.DmgContent;
+import be.stef.arcana.formats.dmg.UdifImage;
+import be.stef.arcana.formats.hfs.HfsPlusReader;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
 /**
  * Identifies archives and compressed streams by their signature, and refines a
- * few of them: the RAR major version, and the real kind of a ZIP container
- * (JAR, APK, docx/xlsx/pptx, EPUB...).
+ * few of them: the RAR major version, the real kind of a ZIP container
+ * (JAR, APK, docx/xlsx/pptx, EPUB...), the format and partitions of an Apple
+ * disk image.
  *
  * @author Stef
  * @since 1.4
@@ -36,6 +41,9 @@ public final class ArchiveAnalyzer implements ArcanaAnalyzer {
 
     @Override
     public Identification analyze(final ByteSource s, final String fileName) throws IOException {
+        // first: the data fork of a disk image may start with any stream ("BZh"...)
+        final Identification dmg = dmg(s);
+        if (dmg != null) return dmg;
         final int c0 = s.u8(0), c1 = s.u8(1);
         if (c0 == 'P' && c1 == 'K' && (s.u8(2) == 3 || s.u8(2) == 5 || s.u8(2) == 7)) return zip(s, fileName);
         if (c0 == 'R' && c1 == 'a' && s.u8(2) == 'r' && s.u8(3) == '!') return rar(s);
@@ -45,6 +53,8 @@ public final class ArchiveAnalyzer implements ArcanaAnalyzer {
         if (c0 == 'B' && c1 == 'Z' && s.u8(2) == 'h') return bzip2(s);
         if (c0 == 0x28 && c1 == 0xB5 && s.u8(2) == 0x2F && s.u8(3) == 0xFD) return simple("archive", "Zstandard", "Zstandard compressed stream");
         if (c0 == 0x04 && c1 == 0x22 && s.u8(2) == 0x4D && s.u8(3) == 0x18) return simple("archive", "LZ4", "LZ4 frame");
+        if (c0 == 'L' && c1 == 'Z' && s.u8(2) == 'I' && s.u8(3) == 'P') return lzip(s);
+        if (c0 == 0x89 && s.u32be(1) == 0x4C5A4F00L && s.u32be(5) == 0x0D0A1A0AL) return lzop(s);
         if (c0 == 'M' && c1 == 'S' && s.u8(2) == 'C' && s.u8(3) == 'F') return cab(s);
         if (c0 == 0x1F && (c1 == 0x9D || c1 == 0xA0)) return simple("archive", "compress", "Unix compress (.Z) stream");
         if (matchAt(s, 257, "ustar")) return simple("archive", "TAR", "TAR (POSIX ustar) archive");
@@ -101,6 +111,22 @@ public final class ArchiveAnalyzer implements ArcanaAnalyzer {
         return Identification.of("archive", "bzip2").description("bzip2 compressed stream").detail("block size", block).build();
     }
 
+    private static Identification lzip(final ByteSource s) throws IOException {
+        // "LZIP", version, coded dictionary size (2^(bits 0-4) minus bits 5-7 sixteenths)
+        final int coded = s.u8(5);
+        final long base = 1L << (coded & 0x1F);
+        final long dict = base - (base / 16) * (coded >>> 5);
+        return Identification.of("archive", "lzip").version(String.valueOf(s.u8(4))).description("lzip compressed stream (LZMA)").detail("dictionary size", dict >= 1024 ? (dict / 1024) + " KB" : dict + " bytes").build();
+    }
+
+    private static Identification lzop(final ByteSource s) throws IOException {
+        // version (16-bit BE) at 9; method at 15 from version 0x0940 on, else at 13
+        final int version = s.u16be(9);
+        final int method = s.u8(version >= 0x0940 ? 15 : 13);
+        final String m = method == 1 ? "LZO1X-1" : method == 2 ? "LZO1X-1(15)" : method == 3 ? "LZO1X-999" : "method " + method;
+        return Identification.of("archive", "lzop").version(String.format("%X.%X%X", version >> 12, (version >> 8) & 0xF, (version >> 4) & 0xF)).description("lzop compressed stream (LZO)").detail("method", m).build();
+    }
+
     private static Identification cab(final ByteSource s) throws IOException {
         final int minor = s.u8(24), major = s.u8(25);
         final int folders = s.u16le(26), files = s.u16le(28);
@@ -132,6 +158,63 @@ public final class ArchiveAnalyzer implements ArcanaAnalyzer {
                 .description("LHA/LZH archive (method " + method + ")")
                 .detail("method", method)
                 .build();
+    }
+
+    /** Apple disk image: "koly" trailer, or encrypted / sparse image header. */
+    private static Identification dmg(final ByteSource s) throws IOException {
+        final UdifImage.Input in = new UdifImage.Input() {
+            @Override
+            public long length() {
+                return s.length();
+            }
+
+            @Override
+            public int read(final long pos, final byte[] b, final int off, final int len) throws IOException {
+                return s.read(pos, b, off, len);
+            }
+
+            @Override
+            public void close() {
+                // the caller owns the source
+            }
+        };
+        final String kind = UdifImage.probe(in);
+        if (kind == null) return null;
+        final Identification.Builder b = Identification.of("archive", "DMG");
+        if (kind.equals("encrypted")) return b.description("Apple disk image, encrypted (AES): not supported").detail("encrypted", "yes (not supported)").build();
+        if (kind.equals("sparse")) return b.description("Apple sparse disk image (.sparseimage): not supported").build();
+        try (UdifImage img = new UdifImage(in)) {
+            b.version(String.valueOf(img.getVersion())).description("Apple disk image (UDIF), " + img.getFormatName());
+            b.detail("format", img.getFormatName());
+            final int v = img.getImageVariant();
+            b.detail("image variant", v == 1 ? "1 (device image)" : v == 2 ? "2 (partition image)" : String.valueOf(v));
+            b.detail("size", img.getSectorCount() * UdifImage.SECTOR + " bytes (" + img.getSectorCount() + " sectors)");
+            b.detail("data fork checksum", img.getDataForkChecksumType() == UdifImage.CHECKSUM_CRC32 ? String.format("CRC32 %08x", img.getDataForkChecksum()) : "type " + img.getDataForkChecksumType());
+            b.detail("partitions", img.getPartitions().size());
+            for (final DmgContent.Item it : DmgContent.plan(img)) {
+                final UdifImage.Partition p = it.partition;
+                String d;
+                if (it.kind == DmgContent.SCHEME) {
+                    d = "partition scheme, not extracted";
+                } else if (it.kind == DmgContent.EMPTY) {
+                    d = "empty, not extracted";
+                } else if (it.kind == DmgContent.HFS) {
+                    final HfsPlusReader r = new HfsPlusReader(img.openPartition(p));
+                    d = (r.getSignature().equals("HX") ? "HFSX" : "HFS+") + " volume \"" + r.getVolumeName() + "\" (signature " + r.getSignature() + ", version " + r.getVersion() + ", " + r.getFileCount() + " files, " + r.getFolderCount() + " folders" + (r.isJournaled() ? ", journaled" : "") + ")";
+                    r.walk(e -> { });
+                    if (r.getResourceForkCount() > 0) d += ", " + r.getResourceForkCount() + " resource fork(s) not extracted";
+                    if (r.getDirectoryLinkCount() > 0) d += ", " + r.getDirectoryLinkCount() + " directory hard link(s) not extracted";
+                } else {
+                    d = (it.fileSystem != null ? it.fileSystem : "unknown file system") + ", extracted as a raw image: " + it.target;
+                }
+                b.detail("partition " + p.id, p.name + ": " + d);
+            }
+        } catch (final ArcanaUnsupportedFormatException e) {
+            b.description("Apple disk image (UDIF): " + e.getMessage());
+        } catch (final IOException e) {
+            b.detail("error", e.getMessage());
+        }
+        return b.build();
     }
 
     private static Identification simple(final String cat, final String type, final String desc) {

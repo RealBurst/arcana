@@ -1,0 +1,6 @@
+# Arcana regression reference (RegressionRunner --update)
+input: 35801b571f01bad07dc0f089b57018c7ddf050687f3ef087596a37dc87c1d75b 1829
+identify: archive | lzop 1.04 - lzop compressed stream (LZO)
+  method: LZO1X-1
+list: ERROR ArcanaCorruptedException: lzop: unexpected end of file in a block
+extract: ERROR ArcanaCorruptedException: lzop: unexpected end of file in a block

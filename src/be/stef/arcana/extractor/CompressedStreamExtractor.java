@@ -33,6 +33,8 @@ import be.stef.arcana.formats.bzip2.BZip2InputStream;
 import be.stef.arcana.formats.cpio.CpioEntry;
 import be.stef.arcana.formats.cpio.CpioInputStream;
 import be.stef.arcana.formats.lz4.LZ4InputStream;
+import be.stef.arcana.formats.lzip.LzipInputStream;
+import be.stef.arcana.formats.lzo.LzopInputStream;
 import be.stef.arcana.formats.snappy.SnappyInputStream;
 import be.stef.arcana.formats.tar.TarInputStream;
 import be.stef.arcana.formats.xz.LZMAInputStream;
@@ -46,7 +48,7 @@ import be.stef.arcana.util.SafePathBuilder;
 
 /**
  * Wraps a single-stream compression format (GZIP, BZIP2, XZ, LZMA, Zstandard,
- * LZ4, Snappy, Brotli) and unpacks the archive it contains, if any.
+ * LZ4, Snappy, Brotli, lzip, lzop) and unpacks the archive it contains, if any.
  *
  * <p>The first 512 decompressed bytes are inspected:</p>
  * <ul>
@@ -85,7 +87,7 @@ public class CompressedStreamExtractor implements ArchiveExtractor {
     /** True for the formats handled by {@link #openDecompressed(ArcanaFormat, InputStream)}. */
     public static boolean isStreamFormat(final ArcanaFormat f) {
         switch (f) {
-            case GZIP: case BZIP2: case XZ: case LZMA: case ZSTD: case LZ4: case SNAPPY: case BROTLI:
+            case GZIP: case BZIP2: case XZ: case LZMA: case ZSTD: case LZ4: case SNAPPY: case BROTLI: case LZIP: case LZOP:
                 return true;
             default:
                 return false;
@@ -103,6 +105,8 @@ public class CompressedStreamExtractor implements ArchiveExtractor {
             case LZ4:    return new LZ4InputStream(in);
             case SNAPPY: return new SnappyInputStream(in);
             case BROTLI: return new BrotliInputStream(in);
+            case LZIP:   return new LzipInputStream(in);
+            case LZOP:   return new LzopInputStream(in);
             default:     throw new ArcanaUnsupportedFormatException("Not a single-stream compression format: " + f);
         }
     }
@@ -259,6 +263,8 @@ public class CompressedStreamExtractor implements ArchiveExtractor {
             case ZSTD:   return ArcanaFormat.TAR_ZSTD;
             case LZ4:    return ArcanaFormat.TAR_LZ4;
             case BROTLI: return ArcanaFormat.TAR_BROTLI;
+            case LZIP:   return ArcanaFormat.TAR_LZIP;
+            case LZOP:   return ArcanaFormat.TAR_LZOP;
             default:     return ArcanaFormat.TAR;
         }
     }

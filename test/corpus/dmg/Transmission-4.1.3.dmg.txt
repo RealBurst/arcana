@@ -1,0 +1,1297 @@
+# Arcana regression reference (RegressionRunner --update)
+input: d622736c19990262f2ab12183e1acaa5b0dad5777ddc7db0a187c06e035a7e1a 11186296
+identify: archive | DMG 4 - Apple disk image (UDIF), UDBZ (bzip2)
+  format: UDBZ (bzip2)
+  image variant: 1 (device image)
+  size: 31719424 bytes (61952 sectors)
+  data fork checksum: type 0
+  partitions: 8
+  partition -1: Protective Master Boot Record (MBR : 0): partition scheme, not extracted
+  partition 0: GPT Header (Primary GPT Header : 1): partition scheme, not extracted
+  partition 1: GPT Partition Data (Primary GPT Table : 2): partition scheme, not extracted
+  partition 2:  (Apple_Free : 3): partition scheme, not extracted
+  partition 3: disk image (Apple_HFS : 4): HFS+ volume "Transmission" (signature H+, version 4, 555 files, 171 folders)
+  partition 4:  (Apple_Free : 5): partition scheme, not extracted
+  partition 5: GPT Partition Data (Backup GPT Table : 6): partition scheme, not extracted
+  partition 6: GPT Header (Backup GPT Header : 7): partition scheme, not extracted
+list: 724 entries
+  .DS_Store 6148
+  Transmission.app (folder)
+  Transmission.app/Contents (folder)
+  Transmission.app/Contents/Frameworks (folder)
+  Transmission.app/Contents/Frameworks/Sparkle.framework (folder)
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Headers 0
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Modules 0
+  Transmission.app/Contents/Frameworks/Sparkle.framework/PrivateHeaders 0
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Resources 0
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Sparkle 0
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions (folder)
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A (folder)
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Headers (folder)
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Headers/SPUDownloadData.h 973
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Headers/SPUDownloader.h 791
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Headers/SPUDownloaderDelegate.h 1153
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Headers/SPUDownloaderProtocol.h 797
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Headers/SPUDownloaderSession.h 428
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Headers/SPUURLRequest.h 871
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Headers/SUAppcast.h 700
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Headers/SUAppcastItem.h 2082
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Headers/SUCodeSigningVerifier.h 681
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Headers/SUErrors.h 1335
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Headers/SUExport.h 302
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Headers/SUStandardVersionComparator.h 1227
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Headers/SUUpdater.h 7745
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Headers/SUUpdaterDelegate.h 12956
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Headers/SUVersionComparisonProtocol.h 820
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Headers/SUVersionDisplayProtocol.h 679
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Headers/Sparkle.h 1084
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Modules (folder)
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Modules/module.modulemap 95
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/PrivateHeaders (folder)
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/PrivateHeaders/SUUnarchiver.h 483
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources (folder)
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app (folder)
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents (folder)
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Info.plist 1670
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/MacOS (folder)
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/MacOS/Autoupdate 542144
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/MacOS/fileop 285120
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/PkgInfo 8
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources (folder)
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/AppIcon.icns 37132
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/Base.lproj (folder)
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/Base.lproj/Sparkle.strings 10196
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/SUStatus.nib (folder)
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/SUStatus.nib/keyedobjects-101300.nib 10683
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/SUStatus.nib/keyedobjects.nib 12937
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/ar.lproj (folder)
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/ar.lproj/Sparkle.strings 8468
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/ca.lproj (folder)
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/ca.lproj/Sparkle.strings 6792
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/cs.lproj (folder)
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/cs.lproj/Sparkle.strings 10570
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/da.lproj (folder)
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/da.lproj/Sparkle.strings 8306
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/de.lproj (folder)
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/de.lproj/Sparkle.strings 10148
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/el.lproj (folder)
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/el.lproj/Sparkle.strings 7734
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/es.lproj (folder)
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/es.lproj/Sparkle.strings 10030
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/fi.lproj (folder)
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/fi.lproj/Sparkle.strings 6184
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/fr.lproj (folder)
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/fr.lproj/Sparkle.strings 10170
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/he.lproj (folder)
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/he.lproj/Sparkle.strings 5288
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/hr.lproj (folder)
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/hr.lproj/Sparkle.strings 9778
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/hu.lproj (folder)
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/hu.lproj/Sparkle.strings 10002
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/is.lproj (folder)
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/is.lproj/Sparkle.strings 5868
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/it.lproj (folder)
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/it.lproj/Sparkle.strings 8340
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/ja.lproj (folder)
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/ja.lproj/Sparkle.strings 8552
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/ko.lproj (folder)
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/ko.lproj/Sparkle.strings 6220
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/nb.lproj (folder)
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/nb.lproj/Sparkle.strings 9352
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/nl.lproj (folder)
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/nl.lproj/Sparkle.strings 8850
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/pl.lproj (folder)
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/pl.lproj/Sparkle.strings 7318
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/pt_BR.lproj (folder)
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/pt_BR.lproj/Sparkle.strings 9728
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/pt_PT.lproj (folder)
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/pt_PT.lproj/Sparkle.strings 7896
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/ro.lproj (folder)
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/ro.lproj/Sparkle.strings 9806
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/ru.lproj (folder)
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/ru.lproj/Sparkle.strings 7668
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/sk.lproj (folder)
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/sk.lproj/Sparkle.strings 7548
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/sl.lproj (folder)
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/sl.lproj/Sparkle.strings 7944
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/sv.lproj (folder)
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/sv.lproj/Sparkle.strings 7834
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/th.lproj (folder)
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/th.lproj/Sparkle.strings 8492
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/tr.lproj (folder)
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/tr.lproj/Sparkle.strings 9716
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/uk.lproj (folder)
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/uk.lproj/Sparkle.strings 7860
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/zh_CN.lproj (folder)
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/zh_CN.lproj/Sparkle.strings 6128
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/zh_TW.lproj (folder)
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/zh_TW.lproj/Sparkle.strings 5748
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/_CodeSignature (folder)
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/_CodeSignature/CodeResources 17429
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Base.lproj (folder)
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Base.lproj/SUAutomaticUpdateAlert.nib (folder)
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Base.lproj/SUAutomaticUpdateAlert.nib/keyedobjects-101300.nib 13694
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Base.lproj/SUAutomaticUpdateAlert.nib/keyedobjects.nib 16812
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Base.lproj/SUUpdateAlert.nib (folder)
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Base.lproj/SUUpdateAlert.nib/keyedobjects-101300.nib 17534
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Base.lproj/SUUpdateAlert.nib/keyedobjects.nib 21983
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Base.lproj/SUUpdatePermissionPrompt.nib (folder)
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Base.lproj/SUUpdatePermissionPrompt.nib/keyedobjects-101300.nib 17088
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Base.lproj/SUUpdatePermissionPrompt.nib/keyedobjects-110000.nib 17052
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Base.lproj/SUUpdatePermissionPrompt.nib/keyedobjects.nib 21550
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Base.lproj/Sparkle.strings 10196
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Info.plist 1349
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/ReleaseNotesColorStyle.css 203
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/SUModelTranslation.plist 11859
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/SUStatus.nib (folder)
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/SUStatus.nib/keyedobjects-101300.nib 10682
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/SUStatus.nib/keyedobjects.nib 12937
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/ar.lproj (folder)
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/ar.lproj/SUAutomaticUpdateAlert.strings 1038
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/ar.lproj/SUUpdateAlert.strings 1416
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/ar.lproj/SUUpdatePermissionPrompt.strings 2656
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/ar.lproj/Sparkle.strings 8468
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/ca.lproj (folder)
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/ca.lproj/SUAutomaticUpdateAlert.strings 544
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/ca.lproj/SUUpdateAlert.strings 792
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/ca.lproj/Sparkle.strings 6792
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/cs.lproj (folder)
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/cs.lproj/SUAutomaticUpdateAlert.strings 526
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/cs.lproj/SUUpdateAlert.strings 761
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/cs.lproj/SUUpdatePermissionPrompt.strings 1314
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/cs.lproj/Sparkle.strings 10570
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/da.lproj (folder)
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/da.lproj/SUAutomaticUpdateAlert.strings 1046
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/da.lproj/SUUpdateAlert.strings 1436
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/da.lproj/SUUpdatePermissionPrompt.strings 2504
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/da.lproj/Sparkle.strings 8306
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/de.lproj (folder)
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/de.lproj/SUAutomaticUpdateAlert.strings 1114
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/de.lproj/SUUpdateAlert.strings 1488
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/de.lproj/SUUpdatePermissionPrompt.strings 2556
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/de.lproj/Sparkle.strings 10148
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/el.lproj (folder)
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/el.lproj/SUAutomaticUpdateAlert.strings 1114
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/el.lproj/SUUpdateAlert.strings 1516
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/el.lproj/SUUpdatePermissionPrompt.strings 2612
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/el.lproj/Sparkle.strings 7734
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/en.lproj (folder)
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/en.lproj/SUAutomaticUpdateAlert.strings 516
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/en.lproj/SUUpdateAlert.strings 731
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/en.lproj/SUUpdatePermissionPrompt.strings 1277
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/es.lproj (folder)
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/es.lproj/SUAutomaticUpdateAlert.strings 1050
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/es.lproj/SUUpdateAlert.strings 1560
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/es.lproj/SUUpdatePermissionPrompt.strings 2808
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/es.lproj/Sparkle.strings 10030
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/fi.lproj (folder)
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/fi.lproj/SUAutomaticUpdateAlert.strings 1118
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/fi.lproj/SUUpdateAlert.strings 1500
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/fi.lproj/SUUpdatePermissionPrompt.strings 2648
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/fi.lproj/Sparkle.strings 6184
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/fr.lproj (folder)
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/fr.lproj/SUAutomaticUpdateAlert.strings 1042
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/fr.lproj/SUUpdateAlert.strings 1496
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/fr.lproj/SUUpdatePermissionPrompt.strings 2764
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/fr.lproj/Sparkle.strings 10170
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/he.lproj (folder)
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/he.lproj/SUAutomaticUpdateAlert.strings 538
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/he.lproj/SUUpdateAlert.strings 781
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/he.lproj/Sparkle.strings 5288
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/hr.lproj (folder)
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/hr.lproj/SUAutomaticUpdateAlert.strings 1078
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/hr.lproj/SUUpdateAlert.strings 1560
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/hr.lproj/SUUpdatePermissionPrompt.strings 2468
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/hr.lproj/Sparkle.strings 9778
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/hu.lproj (folder)
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/hu.lproj/SUAutomaticUpdateAlert.strings 1118
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/hu.lproj/SUUpdateAlert.strings 1584
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/hu.lproj/SUUpdatePermissionPrompt.strings 2596
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/hu.lproj/Sparkle.strings 10002
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/is.lproj (folder)
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/is.lproj/SUAutomaticUpdateAlert.strings 1034
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/is.lproj/SUUpdateAlert.strings 1452
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/is.lproj/SUUpdatePermissionPrompt.strings 2628
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/is.lproj/Sparkle.strings 5868
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/it.lproj (folder)
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/it.lproj/SUAutomaticUpdateAlert.strings 1058
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/it.lproj/SUUpdateAlert.strings 1540
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/it.lproj/SUUpdatePermissionPrompt.strings 2716
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/it.lproj/Sparkle.strings 8340
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/ja.lproj (folder)
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/ja.lproj/SUAutomaticUpdateAlert.strings 854
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/ja.lproj/SUUpdateAlert.strings 1256
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/ja.lproj/SUUpdatePermissionPrompt.strings 1876
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/ja.lproj/Sparkle.strings 8552
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/ko.lproj (folder)
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/ko.lproj/SUAutomaticUpdateAlert.strings 790
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/ko.lproj/SUUpdateAlert.strings 1192
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/ko.lproj/SUUpdatePermissionPrompt.strings 1892
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/ko.lproj/Sparkle.strings 6220
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/nb.lproj (folder)
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/nb.lproj/SUAutomaticUpdateAlert.strings 1026
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/nb.lproj/SUUpdateAlert.strings 1352
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/nb.lproj/SUUpdatePermissionPrompt.strings 2452
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/nb.lproj/Sparkle.strings 9352
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/nl.lproj (folder)
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/nl.lproj/SUAutomaticUpdateAlert.strings 1098
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/nl.lproj/SUUpdateAlert.strings 1508
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/nl.lproj/SUUpdatePermissionPrompt.strings 2660
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/nl.lproj/Sparkle.strings 8850
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/pl.lproj (folder)
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/pl.lproj/SUAutomaticUpdateAlert.strings 1098
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/pl.lproj/SUUpdateAlert.strings 1548
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/pl.lproj/SUUpdatePermissionPrompt.strings 2620
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/pl.lproj/Sparkle.strings 7318
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/pt_BR.lproj (folder)
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/pt_BR.lproj/SUAutomaticUpdateAlert.strings 1034
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/pt_BR.lproj/SUUpdateAlert.strings 1524
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/pt_BR.lproj/SUUpdatePermissionPrompt.strings 2676
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/pt_BR.lproj/Sparkle.strings 9728
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/pt_PT.lproj (folder)
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/pt_PT.lproj/SUAutomaticUpdateAlert.strings 1058
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/pt_PT.lproj/SUUpdatePermissionPrompt.strings 2760
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/pt_PT.lproj/Sparkle.strings 7896
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/ro.lproj (folder)
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/ro.lproj/SUAutomaticUpdateAlert.strings 1062
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/ro.lproj/SUUpdateAlert.strings 1556
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/ro.lproj/SUUpdatePermissionPrompt.strings 2604
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/ro.lproj/Sparkle.strings 9806
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/ru.lproj (folder)
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/ru.lproj/SUAutomaticUpdateAlert.strings 1118
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/ru.lproj/SUUpdateAlert.strings 1624
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/ru.lproj/SUUpdatePermissionPrompt.strings 2780
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/ru.lproj/Sparkle.strings 7668
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/sk.lproj (folder)
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/sk.lproj/SUAutomaticUpdateAlert.strings 1078
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/sk.lproj/SUUpdateAlert.strings 1532
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/sk.lproj/SUUpdatePermissionPrompt.strings 2604
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/sk.lproj/Sparkle.strings 7548
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/sl.lproj (folder)
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/sl.lproj/SUAutomaticUpdateAlert.strings 1010
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/sl.lproj/SUUpdateAlert.strings 1520
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/sl.lproj/SUUpdatePermissionPrompt.strings 2504
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/sl.lproj/Sparkle.strings 7944
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/sv.lproj (folder)
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/sv.lproj/SUAutomaticUpdateAlert.strings 1114
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/sv.lproj/SUUpdateAlert.strings 1596
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/sv.lproj/SUUpdatePermissionPrompt.strings 2640
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/sv.lproj/Sparkle.strings 7834
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/th.lproj (folder)
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/th.lproj/SUAutomaticUpdateAlert.strings 970
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/th.lproj/SUUpdateAlert.strings 1404
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/th.lproj/SUUpdatePermissionPrompt.strings 2272
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/th.lproj/Sparkle.strings 8492
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/tr.lproj (folder)
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/tr.lproj/SUAutomaticUpdateAlert.strings 1046
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/tr.lproj/SUUpdateAlert.strings 1428
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/tr.lproj/SUUpdatePermissionPrompt.strings 2612
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/tr.lproj/Sparkle.strings 9716
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/uk.lproj (folder)
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/uk.lproj/SUUpdateAlert.strings 1664
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/uk.lproj/SUUpdatePermissionPrompt.strings 2600
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/uk.lproj/Sparkle.strings 7860
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/zh_CN.lproj (folder)
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/zh_CN.lproj/SUAutomaticUpdateAlert.strings 726
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/zh_CN.lproj/SUUpdateAlert.strings 1080
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/zh_CN.lproj/SUUpdatePermissionPrompt.strings 1736
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/zh_CN.lproj/Sparkle.strings 6128
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/zh_TW.lproj (folder)
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/zh_TW.lproj/SUAutomaticUpdateAlert.strings 738
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/zh_TW.lproj/SUUpdateAlert.strings 1092
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/zh_TW.lproj/SUUpdatePermissionPrompt.strings 1756
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/zh_TW.lproj/Sparkle.strings 5748
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Sparkle 1423952
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/_CodeSignature (folder)
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/_CodeSignature/CodeResources 86111
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/Current 0
+  Transmission.app/Contents/Info.plist 4057
+  Transmission.app/Contents/Library (folder)
+  Transmission.app/Contents/Library/QuickLook (folder)
+  Transmission.app/Contents/Library/QuickLook/QuickLookPlugin.qlgenerator (folder)
+  Transmission.app/Contents/Library/QuickLook/QuickLookPlugin.qlgenerator/Contents (folder)
+  Transmission.app/Contents/Library/QuickLook/QuickLookPlugin.qlgenerator/Contents/Info.plist 2398
+  Transmission.app/Contents/Library/QuickLook/QuickLookPlugin.qlgenerator/Contents/MacOS (folder)
+  Transmission.app/Contents/Library/QuickLook/QuickLookPlugin.qlgenerator/Contents/MacOS/QuickLookPlugin 4332864
+  Transmission.app/Contents/Library/QuickLook/QuickLookPlugin.qlgenerator/Contents/Resources (folder)
+  Transmission.app/Contents/Library/QuickLook/QuickLookPlugin.qlgenerator/Contents/Resources/da.lproj (folder)
+  Transmission.app/Contents/Library/QuickLook/QuickLookPlugin.qlgenerator/Contents/Resources/da.lproj/Localizable.strings 1162
+  Transmission.app/Contents/Library/QuickLook/QuickLookPlugin.qlgenerator/Contents/Resources/de.lproj (folder)
+  Transmission.app/Contents/Library/QuickLook/QuickLookPlugin.qlgenerator/Contents/Resources/de.lproj/Localizable.strings 1202
+  Transmission.app/Contents/Library/QuickLook/QuickLookPlugin.qlgenerator/Contents/Resources/en.lproj (folder)
+  Transmission.app/Contents/Library/QuickLook/QuickLookPlugin.qlgenerator/Contents/Resources/en.lproj/InfoPlist.strings 92
+  Transmission.app/Contents/Library/QuickLook/QuickLookPlugin.qlgenerator/Contents/Resources/en.lproj/Localizable.strings 1176
+  Transmission.app/Contents/Library/QuickLook/QuickLookPlugin.qlgenerator/Contents/Resources/es.lproj (folder)
+  Transmission.app/Contents/Library/QuickLook/QuickLookPlugin.qlgenerator/Contents/Resources/es.lproj/Localizable.strings 1190
+  Transmission.app/Contents/Library/QuickLook/QuickLookPlugin.qlgenerator/Contents/Resources/eu.lproj (folder)
+  Transmission.app/Contents/Library/QuickLook/QuickLookPlugin.qlgenerator/Contents/Resources/eu.lproj/Localizable.strings 1218
+  Transmission.app/Contents/Library/QuickLook/QuickLookPlugin.qlgenerator/Contents/Resources/fr.lproj (folder)
+  Transmission.app/Contents/Library/QuickLook/QuickLookPlugin.qlgenerator/Contents/Resources/fr.lproj/Localizable.strings 1182
+  Transmission.app/Contents/Library/QuickLook/QuickLookPlugin.qlgenerator/Contents/Resources/he.lproj (folder)
+  Transmission.app/Contents/Library/QuickLook/QuickLookPlugin.qlgenerator/Contents/Resources/he.lproj/Localizable.strings 1144
+  Transmission.app/Contents/Library/QuickLook/QuickLookPlugin.qlgenerator/Contents/Resources/hu.lproj (folder)
+  Transmission.app/Contents/Library/QuickLook/QuickLookPlugin.qlgenerator/Contents/Resources/hu.lproj/Localizable.strings 1212
+  Transmission.app/Contents/Library/QuickLook/QuickLookPlugin.qlgenerator/Contents/Resources/it.lproj (folder)
+  Transmission.app/Contents/Library/QuickLook/QuickLookPlugin.qlgenerator/Contents/Resources/it.lproj/Localizable.strings 1194
+  Transmission.app/Contents/Library/QuickLook/QuickLookPlugin.qlgenerator/Contents/Resources/ja.lproj (folder)
+  Transmission.app/Contents/Library/QuickLook/QuickLookPlugin.qlgenerator/Contents/Resources/ja.lproj/Localizable.strings 1092
+  Transmission.app/Contents/Library/QuickLook/QuickLookPlugin.qlgenerator/Contents/Resources/nl.lproj (folder)
+  Transmission.app/Contents/Library/QuickLook/QuickLookPlugin.qlgenerator/Contents/Resources/nl.lproj/Localizable.strings 1184
+  Transmission.app/Contents/Library/QuickLook/QuickLookPlugin.qlgenerator/Contents/Resources/pl.lproj (folder)
+  Transmission.app/Contents/Library/QuickLook/QuickLookPlugin.qlgenerator/Contents/Resources/pl.lproj/Localizable.strings 1336
+  Transmission.app/Contents/Library/QuickLook/QuickLookPlugin.qlgenerator/Contents/Resources/pt-BR.lproj (folder)
+  Transmission.app/Contents/Library/QuickLook/QuickLookPlugin.qlgenerator/Contents/Resources/pt-BR.lproj/Localizable.strings 1216
+  Transmission.app/Contents/Library/QuickLook/QuickLookPlugin.qlgenerator/Contents/Resources/pt-PT.lproj (folder)
+  Transmission.app/Contents/Library/QuickLook/QuickLookPlugin.qlgenerator/Contents/Resources/pt-PT.lproj/Localizable.strings 1182
+  Transmission.app/Contents/Library/QuickLook/QuickLookPlugin.qlgenerator/Contents/Resources/ru.lproj (folder)
+  Transmission.app/Contents/Library/QuickLook/QuickLookPlugin.qlgenerator/Contents/Resources/ru.lproj/Localizable.strings 1228
+  Transmission.app/Contents/Library/QuickLook/QuickLookPlugin.qlgenerator/Contents/Resources/style.css 956
+  Transmission.app/Contents/Library/QuickLook/QuickLookPlugin.qlgenerator/Contents/Resources/sv.lproj (folder)
+  Transmission.app/Contents/Library/QuickLook/QuickLookPlugin.qlgenerator/Contents/Resources/sv.lproj/Localizable.strings 1214
+  Transmission.app/Contents/Library/QuickLook/QuickLookPlugin.qlgenerator/Contents/Resources/tr.lproj (folder)
+  Transmission.app/Contents/Library/QuickLook/QuickLookPlugin.qlgenerator/Contents/Resources/tr.lproj/Localizable.strings 1240
+  Transmission.app/Contents/Library/QuickLook/QuickLookPlugin.qlgenerator/Contents/Resources/uk.lproj (folder)
+  Transmission.app/Contents/Library/QuickLook/QuickLookPlugin.qlgenerator/Contents/Resources/uk.lproj/Localizable.strings 1170
+  Transmission.app/Contents/Library/QuickLook/QuickLookPlugin.qlgenerator/Contents/Resources/zh-CN.lproj (folder)
+  Transmission.app/Contents/Library/QuickLook/QuickLookPlugin.qlgenerator/Contents/Resources/zh-CN.lproj/Localizable.strings 1108
+  Transmission.app/Contents/Library/QuickLook/QuickLookPlugin.qlgenerator/Contents/Resources/zh-TW.lproj (folder)
+  Transmission.app/Contents/Library/QuickLook/QuickLookPlugin.qlgenerator/Contents/Resources/zh-TW.lproj/Localizable.strings 1090
+  Transmission.app/Contents/Library/QuickLook/QuickLookPlugin.qlgenerator/Contents/_CodeSignature (folder)
+  Transmission.app/Contents/Library/QuickLook/QuickLookPlugin.qlgenerator/Contents/_CodeSignature/CodeResources 10251
+  Transmission.app/Contents/MacOS (folder)
+  Transmission.app/Contents/MacOS/Transmission 5877296
+  Transmission.app/Contents/PkgInfo 8
+  Transmission.app/Contents/PlugIns (folder)
+  Transmission.app/Contents/PlugIns/QuickLookExtension.appex (folder)
+  Transmission.app/Contents/PlugIns/QuickLookExtension.appex/Contents (folder)
+  Transmission.app/Contents/PlugIns/QuickLookExtension.appex/Contents/Info.plist 1644
+  Transmission.app/Contents/PlugIns/QuickLookExtension.appex/Contents/MacOS (folder)
+  Transmission.app/Contents/PlugIns/QuickLookExtension.appex/Contents/MacOS/QuickLookExtension 2870640
+  Transmission.app/Contents/PlugIns/QuickLookExtension.appex/Contents/Resources (folder)
+  Transmission.app/Contents/PlugIns/QuickLookExtension.appex/Contents/Resources/da.lproj (folder)
+  Transmission.app/Contents/PlugIns/QuickLookExtension.appex/Contents/Resources/da.lproj/Localizable.strings 1162
+  Transmission.app/Contents/PlugIns/QuickLookExtension.appex/Contents/Resources/de.lproj (folder)
+  Transmission.app/Contents/PlugIns/QuickLookExtension.appex/Contents/Resources/de.lproj/Localizable.strings 1202
+  Transmission.app/Contents/PlugIns/QuickLookExtension.appex/Contents/Resources/en.lproj (folder)
+  Transmission.app/Contents/PlugIns/QuickLookExtension.appex/Contents/Resources/en.lproj/Localizable.strings 1176
+  Transmission.app/Contents/PlugIns/QuickLookExtension.appex/Contents/Resources/es.lproj (folder)
+  Transmission.app/Contents/PlugIns/QuickLookExtension.appex/Contents/Resources/es.lproj/Localizable.strings 1190
+  Transmission.app/Contents/PlugIns/QuickLookExtension.appex/Contents/Resources/eu.lproj (folder)
+  Transmission.app/Contents/PlugIns/QuickLookExtension.appex/Contents/Resources/eu.lproj/Localizable.strings 1218
+  Transmission.app/Contents/PlugIns/QuickLookExtension.appex/Contents/Resources/fr.lproj (folder)
+  Transmission.app/Contents/PlugIns/QuickLookExtension.appex/Contents/Resources/fr.lproj/Localizable.strings 1182
+  Transmission.app/Contents/PlugIns/QuickLookExtension.appex/Contents/Resources/he.lproj (folder)
+  Transmission.app/Contents/PlugIns/QuickLookExtension.appex/Contents/Resources/he.lproj/Localizable.strings 1144
+  Transmission.app/Contents/PlugIns/QuickLookExtension.appex/Contents/Resources/hu.lproj (folder)
+  Transmission.app/Contents/PlugIns/QuickLookExtension.appex/Contents/Resources/hu.lproj/Localizable.strings 1212
+  Transmission.app/Contents/PlugIns/QuickLookExtension.appex/Contents/Resources/it.lproj (folder)
+  Transmission.app/Contents/PlugIns/QuickLookExtension.appex/Contents/Resources/it.lproj/Localizable.strings 1194
+  Transmission.app/Contents/PlugIns/QuickLookExtension.appex/Contents/Resources/ja.lproj (folder)
+  Transmission.app/Contents/PlugIns/QuickLookExtension.appex/Contents/Resources/ja.lproj/Localizable.strings 1092
+  Transmission.app/Contents/PlugIns/QuickLookExtension.appex/Contents/Resources/nl.lproj (folder)
+  Transmission.app/Contents/PlugIns/QuickLookExtension.appex/Contents/Resources/nl.lproj/Localizable.strings 1184
+  Transmission.app/Contents/PlugIns/QuickLookExtension.appex/Contents/Resources/pl.lproj (folder)
+  Transmission.app/Contents/PlugIns/QuickLookExtension.appex/Contents/Resources/pl.lproj/Localizable.strings 1290
+  Transmission.app/Contents/PlugIns/QuickLookExtension.appex/Contents/Resources/pt-BR.lproj (folder)
+  Transmission.app/Contents/PlugIns/QuickLookExtension.appex/Contents/Resources/pt-BR.lproj/Localizable.strings 1216
+  Transmission.app/Contents/PlugIns/QuickLookExtension.appex/Contents/Resources/pt-PT.lproj (folder)
+  Transmission.app/Contents/PlugIns/QuickLookExtension.appex/Contents/Resources/pt-PT.lproj/Localizable.strings 1182
+  Transmission.app/Contents/PlugIns/QuickLookExtension.appex/Contents/Resources/ru.lproj (folder)
+  Transmission.app/Contents/PlugIns/QuickLookExtension.appex/Contents/Resources/ru.lproj/Localizable.strings 1228
+  Transmission.app/Contents/PlugIns/QuickLookExtension.appex/Contents/Resources/style.css 1857
+  Transmission.app/Contents/PlugIns/QuickLookExtension.appex/Contents/Resources/sv.lproj (folder)
+  Transmission.app/Contents/PlugIns/QuickLookExtension.appex/Contents/Resources/sv.lproj/Localizable.strings 1214
+  Transmission.app/Contents/PlugIns/QuickLookExtension.appex/Contents/Resources/tr.lproj (folder)
+  Transmission.app/Contents/PlugIns/QuickLookExtension.appex/Contents/Resources/tr.lproj/Localizable.strings 1240
+  Transmission.app/Contents/PlugIns/QuickLookExtension.appex/Contents/Resources/uk.lproj (folder)
+  Transmission.app/Contents/PlugIns/QuickLookExtension.appex/Contents/Resources/uk.lproj/Localizable.strings 1170
+  Transmission.app/Contents/PlugIns/QuickLookExtension.appex/Contents/Resources/zh-CN.lproj (folder)
+  Transmission.app/Contents/PlugIns/QuickLookExtension.appex/Contents/Resources/zh-CN.lproj/Localizable.strings 1108
+  Transmission.app/Contents/PlugIns/QuickLookExtension.appex/Contents/Resources/zh-TW.lproj (folder)
+  Transmission.app/Contents/PlugIns/QuickLookExtension.appex/Contents/Resources/zh-TW.lproj/Localizable.strings 1090
+  Transmission.app/Contents/PlugIns/QuickLookExtension.appex/Contents/_CodeSignature (folder)
+  Transmission.app/Contents/PlugIns/QuickLookExtension.appex/Contents/_CodeSignature/CodeResources 9884
+  Transmission.app/Contents/Resources (folder)
+  Transmission.app/Contents/Resources/AboutWindow.nib 20927
+  Transmission.app/Contents/Resources/Assets.car 2291992
+  Transmission.app/Contents/Resources/Base.lproj (folder)
+  Transmission.app/Contents/Resources/Base.lproj/AddMagnetWindow.nib 21039
+  Transmission.app/Contents/Resources/Base.lproj/AddWindow.nib 29954
+  Transmission.app/Contents/Resources/Base.lproj/Creator.nib 33420
+  Transmission.app/Contents/Resources/Base.lproj/GlobalOptionsPopover.nib 22313
+  Transmission.app/Contents/Resources/Base.lproj/GroupRules.nib 19304
+  Transmission.app/Contents/Resources/Base.lproj/InfoActivityView.nib 35458
+  Transmission.app/Contents/Resources/Base.lproj/InfoGeneralView.nib 25210
+  Transmission.app/Contents/Resources/Base.lproj/InfoOptionsView.nib 32672
+  Transmission.app/Contents/Resources/Base.lproj/MainMenu.nib 180259
+  Transmission.app/Contents/Resources/Base.lproj/PrefsWindow.nib 159695
+  Transmission.app/Contents/Resources/BlocklistStatusWindow.nib 8442
+  Transmission.app/Contents/Resources/COPYING 711
+  Transmission.app/Contents/Resources/Credits.rtf 7032
+  Transmission.app/Contents/Resources/Defaults.plist 4548
+  Transmission.app/Contents/Resources/FileRenameSheetController.nib 9248
+  Transmission.app/Contents/Resources/FilterBar.nib 16154
+  Transmission.app/Contents/Resources/InfoFileView.nib 37530
+  Transmission.app/Contents/Resources/InfoPeersView.nib 23716
+  Transmission.app/Contents/Resources/InfoTrackersView.nib 11599
+  Transmission.app/Contents/Resources/InfoWindow.nib 12090
+  Transmission.app/Contents/Resources/MessageWindow.nib 25570
+  Transmission.app/Contents/Resources/StatsWindow.nib 14878
+  Transmission.app/Contents/Resources/StatusBar.nib 12783
+  Transmission.app/Contents/Resources/TransmissionDocument.icns 560537
+  Transmission.app/Contents/Resources/TransmissionHelp (folder)
+  Transmission.app/Contents/Resources/TransmissionHelp/TransmissionHelp.helpindex 40827
+  Transmission.app/Contents/Resources/TransmissionHelp/gfx (folder)
+  Transmission.app/Contents/Resources/TransmissionHelp/gfx/TransWindow.png 23235
+  Transmission.app/Contents/Resources/TransmissionHelp/gfx/TransmissionIcon.png 1877
+  Transmission.app/Contents/Resources/TransmissionHelp/gfx/creation.png 7838
+  Transmission.app/Contents/Resources/TransmissionHelp/gfx/fileselection.png 11965
+  Transmission.app/Contents/Resources/TransmissionHelp/gfx/group.png 22473
+  Transmission.app/Contents/Resources/TransmissionHelp/gfx/inspector.png 20138
+  Transmission.app/Contents/Resources/TransmissionHelp/gfx/open.png 15124
+  Transmission.app/Contents/Resources/TransmissionHelp/gfx/queue.png 6295
+  Transmission.app/Contents/Resources/TransmissionHelp/gfx/scheduler.png 5791
+  Transmission.app/Contents/Resources/TransmissionHelp/html (folder)
+  Transmission.app/Contents/Resources/TransmissionHelp/html/FAQ.html 5520
+  Transmission.app/Contents/Resources/TransmissionHelp/html/Index2.html 1628
+  Transmission.app/Contents/Resources/TransmissionHelp/html/check.html 1022
+  Transmission.app/Contents/Resources/TransmissionHelp/html/gettingstarted.html 7755
+  Transmission.app/Contents/Resources/TransmissionHelp/html/network.html 1675
+  Transmission.app/Contents/Resources/TransmissionHelp/html/peers.html 3418
+  Transmission.app/Contents/Resources/TransmissionHelp/html/pffirewall.html 1273
+  Transmission.app/Contents/Resources/TransmissionHelp/html/pfrouter.html 4749
+  Transmission.app/Contents/Resources/TransmissionHelp/html/portforward.html 1824
+  Transmission.app/Contents/Resources/TransmissionHelp/html/remote.html 1753
+  Transmission.app/Contents/Resources/TransmissionHelp/html/scripts.html 1084
+  Transmission.app/Contents/Resources/TransmissionHelp/html/speed.html 2338
+  Transmission.app/Contents/Resources/TransmissionHelp/html/tracker.html 1811
+  Transmission.app/Contents/Resources/TransmissionHelp/html/troubleshoot.html 3637
+  Transmission.app/Contents/Resources/TransmissionHelp/html/usingt.html 1732
+  Transmission.app/Contents/Resources/TransmissionHelp/index.html 1732
+  Transmission.app/Contents/Resources/TransmissionHelp/styles (folder)
+  Transmission.app/Contents/Resources/TransmissionHelp/styles/TransBody.css 3079
+  Transmission.app/Contents/Resources/TransmissionHelp/styles/TransIndex.css 1299
+  Transmission.app/Contents/Resources/TransmissionHelp/styles/indexpage.css 1923
+  Transmission.app/Contents/Resources/TransmissionHelp/styles/task_style.css 2435
+  Transmission.app/Contents/Resources/Transmission_Tahoe.icns 76155
+  Transmission.app/Contents/Resources/URLSheetWindow.nib 9161
+  Transmission.app/Contents/Resources/da.lproj (folder)
+  Transmission.app/Contents/Resources/da.lproj/AddMagnetWindow.strings 1140
+  Transmission.app/Contents/Resources/da.lproj/AddWindow.strings 1789
+  Transmission.app/Contents/Resources/da.lproj/Creator.strings 1385
+  Transmission.app/Contents/Resources/da.lproj/GlobalOptionsPopover.strings 1247
+  Transmission.app/Contents/Resources/da.lproj/GroupRules.strings 1930
+  Transmission.app/Contents/Resources/da.lproj/InfoActivityView.strings 3142
+  Transmission.app/Contents/Resources/da.lproj/InfoGeneralView.strings 1768
+  Transmission.app/Contents/Resources/da.lproj/InfoOptionsView.strings 2638
+  Transmission.app/Contents/Resources/da.lproj/InfoPlist.strings 372
+  Transmission.app/Contents/Resources/da.lproj/Localizable.strings 75274
+  Transmission.app/Contents/Resources/da.lproj/MainMenu.strings 13542
+  Transmission.app/Contents/Resources/da.lproj/PrefsWindow.strings 16937
+  Transmission.app/Contents/Resources/de.lproj (folder)
+  Transmission.app/Contents/Resources/de.lproj/AddMagnetWindow.strings 1147
+  Transmission.app/Contents/Resources/de.lproj/AddWindow.strings 1819
+  Transmission.app/Contents/Resources/de.lproj/Creator.strings 1408
+  Transmission.app/Contents/Resources/de.lproj/GlobalOptionsPopover.strings 1237
+  Transmission.app/Contents/Resources/de.lproj/GroupRules.strings 1996
+  Transmission.app/Contents/Resources/de.lproj/InfoActivityView.strings 3172
+  Transmission.app/Contents/Resources/de.lproj/InfoGeneralView.strings 1791
+  Transmission.app/Contents/Resources/de.lproj/InfoOptionsView.strings 2646
+  Transmission.app/Contents/Resources/de.lproj/InfoPlist.strings 372
+  Transmission.app/Contents/Resources/de.lproj/Localizable.strings 79472
+  Transmission.app/Contents/Resources/de.lproj/MainMenu.strings 13891
+  Transmission.app/Contents/Resources/de.lproj/PrefsWindow.strings 17667
+  Transmission.app/Contents/Resources/en.lproj (folder)
+  Transmission.app/Contents/Resources/en.lproj/InfoPlist.strings 372
+  Transmission.app/Contents/Resources/en.lproj/Localizable.strings 75094
+  Transmission.app/Contents/Resources/es.lproj (folder)
+  Transmission.app/Contents/Resources/es.lproj/AddMagnetWindow.strings 1148
+  Transmission.app/Contents/Resources/es.lproj/AddWindow.strings 1797
+  Transmission.app/Contents/Resources/es.lproj/Creator.strings 1388
+  Transmission.app/Contents/Resources/es.lproj/GlobalOptionsPopover.strings 1246
+  Transmission.app/Contents/Resources/es.lproj/GroupRules.strings 1971
+  Transmission.app/Contents/Resources/es.lproj/InfoActivityView.strings 3143
+  Transmission.app/Contents/Resources/es.lproj/InfoGeneralView.strings 1782
+  Transmission.app/Contents/Resources/es.lproj/InfoOptionsView.strings 2682
+  Transmission.app/Contents/Resources/es.lproj/InfoPlist.strings 372
+  Transmission.app/Contents/Resources/es.lproj/Localizable.strings 76608
+  Transmission.app/Contents/Resources/es.lproj/MainMenu.strings 13804
+  Transmission.app/Contents/Resources/es.lproj/PrefsWindow.strings 17085
+  Transmission.app/Contents/Resources/eu.lproj (folder)
+  Transmission.app/Contents/Resources/eu.lproj/AddMagnetWindow.strings 1149
+  Transmission.app/Contents/Resources/eu.lproj/AddWindow.strings 1817
+  Transmission.app/Contents/Resources/eu.lproj/Creator.strings 1404
+  Transmission.app/Contents/Resources/eu.lproj/GlobalOptionsPopover.strings 1246
+  Transmission.app/Contents/Resources/eu.lproj/GroupRules.strings 1973
+  Transmission.app/Contents/Resources/eu.lproj/InfoActivityView.strings 3189
+  Transmission.app/Contents/Resources/eu.lproj/InfoGeneralView.strings 1792
+  Transmission.app/Contents/Resources/eu.lproj/InfoOptionsView.strings 2676
+  Transmission.app/Contents/Resources/eu.lproj/InfoPlist.strings 372
+  Transmission.app/Contents/Resources/eu.lproj/Localizable.strings 78658
+  Transmission.app/Contents/Resources/eu.lproj/MainMenu.strings 14027
+  Transmission.app/Contents/Resources/eu.lproj/PrefsWindow.strings 17444
+  Transmission.app/Contents/Resources/fr.lproj (folder)
+  Transmission.app/Contents/Resources/fr.lproj/AddMagnetWindow.strings 1158
+  Transmission.app/Contents/Resources/fr.lproj/AddWindow.strings 1847
+  Transmission.app/Contents/Resources/fr.lproj/Creator.strings 1415
+  Transmission.app/Contents/Resources/fr.lproj/GlobalOptionsPopover.strings 1286
+  Transmission.app/Contents/Resources/fr.lproj/GroupRules.strings 1997
+  Transmission.app/Contents/Resources/fr.lproj/InfoActivityView.strings 3209
+  Transmission.app/Contents/Resources/fr.lproj/InfoGeneralView.strings 1832
+  Transmission.app/Contents/Resources/fr.lproj/InfoOptionsView.strings 2700
+  Transmission.app/Contents/Resources/fr.lproj/InfoPlist.strings 372
+  Transmission.app/Contents/Resources/fr.lproj/Localizable.strings 79514
+  Transmission.app/Contents/Resources/fr.lproj/MainMenu.strings 14290
+  Transmission.app/Contents/Resources/fr.lproj/PrefsWindow.strings 18043
+  Transmission.app/Contents/Resources/he.lproj (folder)
+  Transmission.app/Contents/Resources/he.lproj/AddMagnetWindow.strings 1193
+  Transmission.app/Contents/Resources/he.lproj/AddWindow.strings 1890
+  Transmission.app/Contents/Resources/he.lproj/Creator.strings 1431
+  Transmission.app/Contents/Resources/he.lproj/GlobalOptionsPopover.strings 1323
+  Transmission.app/Contents/Resources/he.lproj/GroupRules.strings 1985
+  Transmission.app/Contents/Resources/he.lproj/InfoActivityView.strings 3323
+  Transmission.app/Contents/Resources/he.lproj/InfoGeneralView.strings 1887
+  Transmission.app/Contents/Resources/he.lproj/InfoOptionsView.strings 2827
+  Transmission.app/Contents/Resources/he.lproj/InfoPlist.strings 372
+  Transmission.app/Contents/Resources/he.lproj/Localizable.strings 71552
+  Transmission.app/Contents/Resources/he.lproj/MainMenu.strings 14699
+  Transmission.app/Contents/Resources/he.lproj/PrefsWindow.strings 18533
+  Transmission.app/Contents/Resources/hu.lproj (folder)
+  Transmission.app/Contents/Resources/hu.lproj/AddMagnetWindow.strings 1166
+  Transmission.app/Contents/Resources/hu.lproj/AddWindow.strings 1820
+  Transmission.app/Contents/Resources/hu.lproj/Creator.strings 1417
+  Transmission.app/Contents/Resources/hu.lproj/GlobalOptionsPopover.strings 1262
+  Transmission.app/Contents/Resources/hu.lproj/GroupRules.strings 1975
+  Transmission.app/Contents/Resources/hu.lproj/InfoActivityView.strings 3158
+  Transmission.app/Contents/Resources/hu.lproj/InfoGeneralView.strings 1812
+  Transmission.app/Contents/Resources/hu.lproj/InfoOptionsView.strings 2743
+  Transmission.app/Contents/Resources/hu.lproj/InfoPlist.strings 372
+  Transmission.app/Contents/Resources/hu.lproj/Localizable.strings 76790
+  Transmission.app/Contents/Resources/hu.lproj/MainMenu.strings 14163
+  Transmission.app/Contents/Resources/hu.lproj/PrefsWindow.strings 17589
+  Transmission.app/Contents/Resources/it.lproj (folder)
+  Transmission.app/Contents/Resources/it.lproj/AddMagnetWindow.strings 1150
+  Transmission.app/Contents/Resources/it.lproj/AddWindow.strings 1784
+  Transmission.app/Contents/Resources/it.lproj/Creator.strings 1404
+  Transmission.app/Contents/Resources/it.lproj/GlobalOptionsPopover.strings 1235
+  Transmission.app/Contents/Resources/it.lproj/GroupRules.strings 1980
+  Transmission.app/Contents/Resources/it.lproj/InfoActivityView.strings 3154
+  Transmission.app/Contents/Resources/it.lproj/InfoGeneralView.strings 1780
+  Transmission.app/Contents/Resources/it.lproj/InfoOptionsView.strings 2652
+  Transmission.app/Contents/Resources/it.lproj/InfoPlist.strings 372
+  Transmission.app/Contents/Resources/it.lproj/Localizable.strings 78114
+  Transmission.app/Contents/Resources/it.lproj/MainMenu.strings 13908
+  Transmission.app/Contents/Resources/it.lproj/PrefsWindow.strings 17158
+  Transmission.app/Contents/Resources/ja.lproj (folder)
+  Transmission.app/Contents/Resources/ja.lproj/AddMagnetWindow.strings 1173
+  Transmission.app/Contents/Resources/ja.lproj/AddWindow.strings 1840
+  Transmission.app/Contents/Resources/ja.lproj/Creator.strings 1462
+  Transmission.app/Contents/Resources/ja.lproj/GlobalOptionsPopover.strings 1264
+  Transmission.app/Contents/Resources/ja.lproj/GroupRules.strings 2071
+  Transmission.app/Contents/Resources/ja.lproj/InfoActivityView.strings 3216
+  Transmission.app/Contents/Resources/ja.lproj/InfoGeneralView.strings 1825
+  Transmission.app/Contents/Resources/ja.lproj/InfoOptionsView.strings 2631
+  Transmission.app/Contents/Resources/ja.lproj/InfoPlist.strings 372
+  Transmission.app/Contents/Resources/ja.lproj/Localizable.strings 66038
+  Transmission.app/Contents/Resources/ja.lproj/MainMenu.strings 14300
+  Transmission.app/Contents/Resources/ja.lproj/PrefsWindow.strings 17682
+  Transmission.app/Contents/Resources/nl.lproj (folder)
+  Transmission.app/Contents/Resources/nl.lproj/AddMagnetWindow.strings 1135
+  Transmission.app/Contents/Resources/nl.lproj/AddWindow.strings 1774
+  Transmission.app/Contents/Resources/nl.lproj/Creator.strings 1379
+  Transmission.app/Contents/Resources/nl.lproj/GlobalOptionsPopover.strings 1222
+  Transmission.app/Contents/Resources/nl.lproj/GroupRules.strings 1947
+  Transmission.app/Contents/Resources/nl.lproj/InfoActivityView.strings 3304
+  Transmission.app/Contents/Resources/nl.lproj/InfoGeneralView.strings 1869
+  Transmission.app/Contents/Resources/nl.lproj/InfoOptionsView.strings 2640
+  Transmission.app/Contents/Resources/nl.lproj/InfoPlist.strings 372
+  Transmission.app/Contents/Resources/nl.lproj/Localizable.strings 77202
+  Transmission.app/Contents/Resources/nl.lproj/MainMenu.strings 13725
+  Transmission.app/Contents/Resources/nl.lproj/PrefsWindow.strings 16958
+  Transmission.app/Contents/Resources/pl.lproj (folder)
+  Transmission.app/Contents/Resources/pl.lproj/AddMagnetWindow.strings 1144
+  Transmission.app/Contents/Resources/pl.lproj/AddWindow.strings 1809
+  Transmission.app/Contents/Resources/pl.lproj/Creator.strings 1428
+  Transmission.app/Contents/Resources/pl.lproj/GlobalOptionsPopover.strings 1283
+  Transmission.app/Contents/Resources/pl.lproj/GroupRules.strings 1995
+  Transmission.app/Contents/Resources/pl.lproj/InfoActivityView.strings 3244
+  Transmission.app/Contents/Resources/pl.lproj/InfoGeneralView.strings 1855
+  Transmission.app/Contents/Resources/pl.lproj/InfoOptionsView.strings 2742
+  Transmission.app/Contents/Resources/pl.lproj/InfoPlist.strings 372
+  Transmission.app/Contents/Resources/pl.lproj/Localizable.strings 77644
+  Transmission.app/Contents/Resources/pl.lproj/MainMenu.strings 13945
+  Transmission.app/Contents/Resources/pl.lproj/PrefsWindow.strings 17694
+  Transmission.app/Contents/Resources/pt-BR.lproj (folder)
+  Transmission.app/Contents/Resources/pt-BR.lproj/AddMagnetWindow.strings 1151
+  Transmission.app/Contents/Resources/pt-BR.lproj/AddWindow.strings 1800
+  Transmission.app/Contents/Resources/pt-BR.lproj/Creator.strings 1406
+  Transmission.app/Contents/Resources/pt-BR.lproj/GlobalOptionsPopover.strings 1246
+  Transmission.app/Contents/Resources/pt-BR.lproj/GroupRules.strings 1947
+  Transmission.app/Contents/Resources/pt-BR.lproj/InfoActivityView.strings 3156
+  Transmission.app/Contents/Resources/pt-BR.lproj/InfoGeneralView.strings 1785
+  Transmission.app/Contents/Resources/pt-BR.lproj/InfoOptionsView.strings 2683
+  Transmission.app/Contents/Resources/pt-BR.lproj/InfoPlist.strings 372
+  Transmission.app/Contents/Resources/pt-BR.lproj/Localizable.strings 77690
+  Transmission.app/Contents/Resources/pt-BR.lproj/MainMenu.strings 13965
+  Transmission.app/Contents/Resources/pt-BR.lproj/PrefsWindow.strings 17446
+  Transmission.app/Contents/Resources/pt-PT.lproj (folder)
+  Transmission.app/Contents/Resources/pt-PT.lproj/AddMagnetWindow.strings 1147
+  Transmission.app/Contents/Resources/pt-PT.lproj/AddWindow.strings 1790
+  Transmission.app/Contents/Resources/pt-PT.lproj/Creator.strings 1400
+  Transmission.app/Contents/Resources/pt-PT.lproj/GlobalOptionsPopover.strings 1270
+  Transmission.app/Contents/Resources/pt-PT.lproj/GroupRules.strings 1959
+  Transmission.app/Contents/Resources/pt-PT.lproj/InfoActivityView.strings 3149
+  Transmission.app/Contents/Resources/pt-PT.lproj/InfoGeneralView.strings 1788
+  Transmission.app/Contents/Resources/pt-PT.lproj/InfoOptionsView.strings 2710
+  Transmission.app/Contents/Resources/pt-PT.lproj/InfoPlist.strings 372
+  Transmission.app/Contents/Resources/pt-PT.lproj/Localizable.strings 78174
+  Transmission.app/Contents/Resources/pt-PT.lproj/MainMenu.strings 13954
+  Transmission.app/Contents/Resources/pt-PT.lproj/PrefsWindow.strings 17474
+  Transmission.app/Contents/Resources/public_html (folder)
+  Transmission.app/Contents/Resources/public_html/images (folder)
+  Transmission.app/Contents/Resources/public_html/images/apple-touch-icon.png 4451
+  Transmission.app/Contents/Resources/public_html/images/favicon.ico 5430
+  Transmission.app/Contents/Resources/public_html/images/favicon.svg 8388
+  Transmission.app/Contents/Resources/public_html/index.html 3715
+  Transmission.app/Contents/Resources/public_html/transmission-app.css 45673
+  Transmission.app/Contents/Resources/public_html/transmission-app.css.LEGAL.txt 0
+  Transmission.app/Contents/Resources/public_html/transmission-app.css.map 56989
+  Transmission.app/Contents/Resources/public_html/transmission-app.js 113029
+  Transmission.app/Contents/Resources/public_html/transmission-app.js.LEGAL.txt 447
+  Transmission.app/Contents/Resources/ru.lproj (folder)
+  Transmission.app/Contents/Resources/ru.lproj/AddMagnetWindow.strings 1263
+  Transmission.app/Contents/Resources/ru.lproj/AddWindow.strings 1939
+  Transmission.app/Contents/Resources/ru.lproj/Creator.strings 1564
+  Transmission.app/Contents/Resources/ru.lproj/GlobalOptionsPopover.strings 1384
+  Transmission.app/Contents/Resources/ru.lproj/GroupRules.strings 2153
+  Transmission.app/Contents/Resources/ru.lproj/InfoActivityView.strings 3473
+  Transmission.app/Contents/Resources/ru.lproj/InfoGeneralView.strings 1967
+  Transmission.app/Contents/Resources/ru.lproj/InfoOptionsView.strings 3089
+  Transmission.app/Contents/Resources/ru.lproj/InfoPlist.strings 372
+  Transmission.app/Contents/Resources/ru.lproj/Localizable.strings 75430
+  Transmission.app/Contents/Resources/ru.lproj/MainMenu.strings 15642
+  Transmission.app/Contents/Resources/ru.lproj/PrefsWindow.strings 19661
+  Transmission.app/Contents/Resources/sparkle_dsa_pub.pem 1178
+  Transmission.app/Contents/Resources/sv.lproj (folder)
+  Transmission.app/Contents/Resources/sv.lproj/AddMagnetWindow.strings 1145
+  Transmission.app/Contents/Resources/sv.lproj/AddWindow.strings 1786
+  Transmission.app/Contents/Resources/sv.lproj/Creator.strings 1379
+  Transmission.app/Contents/Resources/sv.lproj/GlobalOptionsPopover.strings 1251
+  Transmission.app/Contents/Resources/sv.lproj/GroupRules.strings 1965
+  Transmission.app/Contents/Resources/sv.lproj/InfoActivityView.strings 3152
+  Transmission.app/Contents/Resources/sv.lproj/InfoGeneralView.strings 1766
+  Transmission.app/Contents/Resources/sv.lproj/InfoOptionsView.strings 2695
+  Transmission.app/Contents/Resources/sv.lproj/InfoPlist.strings 372
+  Transmission.app/Contents/Resources/sv.lproj/Localizable.strings 76694
+  Transmission.app/Contents/Resources/sv.lproj/MainMenu.strings 13674
+  Transmission.app/Contents/Resources/sv.lproj/PrefsWindow.strings 17365
+  Transmission.app/Contents/Resources/tr.lproj (folder)
+  Transmission.app/Contents/Resources/tr.lproj/AddMagnetWindow.strings 1170
+  Transmission.app/Contents/Resources/tr.lproj/AddWindow.strings 1802
+  Transmission.app/Contents/Resources/tr.lproj/Creator.strings 1429
+  Transmission.app/Contents/Resources/tr.lproj/GlobalOptionsPopover.strings 1274
+  Transmission.app/Contents/Resources/tr.lproj/GroupRules.strings 1942
+  Transmission.app/Contents/Resources/tr.lproj/InfoActivityView.strings 3274
+  Transmission.app/Contents/Resources/tr.lproj/InfoGeneralView.strings 1854
+  Transmission.app/Contents/Resources/tr.lproj/InfoOptionsView.strings 2641
+  Transmission.app/Contents/Resources/tr.lproj/InfoPlist.strings 372
+  Transmission.app/Contents/Resources/tr.lproj/Localizable.strings 75244
+  Transmission.app/Contents/Resources/tr.lproj/MainMenu.strings 13918
+  Transmission.app/Contents/Resources/tr.lproj/PrefsWindow.strings 17243
+  Transmission.app/Contents/Resources/uk.lproj (folder)
+  Transmission.app/Contents/Resources/uk.lproj/AddMagnetWindow.strings 1267
+  Transmission.app/Contents/Resources/uk.lproj/AddWindow.strings 1942
+  Transmission.app/Contents/Resources/uk.lproj/Creator.strings 1587
+  Transmission.app/Contents/Resources/uk.lproj/GlobalOptionsPopover.strings 1445
+  Transmission.app/Contents/Resources/uk.lproj/GroupRules.strings 2122
+  Transmission.app/Contents/Resources/uk.lproj/InfoActivityView.strings 3318
+  Transmission.app/Contents/Resources/uk.lproj/InfoGeneralView.strings 1881
+  Transmission.app/Contents/Resources/uk.lproj/InfoOptionsView.strings 3114
+  Transmission.app/Contents/Resources/uk.lproj/InfoPlist.strings 372
+  Transmission.app/Contents/Resources/uk.lproj/Localizable.strings 75996
+  Transmission.app/Contents/Resources/uk.lproj/MainMenu.strings 15516
+  Transmission.app/Contents/Resources/uk.lproj/PrefsWindow.strings 19791
+  Transmission.app/Contents/Resources/zh-CN.lproj (folder)
+  Transmission.app/Contents/Resources/zh-CN.lproj/AddMagnetWindow.strings 1137
+  Transmission.app/Contents/Resources/zh-CN.lproj/AddWindow.strings 1799
+  Transmission.app/Contents/Resources/zh-CN.lproj/Creator.strings 1400
+  Transmission.app/Contents/Resources/zh-CN.lproj/GlobalOptionsPopover.strings 1227
+  Transmission.app/Contents/Resources/zh-CN.lproj/GroupRules.strings 1915
+  Transmission.app/Contents/Resources/zh-CN.lproj/InfoActivityView.strings 3177
+  Transmission.app/Contents/Resources/zh-CN.lproj/InfoGeneralView.strings 1791
+  Transmission.app/Contents/Resources/zh-CN.lproj/InfoOptionsView.strings 2601
+  Transmission.app/Contents/Resources/zh-CN.lproj/InfoPlist.strings 372
+  Transmission.app/Contents/Resources/zh-CN.lproj/Localizable.strings 63950
+  Transmission.app/Contents/Resources/zh-CN.lproj/MainMenu.strings 13640
+  Transmission.app/Contents/Resources/zh-CN.lproj/PrefsWindow.strings 16772
+  Transmission.app/Contents/Resources/zh-TW.lproj (folder)
+  Transmission.app/Contents/Resources/zh-TW.lproj/AddMagnetWindow.strings 1131
+  Transmission.app/Contents/Resources/zh-TW.lproj/AddWindow.strings 1796
+  Transmission.app/Contents/Resources/zh-TW.lproj/Creator.strings 1399
+  Transmission.app/Contents/Resources/zh-TW.lproj/GlobalOptionsPopover.strings 1215
+  Transmission.app/Contents/Resources/zh-TW.lproj/GroupRules.strings 1913
+  Transmission.app/Contents/Resources/zh-TW.lproj/InfoActivityView.strings 3207
+  Transmission.app/Contents/Resources/zh-TW.lproj/InfoGeneralView.strings 1806
+  Transmission.app/Contents/Resources/zh-TW.lproj/InfoOptionsView.strings 2601
+  Transmission.app/Contents/Resources/zh-TW.lproj/InfoPlist.strings 372
+  Transmission.app/Contents/Resources/zh-TW.lproj/Localizable.strings 64392
+  Transmission.app/Contents/Resources/zh-TW.lproj/MainMenu.strings 13660
+  Transmission.app/Contents/Resources/zh-TW.lproj/PrefsWindow.strings 16678
+  Transmission.app/Contents/_CodeSignature (folder)
+  Transmission.app/Contents/_CodeSignature/CodeResources 112431
+extracted: 555 items
+  .DS_Store 6148 4125e0fd7df5e49e2d82f81795011f81cf0f390be621fd78a3cc671c343145ef
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Headers 0 e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Modules 0 e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+  Transmission.app/Contents/Frameworks/Sparkle.framework/PrivateHeaders 0 e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Resources 0 e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Sparkle 0 e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Headers/SPUDownloadData.h 973 0e4397a8f9f099747a41e0c8e236b70ed1710d6e4bdc37237f6d6110f5889a86
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Headers/SPUDownloader.h 791 3840f3e646385a0b56b99f120298f2aaf54311fde2123ed2836ba197edc9fa39
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Headers/SPUDownloaderDelegate.h 1153 f03e91c91d9ace245022244dddeeeac6510cf637e09300414d69928c384baa6f
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Headers/SPUDownloaderProtocol.h 797 d36a2abf27d1090a7948c48140dcd865acf5ff4553b28d062a73926ee0c4015a
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Headers/SPUDownloaderSession.h 428 6455cb433f743f6878ad1dafd55a9100aceb492948b643b9716ff4005cbb7984
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Headers/SPUURLRequest.h 871 e041b8a986c980cd300490a848f0f595b6c34cb1e59bce66e3135e8725f253be
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Headers/SUAppcast.h 700 38316136e3c1ddae0573bf2ffc7d39a0f97af139fc85f4ad17a32d4ce2b523f1
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Headers/SUAppcastItem.h 2082 dcc28003b4b712eacb8fe6e3223132aa21798f4f6a0637798be9287a7a23876d
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Headers/SUCodeSigningVerifier.h 681 3cfc2aaa57da47c87121f0f660429d573c8337890155dba5e791c30042f143b5
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Headers/SUErrors.h 1335 bd786af079daa082df02ea59ec76bbe57ce2197101d2c605e69f98da3d3189e9
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Headers/SUExport.h 302 5cef024266c54e12db620f78f4d106860de0fa2a2e230dffdfe04208bb447451
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Headers/SUStandardVersionComparator.h 1227 e47ae33a55feb891cec3599afb506d1b9b65631ffbe4dfe0573b7e057fc63b18
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Headers/SUUpdater.h 7745 45ce8d53cb1615731e322992bd8fd84abb6b57103fc1d6c993c0bfe0c9c9b8e6
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Headers/SUUpdaterDelegate.h 12956 23d878f38e7ba14e56710891063dacbb8cd6b77e3e843b47c27a1e2d6999ecaa
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Headers/SUVersionComparisonProtocol.h 820 aec9b74fe1ac2210e04aa63c12d901a48c588126426717f81c4f5afc57134427
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Headers/SUVersionDisplayProtocol.h 679 01021350ca7c6aad5400eae692c00a986169808db8bbdac3481059ae00ea74de
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Headers/Sparkle.h 1084 4105290fbbe308d7df5e7053188f0fd20f4ec36e5564066d34fb1bf936fde089
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Modules/module.modulemap 95 d5317e25993316bea7f281f8588b6da3e0b955fdcad767f41fd2a3a83d00e505
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/PrivateHeaders/SUUnarchiver.h 483 4906006a74ed9725f5e4225aa63e6d0db84110cb6043b64d766a528a3d3eb43e
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Info.plist 1670 86ad718957d9fdd9002a926ca24259bfafaa6b60a994ef1ad31e926a5d5696ad
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/MacOS/Autoupdate 542144 c7543b6932b29a42e8eeb2f07ab43bf0635edb5d46ccb9b04d20f253ab728026
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/MacOS/fileop 285120 dd322a700000c760b508110b2dd09d1599c407688432dd40ce9c37493a9debeb
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/PkgInfo 8 82502191c9484b04d685374f9879a0066069c49b8acae7a04b01d38d07e8eca0
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/AppIcon.icns 37132 9eaee3d2e810c3235b267ffbcc6170c484749e3c14de2ee1018284c9986f51f1
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/Base.lproj/Sparkle.strings 10196 dfd09d7d9675090433d46775f94931a362479745c44a873f72a58a174f755949
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/SUStatus.nib/keyedobjects-101300.nib 10683 cd01d183dc391c7902cdff366245ac7ddf663c4623eba34684563f72050c61f4
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/SUStatus.nib/keyedobjects.nib 12937 cc650a628e436a5f1efa9287d4a55f5eba2089f9a1f405aa0dd00bfe77924201
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/ar.lproj/Sparkle.strings 8468 d9c009279353c70a51829db809adc4b935df688233b18747dd8f5c3426a565f7
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/ca.lproj/Sparkle.strings 6792 a26e48ea32a57ae4680b08dfad146a29641bb3697c94b8fc406292e3b731c9b0
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/cs.lproj/Sparkle.strings 10570 f2adb6c8a5217ca25538e5ed79441901556485fccf40ace848976754d9033e8f
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/da.lproj/Sparkle.strings 8306 c2ed02a46a84efdf935ca2109beabbc9c3d3b9784e97046bff00f9b861c9ccb3
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/de.lproj/Sparkle.strings 10148 6c0e5bc444b266e0bf746d9529f37e790ec255bdaa016af07eef782292785e2d
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/el.lproj/Sparkle.strings 7734 c2dfb6c72bac996010b89e6401095196f15bd703b82fbfeb15d1be56636397e6
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/es.lproj/Sparkle.strings 10030 9ad3a829da13a46cde4cdcb3c6454638cb04d19dd964eb2620a0df800f5a8fc7
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/fi.lproj/Sparkle.strings 6184 f808a229611d1f795eb28ccb2419f7b5f2babe2fd5488d7f4e759598875556c7
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/fr.lproj/Sparkle.strings 10170 f0f2ae2a9da5ca65987d1f81a89d795169713902949777c4bde7ac78705f693c
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/he.lproj/Sparkle.strings 5288 e205255a4c1300d57f8ddee7e0e6685f24fc08072059593fb48ddadb9c26b8b8
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/hr.lproj/Sparkle.strings 9778 4f092586ba281d35e057a43d7dbbef001de63c887ba836c4b0db54ce8d9f42e5
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/hu.lproj/Sparkle.strings 10002 b11929f1cdc1c75a9676185235d39aa753db7e6893ce220dcb51f119e6b74965
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/is.lproj/Sparkle.strings 5868 c5c575ca1ff35375374ec4544fabc6c9bbc8422b5ff9386ba2037fb8e5a60fc9
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/it.lproj/Sparkle.strings 8340 63e71a356fa0d26b7b1cfe09ac1c49c3eb83c0dde3d7d5186feab9afd721e0ec
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/ja.lproj/Sparkle.strings 8552 7523c8be915b7a51d1bfc9622633774d454f6e00f50df855486984f92f7daae2
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/ko.lproj/Sparkle.strings 6220 f9bc67d0d3e09317472dad4c1d14fe2519589b2d63a48b9a7a7a6cb79453f910
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/nb.lproj/Sparkle.strings 9352 146fb0f8e9cb23b9f09cd09688c4f9d0b53df155a3d5dd3c1257d7e24ece938c
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/nl.lproj/Sparkle.strings 8850 c67424ab168ef333f5c698d8de7ca339de057b4809a27d836ede39eae91dfc6c
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/pl.lproj/Sparkle.strings 7318 a43abee358e17c44a025ab9e76b6277056353b910c114de747297b9a6c988feb
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/pt_BR.lproj/Sparkle.strings 9728 958e44649c0f73f4667e1c35828b64784281f80357a995253361bddac6707497
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/pt_PT.lproj/Sparkle.strings 7896 454aba5498e7fd0cb276435ba6494bc1f0a0445eb6fae1e15de9f67582c136e4
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/ro.lproj/Sparkle.strings 9806 34dbc3b1e720950feeb51e9812ac72323e4af7be9845689e0880bf3d9b960ad4
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/ru.lproj/Sparkle.strings 7668 faf0964916c40aa41cb11e8d77c7ab41d6bfef1fa4bbf910494bd9b53bde9b24
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/sk.lproj/Sparkle.strings 7548 7b7732cc9f3ba210b57dffc1cd9e4ed34327c11134d94f89d4ac1795265e4928
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/sl.lproj/Sparkle.strings 7944 b7c402fbd4c138dc0a2d0bd5ddf295d2e9ac9c04bc643a6a3e291592c14fb567
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/sv.lproj/Sparkle.strings 7834 98963a69e5c59d2c77f1b17adf4cf994d3e63edb2861503069d874282fbdbdf4
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/th.lproj/Sparkle.strings 8492 9e53fbadea5b333e84a87a37b195a72b7b73c78ed62925a750b7541c260f80a9
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/tr.lproj/Sparkle.strings 9716 c445d47ebca53e577e7851ab3f28f8c1344f8fbbd458e6767fde2c5b276ad373
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/uk.lproj/Sparkle.strings 7860 bb4e7bd9065887ab01d0641d30631e3da94e7f8ce4c44ed8406ee9a7cf7c4848
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/zh_CN.lproj/Sparkle.strings 6128 cef31b15d815188d25b3dbc8453fac89eedd8f683552342eee24bea4e832068e
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/Resources/zh_TW.lproj/Sparkle.strings 5748 5657ffe100fbff74b4485ab1993596712c2d4cb58848a512bcb8e98166fb9714
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Autoupdate.app/Contents/_CodeSignature/CodeResources 17429 8e70b24a1d089efaafd968b173f3e5074f2dc4d13cce7558e8d133b9f6b687c1
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Base.lproj/SUAutomaticUpdateAlert.nib/keyedobjects-101300.nib 13694 9ba60b86f9edde83368e4321b5f9eea51f515e22e7fddb89b21b84ce430c79d4
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Base.lproj/SUAutomaticUpdateAlert.nib/keyedobjects.nib 16812 08d2844c135028609d89a1974cd1df66bcaf3de9f59e37818a882ffaac1cc586
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Base.lproj/SUUpdateAlert.nib/keyedobjects-101300.nib 17534 6c00242e618d99ca0d1dc1f8c742c249f23cb6333dffcc9ae9b91497b16cdf15
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Base.lproj/SUUpdateAlert.nib/keyedobjects.nib 21983 08c04823602b8e7c4f02f4c719ffe0488177dcd5c7523e072094b37e4529b4c4
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Base.lproj/SUUpdatePermissionPrompt.nib/keyedobjects-101300.nib 17088 5b94abb7e0655f9f20f95a01fff7c2b8f85a8ab1ba841c29b3931fa9a8b03444
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Base.lproj/SUUpdatePermissionPrompt.nib/keyedobjects-110000.nib 17052 83267e49f46efd3eacec0ddf26233883496216186c8fa17a0a7799730101fd8a
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Base.lproj/SUUpdatePermissionPrompt.nib/keyedobjects.nib 21550 402ffd6984e806f5ffdd80b8e99080a59b83f07c5e5d4b6d81849d139fc4821c
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Base.lproj/Sparkle.strings 10196 dfd09d7d9675090433d46775f94931a362479745c44a873f72a58a174f755949
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Info.plist 1349 17290b608afb58710abaf93f8f4a6962ec34b9c6d81920363f6e80bcc16470e1
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/ReleaseNotesColorStyle.css 203 cf8e47ba3f7a64354d75ba3f3d556f96dffd15b0356f04845aacc4859b2ea5b3
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/SUModelTranslation.plist 11859 6f19e94508513895d32f6c6e21e7df477a7e84ebae8e2ede3a80de36a498a938
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/SUStatus.nib/keyedobjects-101300.nib 10682 23dcc00748a45f8d995abb6dcfa1f30ca6a08b35cce34df21db4b573eaf12c05
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/SUStatus.nib/keyedobjects.nib 12937 cc650a628e436a5f1efa9287d4a55f5eba2089f9a1f405aa0dd00bfe77924201
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/ar.lproj/SUAutomaticUpdateAlert.strings 1038 3e7e4b59eef064708f5b69f2cb8da4cf80352abebe702aca1402fd393811b3dc
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/ar.lproj/SUUpdateAlert.strings 1416 b91c79090d29c3e696e2320cd2aa26e7904dab99c69ea2d2227d1cf8c376f655
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/ar.lproj/SUUpdatePermissionPrompt.strings 2656 465d97bc202f7e7a809ce674158aef02843f247fe69b648a7e3cbba019e0d015
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/ar.lproj/Sparkle.strings 8468 d9c009279353c70a51829db809adc4b935df688233b18747dd8f5c3426a565f7
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/ca.lproj/SUAutomaticUpdateAlert.strings 544 bdb97e898bdc9f67fd56a17788c9dd5be1bae78c8db13f4b3d5f71324ce348b4
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/ca.lproj/SUUpdateAlert.strings 792 d7ca8bb1346725f8b4c037fa03ce576e231718e4529aea3d525dc82b89b982ad
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/ca.lproj/Sparkle.strings 6792 a26e48ea32a57ae4680b08dfad146a29641bb3697c94b8fc406292e3b731c9b0
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/cs.lproj/SUAutomaticUpdateAlert.strings 526 1a8453e65341972dfb54a9132b459a9c2c4d3535c442d7da3f3c00bbed94091b
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/cs.lproj/SUUpdateAlert.strings 761 a92a039743c862ff8ead2c6d25f51893dc5e422866cdf6b101ff9e80acb0e32e
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/cs.lproj/SUUpdatePermissionPrompt.strings 1314 f48079b0f918606c01fe7914fc540993a25a1acdc6346be8caa8069c75fc29ad
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/cs.lproj/Sparkle.strings 10570 f2adb6c8a5217ca25538e5ed79441901556485fccf40ace848976754d9033e8f
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/da.lproj/SUAutomaticUpdateAlert.strings 1046 a74cebbadf9580fa53c88336bd06d1d51454fe0992918a82f00df6d5ded79244
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/da.lproj/SUUpdateAlert.strings 1436 fdacdc27042bc73d5fc08d422006e12c29df547e41a86750082cab6bc02ff697
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/da.lproj/SUUpdatePermissionPrompt.strings 2504 b4fd5dbfd6547447809f85ee95c48eb9ff1f55ded7b2f5600bd106528ecd58c4
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/da.lproj/Sparkle.strings 8306 c2ed02a46a84efdf935ca2109beabbc9c3d3b9784e97046bff00f9b861c9ccb3
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/de.lproj/SUAutomaticUpdateAlert.strings 1114 de64cf80270508999ea4501c4939c816095b973e20199b127d29370388337a31
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/de.lproj/SUUpdateAlert.strings 1488 3301e59bdb602525a143ef1b8f41237985c63909923407d944042831fc68eaff
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/de.lproj/SUUpdatePermissionPrompt.strings 2556 98dc4ecd0aca6821b58109e733c9a923415ab142ed2dd9dad0643f38e7980f58
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/de.lproj/Sparkle.strings 10148 6c0e5bc444b266e0bf746d9529f37e790ec255bdaa016af07eef782292785e2d
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/el.lproj/SUAutomaticUpdateAlert.strings 1114 6e1e6adbe29f184f7f89c7788b32eb35284c3ceedda3f0d77e98e8ac85e7fad6
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/el.lproj/SUUpdateAlert.strings 1516 8992828a115a7d7b7ad6c919190a3974ad0c3ab27cf9d5f58cf9996866faf6be
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/el.lproj/SUUpdatePermissionPrompt.strings 2612 7f2f975d00aa1326f39c983c3a46ce8cb66635248d3f54df99ca6499af97e1d5
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/el.lproj/Sparkle.strings 7734 c2dfb6c72bac996010b89e6401095196f15bd703b82fbfeb15d1be56636397e6
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/en.lproj/SUAutomaticUpdateAlert.strings 516 e82da12540a3d5c857489ae370749d3789a13814a748228ba5d18cbb83d37252
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/en.lproj/SUUpdateAlert.strings 731 101552f197c4209c464a084ed7b7a6c281d0a342d5596cc124c16cf11c2f2968
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/en.lproj/SUUpdatePermissionPrompt.strings 1277 0e0edb618b6b6180c554251e2779c941b2ca3c5bb04f07743283b3c0b220be45
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/es.lproj/SUAutomaticUpdateAlert.strings 1050 b7ab9fa08cc7678365552535c19db55981221c408aab5dabddb45c305cf9ad92
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/es.lproj/SUUpdateAlert.strings 1560 f7ae0fb07333e91611cc78e60f86876cd7e76340591b0dd96a4c5809bef569ed
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/es.lproj/SUUpdatePermissionPrompt.strings 2808 b2e347984ed644966af263452e9f5061f555f7ae010f3473da94611cb80dad9a
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/es.lproj/Sparkle.strings 10030 9ad3a829da13a46cde4cdcb3c6454638cb04d19dd964eb2620a0df800f5a8fc7
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/fi.lproj/SUAutomaticUpdateAlert.strings 1118 a6402246106046a28e0d6bd3d386d49848685ccfff3b0ccb30c69c1d50a42c79
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/fi.lproj/SUUpdateAlert.strings 1500 072109499c5b3ea079d8f33be25cb0406c587ecdf07cd6d04225225f0b216af4
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/fi.lproj/SUUpdatePermissionPrompt.strings 2648 f5dbde3d82c94fabea41997099f271fa6962692255f825472743b84983fd49a8
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/fi.lproj/Sparkle.strings 6184 f808a229611d1f795eb28ccb2419f7b5f2babe2fd5488d7f4e759598875556c7
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/fr.lproj/SUAutomaticUpdateAlert.strings 1042 5d8fbf5bba01f3ad823c99560429baca8568c4832e910bf9c40ce6d1baf30a8a
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/fr.lproj/SUUpdateAlert.strings 1496 e47c8bc4d5c0eab86bfe306d3ef9f0d3ec8924bf5755ef82b7be8bd01224def9
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/fr.lproj/SUUpdatePermissionPrompt.strings 2764 baed98391714773feb924118592ef6f69456656ea82473e89f54127147c0312a
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/fr.lproj/Sparkle.strings 10170 f0f2ae2a9da5ca65987d1f81a89d795169713902949777c4bde7ac78705f693c
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/he.lproj/SUAutomaticUpdateAlert.strings 538 1bc33a2e08265411afb3c6d1f50abcd81b3cfdc11056797a896f1e8637764ea0
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/he.lproj/SUUpdateAlert.strings 781 1603ecd3b40d68fcbfe4015843a133dfc23b7087f933d753f6e0e78251b85a90
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/he.lproj/Sparkle.strings 5288 e205255a4c1300d57f8ddee7e0e6685f24fc08072059593fb48ddadb9c26b8b8
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/hr.lproj/SUAutomaticUpdateAlert.strings 1078 dff1fe1f0232241871a6b0e92ac3e1647c96aa3553d36124c7129aa672ed51c3
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/hr.lproj/SUUpdateAlert.strings 1560 d3a8bff4eef01ba2c60b9ef647edf0a30a6a49bdcff8cc184932c59c5172bcfe
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/hr.lproj/SUUpdatePermissionPrompt.strings 2468 976424eaa7e9ad038ad285de673db88c04d6efbbfc858400915bd4f65a2efa41
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/hr.lproj/Sparkle.strings 9778 4f092586ba281d35e057a43d7dbbef001de63c887ba836c4b0db54ce8d9f42e5
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/hu.lproj/SUAutomaticUpdateAlert.strings 1118 95188bdebe280d81d18bdb5fc0a24004026a90fde63ec7807fd18c204a8f3c68
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/hu.lproj/SUUpdateAlert.strings 1584 9a98cfac801553b4a9668f97fb1adc0f5fb2e29074a392b101e60dad73b61ee2
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/hu.lproj/SUUpdatePermissionPrompt.strings 2596 bacb00fdd5970cea29d540bab48c64e167bd999b5a39159fa815dcad86cbc180
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/hu.lproj/Sparkle.strings 10002 b11929f1cdc1c75a9676185235d39aa753db7e6893ce220dcb51f119e6b74965
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/is.lproj/SUAutomaticUpdateAlert.strings 1034 c52d1864a4484f9b9d4ccdf6da4faf821d730641de09c52d5aacdb1f91fc487e
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/is.lproj/SUUpdateAlert.strings 1452 c46c528eeb8468a0f2c66439161746f7862a028bcef9f5a757af3d51a2ad502d
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/is.lproj/SUUpdatePermissionPrompt.strings 2628 e58fd45adb12f1212ccf0bf05c51d80aaa9b733a223f2d5607d899f1bd8743aa
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/is.lproj/Sparkle.strings 5868 c5c575ca1ff35375374ec4544fabc6c9bbc8422b5ff9386ba2037fb8e5a60fc9
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/it.lproj/SUAutomaticUpdateAlert.strings 1058 788242ce793aa37ccd88ec811c86e7bedb4a3767caf558f87ee8ea9c2d43abbe
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/it.lproj/SUUpdateAlert.strings 1540 480b9702fb0dea77985d64523e9475684508b0bcba8b97347a8da770a32c0cfb
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/it.lproj/SUUpdatePermissionPrompt.strings 2716 8d11547c19e09f16db76b6dac1f771d5734c8b4d5dac12c63503ea4929afc578
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/it.lproj/Sparkle.strings 8340 63e71a356fa0d26b7b1cfe09ac1c49c3eb83c0dde3d7d5186feab9afd721e0ec
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/ja.lproj/SUAutomaticUpdateAlert.strings 854 c535582e30d72371dd6e0465466e5b61c967d402dec63b432e3e675f8b1750fa
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/ja.lproj/SUUpdateAlert.strings 1256 bac5c1a83f09e321f8a68fdb6321c7775866e4c60e3e73acd5df546c742c5b82
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/ja.lproj/SUUpdatePermissionPrompt.strings 1876 f55bb3319c860389e7ec30c25f057f9afb6f94a62fe78af7951a8fa603044598
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/ja.lproj/Sparkle.strings 8552 7523c8be915b7a51d1bfc9622633774d454f6e00f50df855486984f92f7daae2
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/ko.lproj/SUAutomaticUpdateAlert.strings 790 93e9a1bf4d1b8906dc11f3e1a12f04cf32f46b6c6cb1b6188e4c1a979b85870b
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/ko.lproj/SUUpdateAlert.strings 1192 c94a8dbcb721872276047dd8ab75353672f8e822f4c3a55107825536ec33ea0e
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/ko.lproj/SUUpdatePermissionPrompt.strings 1892 3d7d92bca7089213f671ec8b6764a978533313810fdc34d44dc9bdd437604187
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/ko.lproj/Sparkle.strings 6220 f9bc67d0d3e09317472dad4c1d14fe2519589b2d63a48b9a7a7a6cb79453f910
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/nb.lproj/SUAutomaticUpdateAlert.strings 1026 c11ad895b35861891bb2df64230070e0041fca6e58d1079297b88f31f34b9358
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/nb.lproj/SUUpdateAlert.strings 1352 5116219d920c6bc3af17cb0153e1543dd147ec188d336bd54e256f2d9cc6dd76
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/nb.lproj/SUUpdatePermissionPrompt.strings 2452 262ea9258ec14870c888d927f8344cbf0065cf5d9184422cf871e9a625f58bb1
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/nb.lproj/Sparkle.strings 9352 146fb0f8e9cb23b9f09cd09688c4f9d0b53df155a3d5dd3c1257d7e24ece938c
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/nl.lproj/SUAutomaticUpdateAlert.strings 1098 56a360b651a28cc73be4dbb78bafac4df9e828ce7b21e8788b1b89174afdfad0
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/nl.lproj/SUUpdateAlert.strings 1508 2c260a9ee2129dc72b504f08e08254b93e3eb8393fcc8ae53a943efefbaf4990
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/nl.lproj/SUUpdatePermissionPrompt.strings 2660 482e3358f419ab2e9a6133ac9050adb875345cd19c07d7be62be98202fbbb396
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/nl.lproj/Sparkle.strings 8850 c67424ab168ef333f5c698d8de7ca339de057b4809a27d836ede39eae91dfc6c
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/pl.lproj/SUAutomaticUpdateAlert.strings 1098 6253f196aa7c60ff575088f35fb31a8d57f4dc676288ce047928ea2d8305974d
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/pl.lproj/SUUpdateAlert.strings 1548 9b520e438f541dfc3b8abd40683bf62d23b4bd4dc416e42116e698aa18b73be6
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/pl.lproj/SUUpdatePermissionPrompt.strings 2620 3ec235840b2354dd196c0771bae41574878a53ac6b3dddd72a33fcbe7ef98d4e
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/pl.lproj/Sparkle.strings 7318 a43abee358e17c44a025ab9e76b6277056353b910c114de747297b9a6c988feb
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/pt_BR.lproj/SUAutomaticUpdateAlert.strings 1034 7878e400a569ad068354d7bede962a85a575a9008487851b7e12cbb68bf648f1
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/pt_BR.lproj/SUUpdateAlert.strings 1524 abf0528a8ddd32eba7bfa042e7c4afda5fe0be9fb6c09cec7f67b9e8f71011b5
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/pt_BR.lproj/SUUpdatePermissionPrompt.strings 2676 08cedad45e75f98ad1eba048d10567a1b6c86c6c314e2eba3cdf4f2029eb7a15
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/pt_BR.lproj/Sparkle.strings 9728 958e44649c0f73f4667e1c35828b64784281f80357a995253361bddac6707497
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/pt_PT.lproj/SUAutomaticUpdateAlert.strings 1058 703cd70036b539f9123e6ae3f6c63e695ae2b4b95da06372be26acd4c46cabec
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/pt_PT.lproj/SUUpdatePermissionPrompt.strings 2760 c8c340b83e778ac076851162b3c2f4c72fbdff4ba87b2fa5ecae9f878a4128df
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/pt_PT.lproj/Sparkle.strings 7896 454aba5498e7fd0cb276435ba6494bc1f0a0445eb6fae1e15de9f67582c136e4
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/ro.lproj/SUAutomaticUpdateAlert.strings 1062 c3100f8e35275c6b06e3d85e41f6be790da69de7427e41c0932d40c2d43b7c33
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/ro.lproj/SUUpdateAlert.strings 1556 5d842374b4b8f7478db77031fe4cc548bc8a6bbf0790c29093806bf64c288285
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/ro.lproj/SUUpdatePermissionPrompt.strings 2604 36f98c1d6d221f7610d67e18b52544157f3a51397547e0f5535e8e1433178740
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/ro.lproj/Sparkle.strings 9806 34dbc3b1e720950feeb51e9812ac72323e4af7be9845689e0880bf3d9b960ad4
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/ru.lproj/SUAutomaticUpdateAlert.strings 1118 9b19df1bf3f356722baae36dc73f718a51f31922d42e7aa25239b2e303ebd486
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/ru.lproj/SUUpdateAlert.strings 1624 95fcf1fd3637014570d8efc411d2210e5553852569745899967fe190cc3a9ac1
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/ru.lproj/SUUpdatePermissionPrompt.strings 2780 f23396a38a31c221797792fc09993f1d970f732969f8e5d23ce25fc2ceb90dc2
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/ru.lproj/Sparkle.strings 7668 faf0964916c40aa41cb11e8d77c7ab41d6bfef1fa4bbf910494bd9b53bde9b24
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/sk.lproj/SUAutomaticUpdateAlert.strings 1078 616e18015cddf5dc684e94c2ae39bc86a0d67b80a7b98770b35d30ffe8e8e91f
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/sk.lproj/SUUpdateAlert.strings 1532 db2254c4904f46b9d8bb5f7db2c4ff14364f61801c4d522505335c26583baa89
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/sk.lproj/SUUpdatePermissionPrompt.strings 2604 a8d6b3e8e57ad0b2aa24fa145c5706ec86c43d96cecdd372d14f44ddcd58e8c9
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/sk.lproj/Sparkle.strings 7548 7b7732cc9f3ba210b57dffc1cd9e4ed34327c11134d94f89d4ac1795265e4928
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/sl.lproj/SUAutomaticUpdateAlert.strings 1010 c7bb5cb62e3b01fa579a15ed8ac277459074f655620691c4d33495405866581a
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/sl.lproj/SUUpdateAlert.strings 1520 6f107d20d36d7b22ce55c4facbd68b90ca0772915f07c05b2c5c6f3f6c08fd95
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/sl.lproj/SUUpdatePermissionPrompt.strings 2504 4f6d4e808ca7f6e31d425cf888c278cf0850a741cbeffb78570ad52466eadce1
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/sl.lproj/Sparkle.strings 7944 b7c402fbd4c138dc0a2d0bd5ddf295d2e9ac9c04bc643a6a3e291592c14fb567
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/sv.lproj/SUAutomaticUpdateAlert.strings 1114 db84dcc78b2b9e8e5be57de33ddcc97f9d5407763bad8c4b237ca8fedc49bf81
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/sv.lproj/SUUpdateAlert.strings 1596 12a63623f2ae6eca3b2b540d54dea216a03176bb3daf54b4e93dcb4264f8b023
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/sv.lproj/SUUpdatePermissionPrompt.strings 2640 bb7562c0d1631c31f52f463001b301864e234ae1205b58b5c15922712d76d87a
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/sv.lproj/Sparkle.strings 7834 98963a69e5c59d2c77f1b17adf4cf994d3e63edb2861503069d874282fbdbdf4
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/th.lproj/SUAutomaticUpdateAlert.strings 970 d608787ab6d17654c6cf66a3ccdebfaf578e7a3aabae6e2d1011a42c226f3e35
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/th.lproj/SUUpdateAlert.strings 1404 240b87fc38ab8e87f4e2baca2bcb45d0acea40f23cca8e838fe591bc668d032a
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/th.lproj/SUUpdatePermissionPrompt.strings 2272 5fb83a000260dccd82cbe1ec84d7a8d1600092b987e6b48e68f70eafcc6932ce
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/th.lproj/Sparkle.strings 8492 9e53fbadea5b333e84a87a37b195a72b7b73c78ed62925a750b7541c260f80a9
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/tr.lproj/SUAutomaticUpdateAlert.strings 1046 1a814a094c3e512e770b4117491b701bc2e3b6fdc7279426a91822172c86f0c2
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/tr.lproj/SUUpdateAlert.strings 1428 3de188efb092b1462b85b40743bca59088627844722de5bc58c0f3e77ae3a4a4
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/tr.lproj/SUUpdatePermissionPrompt.strings 2612 960dae32ce7b46be4a24e2ea963652aec5c056b1699c6d39ae74ac7fd0aa9d1b
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/tr.lproj/Sparkle.strings 9716 c445d47ebca53e577e7851ab3f28f8c1344f8fbbd458e6767fde2c5b276ad373
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/uk.lproj/SUUpdateAlert.strings 1664 0f3e84446827c305b8f729241dc4b943a63a75153d25c75d163c4a8979bfa092
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/uk.lproj/SUUpdatePermissionPrompt.strings 2600 569839d417d9bd4c753962aa998681f9f9b0834c26c74a8b8b2ab2588afa4809
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/uk.lproj/Sparkle.strings 7860 bb4e7bd9065887ab01d0641d30631e3da94e7f8ce4c44ed8406ee9a7cf7c4848
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/zh_CN.lproj/SUAutomaticUpdateAlert.strings 726 31c054e56488b7df27d00f0d535f9025ada62a9969b9852255fd5a6af4e6dea3
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/zh_CN.lproj/SUUpdateAlert.strings 1080 9f2c0eb44053ff370cdbf4a5aa361f2ccbc10c68d37f77040d0b4b17ec6e20ac
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/zh_CN.lproj/SUUpdatePermissionPrompt.strings 1736 8cbd4e4eb32f7769ff914e9f4e0d554ddcbf1e0eb233051844b07eabc903e85a
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/zh_CN.lproj/Sparkle.strings 6128 cef31b15d815188d25b3dbc8453fac89eedd8f683552342eee24bea4e832068e
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/zh_TW.lproj/SUAutomaticUpdateAlert.strings 738 1efabbf202a205a235e1e087201175a96b4d14b441a78605734e939561ee872d
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/zh_TW.lproj/SUUpdateAlert.strings 1092 1ab57269d1ebb3e34d677411134cc614a45a80103177a4c6e06c08a703bf5c96
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/zh_TW.lproj/SUUpdatePermissionPrompt.strings 1756 f22b4aa8cbd920dcfadea6cae3b4d32a7fe699e20d8d4ec84cf350d2d07ff23b
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/zh_TW.lproj/Sparkle.strings 5748 5657ffe100fbff74b4485ab1993596712c2d4cb58848a512bcb8e98166fb9714
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/Sparkle 1423952 fd4965b45b9e544803448915a7c014c8b893fabd9952da8dc9a8313485810b55
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/A/_CodeSignature/CodeResources 86111 6809c0ffa3ada732a6e8a755126e6654facdc8c896c66e7b699d170e51217364
+  Transmission.app/Contents/Frameworks/Sparkle.framework/Versions/Current 0 e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+  Transmission.app/Contents/Info.plist 4057 791241641f678d6946640cf03c1f9d837308c9d5cb69e5098a59e499f4b10233
+  Transmission.app/Contents/Library/QuickLook/QuickLookPlugin.qlgenerator/Contents/Info.plist 2398 acc7d348055b345c0d57fc35dd187006485e3c01958aae7bdd50e8a7b779c7d0
+  Transmission.app/Contents/Library/QuickLook/QuickLookPlugin.qlgenerator/Contents/MacOS/QuickLookPlugin 4332864 8e082d7da0c5d03e8a2bc8ef3f880055c6bb376495b21a5812b2fc784d2ec9c3
+  Transmission.app/Contents/Library/QuickLook/QuickLookPlugin.qlgenerator/Contents/Resources/da.lproj/Localizable.strings 1162 d8bc50f8c54a3426edbc9384eb4622fe4808ffffbe630599d32e775e544df485
+  Transmission.app/Contents/Library/QuickLook/QuickLookPlugin.qlgenerator/Contents/Resources/de.lproj/Localizable.strings 1202 88ffbd9661b7b8e2f0a5a17ee0c7e164be69b1c226a9f45d042efe94575c1697
+  Transmission.app/Contents/Library/QuickLook/QuickLookPlugin.qlgenerator/Contents/Resources/en.lproj/InfoPlist.strings 92 39cf2ee07b7b333e7c179d0bf4d798a5b72af6a4e584f51e642703bbfa4fc828
+  Transmission.app/Contents/Library/QuickLook/QuickLookPlugin.qlgenerator/Contents/Resources/en.lproj/Localizable.strings 1176 05457c1a3f21ae1e8c9d846ad452fa682699df420076bc564f41aea228fccad3
+  Transmission.app/Contents/Library/QuickLook/QuickLookPlugin.qlgenerator/Contents/Resources/es.lproj/Localizable.strings 1190 eb8c57780afa604bad33487a69e7fcb2d6c24fa67d71f18aadac153aa7679993
+  Transmission.app/Contents/Library/QuickLook/QuickLookPlugin.qlgenerator/Contents/Resources/eu.lproj/Localizable.strings 1218 af8690ab2d1badd53c9857897915a127073794ed586c0b61441a66c1769466e2
+  Transmission.app/Contents/Library/QuickLook/QuickLookPlugin.qlgenerator/Contents/Resources/fr.lproj/Localizable.strings 1182 e7176b524d5c72989da8d7d51957d61986b2337a81bef5a60e3ef98a14a10c47
+  Transmission.app/Contents/Library/QuickLook/QuickLookPlugin.qlgenerator/Contents/Resources/he.lproj/Localizable.strings 1144 6b14c5cb7d3e3ed400e0cd7e120812dffd18ab2eb282d010b1fb1203acf56c70
+  Transmission.app/Contents/Library/QuickLook/QuickLookPlugin.qlgenerator/Contents/Resources/hu.lproj/Localizable.strings 1212 da624c026f57d1e66cf889602764da1d077264cfafff4645d57628ee3775c81f
+  Transmission.app/Contents/Library/QuickLook/QuickLookPlugin.qlgenerator/Contents/Resources/it.lproj/Localizable.strings 1194 5cfb5e23de012ff202a015de3bd853294a9ccaff854949b1544ae1c6e5130701
+  Transmission.app/Contents/Library/QuickLook/QuickLookPlugin.qlgenerator/Contents/Resources/ja.lproj/Localizable.strings 1092 2eb7f80062e9e7acda839410df4f0940ad1613acf7e040af2539a44b233fd9c3
+  Transmission.app/Contents/Library/QuickLook/QuickLookPlugin.qlgenerator/Contents/Resources/nl.lproj/Localizable.strings 1184 ff497a0f49fb0457904511a14d4addfe5d0d173aca396cef73351f6b224fa46a
+  Transmission.app/Contents/Library/QuickLook/QuickLookPlugin.qlgenerator/Contents/Resources/pl.lproj/Localizable.strings 1336 7405bb7bc7a4290497c58b6d19b41d6a8f5f53de752d59b4eb171d1a24b7a2bc
+  Transmission.app/Contents/Library/QuickLook/QuickLookPlugin.qlgenerator/Contents/Resources/pt-BR.lproj/Localizable.strings 1216 56ce753d3fa031f53edf4987d6848531bd64f701f959607def95cd2d808e92a9
+  Transmission.app/Contents/Library/QuickLook/QuickLookPlugin.qlgenerator/Contents/Resources/pt-PT.lproj/Localizable.strings 1182 c494eea33cc10aeb6031884e7c6a555b8599570fbd9fe69f7592a691d0cfe669
+  Transmission.app/Contents/Library/QuickLook/QuickLookPlugin.qlgenerator/Contents/Resources/ru.lproj/Localizable.strings 1228 4b8b5b3c26f7c36bb85638b14026db5ccc030cd30e2ce0f082c69ad8b7f5a166
+  Transmission.app/Contents/Library/QuickLook/QuickLookPlugin.qlgenerator/Contents/Resources/style.css 956 0701d4c7185c59094eeaaea9eef6ebf8da27e054dd689de0a13deefef1fc7e03
+  Transmission.app/Contents/Library/QuickLook/QuickLookPlugin.qlgenerator/Contents/Resources/sv.lproj/Localizable.strings 1214 8cc8e493be1de9837659b48feb1845cde3a06292a00fa304b65ff2c6f0d5345d
+  Transmission.app/Contents/Library/QuickLook/QuickLookPlugin.qlgenerator/Contents/Resources/tr.lproj/Localizable.strings 1240 91a0c9678e331c251e4b762c09922de0453a98b089ea9374642b3d35e0dc2130
+  Transmission.app/Contents/Library/QuickLook/QuickLookPlugin.qlgenerator/Contents/Resources/uk.lproj/Localizable.strings 1170 762fc05e9cbe9ae4715237496d5b7a5522cd755b4366d9283a9da70789008bc4
+  Transmission.app/Contents/Library/QuickLook/QuickLookPlugin.qlgenerator/Contents/Resources/zh-CN.lproj/Localizable.strings 1108 3150cff792eaf85abf82efd0c72ecab71867f199afd889d4cd6a642362d4a600
+  Transmission.app/Contents/Library/QuickLook/QuickLookPlugin.qlgenerator/Contents/Resources/zh-TW.lproj/Localizable.strings 1090 7c2e907cac6791bc253dcf4eb610bc902f77a47a245b760874ba566b4a1466a0
+  Transmission.app/Contents/Library/QuickLook/QuickLookPlugin.qlgenerator/Contents/_CodeSignature/CodeResources 10251 80b3cc1f659371d868ad6ba097e1d14c9a96a61d1df6550f9ea2b220b9cf0321
+  Transmission.app/Contents/MacOS/Transmission 5877296 5530856d01cdcd7907645814fe1be53e6fe974afe6620fb54c7125c780e61f57
+  Transmission.app/Contents/PkgInfo 8 0665df70cd72a1ee7827f8112eb707f4d28919889536b9c93dea58d8280d4584
+  Transmission.app/Contents/PlugIns/QuickLookExtension.appex/Contents/Info.plist 1644 5b744620b4debcde0541378284adb65bb8efd1e83693c6f443b7f82cdd80fe2a
+  Transmission.app/Contents/PlugIns/QuickLookExtension.appex/Contents/MacOS/QuickLookExtension 2870640 a301f4d1804498a12d59ba6c6900ec7a233cf2f5381af9e75e400d762724c7cd
+  Transmission.app/Contents/PlugIns/QuickLookExtension.appex/Contents/Resources/da.lproj/Localizable.strings 1162 d8bc50f8c54a3426edbc9384eb4622fe4808ffffbe630599d32e775e544df485
+  Transmission.app/Contents/PlugIns/QuickLookExtension.appex/Contents/Resources/de.lproj/Localizable.strings 1202 88ffbd9661b7b8e2f0a5a17ee0c7e164be69b1c226a9f45d042efe94575c1697
+  Transmission.app/Contents/PlugIns/QuickLookExtension.appex/Contents/Resources/en.lproj/Localizable.strings 1176 05457c1a3f21ae1e8c9d846ad452fa682699df420076bc564f41aea228fccad3
+  Transmission.app/Contents/PlugIns/QuickLookExtension.appex/Contents/Resources/es.lproj/Localizable.strings 1190 eb8c57780afa604bad33487a69e7fcb2d6c24fa67d71f18aadac153aa7679993
+  Transmission.app/Contents/PlugIns/QuickLookExtension.appex/Contents/Resources/eu.lproj/Localizable.strings 1218 af8690ab2d1badd53c9857897915a127073794ed586c0b61441a66c1769466e2
+  Transmission.app/Contents/PlugIns/QuickLookExtension.appex/Contents/Resources/fr.lproj/Localizable.strings 1182 e872af006e6bd92fefbe500b601cccd09c2c65fe86db8adb189138f9e093c19e
+  Transmission.app/Contents/PlugIns/QuickLookExtension.appex/Contents/Resources/he.lproj/Localizable.strings 1144 6b14c5cb7d3e3ed400e0cd7e120812dffd18ab2eb282d010b1fb1203acf56c70
+  Transmission.app/Contents/PlugIns/QuickLookExtension.appex/Contents/Resources/hu.lproj/Localizable.strings 1212 da624c026f57d1e66cf889602764da1d077264cfafff4645d57628ee3775c81f
+  Transmission.app/Contents/PlugIns/QuickLookExtension.appex/Contents/Resources/it.lproj/Localizable.strings 1194 5cfb5e23de012ff202a015de3bd853294a9ccaff854949b1544ae1c6e5130701
+  Transmission.app/Contents/PlugIns/QuickLookExtension.appex/Contents/Resources/ja.lproj/Localizable.strings 1092 2eb7f80062e9e7acda839410df4f0940ad1613acf7e040af2539a44b233fd9c3
+  Transmission.app/Contents/PlugIns/QuickLookExtension.appex/Contents/Resources/nl.lproj/Localizable.strings 1184 ff497a0f49fb0457904511a14d4addfe5d0d173aca396cef73351f6b224fa46a
+  Transmission.app/Contents/PlugIns/QuickLookExtension.appex/Contents/Resources/pl.lproj/Localizable.strings 1290 3bc7a2244c826d0b817481a4798e2304acf894b332babcace8d9a3d4bfacaab8
+  Transmission.app/Contents/PlugIns/QuickLookExtension.appex/Contents/Resources/pt-BR.lproj/Localizable.strings 1216 56ce753d3fa031f53edf4987d6848531bd64f701f959607def95cd2d808e92a9
+  Transmission.app/Contents/PlugIns/QuickLookExtension.appex/Contents/Resources/pt-PT.lproj/Localizable.strings 1182 c494eea33cc10aeb6031884e7c6a555b8599570fbd9fe69f7592a691d0cfe669
+  Transmission.app/Contents/PlugIns/QuickLookExtension.appex/Contents/Resources/ru.lproj/Localizable.strings 1228 4b8b5b3c26f7c36bb85638b14026db5ccc030cd30e2ce0f082c69ad8b7f5a166
+  Transmission.app/Contents/PlugIns/QuickLookExtension.appex/Contents/Resources/style.css 1857 384bb58776c5136781c8c3105f2352df2cb108ef5910bee9b00a59f3e94c1ca4
+  Transmission.app/Contents/PlugIns/QuickLookExtension.appex/Contents/Resources/sv.lproj/Localizable.strings 1214 8cc8e493be1de9837659b48feb1845cde3a06292a00fa304b65ff2c6f0d5345d
+  Transmission.app/Contents/PlugIns/QuickLookExtension.appex/Contents/Resources/tr.lproj/Localizable.strings 1240 91a0c9678e331c251e4b762c09922de0453a98b089ea9374642b3d35e0dc2130
+  Transmission.app/Contents/PlugIns/QuickLookExtension.appex/Contents/Resources/uk.lproj/Localizable.strings 1170 762fc05e9cbe9ae4715237496d5b7a5522cd755b4366d9283a9da70789008bc4
+  Transmission.app/Contents/PlugIns/QuickLookExtension.appex/Contents/Resources/zh-CN.lproj/Localizable.strings 1108 3150cff792eaf85abf82efd0c72ecab71867f199afd889d4cd6a642362d4a600
+  Transmission.app/Contents/PlugIns/QuickLookExtension.appex/Contents/Resources/zh-TW.lproj/Localizable.strings 1090 7c2e907cac6791bc253dcf4eb610bc902f77a47a245b760874ba566b4a1466a0
+  Transmission.app/Contents/PlugIns/QuickLookExtension.appex/Contents/_CodeSignature/CodeResources 9884 104bfd743e9ddade407cbd75d0c9dcd4eab8f9cfcc0ec0c4d5fc858cab68c7e0
+  Transmission.app/Contents/Resources/AboutWindow.nib 20927 1a9c71677f610e8ee7cde902b30ea4cdd45467e71fea32218bda43adab49287d
+  Transmission.app/Contents/Resources/Assets.car 2291992 4d998cf9d2ee4afbc5ef66b3cbcd959f2da115116ea574569a8fc3cd5a08c686
+  Transmission.app/Contents/Resources/Base.lproj/AddMagnetWindow.nib 21039 9509f511f89bdf4b60a41c10896a3369d5e6547c2a41f84b58bf2e9b42472453
+  Transmission.app/Contents/Resources/Base.lproj/AddWindow.nib 29954 50eeb433c998d740e322d359b5a0fd52f46c1b33b1bae1653b0847cc38e802fd
+  Transmission.app/Contents/Resources/Base.lproj/Creator.nib 33420 b61bb380970d3e9fa371b150efeb924d786cc3c1615e918a5de27df3d77e965d
+  Transmission.app/Contents/Resources/Base.lproj/GlobalOptionsPopover.nib 22313 c17ae1bfb4ca55266ba8ab4d34c78c49de377285dc58c6ef07f8553f8804c782
+  Transmission.app/Contents/Resources/Base.lproj/GroupRules.nib 19304 6e9733ec5e1b2b6138ba61dc19e5d180a37989247f02c5a35bd07d7d719fc57b
+  Transmission.app/Contents/Resources/Base.lproj/InfoActivityView.nib 35458 2c0c4c934d15f6dfdbe5eaf338682a75a47a2362865ebe11cbe0764c5b911d87
+  Transmission.app/Contents/Resources/Base.lproj/InfoGeneralView.nib 25210 ce283149f0760f6f7d2c9df135ad4dc025e9d51c29e5e499b60324b176648e10
+  Transmission.app/Contents/Resources/Base.lproj/InfoOptionsView.nib 32672 1e6e4119c23234ed3804917c454ea57a6baef7687e9c8a07ccdb8a7fbab3b460
+  Transmission.app/Contents/Resources/Base.lproj/MainMenu.nib 180259 ef3cc4d00cdab78ee27239fe7a460f0f270271da5cd9ce8ccdf55f2392d4a77f
+  Transmission.app/Contents/Resources/Base.lproj/PrefsWindow.nib 159695 7136df996528ba910412aef90de9df7a1d99b67b5a55479586cfe1fc3337e950
+  Transmission.app/Contents/Resources/BlocklistStatusWindow.nib 8442 13723442350c9a43d2af886c41c8f445bb30664007d9bd54a52f513f6fe8f8e6
+  Transmission.app/Contents/Resources/COPYING 711 9715b55d11caa499d34a6e23498c766fe1ece4ace57777553313e27d688dee78
+  Transmission.app/Contents/Resources/Credits.rtf 7032 65295051922189df972e584d6ef6559a1ddbbc4c8d0e83e356461754ea41714b
+  Transmission.app/Contents/Resources/Defaults.plist 4548 f1a2a436c118632b6f629cc3917b5b10249169973b3667e0cd1572c4ac91f1c6
+  Transmission.app/Contents/Resources/FileRenameSheetController.nib 9248 08c3908ba72a35a575538fef1e9b5e2244731dc1d82b9c30c7b91a42c30ded18
+  Transmission.app/Contents/Resources/FilterBar.nib 16154 88c0f85743a8b927243406e1b1be08831475323669a6d3e2c203982841a447d2
+  Transmission.app/Contents/Resources/InfoFileView.nib 37530 bf63a88ad7a0a386b78590c55eeb3fd212999eac315040f98e04c03de646e3da
+  Transmission.app/Contents/Resources/InfoPeersView.nib 23716 e2495e521a8c6d55696d0b379b8814daca499e5156f407d5d2bf74c4eb46bf24
+  Transmission.app/Contents/Resources/InfoTrackersView.nib 11599 c51a5af48a0443daa448d6b65b1925a9fa11c969059e15a3b47010ca150542d9
+  Transmission.app/Contents/Resources/InfoWindow.nib 12090 19f5dd3c204fac2ef0a3c0ebf68562971f6c94741b416e4463b0c85974563e97
+  Transmission.app/Contents/Resources/MessageWindow.nib 25570 b91ee71026aae21b9c40a0980c0fb2a058f37b5f56c453d753b3e3c52df174ac
+  Transmission.app/Contents/Resources/StatsWindow.nib 14878 671a4bad11b7cbd1d8e8ddfc665b4b6c87eaec67022a703a2d33f4bf01224573
+  Transmission.app/Contents/Resources/StatusBar.nib 12783 d31ec19f20fac094fd6a97d39cec5cac6a006096c3b019c82f4c51c8da4d4175
+  Transmission.app/Contents/Resources/TransmissionDocument.icns 560537 d7870ea6ef5d97a382d09a096f29fca85ef628538ff59f25d248a9fbd876b6ad
+  Transmission.app/Contents/Resources/TransmissionHelp/TransmissionHelp.helpindex 40827 2480a4a7165d619030a0c89527feb65b21ed282020967e7528f595d5575d985c
+  Transmission.app/Contents/Resources/TransmissionHelp/gfx/TransWindow.png 23235 4378fa4ba9b00d7379fd812d5d2222dceaceb1b9b92fa1c07cd5159e9ebca1cc
+  Transmission.app/Contents/Resources/TransmissionHelp/gfx/TransmissionIcon.png 1877 b6a07ffd6ce67b233938f8f9c00e152e7f842534dd3aea3601568cc7dbc818fd
+  Transmission.app/Contents/Resources/TransmissionHelp/gfx/creation.png 7838 059b33629af40fc9657c074a5040f5da65178361111f6bc001c39601fc49187f
+  Transmission.app/Contents/Resources/TransmissionHelp/gfx/fileselection.png 11965 5ce892bdd6486d8f5d3ed1e0e0a818341d35b0d3c5a45e7294cfde74744c4d65
+  Transmission.app/Contents/Resources/TransmissionHelp/gfx/group.png 22473 31b8be476946b65d1980cb727895d0044773b7af73e9528257d9b8922f78db3a
+  Transmission.app/Contents/Resources/TransmissionHelp/gfx/inspector.png 20138 a5510f93344cd8062e070c77d6c4abb15d7226c379c0f9f815f139a3af74abd3
+  Transmission.app/Contents/Resources/TransmissionHelp/gfx/open.png 15124 a9bb77b3dd36f53ec87af411400864094b173c00cb7f0f405288be2bf2893fc0
+  Transmission.app/Contents/Resources/TransmissionHelp/gfx/queue.png 6295 d4c243d2fc896a6f45c5be0ab1b5bfda189264bc6c9d9ce4f14e40de02718574
+  Transmission.app/Contents/Resources/TransmissionHelp/gfx/scheduler.png 5791 94a4d22ed25389277ec5ff39e9138f5092db0ccc90903b08cd9985bc666aeb04
+  Transmission.app/Contents/Resources/TransmissionHelp/html/FAQ.html 5520 666b7d6ed5d224308b2e4aa07f418b965af9dc2d2d843007774158f718b2525d
+  Transmission.app/Contents/Resources/TransmissionHelp/html/Index2.html 1628 b62306227caa08d5474c3264e2343014f19676d99869b487dcafbe011ddb9ff0
+  Transmission.app/Contents/Resources/TransmissionHelp/html/check.html 1022 c75cb157e8c1cc5326a4eee6b4b2a0fa4979adabc3c43d614e0be4508885e017
+  Transmission.app/Contents/Resources/TransmissionHelp/html/gettingstarted.html 7755 3f59576d2769f2e26cace10a557f91d65c617b7a54b2812b07bf836e305b3c4f
+  Transmission.app/Contents/Resources/TransmissionHelp/html/network.html 1675 422dfb2298ffe482ba2b7dfa995ced3bf63747744f05d83662ae62427352c226
+  Transmission.app/Contents/Resources/TransmissionHelp/html/peers.html 3418 8a8425279148526a9600bb39022f571dd432a806603bd9658b0e7df7dbc22938
+  Transmission.app/Contents/Resources/TransmissionHelp/html/pffirewall.html 1273 b0111e573dc58d8495fd16b73ae32abccfc043612cb782908c32a48cd10eaf25
+  Transmission.app/Contents/Resources/TransmissionHelp/html/pfrouter.html 4749 9961c17fc73fc4267f4405dd2e29e861f28a90f8fd60b194d602df4670b0ba8e
+  Transmission.app/Contents/Resources/TransmissionHelp/html/portforward.html 1824 dea8aadcd064d74923eeee4b5438c625dc4aa4c3f66e70bfd4f20234c4562ca3
+  Transmission.app/Contents/Resources/TransmissionHelp/html/remote.html 1753 8caa2ec59f6ea5cc72cb921caf219903b48c6c965ce829f4b41d2b9aa2081924
+  Transmission.app/Contents/Resources/TransmissionHelp/html/scripts.html 1084 3e62bef3804a8c1c154420feca882791070c66e7e47f217620c57c7bab5dc2e3
+  Transmission.app/Contents/Resources/TransmissionHelp/html/speed.html 2338 3021730b0cd7d32e7dcee9f35f0d293849d9933b9fc0b2413338d760b7d39a76
+  Transmission.app/Contents/Resources/TransmissionHelp/html/tracker.html 1811 2866df62c128c67977d0470c99b052488d7b6e0e0ca4aae8cb7deb898aade7fe
+  Transmission.app/Contents/Resources/TransmissionHelp/html/troubleshoot.html 3637 811475e2cb0dc52364f480c654ab41cd27858e3f654fd785c45d4ec685fbfbdd
+  Transmission.app/Contents/Resources/TransmissionHelp/html/usingt.html 1732 c42657ec9ac654e271a1dc13b48bdcc7f31860ed16ad7f4464a8de9c6dfc77a1
+  Transmission.app/Contents/Resources/TransmissionHelp/index.html 1732 70c9392315934e082b26649aa028f30ef41eeea16c9add158c5686b77b9aea26
+  Transmission.app/Contents/Resources/TransmissionHelp/styles/TransBody.css 3079 5ac549857cf3f5f4495d2938a985f7c144336ff98e201ce0842723d7b03f5aae
+  Transmission.app/Contents/Resources/TransmissionHelp/styles/TransIndex.css 1299 6661e2e60d58807b35574683cd4cc8a509f05e41a7d93dd45216488650e10a35
+  Transmission.app/Contents/Resources/TransmissionHelp/styles/indexpage.css 1923 eb0c8b7ddcbe9306e10e1cb795bdcd0167e0809e587f4acb18c1e7f96c4e3798
+  Transmission.app/Contents/Resources/TransmissionHelp/styles/task_style.css 2435 5e6bc82be7e92163ed0bef716ac9200308ee0ee5e9b117e7484fac2057e93628
+  Transmission.app/Contents/Resources/Transmission_Tahoe.icns 76155 dfd2b2ef680d48eb8793f844b4e7f01e3288d6178a5cc75d1a8b9d881f0c042a
+  Transmission.app/Contents/Resources/URLSheetWindow.nib 9161 cd82751b1c90c0fcb5516078b226b79f48b962dc05627e8e9e1199de40ad4dbc
+  Transmission.app/Contents/Resources/da.lproj/AddMagnetWindow.strings 1140 316e2a6db05008c243f2cbd6fa7ce66e172d3ed713c8ce2cbf393224b9205803
+  Transmission.app/Contents/Resources/da.lproj/AddWindow.strings 1789 597256408633dcde3ca324a5be85ef072056a6f3b875869791f5c5d0d308354f
+  Transmission.app/Contents/Resources/da.lproj/Creator.strings 1385 0ff5b23f692cb4aed1d89aeaa4df51678c414144af148493e9e47392403b2756
+  Transmission.app/Contents/Resources/da.lproj/GlobalOptionsPopover.strings 1247 5f5d2b61b9fa03c0d94b011bdd2f60a689b2f6f1c9cc45908d195d5842fba39f
+  Transmission.app/Contents/Resources/da.lproj/GroupRules.strings 1930 fc3045c550f8340baf6130343762a4f870fbb0eba3cdfe0dcc9a79ab5049928e
+  Transmission.app/Contents/Resources/da.lproj/InfoActivityView.strings 3142 9df9bd6ad63ae4f54b0165384dd6b92f08f62255f3b8ee6add3306fe841078de
+  Transmission.app/Contents/Resources/da.lproj/InfoGeneralView.strings 1768 1ea9094662d6bc6418ab9e55d3a06b9e18a638e9888f9129d80669a733842361
+  Transmission.app/Contents/Resources/da.lproj/InfoOptionsView.strings 2638 755af1591eaf94c1c0c715100ce8201ea129a6af09b324c7581e23ed3698c36b
+  Transmission.app/Contents/Resources/da.lproj/InfoPlist.strings 372 34ab2e7cc28f1b7003561c4fe511fb4710d0fb1a18dfd38c95bf0820c1e4b070
+  Transmission.app/Contents/Resources/da.lproj/Localizable.strings 75274 ad2966c16f013e0772a76bdf373fd3a35baee267be7fed7fd897fafcea3d77ac
+  Transmission.app/Contents/Resources/da.lproj/MainMenu.strings 13542 f9eaa4df96a465ed997e592262b565456708f566f098b7b0507b980c754a384a
+  Transmission.app/Contents/Resources/da.lproj/PrefsWindow.strings 16937 fc5790877b8a8407da023917085337a7b6c09c2ee149a2c7e72e8b8b4ff790a9
+  Transmission.app/Contents/Resources/de.lproj/AddMagnetWindow.strings 1147 dd89f8c4520e4eb767e6fe4feaacb49636c8da4c34147acdbdb9385a5ce0a2eb
+  Transmission.app/Contents/Resources/de.lproj/AddWindow.strings 1819 843eec442a17013bde3ba9a0305804a78dd93f7979530c4227bd49bae0cc6a5b
+  Transmission.app/Contents/Resources/de.lproj/Creator.strings 1408 0e8e239d43d1b2384f33f7cd24e1feb7921202a1d8a674a52c0ed9d0fdda2057
+  Transmission.app/Contents/Resources/de.lproj/GlobalOptionsPopover.strings 1237 6f401a85962f9cb63caded5610225e3482b3edefc7ce3687a85ded6934d6727c
+  Transmission.app/Contents/Resources/de.lproj/GroupRules.strings 1996 6a802a99eef04b0ace7337e5f03fa0bd8fe8011d39a2ae80726135b25d114c7d
+  Transmission.app/Contents/Resources/de.lproj/InfoActivityView.strings 3172 48421ef6fc0a7240481920443f67d949a85e7d533cd3bbd081c153cec062237d
+  Transmission.app/Contents/Resources/de.lproj/InfoGeneralView.strings 1791 077b6246e25f957862f91375fcc9f03e1022cb58c21b6296f5122e560684fe61
+  Transmission.app/Contents/Resources/de.lproj/InfoOptionsView.strings 2646 2da8062f68ac69ecdfd79b4e9c5e22ac05ff5adfff3e1fac9ae712d38ef9fa77
+  Transmission.app/Contents/Resources/de.lproj/InfoPlist.strings 372 34ab2e7cc28f1b7003561c4fe511fb4710d0fb1a18dfd38c95bf0820c1e4b070
+  Transmission.app/Contents/Resources/de.lproj/Localizable.strings 79472 cc78fc186c77c388bd5479170c96f642d127758066bdb6aae9094e68d86211dd
+  Transmission.app/Contents/Resources/de.lproj/MainMenu.strings 13891 070c83a4e2b607142abf97ec9305b7f70f9ac2413533f5ccb5edcce074f9fcdc
+  Transmission.app/Contents/Resources/de.lproj/PrefsWindow.strings 17667 a08091ffe5b5f6b437c2f20a39a13e3b5fc78628f1b994d456f78018101aad8e
+  Transmission.app/Contents/Resources/en.lproj/InfoPlist.strings 372 34ab2e7cc28f1b7003561c4fe511fb4710d0fb1a18dfd38c95bf0820c1e4b070
+  Transmission.app/Contents/Resources/en.lproj/Localizable.strings 75094 1632f1eff99064aaf426a00b9b74eb6aea55db87a2bf15bad9ffc7ac5b8a0edd
+  Transmission.app/Contents/Resources/es.lproj/AddMagnetWindow.strings 1148 f8164fa63f51f235456559061c5a5681b459bddc5b0b27a53bee71b790fc13c0
+  Transmission.app/Contents/Resources/es.lproj/AddWindow.strings 1797 d5a5f8668ec3b0899a6dfd223fa27a4a18753ac78e4b73e5913456a0b3362791
+  Transmission.app/Contents/Resources/es.lproj/Creator.strings 1388 a7c95783b92a8a5b7eab55d384793b3ae32c2801c130161dc70a389551899eb8
+  Transmission.app/Contents/Resources/es.lproj/GlobalOptionsPopover.strings 1246 76140eed7955d12c1e96c51fec2d04b3dd67b6377223c920143be15cde3eb4ec
+  Transmission.app/Contents/Resources/es.lproj/GroupRules.strings 1971 f2164c7c4d29cf52a17d5211418aa087ada17d64948fbf41a53a600d7647440c
+  Transmission.app/Contents/Resources/es.lproj/InfoActivityView.strings 3143 7bf10c8ed1369ef4b13e8f599cc343d557403390b957b020577bb1c8047247a1
+  Transmission.app/Contents/Resources/es.lproj/InfoGeneralView.strings 1782 cd7d86e2a69c42da095c95a895e27873c94b9ffb106e36b03c6a5e5ac15f4dee
+  Transmission.app/Contents/Resources/es.lproj/InfoOptionsView.strings 2682 7f1fc496aacba54430b80ad7ff3787fa83d08addd4be328c155b0c16a05c920d
+  Transmission.app/Contents/Resources/es.lproj/InfoPlist.strings 372 34ab2e7cc28f1b7003561c4fe511fb4710d0fb1a18dfd38c95bf0820c1e4b070
+  Transmission.app/Contents/Resources/es.lproj/Localizable.strings 76608 b20c5efeeb3bedd1f4f7f4de79f23ae53f02dbde3fd81a125489cf65ff2b295f
+  Transmission.app/Contents/Resources/es.lproj/MainMenu.strings 13804 646041ab65a746afc00a74beb6ada2560cf88c1e5332830c27a083cb04ea4c2f
+  Transmission.app/Contents/Resources/es.lproj/PrefsWindow.strings 17085 64a3f1215d0a66314832bad591a75356ac3fd1273a5e7955e176db48bf0296ee
+  Transmission.app/Contents/Resources/eu.lproj/AddMagnetWindow.strings 1149 ffd2d3ba7227cc16d848da2befa2b8135a482a4e3cc0f3c897b2d20eb8323ec1
+  Transmission.app/Contents/Resources/eu.lproj/AddWindow.strings 1817 ef5f92b890b3fa1a7c2b438e644faaf69170fb94c35a8ed1f67ded9400d01428
+  Transmission.app/Contents/Resources/eu.lproj/Creator.strings 1404 f34f011371ea9f3e280f115434b78664b1e9011ac123e8abe7fe64767a269500
+  Transmission.app/Contents/Resources/eu.lproj/GlobalOptionsPopover.strings 1246 ddd96d1f635b55434aa13159bf8e0e6227189c7a40a7e914021d5c069a4592ac
+  Transmission.app/Contents/Resources/eu.lproj/GroupRules.strings 1973 4eea75ad6b93fa8886f779f921d7572bc75cb2e74d2f4ffe98498ed3676b7565
+  Transmission.app/Contents/Resources/eu.lproj/InfoActivityView.strings 3189 652ff7d97cabd9c79c4361a1de6cdc6e85068dfb5f6284776dc6224845e4156c
+  Transmission.app/Contents/Resources/eu.lproj/InfoGeneralView.strings 1792 13f1d6b87bfbbb23cce990df7e60e31d32f6a07244dfaec7cb75afcec2627531
+  Transmission.app/Contents/Resources/eu.lproj/InfoOptionsView.strings 2676 466f621e93217e254f0eea9f15ffb13584327ab89edc77f2589b4cccd8ec8010
+  Transmission.app/Contents/Resources/eu.lproj/InfoPlist.strings 372 34ab2e7cc28f1b7003561c4fe511fb4710d0fb1a18dfd38c95bf0820c1e4b070
+  Transmission.app/Contents/Resources/eu.lproj/Localizable.strings 78658 01d0524dc080732da9707b443725c9249d84891be94407e31bfc567e1be320ea
+  Transmission.app/Contents/Resources/eu.lproj/MainMenu.strings 14027 fdf6c3f027896e1600d0ae845aed0c3d880f17b1fa4e9e8f0cb6d74eac3f887f
+  Transmission.app/Contents/Resources/eu.lproj/PrefsWindow.strings 17444 f39cfa06eaeda82e639e3e169a423e91ee1ee967601f9a89979589a0ac9759bc
+  Transmission.app/Contents/Resources/fr.lproj/AddMagnetWindow.strings 1158 94005852f7ffe1fa54a82867218533230e95270e75eca9f8e460c38336e3f6a3
+  Transmission.app/Contents/Resources/fr.lproj/AddWindow.strings 1847 464ecf512585b0ae7a45a523f0b1d7dd5f173b169fe5ae97f186f7d190080866
+  Transmission.app/Contents/Resources/fr.lproj/Creator.strings 1415 da81b82dc446e0ffb03e4d26e3b7fd55d6dd5e0b65bdf7d5f2d378e7276e0544
+  Transmission.app/Contents/Resources/fr.lproj/GlobalOptionsPopover.strings 1286 544f9cc726ff19b427a2bf5b831f20f45cd0425adc0d3be851c9991854a024cb
+  Transmission.app/Contents/Resources/fr.lproj/GroupRules.strings 1997 5a65bc06fb882e9121477ea63ea612c54da2bff2e60e5c02be82cd38443d67fa
+  Transmission.app/Contents/Resources/fr.lproj/InfoActivityView.strings 3209 98d20eb6d95f650ed12a0c77d75dec1d64ffa27b77824291d945a63161bd5ac0
+  Transmission.app/Contents/Resources/fr.lproj/InfoGeneralView.strings 1832 f4ea97168c68e1ae350eb0b782135afd43661d207ffb77ee87cc56f6baf662b3
+  Transmission.app/Contents/Resources/fr.lproj/InfoOptionsView.strings 2700 ab2b8cccbc53014aa13dc452a72b75b16455ca79b138e643ab6025bc65fb2f6f
+  Transmission.app/Contents/Resources/fr.lproj/InfoPlist.strings 372 34ab2e7cc28f1b7003561c4fe511fb4710d0fb1a18dfd38c95bf0820c1e4b070
+  Transmission.app/Contents/Resources/fr.lproj/Localizable.strings 79514 2ed9e9e5004383396de0ef6609af646eec349f298e94d9b26040f88a8ae23e91
+  Transmission.app/Contents/Resources/fr.lproj/MainMenu.strings 14290 178a18afd1e3b99432e42de6ffe5ba7086be05362f69f458f63b5e3931e67efd
+  Transmission.app/Contents/Resources/fr.lproj/PrefsWindow.strings 18043 d1000aa8cc980af529945b7d760b5a5ab3a3a4b8dd515c91106d6e94825f29e8
+  Transmission.app/Contents/Resources/he.lproj/AddMagnetWindow.strings 1193 f24f0cc1e799efb8301e20d6a06f5d9161001d5c76eb4e177ef6a0e482813b72
+  Transmission.app/Contents/Resources/he.lproj/AddWindow.strings 1890 bb96ad75ef1cfb0ca66a0f420670cb678b2fe058c7bca65fc576ce6077dce473
+  Transmission.app/Contents/Resources/he.lproj/Creator.strings 1431 80ce4043bc89cf08e9705179276c5385d0d7141a0c10c1f901b711c15ef53ad0
+  Transmission.app/Contents/Resources/he.lproj/GlobalOptionsPopover.strings 1323 d73f28fcb5cbe23f63267f519fae8430f6834658b4ce790fc23f78516e607ce9
+  Transmission.app/Contents/Resources/he.lproj/GroupRules.strings 1985 50506a4012789902dc1541f1505384d82ecc981abe3702bf65b7478df611a04a
+  Transmission.app/Contents/Resources/he.lproj/InfoActivityView.strings 3323 ecbd79fc701250fc8e2fb5b63fabf6a9d232b12e89f43c434cd4e0b8ecdb9ace
+  Transmission.app/Contents/Resources/he.lproj/InfoGeneralView.strings 1887 8c0d74a5e639e29a444fce265274938edd4fe432c2159ad7460b1a45fbcd82fe
+  Transmission.app/Contents/Resources/he.lproj/InfoOptionsView.strings 2827 fedf9e8fdc565391e65c505ca50df441afac3060791bf917d859706e6bede6c2
+  Transmission.app/Contents/Resources/he.lproj/InfoPlist.strings 372 34ab2e7cc28f1b7003561c4fe511fb4710d0fb1a18dfd38c95bf0820c1e4b070
+  Transmission.app/Contents/Resources/he.lproj/Localizable.strings 71552 4b3d416278a5133236b4bd83d4b15360431c81efd3149cef9e3410a1e773dddf
+  Transmission.app/Contents/Resources/he.lproj/MainMenu.strings 14699 cb00e3f6d533711a62f151d08589f1e641c3d12501d112d75b7faadfc2d2def8
+  Transmission.app/Contents/Resources/he.lproj/PrefsWindow.strings 18533 f355e40c1fc9063b69888864a1f4487822b724cc688817412f64cc19ae0a678a
+  Transmission.app/Contents/Resources/hu.lproj/AddMagnetWindow.strings 1166 618d7c22fa1fe9ddf7191cd9898761183da8440388d9a91dc3aceb2b35b10260
+  Transmission.app/Contents/Resources/hu.lproj/AddWindow.strings 1820 436a29787359d88880faaaef7025d971f305c57fe32ebe016088f1240074ef13
+  Transmission.app/Contents/Resources/hu.lproj/Creator.strings 1417 7bc7e701cff8c44b89648af9bf6fc3ee096ecd41e677d3f203dda347056525f0
+  Transmission.app/Contents/Resources/hu.lproj/GlobalOptionsPopover.strings 1262 8c01e91a4f0ef09d1f0e65ba43b81d4b31ef77c5c9e69ce7f30130304525b55f
+  Transmission.app/Contents/Resources/hu.lproj/GroupRules.strings 1975 280cb6b5527a4edc24da22aec6baeaa24c88de832c05f3424d1c3e430aa5eab5
+  Transmission.app/Contents/Resources/hu.lproj/InfoActivityView.strings 3158 ebec3fd0cf7d0e598a85d822b9dbf068fba8ba28e706dac6fec51eafc584d124
+  Transmission.app/Contents/Resources/hu.lproj/InfoGeneralView.strings 1812 7c3dbdd07a0b83f993516abfdbf4f81a686ae359df2de8ddf6f6cf94e550c88b
+  Transmission.app/Contents/Resources/hu.lproj/InfoOptionsView.strings 2743 2f84cfcf7b070741daab849648c423cb1a372e7a1bef203c670f47c0bcf10e3e
+  Transmission.app/Contents/Resources/hu.lproj/InfoPlist.strings 372 34ab2e7cc28f1b7003561c4fe511fb4710d0fb1a18dfd38c95bf0820c1e4b070
+  Transmission.app/Contents/Resources/hu.lproj/Localizable.strings 76790 233f5a22cb16f5fdc90d121b341c042fab0c20699ed646a1cbe56e111eadd762
+  Transmission.app/Contents/Resources/hu.lproj/MainMenu.strings 14163 ff112db12e5a610ffbd8bac755bdd2913147217ed4139c5c8e14b4c7f3041db4
+  Transmission.app/Contents/Resources/hu.lproj/PrefsWindow.strings 17589 7bf0a0aaf7380615652fb97143b20b869babe93c31bd22025ffe5ea03f4f32b1
+  Transmission.app/Contents/Resources/it.lproj/AddMagnetWindow.strings 1150 cc585f412d65251963907a4f3289edacec0f2d7e28cd100cfe97c71e62449591
+  Transmission.app/Contents/Resources/it.lproj/AddWindow.strings 1784 6d1b1c0708e906ccb4a0bc4550e388991ad966ba9073ac4b146bdf082b010ca5
+  Transmission.app/Contents/Resources/it.lproj/Creator.strings 1404 f48d91654246dd689cf2d6ce9a297793cf9466915f6b0e959510831d4f6c450b
+  Transmission.app/Contents/Resources/it.lproj/GlobalOptionsPopover.strings 1235 baf214aa1266ad62674af99ad65f2542cea90ce23e9466ca0f9fa54e3ee54a57
+  Transmission.app/Contents/Resources/it.lproj/GroupRules.strings 1980 50e181e88d0c94a7b174fbc73497b065720b142868a64270add67505856534ed
+  Transmission.app/Contents/Resources/it.lproj/InfoActivityView.strings 3154 eb0db48a0d37a19d5fd95c3cd3fe6d690407136163f584c2b1bcd56ebe14e9fd
+  Transmission.app/Contents/Resources/it.lproj/InfoGeneralView.strings 1780 a00b0495d5c4d1a74b4c203b75c882c2c7b666ac6f5d6726e834358c30d4053e
+  Transmission.app/Contents/Resources/it.lproj/InfoOptionsView.strings 2652 8d2a0391861b82176dd0e67d94edd1618c80147ffe75a7235afe259bfb177e9a
+  Transmission.app/Contents/Resources/it.lproj/InfoPlist.strings 372 34ab2e7cc28f1b7003561c4fe511fb4710d0fb1a18dfd38c95bf0820c1e4b070
+  Transmission.app/Contents/Resources/it.lproj/Localizable.strings 78114 16bd280ed882c73018724ff9f443cc533d6164e7bae290469d68d90324b72c3b
+  Transmission.app/Contents/Resources/it.lproj/MainMenu.strings 13908 4e477fe05ed6666f89b9d45f32f31b0c081a9abf8b3e42910c0016dddf87c651
+  Transmission.app/Contents/Resources/it.lproj/PrefsWindow.strings 17158 38674064ab0c93324a8922b4969ac287d247773e19c120984a8eebc13578c67f
+  Transmission.app/Contents/Resources/ja.lproj/AddMagnetWindow.strings 1173 eebc9fea8cf49f900fb05a64d99be0b2180d78716bf125deb21473d73215e270
+  Transmission.app/Contents/Resources/ja.lproj/AddWindow.strings 1840 c5102a0e8906a7a2e9ce03a06664114ba364a9c83195990076e5a8046b0df6fa
+  Transmission.app/Contents/Resources/ja.lproj/Creator.strings 1462 18d2b9206b4ac6fc2aabff907555cfd5d2bb6d8aca964662d46fb96daa9ff124
+  Transmission.app/Contents/Resources/ja.lproj/GlobalOptionsPopover.strings 1264 870b08f0bdf10c3978cc4d958ddc914179adc438a58a49a73e4ea1e1e1ebf12f
+  Transmission.app/Contents/Resources/ja.lproj/GroupRules.strings 2071 7a1972df86cd05f2fa85626359fa7ec797f82c1ac837cd03f064dabcfa9f5deb
+  Transmission.app/Contents/Resources/ja.lproj/InfoActivityView.strings 3216 bda95e95fe194fa09058513afe7995615f5f5e32099fa8be5f9e576c08f5acc1
+  Transmission.app/Contents/Resources/ja.lproj/InfoGeneralView.strings 1825 c4278fec5c1dfed0fbb495c433e500597dec98f7b34e71069e0931a156f3e8fc
+  Transmission.app/Contents/Resources/ja.lproj/InfoOptionsView.strings 2631 1116991cc1dd629a0b1a495f44efe83d49ac37a44082ec531ab3a73b82ed4a06
+  Transmission.app/Contents/Resources/ja.lproj/InfoPlist.strings 372 34ab2e7cc28f1b7003561c4fe511fb4710d0fb1a18dfd38c95bf0820c1e4b070
+  Transmission.app/Contents/Resources/ja.lproj/Localizable.strings 66038 597718ca262706aa07534f5fb569633b647d4e32397c9e2aacca787ee6d74592
+  Transmission.app/Contents/Resources/ja.lproj/MainMenu.strings 14300 694525fa949933dac738adf5b8e200bc71f8cbeb83c5892909b422a5be479c4c
+  Transmission.app/Contents/Resources/ja.lproj/PrefsWindow.strings 17682 ee653d77acdc083d0363208126d6ae1501b0ab083960ed63a3ba1c2d0dc20242
+  Transmission.app/Contents/Resources/nl.lproj/AddMagnetWindow.strings 1135 a4de437896a878af2519cb0a49f07b05870c06a0b211dcf15de58e13f57d6f00
+  Transmission.app/Contents/Resources/nl.lproj/AddWindow.strings 1774 2296fc559401743c20c6baa8ae177587c2ff1410976b9ebbfbca3a2d3219cbe0
+  Transmission.app/Contents/Resources/nl.lproj/Creator.strings 1379 37005abdb4040902dfd5389ac23fbaf1b7245118b81fc262db61c77854e06f0e
+  Transmission.app/Contents/Resources/nl.lproj/GlobalOptionsPopover.strings 1222 db262dee074404510da8ab52371f237b14e083fa3d42cd490fe0b77fe954d5f5
+  Transmission.app/Contents/Resources/nl.lproj/GroupRules.strings 1947 d9af328fc2469ee08a47ccab29fdcc0e73da0b0171ced19d9bd38c4ab851a1e3
+  Transmission.app/Contents/Resources/nl.lproj/InfoActivityView.strings 3304 c80535ca6e36fd967a14540a623afed2ebc919d130810032a33220070dd00468
+  Transmission.app/Contents/Resources/nl.lproj/InfoGeneralView.strings 1869 85a3331dd07ae8da9eb8e6cb8f0fa71f354ce41c615522ec1dfc95663a9e5825
+  Transmission.app/Contents/Resources/nl.lproj/InfoOptionsView.strings 2640 5dd7821cdb89ba9a5d843293d53ac3e8e51b9017e35f71bf1f93ad71a57bbe96
+  Transmission.app/Contents/Resources/nl.lproj/InfoPlist.strings 372 34ab2e7cc28f1b7003561c4fe511fb4710d0fb1a18dfd38c95bf0820c1e4b070
+  Transmission.app/Contents/Resources/nl.lproj/Localizable.strings 77202 57a28fe594632a392987ccbc068742c69da84ee388b477322c9ada57f82f15d2
+  Transmission.app/Contents/Resources/nl.lproj/MainMenu.strings 13725 dbb603ffcdfa9d6a9689e6da9af75954fa364d2bacaff69b622173a459d15c7b
+  Transmission.app/Contents/Resources/nl.lproj/PrefsWindow.strings 16958 5f90c1a162e7283365c386f84561fac3a47fc9eaaeaa6379341a095d90990f51
+  Transmission.app/Contents/Resources/pl.lproj/AddMagnetWindow.strings 1144 35935a7f1b37af1a33c4614fe2ed55af624f8f36b1832653e8c77cff4520a8d5
+  Transmission.app/Contents/Resources/pl.lproj/AddWindow.strings 1809 2960564d95f1f4e9bf2b7275b7b051f9802214d2f691165feea22730430ba8fb
+  Transmission.app/Contents/Resources/pl.lproj/Creator.strings 1428 a2ad393ce43b2552e21174a0b365453b945376c1b8c611105b3690d9224ab3c8
+  Transmission.app/Contents/Resources/pl.lproj/GlobalOptionsPopover.strings 1283 a7add6869cceb860bc30e02e34b386bfb3fb2abd19ce90b40a51004455477ee2
+  Transmission.app/Contents/Resources/pl.lproj/GroupRules.strings 1995 868bc59f3808f487b7be6b1e75bc9db2cf9ed87ddb98746b591a5cec23593909
+  Transmission.app/Contents/Resources/pl.lproj/InfoActivityView.strings 3244 157c533dc6182293563c08fa2598790e7176263eefe384f0ca331628592ee04c
+  Transmission.app/Contents/Resources/pl.lproj/InfoGeneralView.strings 1855 4fc431d3ecfef5a04900f9cf4bb9695909251365a6a3a38f34a3e2c2e1c3b149
+  Transmission.app/Contents/Resources/pl.lproj/InfoOptionsView.strings 2742 c4eb8a456373f18e38a6e62bc72da546db6f46b8c960cfccda00a2759e53773b
+  Transmission.app/Contents/Resources/pl.lproj/InfoPlist.strings 372 34ab2e7cc28f1b7003561c4fe511fb4710d0fb1a18dfd38c95bf0820c1e4b070
+  Transmission.app/Contents/Resources/pl.lproj/Localizable.strings 77644 fff14cdb9179e68936faed0b8f75aa2f08fe10fb09625a41033be16add42b406
+  Transmission.app/Contents/Resources/pl.lproj/MainMenu.strings 13945 cdf5ef44b524848bf50f6d757ecd495f187866756188a1d7360f7608c19c0524
+  Transmission.app/Contents/Resources/pl.lproj/PrefsWindow.strings 17694 98d9c70e1cd5f38dd2e3b465cbc37121275cd4c303ed3bd4264ed2ef09f26bc1
+  Transmission.app/Contents/Resources/pt-BR.lproj/AddMagnetWindow.strings 1151 a7db38fab597fc3dcdcc9e958fa09f00ba63b9b121b4503838699c9e3d581dc5
+  Transmission.app/Contents/Resources/pt-BR.lproj/AddWindow.strings 1800 0512c3297ff65e1e165af18d70a933e9ef423374c4b9f5d04ae4ada301a461cf
+  Transmission.app/Contents/Resources/pt-BR.lproj/Creator.strings 1406 7838f9ba14d10e75297aad25c880df5a92d051d5c9d87bd8d1e642c091f74945
+  Transmission.app/Contents/Resources/pt-BR.lproj/GlobalOptionsPopover.strings 1246 a4cbac3bb5f5356bbf366adfbf81848e34952655a25a70654413348e45430091
+  Transmission.app/Contents/Resources/pt-BR.lproj/GroupRules.strings 1947 a1a4930ac701ab5c79cbafad9a87beb5f66a22429e1290b8a8b313979955c2dc
+  Transmission.app/Contents/Resources/pt-BR.lproj/InfoActivityView.strings 3156 34b664224d9540984830d0c4d917a3054f76cfeeac89ef9eb68bbb2543339cfb
+  Transmission.app/Contents/Resources/pt-BR.lproj/InfoGeneralView.strings 1785 33842328436be49ede9cf47ee8827b6474c97b91abc1d3e3750eac1479d02fad
+  Transmission.app/Contents/Resources/pt-BR.lproj/InfoOptionsView.strings 2683 f4211543df3b753582c4dff92414210cb74fb381c4ed2c8da8e73eeb4be6b696
+  Transmission.app/Contents/Resources/pt-BR.lproj/InfoPlist.strings 372 34ab2e7cc28f1b7003561c4fe511fb4710d0fb1a18dfd38c95bf0820c1e4b070
+  Transmission.app/Contents/Resources/pt-BR.lproj/Localizable.strings 77690 39018a55d27264493b4e47e20e798a885b8f447e7e64105d9406aca01aa9f333
+  Transmission.app/Contents/Resources/pt-BR.lproj/MainMenu.strings 13965 73832c85398062e933e538af61928d6405883b390428686df1b6532a8d87aab0
+  Transmission.app/Contents/Resources/pt-BR.lproj/PrefsWindow.strings 17446 577fc032b5eb1fe91801d90ef99452e25d0e232c8b40c71c7e878c57a26d7bac
+  Transmission.app/Contents/Resources/pt-PT.lproj/AddMagnetWindow.strings 1147 ba8678449236bfb8427d1b246907fddc20a76b5afdd6405e36fd0d419459f0c9
+  Transmission.app/Contents/Resources/pt-PT.lproj/AddWindow.strings 1790 0650fe61e5a9ff5ce0275e144fd0c8fecf291feab81d3acd8ec91cbc6644c77e
+  Transmission.app/Contents/Resources/pt-PT.lproj/Creator.strings 1400 38d90592c57b04658e384e544f5e60e668d89997d0613d2c1ff267d76112792a
+  Transmission.app/Contents/Resources/pt-PT.lproj/GlobalOptionsPopover.strings 1270 60e566a47a7629a94b8d0376dae59602bf66b5c15c598a9113c27a5f23e42249
+  Transmission.app/Contents/Resources/pt-PT.lproj/GroupRules.strings 1959 d482b309fced6fdb0838756c881d6b602ec2acf175301fcb67a59293d5fe8ccc
+  Transmission.app/Contents/Resources/pt-PT.lproj/InfoActivityView.strings 3149 7a7ad86e2748be583b7b9ebf01c7c53036d98c0a18ff0ab570668595098dc4c0
+  Transmission.app/Contents/Resources/pt-PT.lproj/InfoGeneralView.strings 1788 34aeb3c6189b649f29abeecf0684edb9c0e14aff12d4073d30eed100d7951de3
+  Transmission.app/Contents/Resources/pt-PT.lproj/InfoOptionsView.strings 2710 a741bf93e3667074bd56d297f25862267f0ac151a13c0c7548fabdc9aecd9cac
+  Transmission.app/Contents/Resources/pt-PT.lproj/InfoPlist.strings 372 34ab2e7cc28f1b7003561c4fe511fb4710d0fb1a18dfd38c95bf0820c1e4b070
+  Transmission.app/Contents/Resources/pt-PT.lproj/Localizable.strings 78174 bdaa47b227d63d3882ffd13033a926d2806609eb87e19aa0ace4a5bee499c946
+  Transmission.app/Contents/Resources/pt-PT.lproj/MainMenu.strings 13954 03838127e678ccae16e475972fdb70d6bc66989bde29d97c0ea5108236602cd9
+  Transmission.app/Contents/Resources/pt-PT.lproj/PrefsWindow.strings 17474 d04e2be503ac24b2953a4bb4f8e640e67a695fe21781b8d19ee34e89c086d178
+  Transmission.app/Contents/Resources/public_html/images/apple-touch-icon.png 4451 5313ae88f61bd26fd0e5e614f79e181ea80c39f3dee0ec08a3d4f21d42e0f6ab
+  Transmission.app/Contents/Resources/public_html/images/favicon.ico 5430 58ecb3a983373cf48e97808872265f1deaaddcfdcdd31747ef007de46c090f86
+  Transmission.app/Contents/Resources/public_html/images/favicon.svg 8388 3e4d67e348c5f99498bcdfdd7608ec3e4a6d42a57a7418ca25c4b6348a21093a
+  Transmission.app/Contents/Resources/public_html/index.html 3715 aebf02649de5704af5256bb2d0dfec60f23bf4aee67ebf2dd621d06205b827c8
+  Transmission.app/Contents/Resources/public_html/transmission-app.css 45673 7a1218abe92a20569c3ce7502c1c628fb727d67bf60195491f1d4bed22618f0e
+  Transmission.app/Contents/Resources/public_html/transmission-app.css.LEGAL.txt 0 e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+  Transmission.app/Contents/Resources/public_html/transmission-app.css.map 56989 83e82d8f66ecc493320cfee206e1d315ffaa5dc9168bdbed372ee5611da3b5a2
+  Transmission.app/Contents/Resources/public_html/transmission-app.js 113029 3553aefc0b7be9fa77acece95ce6c7a1a23d5f177a921b77c5794d9b8dce3dbe
+  Transmission.app/Contents/Resources/public_html/transmission-app.js.LEGAL.txt 447 11973d6979ea4233be36fac36a188a908762156dbe1a618157855a1ea6aaaf7a
+  Transmission.app/Contents/Resources/ru.lproj/AddMagnetWindow.strings 1263 4f95c89bcba7f70835f41d523c321b679bf692fd0dc8898f1ab05a5df995c440
+  Transmission.app/Contents/Resources/ru.lproj/AddWindow.strings 1939 5e995d561103ec3532df54f88ddac6cdceb3834fb9a1d5b68a2f3574e3e889d7
+  Transmission.app/Contents/Resources/ru.lproj/Creator.strings 1564 19e5d3bf371d4072f23e631dcf9c23c2fd66c46f21fc9f867fdfdc77c7d6fc25
+  Transmission.app/Contents/Resources/ru.lproj/GlobalOptionsPopover.strings 1384 2079d8c44050c59fb5c43645d51eab5f1ad592ee660fdb9409e6ab1d4bffdccc
+  Transmission.app/Contents/Resources/ru.lproj/GroupRules.strings 2153 8524cef8eba2cf2ebe4340950431f6e13a94023119f261f9066ca68a49c8a400
+  Transmission.app/Contents/Resources/ru.lproj/InfoActivityView.strings 3473 f40769cdaf9966a2d56efd632361098645530fdd5202e149823d83304fedf528
+  Transmission.app/Contents/Resources/ru.lproj/InfoGeneralView.strings 1967 6301ad250d153007c77f795342a74fc8a3a5870851e79afaa9c56d2a12aafb9d
+  Transmission.app/Contents/Resources/ru.lproj/InfoOptionsView.strings 3089 739900a91941c41bb59b8774d13106229012b949e4e37e694cbc9a5a806159fd
+  Transmission.app/Contents/Resources/ru.lproj/InfoPlist.strings 372 34ab2e7cc28f1b7003561c4fe511fb4710d0fb1a18dfd38c95bf0820c1e4b070
+  Transmission.app/Contents/Resources/ru.lproj/Localizable.strings 75430 a8f85892b79cab425551ff6a93eccd745c3a440c87b9702d0249fb576790a806
+  Transmission.app/Contents/Resources/ru.lproj/MainMenu.strings 15642 049272cc8879f658f99874ce5c5e3f8623cf5d01f1079ffe9a8bf8d69e0f793e
+  Transmission.app/Contents/Resources/ru.lproj/PrefsWindow.strings 19661 29f90843766509dec20ee645fc1761de6996feee55fc205bbbd9746ed126b20c
+  Transmission.app/Contents/Resources/sparkle_dsa_pub.pem 1178 d52bea93a11884eee33a076023911203d66274d6ed91d432eac6a9b950c89482
+  Transmission.app/Contents/Resources/sv.lproj/AddMagnetWindow.strings 1145 f80174b27dbf244ef2820e7e73f2e3e251a17a6492d459aeb918836c0a559b7f
+  Transmission.app/Contents/Resources/sv.lproj/AddWindow.strings 1786 b6404564858c67bf6c1e61d68d9da7ef4f06607d85dbc35c754d4cbac68b6a08
+  Transmission.app/Contents/Resources/sv.lproj/Creator.strings 1379 f12a82f0ddbce357085e583b65e1b1efb10999f44a740b92558c2b9f9826747d
+  Transmission.app/Contents/Resources/sv.lproj/GlobalOptionsPopover.strings 1251 fbe791e371f40f8231b3b721771e204dfcefb7a4fbb3acf530d0b3f6acc8c65b
+  Transmission.app/Contents/Resources/sv.lproj/GroupRules.strings 1965 5373bb7b57d7853bd45f08d2eb10df1ea3fd5e534e9e9189af8f21d96f9215db
+  Transmission.app/Contents/Resources/sv.lproj/InfoActivityView.strings 3152 b93a54dac0df337f4e4b351ce0c795ee819f653523bfcc231bfd456b71959a83
+  Transmission.app/Contents/Resources/sv.lproj/InfoGeneralView.strings 1766 a58c61a09e29a9a0438856dd3152567a229725226ff9432127eff2e1ce4736d8
+  Transmission.app/Contents/Resources/sv.lproj/InfoOptionsView.strings 2695 3e7bd0e3ca7ab6da2b5d3dea351652e40e424130e6ad347d9c38d6951613ea5f
+  Transmission.app/Contents/Resources/sv.lproj/InfoPlist.strings 372 34ab2e7cc28f1b7003561c4fe511fb4710d0fb1a18dfd38c95bf0820c1e4b070
+  Transmission.app/Contents/Resources/sv.lproj/Localizable.strings 76694 67b522c766d69b9e5df901d29c2b901d7dc21a7cb8c67ec4e0fdd35c2c79d04b
+  Transmission.app/Contents/Resources/sv.lproj/MainMenu.strings 13674 2bc390ec3dc08b6b81981af5b48d62628549cd8bcd5f7936017891e70b19f57f
+  Transmission.app/Contents/Resources/sv.lproj/PrefsWindow.strings 17365 58fe67a8be2267f714046c1b4687b8817430c083d58612ba8a6724370f32d119
+  Transmission.app/Contents/Resources/tr.lproj/AddMagnetWindow.strings 1170 a5392c63cabf58c99f36d69519c25d8a4693f4e2563b3ffb729befbe956b6899
+  Transmission.app/Contents/Resources/tr.lproj/AddWindow.strings 1802 d43b60003ca7c0321a185ae4c632ba65fbf5c54ae5aa9f9940dd015d19cc201d
+  Transmission.app/Contents/Resources/tr.lproj/Creator.strings 1429 01f4f838a9518f90169fed216c114d7d054eabdf86a700f48929e24f07f6aecd
+  Transmission.app/Contents/Resources/tr.lproj/GlobalOptionsPopover.strings 1274 745ad807192eb627dd5a74cda9b2383cde00b08f95b7857e881d65b4ac4d8f51
+  Transmission.app/Contents/Resources/tr.lproj/GroupRules.strings 1942 cf067f40860ecb301b0f0cf46ef74c3690f3fd5e02c26a52eb311950ef4b8496
+  Transmission.app/Contents/Resources/tr.lproj/InfoActivityView.strings 3274 d9152861f86ac1f3f2b0dcd310f759b4baa94f16fd0393dd91294625983eff29
+  Transmission.app/Contents/Resources/tr.lproj/InfoGeneralView.strings 1854 0eed4ff005589d05826f6dd39e3cc746069a48bef49a5cbfb01ec0114d952e36
+  Transmission.app/Contents/Resources/tr.lproj/InfoOptionsView.strings 2641 b3631171244be12b8e1ff111055c523f45d18ffdd4b41a1239ef314473e1e53e
+  Transmission.app/Contents/Resources/tr.lproj/InfoPlist.strings 372 34ab2e7cc28f1b7003561c4fe511fb4710d0fb1a18dfd38c95bf0820c1e4b070
+  Transmission.app/Contents/Resources/tr.lproj/Localizable.strings 75244 227edf3048591c0f6702fe51d2b54470dd696baabf7ed1a057e27c684c2e1f55
+  Transmission.app/Contents/Resources/tr.lproj/MainMenu.strings 13918 e44e7ee63d010889a0c3ff375923aaaba0dd028e5bf565c77aea7adf12197cde
+  Transmission.app/Contents/Resources/tr.lproj/PrefsWindow.strings 17243 ca4200615ff3dd69949203301fa8d15298e37cc5100cec5cb136309c3a482a86
+  Transmission.app/Contents/Resources/uk.lproj/AddMagnetWindow.strings 1267 4dfebb199cb7cbc5ba28c6331b1a78ac5ea77305dc7a76be5c487c94cfd517fe
+  Transmission.app/Contents/Resources/uk.lproj/AddWindow.strings 1942 c45f66c7293f454d067cada58a5eda7cca3177b7314afc238fcc158b9ad89406
+  Transmission.app/Contents/Resources/uk.lproj/Creator.strings 1587 1b36d5046071d3f93474f0be1e5d647892a420e46520f95e7549d81c451dc90c
+  Transmission.app/Contents/Resources/uk.lproj/GlobalOptionsPopover.strings 1445 6b0d14c05d517adc86792cf2c92635889b9cf7633c3890ebfc6f6b6bc24f58a6
+  Transmission.app/Contents/Resources/uk.lproj/GroupRules.strings 2122 58d6142358df84019aa06a8344c9841807fb049c220b28d1d193a1bc419f18bd
+  Transmission.app/Contents/Resources/uk.lproj/InfoActivityView.strings 3318 92184257fe2a4e7a4682657a7c9a8587db2331b5aa3d4ce5f3fa567a61d68ff1
+  Transmission.app/Contents/Resources/uk.lproj/InfoGeneralView.strings 1881 42ddc5cb107c8173c57c72678ee4957960baeca0d402b6d635ee3d4d12bdec4c
+  Transmission.app/Contents/Resources/uk.lproj/InfoOptionsView.strings 3114 e7f6309f79c2c52abc425854619110949d3ac082dfa0737793f3802ae944222a
+  Transmission.app/Contents/Resources/uk.lproj/InfoPlist.strings 372 34ab2e7cc28f1b7003561c4fe511fb4710d0fb1a18dfd38c95bf0820c1e4b070
+  Transmission.app/Contents/Resources/uk.lproj/Localizable.strings 75996 cb052882e532302ef4f5f9b2a8a40c11d4773da6f8e07d022bcb8acf4e04ad1b
+  Transmission.app/Contents/Resources/uk.lproj/MainMenu.strings 15516 24c87c41d77d2bea576c388f749fa81138637a7ad48cab15ac0c4b84fabd62ca
+  Transmission.app/Contents/Resources/uk.lproj/PrefsWindow.strings 19791 d3b7af4f0b7d76afca0c34b4d27edbfe2af8a9ae44c8953950f83a3bca7b9a30
+  Transmission.app/Contents/Resources/zh-CN.lproj/AddMagnetWindow.strings 1137 1506fede47837e48292a0be7938ce15a40a212e00b84cb112d1c870058f0b0e6
+  Transmission.app/Contents/Resources/zh-CN.lproj/AddWindow.strings 1799 1de812e662e307fd3fee3ba93a4d72d344ae6da2efdccb437ccb2e18a30a1e07
+  Transmission.app/Contents/Resources/zh-CN.lproj/Creator.strings 1400 dffc61ea038747e150f0c1603f9e8f68fff7af692a721746a375d2255e8c5e0a
+  Transmission.app/Contents/Resources/zh-CN.lproj/GlobalOptionsPopover.strings 1227 118ce6cba2c8a723e220fbbbe8ffc55f442cf9b2581de6376dc5a8a9c15c8950
+  Transmission.app/Contents/Resources/zh-CN.lproj/GroupRules.strings 1915 e220bb677eda0601315ce11341bee7a5b63cecb1a128ab79d8218f06fece4a1e
+  Transmission.app/Contents/Resources/zh-CN.lproj/InfoActivityView.strings 3177 26c95cae95ba12e8ed23333fea242b59604e1b67fef9d73ba6b0bdd7f896a981
+  Transmission.app/Contents/Resources/zh-CN.lproj/InfoGeneralView.strings 1791 4e59e45a944a7218c6dcc3a596b0e70e678e1b8393a2dbd5b3abfea7fd002b99
+  Transmission.app/Contents/Resources/zh-CN.lproj/InfoOptionsView.strings 2601 88609b055dd4861306da4761b269c6b303eb7ca444786b1af03c424110a3170e
+  Transmission.app/Contents/Resources/zh-CN.lproj/InfoPlist.strings 372 34ab2e7cc28f1b7003561c4fe511fb4710d0fb1a18dfd38c95bf0820c1e4b070
+  Transmission.app/Contents/Resources/zh-CN.lproj/Localizable.strings 63950 1f9549aa9e4148d5e1cbecbb49a1aef0045038b3822a09612a0ad549c2730c10
+  Transmission.app/Contents/Resources/zh-CN.lproj/MainMenu.strings 13640 ff3fa1cc1188fdd00867fbc252b5e9e500bb8de048d29cf5eeb588b54bad270b
+  Transmission.app/Contents/Resources/zh-CN.lproj/PrefsWindow.strings 16772 a49af455351d190bdfd420a02ce91b5714763c8f8784fea9016ceb834d780724
+  Transmission.app/Contents/Resources/zh-TW.lproj/AddMagnetWindow.strings 1131 860c56a1e87f184cbcbcae6c527b4003e81c892c96e2f266c6552af966cec7d9
+  Transmission.app/Contents/Resources/zh-TW.lproj/AddWindow.strings 1796 1dea168660adb892a325c395ebf6126254c6de4452d8ccd8a500b8701e90b1af
+  Transmission.app/Contents/Resources/zh-TW.lproj/Creator.strings 1399 b1cf98f24a796a8d1c973e06e2439b30cfbf0a17b4b7c3fe6dd28ecb764154ae
+  Transmission.app/Contents/Resources/zh-TW.lproj/GlobalOptionsPopover.strings 1215 207a60254a980577cf9264c90818f1339a51c631e6ff85e4b4298fab242a7a24
+  Transmission.app/Contents/Resources/zh-TW.lproj/GroupRules.strings 1913 c373add23cc016a64b9c53d7873d27703edaee7f85aa6de9e4970a229e1fa446
+  Transmission.app/Contents/Resources/zh-TW.lproj/InfoActivityView.strings 3207 03bf33c4ecef562ec5edff490123d8013d76d26f527f8f61ab50ae917581d838
+  Transmission.app/Contents/Resources/zh-TW.lproj/InfoGeneralView.strings 1806 84baa228623db3a01d96a739a2fc0bafc0b8528e5cda363d07854042975dfc91
+  Transmission.app/Contents/Resources/zh-TW.lproj/InfoOptionsView.strings 2601 e8fb7b5dac77503ed6cd76d7a4ac28033004f71747108fa0b5147cdcdc21ca99
+  Transmission.app/Contents/Resources/zh-TW.lproj/InfoPlist.strings 372 34ab2e7cc28f1b7003561c4fe511fb4710d0fb1a18dfd38c95bf0820c1e4b070
+  Transmission.app/Contents/Resources/zh-TW.lproj/Localizable.strings 64392 4108f3831169a3dbe823261b6adef8cf66fd6531a83bdd5cc04ef965bde5556e
+  Transmission.app/Contents/Resources/zh-TW.lproj/MainMenu.strings 13660 aa6d3865287721f095b8aba4685e4b3d23e34698422f86a3ae933c07e826dad5
+  Transmission.app/Contents/Resources/zh-TW.lproj/PrefsWindow.strings 16678 b81631f7ecab37c0952f97cbbd6852c582524f96fce8dcf44f59df1cf5fcbabb
+  Transmission.app/Contents/_CodeSignature/CodeResources 112431 12e070469b8e993ecf36072ec47b37bb2d1e7a5af2e3ea4fa7619b375e98a496

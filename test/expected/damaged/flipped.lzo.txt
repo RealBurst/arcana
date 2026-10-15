@@ -1,0 +1,6 @@
+# Arcana regression reference (RegressionRunner --update)
+input: 0a2f2d7bb741ba3228ea545f14a43653b4b2e8c75df86d6dff107873e1cfb3d6 3659
+identify: archive | lzop 1.04 - lzop compressed stream (LZO)
+  method: LZO1X-1
+list: ERROR ArcanaCorruptedException: lzop: Adler-32 error on the uncompressed data of a block
+extract: ERROR ArcanaCorruptedException: lzop: Adler-32 error on the uncompressed data of a block

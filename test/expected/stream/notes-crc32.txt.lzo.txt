@@ -1,0 +1,8 @@
+# Arcana regression reference (RegressionRunner --update)
+input: 8a8aea745a328c9069270e7934453602aa99af17b17d42938326a9ff25a694c7 3659
+identify: archive | lzop 1.04 - lzop compressed stream (LZO)
+  method: LZO1X-1(15)
+list: 1 entries
+  notes.txt -1
+extracted: 1 items
+  notes.txt 29490 d7e02c884850cdfa9d78d1e322269a120fdce78e1178469a980945b2d27d0c66

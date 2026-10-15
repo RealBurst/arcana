@@ -33,7 +33,7 @@ Plugins come first for executables. `Arcana.detectPlugin` consults the plugins
 with a priority greater than 0, then the built-in detection by content; since a
 result of `SFX` is not considered a built-in match, the other plugins
 (`PluginManager.detect(file, false)`) are then asked too. A loaded NSIS, Inno
-Setup, InstallShield, UPX or JexePack plugin therefore handles its executables
+Setup, InstallShield, WiX Burn, UPX or JexePack plugin therefore handles its executables
 before `SfxExtractor` is used. `PluginManager` reads up to 4 MiB of the file
 start for the plugins' `matches` method.
 
@@ -73,9 +73,9 @@ bundle (`DotNetBundle.findInExecutable`). If there is none, `locate` runs:
    "NullsoftInst" (NSIS), "Inno Setup Setup Data" or "rDlPtS" (Inno Setup),
    ".wixburn" in the first 4096 bytes (WiX Burn section name), then
    "InstallShield". An `ArcanaUnsupportedFormatException` names the installer
-   type and, for NSIS, Inno Setup and InstallShield, the plugin that handles
-   it (`arcana-plugin-nsis`, `arcana-plugin-innosetup`,
-   `arcana-plugin-installshield`). Otherwise the message is
+   type and, for NSIS, Inno Setup, InstallShield and WiX Burn, the plugin that
+   handles it (`arcana-plugin-nsis`, `arcana-plugin-innosetup`,
+   `arcana-plugin-installshield`, `arcana-plugin-wixburn`). Otherwise the message is
    "No archive found in X (not a self-extracting archive)".
 
 ## Structure
@@ -210,7 +210,7 @@ and `arcana l` lists the content of the 7z.
 - A ZIP that does not end at the end of the file is copied with everything
   before it to a temporary file (up to the size of the executable).
 - The proprietary installer formats (NSIS, Inno Setup, InstallShield, WiX
-  Burn) and executable packers (UPX) need plugins. WiX Burn has no plugin hint.
+  Burn) and executable packers (UPX) need plugins.
 - `installerKind` only looks at the first 64 MiB.
 - Windows Installer patches and transforms in resources are not detected
   (only the package CLSID is accepted).

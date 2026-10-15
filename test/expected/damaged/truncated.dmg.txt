@@ -1,0 +1,5 @@
+# Arcana regression reference (RegressionRunner --update)
+input: a6be4d431bb19839b6cb2512b9787e7273ad14b2cd346e548cdbf9cbcd8fccad 9908
+identify: data | unknown - unrecognized data (no analyzer matched)
+list: ERROR ArcanaUnsupportedFormatException: No UDIF "koly" trailer (truncated or not a disk image) and no HFS+ volume or partition map found
+extract: ERROR ArcanaUnsupportedFormatException: No UDIF "koly" trailer (truncated or not a disk image) and no HFS+ volume or partition map found

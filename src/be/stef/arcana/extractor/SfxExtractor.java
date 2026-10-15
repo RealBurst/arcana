@@ -293,6 +293,7 @@ public class SfxExtractor implements ArchiveExtractor {
         if (kind.startsWith("NSIS")) return " - the arcana-plugin-nsis plugin extracts it";
         if ("Inno Setup".equals(kind)) return " - the arcana-plugin-innosetup plugin extracts it";
         if ("InstallShield".equals(kind)) return " - the arcana-plugin-installshield plugin extracts its embedded files";
+        if ("WiX Burn".equals(kind)) return " - the arcana-plugin-wixburn plugin extracts it";
         return "";
     }
 

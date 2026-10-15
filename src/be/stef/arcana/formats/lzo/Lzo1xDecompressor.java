@@ -13,13 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package be.stef.arcana.formats.squashfs;
+package be.stef.arcana.formats.lzo;
 
 import be.stef.arcana.exceptions.ArcanaCorruptedException;
 import java.io.IOException;
 
 /**
- * LZO1X block decompressor (the format written by lzo1x_1 and lzo1x_999),
+ * LZO1X block decompressor (the format written by lzo1x_1 and lzo1x_999,
+ * used by SquashFS and lzop),
  * written from the description of the bitstream in the Linux kernel
  * documentation (Documentation/staging/lzo.rst).
  *
