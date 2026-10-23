@@ -32,7 +32,9 @@ import be.stef.arcana.exceptions.ArcanaLimitExceededException;
  * own counter and only the free-space and total-size limits apply.</p>
  *
  * <p>The scope is inherited by threads created inside it (RAR5 extracts non-solid
- * archives in parallel).</p>
+ * archives in parallel). A scope started with its own {@link ExtractionLimits.Values}
+ * uses them; otherwise the global {@link ExtractionLimits} fields are read at each
+ * check.</p>
  *
  * @author Stef
  * @since 1.3
@@ -42,11 +44,14 @@ public final class ExtractionGuard {
     private static final InheritableThreadLocal<ExtractionGuard> CURRENT = new InheritableThreadLocal<ExtractionGuard>();
 
     private final long archiveSize;
+    /** Limits of this extraction, or null for the global ones. */
+    private final ExtractionLimits.Values limits;
     private final AtomicLong written = new AtomicLong();
     private final AtomicLong nextSpaceCheck = new AtomicLong();
 
-    private ExtractionGuard(final long archiveSize) {
+    private ExtractionGuard(final long archiveSize, final ExtractionLimits.Values limits) {
         this.archiveSize = archiveSize;
+        this.limits = limits;
     }
 
     /** Scope of one extraction; close it (try-with-resources) when the extraction ends. */
@@ -65,34 +70,49 @@ public final class ExtractionGuard {
 
     /** Starts an extraction scope for an archive file (nested scopes join the outer one). */
     public static Scope begin(final File archive) {
+        return begin(archive, null);
+    }
+
+    /**
+     * Starts an extraction scope for an archive file with its own limits
+     * ({@code null} = the global {@link ExtractionLimits}). Nested scopes join
+     * the outer one and keep its limits.
+     */
+    public static Scope begin(final File archive, final ExtractionLimits.Values limits) {
         // a split 7z archive (x.7z.001...) counts all its volumes
-        return begin(archive != null && archive.isFile() ? be.stef.arcana.formats.sevenz.MultiVolumeChannel.totalSize(archive) : 0L);
+        return begin(archive != null && archive.isFile() ? be.stef.arcana.formats.sevenz.MultiVolumeChannel.totalSize(archive) : 0L, limits);
     }
 
     /** Starts an extraction scope; {@code archiveSize} 0 = unknown (ratio not checked). */
     public static Scope begin(final long archiveSize) {
+        return begin(archiveSize, null);
+    }
+
+    /** Same as {@link #begin(long)} with the limits of this extraction ({@code null} = the global ones). */
+    public static Scope begin(final long archiveSize, final ExtractionLimits.Values limits) {
         if (CURRENT.get() != null) return new Scope(false);
-        CURRENT.set(new ExtractionGuard(archiveSize));
+        CURRENT.set(new ExtractionGuard(archiveSize, limits != null ? limits.copy() : null));
         return new Scope(true);
     }
 
     /** Opens an output file whose writes are counted and checked. */
     public static FileOutputStream open(final File target) throws FileNotFoundException {
         final ExtractionGuard g = CURRENT.get();
-        return new GuardedFileOutputStream(target, g != null ? g : new ExtractionGuard(0L));
+        return new GuardedFileOutputStream(target, g != null ? g : new ExtractionGuard(0L, null));
     }
 
     private void account(final long n, final File target) throws ArcanaLimitExceededException {
         final long total = written.addAndGet(n);
-        final long maxTotal = ExtractionLimits.maxTotalBytes;
+        final long maxTotal = limits != null ? limits.getMaxTotalBytes() : ExtractionLimits.maxTotalBytes;
         if (maxTotal > 0 && total > maxTotal) throw new ArcanaLimitExceededException("Extraction stopped: more than " + maxTotal + " bytes written (ExtractionLimits.maxTotalBytes) - possible decompression bomb, at " + target.getName());
-        final long maxRatio = ExtractionLimits.maxRatio;
-        if (maxRatio > 0 && archiveSize > 0 && total > ExtractionLimits.ratioThreshold && total / archiveSize > maxRatio) {
+        final long maxRatio = limits != null ? limits.getMaxRatio() : ExtractionLimits.maxRatio;
+        final long ratioThreshold = limits != null ? limits.getRatioThreshold() : ExtractionLimits.ratioThreshold;
+        if (maxRatio > 0 && archiveSize > 0 && total > ratioThreshold && total / archiveSize > maxRatio) {
             throw new ArcanaLimitExceededException("Extraction stopped: " + total + " bytes written from a " + archiveSize + "-byte archive, ratio above " + maxRatio + ":1 (ExtractionLimits.maxRatio) - possible decompression bomb, at " + target.getName());
         }
-        final long minFree = ExtractionLimits.minFreeSpace;
+        final long minFree = limits != null ? limits.getMinFreeSpace() : ExtractionLimits.minFreeSpace;
         if (minFree > 0 && total >= nextSpaceCheck.get()) {
-            nextSpaceCheck.set(total + Math.max(1L, ExtractionLimits.freeSpaceCheckInterval));
+            nextSpaceCheck.set(total + Math.max(1L, limits != null ? limits.getFreeSpaceCheckInterval() : ExtractionLimits.freeSpaceCheckInterval));
             final File dir = target.getAbsoluteFile().getParentFile();
             final long free = dir != null ? dir.getUsableSpace() : 0L;
             if (free > 0 && free < minFree) throw new ArcanaLimitExceededException("Extraction stopped: only " + free + " bytes left on the destination disk (ExtractionLimits.minFreeSpace = " + minFree + "), at " + target.getName());

@@ -294,6 +294,10 @@ Arcana.split(new File("setup.exe"), new File("out"));                       // w
 ```java
 import be.stef.arcana.plugin.PluginManager;
 
+// Library use: plugin JARs are NOT searched on disk unless you ask for it
+PluginManager.enableDiscovery();                              // default directories (see Plugins below)
+// or: java -Darcana.plugins.dir=/opt/myapp/arcana-plugins ...  (only these directories)
+
 // Use a plugin format: by plugin id or by extension
 Arcana.withPlugin("pak", null).extract(new File("game.pak"), new File("out"));
 
@@ -308,7 +312,7 @@ PluginManager.get().register(new MyPlugin());
 
 ### Extraction limits
 
-Every extraction through `Arcana` is guarded by the limits of `be.stef.arcana.util.ExtractionLimits` (public static fields, changeable at run time):
+Every extraction through `Arcana` is guarded by the limits of `be.stef.arcana.util.ExtractionLimits`. Its public static fields are the global defaults, changeable at run time:
 
 | Field | Default | Meaning |
 |-------|---------|---------|
@@ -316,6 +320,18 @@ Every extraction through `Arcana` is guarded by the limits of `be.stef.arcana.ut
 | `ratioThreshold` | 1 GiB | Output size from which the ratio is checked |
 | `maxTotalBytes` | 0 (unlimited) | Maximum total size written by one extraction |
 | `minFreeSpace` | 256 MiB | Extraction stops when the free disk space falls below this value |
+
+One extraction can use its own limits without changing the global ones (several extractions running at once in a pipeline):
+
+```java
+import be.stef.arcana.util.ExtractionLimits;
+
+// Global values, adjusted for this call
+Arcana.withLimits(ExtractionLimits.current().maxTotalBytes(10L << 30).minFreeSpace(0)).extract(archive, out);
+
+// No limit at all, with a password
+Arcana.withPassword(password).limits(ExtractionLimits.none()).extract(archive, out);
+```
 
 ---
 
@@ -327,6 +343,8 @@ A plugin is a JAR dropped into one of these directories:
 2. `<user home>/.arcana/plugins/`;
 3. `plugins/` next to the Arcana JAR;
 4. `plugins/` in the working directory.
+
+The command-line tool searches these directories. **An application that uses Arcana as a library loads no plugin JAR from the disk by default**: a JAR dropped in one of these directories would otherwise run inside the application. It calls `PluginManager.enableDiscovery()` to search directories 2 to 4, or sets `arcana.plugins.dir` to choose its own directories. Plugins on the application class path and plugins registered with `PluginManager.get().register(...)` are always used.
 
 A plugin JAR is refused unless it contains its **source code**, declares its **source URL** and its **license**, has a **unique id** and uses its **own package** (`be.stef.arcana.*` is reserved).
 Writing a plugin: see [PLUGIN-API.md](PLUGIN-API.md).

@@ -22,6 +22,7 @@ import java.util.List;
 import be.stef.arcana.compressor.ArchiveCompressor;
 import be.stef.arcana.detector.ArchiveDetector;
 import be.stef.arcana.util.ExtractionGuard;
+import be.stef.arcana.util.ExtractionLimits;
 import be.stef.arcana.exceptions.ArcanaUnsupportedFormatException;
 import be.stef.arcana.extractor.ArchiveExtractor;
 import be.stef.arcana.extractor.SfxExtractor;
@@ -74,15 +75,21 @@ public final class Arcana {
     private final ArcanaFormat forcedFormat;
     private final ArcanaPlugin forcedPlugin; // format handled by a plugin (see PluginManager)
     private final byte[]       password;
+    private final ExtractionLimits.Values limits; // null = the global ExtractionLimits
 
     private Arcana(final ArcanaFormat format, final byte[] password) {
         this(format, null, password);
     }
 
     private Arcana(final ArcanaFormat format, final ArcanaPlugin plugin, final byte[] password) {
+        this(format, plugin, password, null);
+    }
+
+    private Arcana(final ArcanaFormat format, final ArcanaPlugin plugin, final byte[] password, final ExtractionLimits.Values limits) {
         this.forcedFormat = format;
         this.forcedPlugin = plugin;
         this.password     = password != null ? password.clone() : null; // defensive copy
+        this.limits       = limits != null ? limits.copy() : null;      // defensive copy
     }
 
     // =========================================================================
@@ -124,7 +131,7 @@ public final class Arcana {
     private RecoveryReport doForceUnpack(final File archive, final File destination) throws IOException {
         final ArcanaPlugin plugin = forcedPlugin != null ? forcedPlugin : forcedFormat != null ? null : detectPlugin(archive);
         if (plugin != null) {
-            try (ExtractionGuard.Scope scope = ExtractionGuard.begin(archive)) {
+            try (ExtractionGuard.Scope scope = ExtractionGuard.begin(archive, limits)) {
                 final ArchiveRecoverer recoverer = plugin.createRecoverer(password);
                 if (recoverer != null) return ForceUnpacker.unpack(archive, destination, archive.getName(), recoverer);
                 // no recovery strategy: normal extraction by the plugin, keeping everything written before an error
@@ -138,7 +145,7 @@ public final class Arcana {
             format = ArchiveDetector.detectByExtension(archive.getName()); // damaged header: trust the name
             if (format == ArcanaFormat.UNKNOWN) throw e;
         }
-        try (ExtractionGuard.Scope scope = ExtractionGuard.begin(archive)) {
+        try (ExtractionGuard.Scope scope = ExtractionGuard.begin(archive, limits)) {
             final ArcanaFormat f = format;
             return ForceUnpacker.unpack(archive, destination, f, (a, d) -> createExtractor(f, password).extract(a, d), password);
         }
@@ -232,6 +239,24 @@ public final class Arcana {
         return new Arcana(null, p, password);
     }
 
+    /**
+     * Returns an Arcana instance that uses its own extraction limits instead of
+     * the global {@link ExtractionLimits} (see {@link #limits(ExtractionLimits.Values)}).
+     */
+    public static Arcana withLimits(final ExtractionLimits.Values limits) {
+        return new Arcana(null, null, null, limits);
+    }
+
+    /**
+     * Same instance (format, plugin, password) with its own extraction limits:
+     * {@code ExtractionLimits.current().maxTotalBytes(...)} to adjust the global
+     * values, {@code ExtractionLimits.none()} to disable every check, {@code null}
+     * to use the global {@link ExtractionLimits} again. The values are copied.
+     */
+    public Arcana limits(final ExtractionLimits.Values limits) {
+        return new Arcana(forcedFormat, forcedPlugin, password, limits);
+    }
+
     public void extract(final File archive, final File destination) throws IOException {
         doExtract(archive, destination);
     }
@@ -239,7 +264,7 @@ public final class Arcana {
     public void extract(final InputStream in, final File destination) throws IOException {
         if (forcedFormat == null && forcedPlugin == null) throw new ArcanaUnsupportedFormatException(
                 "Format must be specified via Arcana.with(format) when extracting from a stream.");
-        try (ExtractionGuard.Scope scope = ExtractionGuard.begin(0L)) {
+        try (ExtractionGuard.Scope scope = ExtractionGuard.begin(0L, limits)) {
             (forcedPlugin != null ? forcedPlugin.createExtractor(password) : createExtractor(forcedFormat, password)).extract(in, destination);
         }
     }
@@ -253,7 +278,7 @@ public final class Arcana {
     // =========================================================================
 
     private void doExtract(final File archive, final File destination) throws IOException {
-        try (ExtractionGuard.Scope scope = ExtractionGuard.begin(archive)) {
+        try (ExtractionGuard.Scope scope = ExtractionGuard.begin(archive, limits)) {
             extractorFor(archive).extract(archive, destination);
         }
     }
@@ -384,6 +409,7 @@ public final class Arcana {
      * </pre>
      */
     public static void main(final String[] args) {
+        PluginManager.enableDiscovery(); // the command-line tool loads the plugins of the default directories
         printPluginStatus();
         if (args.length > 0 && (args[0].equals("-v") || args[0].equals("--version") || args[0].equalsIgnoreCase("version"))) { System.out.println("Arcana " + versionLabel()); return; }
         if (args.length == 0) { printUsage(); System.exit(1); }

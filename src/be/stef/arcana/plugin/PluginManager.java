@@ -47,10 +47,13 @@ import java.util.jar.Manifest;
  *
  * <h3>Where plugins are searched</h3>
  * <ol>
- *   <li>the directories of the system property {@code arcana.plugins.dir}
- *       (several directories separated by the path separator); if it is not set:
- *       {@code <user home>/.arcana/plugins}, {@code plugins/} next to the Arcana
- *       JAR and {@code plugins/} in the working directory;</li>
+ *   <li>plugin directories, only when they were asked for: the directories of
+ *       the system property {@code arcana.plugins.dir} (several directories
+ *       separated by the path separator), or, after {@link #enableDiscovery()}
+ *       (the command-line tool calls it), {@code <user home>/.arcana/plugins},
+ *       {@code plugins/} next to the Arcana JAR and {@code plugins/} in the
+ *       working directory. An application using Arcana as a library loads no
+ *       JAR from the disk unless it asks for it;</li>
  *   <li>the application class path (plugins bundled by an application that
  *       embeds Arcana, through {@code META-INF/services});</li>
  *   <li>plugins registered by code with {@link #register(ArcanaPlugin)}.</li>
@@ -162,6 +165,7 @@ public final class PluginManager {
     }
 
     private static volatile PluginManager instance;
+    private static volatile boolean discovery;
 
     private final List<PluginInfo> infos = new ArrayList<PluginInfo>();
     private final Map<String, ArcanaPlugin> active = new LinkedHashMap<String, ArcanaPlugin>();
@@ -187,6 +191,26 @@ public final class PluginManager {
     /** Forgets the loaded plugins; they are searched again on the next {@link #get()}. */
     public static synchronized void reset() {
         instance = null;
+    }
+
+    /**
+     * Turns on the search of plugin JARs in the default directories
+     * ({@code <user home>/.arcana/plugins}, {@code plugins/} next to the Arcana
+     * JAR and in the working directory). Off by default for library use: a JAR
+     * dropped in one of these directories would otherwise run inside the
+     * application. The command-line tool turns it on. The plugins are searched
+     * again on the next {@link #get()}.
+     */
+    public static synchronized void enableDiscovery() {
+        if (!discovery) {
+            discovery = true;
+            instance = null;
+        }
+    }
+
+    /** True when plugin JARs are searched in the default directories (see {@link #enableDiscovery()}). */
+    public static boolean isDiscoveryEnabled() {
+        return discovery;
     }
 
     /** Registers a plugin by code (applications embedding Arcana). No source check is done. */
@@ -291,7 +315,11 @@ public final class PluginManager {
     // Loading
     // =========================================================================
 
-    /** Directories searched for plugin JARs. */
+    /**
+     * Directories searched for plugin JARs: those of the system property
+     * {@code arcana.plugins.dir}, else the default ones when
+     * {@link #enableDiscovery()} was called, else none.
+     */
     public static List<File> pluginDirectories() {
         final List<File> dirs = new ArrayList<File>();
         final String prop = System.getProperty("arcana.plugins.dir");
@@ -299,6 +327,7 @@ public final class PluginManager {
             for (final String d : prop.split(java.util.regex.Pattern.quote(File.pathSeparator))) if (!d.trim().isEmpty()) dirs.add(new File(d.trim()));
             return dirs;
         }
+        if (!discovery) return dirs;
         dirs.add(new File(new File(System.getProperty("user.home"), ".arcana"), "plugins"));
         try {
             final URL loc = PluginManager.class.getProtectionDomain().getCodeSource().getLocation();
