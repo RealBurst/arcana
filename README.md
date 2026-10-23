@@ -230,6 +230,9 @@ for (ArcanaEntry e : Arcana.listEntries(new File("archive.rar"))) {
 // Encrypted archive
 Arcana.withPassword("secret".getBytes("UTF-8")).extract(new File("secure.7z"), new File("out"));
 
+// java.nio.file.Path works too (default file system)
+Arcana.extractTo(Paths.get("archive.zip"), Paths.get("out"));
+
 // From a stream: the format must be given
 try (InputStream in = new FileInputStream("data.bz2")) {
     Arcana.with(ArcanaFormat.BZIP2).extract(in, new File("out"));
@@ -398,6 +401,9 @@ When running from an IDE (classes not packaged in a JAR), `arcana version` print
 | [arcana-plugin-pak](plugins/arcana-plugin-pak) | Quake PAK archives (id Software, 1996) | `.pak` | extract, compress, recover, split | Stephane Bury | Apache-2.0 | 1.0.0 |
 | [arcana-plugin-upx](plugins/arcana-plugin-upx) | Unpacks UPX-compressed executables (NRV2B/2D/2E and LZMA) for static analysis, without ever running them | Windows PE32 / PE32+, Linux ELF (by content) | extract | Stephane Bury | GPL-3.0-or-later | 1.0.0 |
 | [arcana-plugin-nsis](plugins/arcana-plugin-nsis) | NSIS installer | Windows exe | extract | Stephane Bury | Apache-2.0 | 1.0.0 |
+| [arcana-plugin-innosetup](plugins/arcana-plugin-innosetup) | Inno Setup installers (setup data 5.4.2 to 7.x; LZMA, LZMA2, zlib, bzip2; solid or not; setup-1.bin data files; encrypted installers with the password) | Windows exe (by content) | extract, identify | Stephane Bury | Apache-2.0 | 1.0.4 |
+| [arcana-plugin-installshield](plugins/arcana-plugin-installshield) | InstallShield cabinet sets (data1.hdr, data1.cab...) and the files embedded in InstallShield setup.exe launchers | data1.hdr, data1.cab, setup.exe (by content) | extract, identify | Stephane Bury | Apache-2.0 | 1.0.4 |
+| [arcana-plugin-jexepack](plugins/arcana-plugin-jexepack) | Java programs packed into an executable by JexePack (Duckware): jar files, DLLs, bootstrap class and settings | Windows exe (by content) | extract, identify | Stephane Bury | Apache-2.0 | 1.0.4 |
 | [arcana-plugin-wixburn](plugins/arcana-plugin-wixburn) | WiX Burn bundles (WiX 3.x to 6): packages, bootstrapper application files and manifest | Windows exe (by content) | extract, identify | Stephane Bury | Apache-2.0 | 1.0.6 |
 
 

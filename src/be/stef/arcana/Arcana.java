@@ -18,6 +18,7 @@ package be.stef.arcana;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Path;
 import java.util.List;
 import be.stef.arcana.compressor.ArchiveCompressor;
 import be.stef.arcana.detector.ArchiveDetector;
@@ -108,6 +109,30 @@ public final class Arcana {
         return new Arcana(null, null).doList(archive);
     }
 
+    /** Same as {@link #extractTo(File, File)}; the paths must be on the default file system. */
+    public static void extractTo(final Path archive, final Path destination) throws IOException {
+        extractTo(file(archive), file(destination));
+    }
+
+    /** Same as {@link #listEntries(File)}; the path must be on the default file system. */
+    public static List<ArcanaEntry> listEntries(final Path archive) throws IOException {
+        return listEntries(file(archive));
+    }
+
+    /**
+     * File of a path of the default file system. Arcana reads archives with
+     * random access ({@code RandomAccessFile}) and writes with {@code File}, so a
+     * path of another file system (a ZIP file system, a memory file system) is refused.
+     */
+    private static File file(final Path path) {
+        if (path == null) return null;
+        try {
+            return path.toFile();
+        } catch (final UnsupportedOperationException e) {
+            throw new IllegalArgumentException("Only paths of the default file system are supported: " + path.toUri(), e);
+        }
+    }
+
     // =========================================================================
     // Forced extraction of a damaged archive
     // =========================================================================
@@ -123,9 +148,19 @@ public final class Arcana {
         return new Arcana(null, null).doForceUnpack(archive, destination);
     }
 
+    /** Same as {@link #forceUnpack(File, File)}; the paths must be on the default file system. */
+    public static RecoveryReport forceUnpack(final Path archive, final Path destination) throws IOException {
+        return forceUnpack(file(archive), file(destination));
+    }
+
     /** Same as {@link #forceUnpack(File, File)} with this instance's format / password. */
     public RecoveryReport forceExtract(final File archive, final File destination) throws IOException {
         return doForceUnpack(archive, destination);
+    }
+
+    /** Same as {@link #forceExtract(File, File)}; the paths must be on the default file system. */
+    public RecoveryReport forceExtract(final Path archive, final Path destination) throws IOException {
+        return doForceUnpack(file(archive), file(destination));
     }
 
     private RecoveryReport doForceUnpack(final File archive, final File destination) throws IOException {
@@ -162,6 +197,21 @@ public final class Arcana {
     public static List<FileCarver.Item> scanEmbedded(final File file) throws IOException {
         PluginManager.get(); // registers plugin carving probes, if any
         return FileCarver.scan(file);
+    }
+
+    /** Same as {@link #scanEmbedded(File)}; the path must be on the default file system. */
+    public static List<FileCarver.Item> scanEmbedded(final Path file) throws IOException {
+        return scanEmbedded(file(file));
+    }
+
+    /** Same as {@link #identify(File)}; the path must be on the default file system. */
+    public static Identification identify(final Path file) throws IOException {
+        return identify(file(file));
+    }
+
+    /** Same as {@link #split(File, File)}; the paths must be on the default file system. */
+    public static List<FileCarver.Item> split(final Path file, final Path destination) throws IOException {
+        return split(file(file), file(destination));
     }
 
     /**
@@ -261,6 +311,16 @@ public final class Arcana {
         doExtract(archive, destination);
     }
 
+    /** Same as {@link #extract(File, File)}; the paths must be on the default file system. */
+    public void extract(final Path archive, final Path destination) throws IOException {
+        doExtract(file(archive), file(destination));
+    }
+
+    /** Same as {@link #extract(InputStream, File)}; the destination must be on the default file system. */
+    public void extract(final InputStream in, final Path destination) throws IOException {
+        extract(in, file(destination));
+    }
+
     public void extract(final InputStream in, final File destination) throws IOException {
         if (forcedFormat == null && forcedPlugin == null) throw new ArcanaUnsupportedFormatException(
                 "Format must be specified via Arcana.with(format) when extracting from a stream.");
@@ -271,6 +331,11 @@ public final class Arcana {
 
     public List<ArcanaEntry> list(final File archive) throws IOException {
         return doList(archive);
+    }
+
+    /** Same as {@link #list(File)}; the path must be on the default file system. */
+    public List<ArcanaEntry> list(final Path archive) throws IOException {
+        return doList(file(archive));
     }
 
     // =========================================================================
