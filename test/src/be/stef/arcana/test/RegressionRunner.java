@@ -148,8 +148,8 @@ public final class RegressionRunner {
     }
 
     /**
-     * Compresses a payload with every built-in compressor (each level of
-     * Zstandard), extracts the result with Arcana and compares the files
+     * Compresses a payload with every built-in compressor (Zstandard: one
+     * level per strategy), extracts the result with Arcana and compares the files
      * (SHA-256 and size, names left out). The payload is the content of
      * zip/deflate.zip plus a generated 1.5 MB file (several blocks).
      */
@@ -178,7 +178,7 @@ public final class RegressionRunner {
                 if (!f.canCompress()) continue;
                 final boolean archive = f.getCategory() == BuiltinFormat.Category.ARCHIVE;
                 final boolean zstd = f.getFormat() == ArcanaFormat.ZSTD || f.getFormat() == ArcanaFormat.TAR_ZSTD;
-                final int[] levels = zstd ? new int[] {1, 2} : new int[] {-1};
+                final int[] levels = zstd ? new int[] {1, 2, 3, 5, 6, 8, 12} : new int[] {-1}; // each Zstandard strategy
                 for (final int level : levels) {
                     final String name = "compress/" + f.getExtensions()[0] + (level >= 0 ? "-l" + level : "");
                     if (!matches(name)) continue;

@@ -4,7 +4,7 @@
 |---|---|
 | Extensions | `.zst`, `.zstd` (`.tar.zst`, `.tzst`: see [tar.md](tar.md)) |
 | Signature | `28 B5 2F FD` at offset 0 (frame magic 0xFD2FB528, little-endian) |
-| Arcana support | list, extract, compress (levels 1 and 2) |
+| Arcana support | list, extract, compress (levels 1 to 12) |
 | Main classes | `be.stef.arcana.formats.zstd.ZstdInputStream`, `be.stef.arcana.formats.zstd.ZstdFrameDecompressor`, `be.stef.arcana.formats.zstd.ZstdHelper`, `be.stef.arcana.extractor.ZstdExtractor`, `be.stef.arcana.extractor.CompressedStreamExtractor`; compression: `be.stef.arcana.formats.zstd.ZstdOutputStream` (+ `ZstdMatchFinder`, `ZstdSequenceStore`, `ZstdBlockEncoder`, `ZstdHuffmanEncoder`, `ZstdFseEncoder`, `ZstdBitWriter`), `be.stef.arcana.compressor.ZstdCompressor`, `be.stef.arcana.compressor.TarZstdCompressor` |
 | Test samples | `test/samples/stream/notes.txt.zst`, `seq-nosize.txt.zst`, `two-frames.txt.zst`, `skippable.txt.zst`, `zstd-no-extension.bin`; `test/samples/tar/payload.tar.zst`, `payload-pipe.tar.zst` |
 
@@ -86,10 +86,10 @@ content size (29490), checksum.
   `ZstdHelper.decompress`, which copies the stream to the output file and
   optionally checks the expected size). It decodes one block (at most
   128 KiB) at a time into a history buffer, see Implementation notes.
-- Compression: `ZstdOutputStream` writes one frame, levels 1 and 2 (see
-  Compression below); `ZstdCompressor` (`.zst`, with the content size) and
-  `TarZstdCompressor` (`.tar.zst`, streamed) use it; `arcana c dir out.tar.zst
-  -l 1`. No encryption.
+- Compression: `ZstdOutputStream` writes one frame, levels 1 to 12, default
+  3 (see Compression below); `ZstdCompressor` (`.zst`, with the content size)
+  and `TarZstdCompressor` (`.tar.zst`, streamed) use it; `arcana c dir
+  out.tar.zst -l 9`. No encryption.
 
 ## Compression
 
@@ -102,15 +102,46 @@ Written from RFC 8878 (format), without the reference encoder:
   compressed block that is not smaller than the data is replaced by a raw
   block (the repeated offsets are then restored, since the decoder does not
   see that block's sequences).
-- Match finding (`ZstdMatchFinder`), positions kept in hash tables over a
-  buffer of window + 128 KiB that slides by whole blocks:
-  - level 1 ("fast"): one table (2^15 entries, hash of 6 bytes), the next
-    position is first tried with the last offset (repeat code 1), misses
-    skip faster and faster ((distance since last match >> 8) + 1); window
-    512 KiB;
-  - level 2 ("double fast"): a table hashed on 8 bytes (2^17) is tried
-    before the 5-byte one (2^16), and a short match is replaced by a long
-    one found one byte further; window 1 MiB.
+- Match finding (`ZstdMatchFinder`), over a buffer of window + 128 KiB that
+  slides by whole blocks. The parameters of each level are Arcana's own,
+  chosen by measurement (table below):
+  - "fast" (level 1): one table (hash of 6 bytes), the next position is
+    first tried with the last offset (repeat code 1), misses skip faster
+    and faster ((distance since last match >> 8) + 1);
+  - "double fast" (levels 2 to 4): a table hashed on 8 bytes is tried
+    before the 5-byte one, and a short match is replaced by a long one
+    found one byte further;
+  - "greedy", "lazy", "lazy2" (levels 5 to 12): hash chains (head table
+    hashed on 5 bytes, chain table of 2^chainLog entries holding for each
+    position the previous one with the same hash), up to 2^searchLog
+    candidates compared per position. Greedy takes the longest match; lazy
+    also searches at the next position, lazy2 at the next two, and keeps a
+    later match when 4 x length - bits of its offset value is higher (the
+    match already found gets a bonus of 4, 7 at the second position); the
+    last offset is tried at each position. A match of targetLength bytes
+    or more stops the search. Chains hold absolute positions (index in the
+    buffer + base), so a slide does not move the chain slots; the base is
+    brought back below 2^30 by multiples of the chain size (checked on a
+    1.2 GB stream).
+
+  | Level | Strategy | Window | hashLog | chainLog | searchLog | targetLength |
+  |---|---|---|---|---|---|---|
+  | 1 | fast | 512 KiB | 15 | - | - | - |
+  | 2 | double fast | 1 MiB | 16 | 17 (long table) | - | - |
+  | 3 | double fast | 2 MiB | 17 | 18 (long table) | - | - |
+  | 4 | double fast | 2 MiB | 18 | 19 (long table) | - | - |
+  | 5 | greedy | 2 MiB | 18 | 21 | 3 | 64 |
+  | 6 | lazy | 2 MiB | 18 | 21 | 3 | 64 |
+  | 7 | lazy | 2 MiB | 19 | 21 | 4 | 128 |
+  | 8 | lazy2 | 2 MiB | 19 | 21 | 4 | 128 |
+  | 9 | lazy2 | 4 MiB | 20 | 22 | 4 | 128 |
+  | 10 | lazy2 | 4 MiB | 20 | 22 | 5 | 256 |
+  | 11 | lazy2 | 4 MiB | 21 | 22 | 6 | 256 |
+  | 12 | lazy2 | 4 MiB | 22 | 22 | 7 | 512 |
+
+  The window is reduced to the content size when it is known and smaller.
+  Memory: from about 1 MiB (level 1) to about 38 MiB (level 12: 4 MiB
+  window, 16 MiB chain table, 16 MiB head table, 128 KiB block).
   A repeated offset is only used after at least one literal, so value 1
   always means the last offset; new offsets are written as offset + 3.
 - Literals (`ZstdBlockEncoder`, `ZstdHuffmanEncoder`): RLE when one value,
@@ -126,21 +157,31 @@ Written from RFC 8878 (format), without the reference encoder:
   chosen by estimated size; the bit stream is written from the last
   sequence to the first (`ZstdFseEncoder`, `ZstdBitWriter`).
 
-Measured with zstd 1.5.5 on a 16.8 MB mix (Java sources, binaries, a JAR,
-text), one thread, size of the output:
+Measured against zstd 1.5.5 (one thread) on a 12.2 MB mix (Java sources,
+C headers, text documentation, binaries and a shared library), size of the
+output and speed on the test machine:
 
-| | Arcana | zstd |
-|---|---|---|
-| level 1 | 5 112 562 | 5 078 694 (`-1`) |
-| level 2 | 4 280 056 | 4 577 290 (`-2`) |
+| Level | Arcana | MB/s | zstd | MB/s |
+|---|---|---|---|---|
+| 1 | 3 431 930 | 85 | 3 505 461 | 395 |
+| 2 | 3 198 128 | 65 | 3 332 181 | 320 |
+| 3 | 3 177 510 | 56 | 3 169 136 | 207 |
+| 4 | 3 168 051 | 39 | 3 146 710 | 174 |
+| 5 | 2 995 518 | 25 | 2 994 567 | 110 |
+| 6 | 2 905 201 | 21 | 2 912 930 | 79 |
+| 7 | 2 872 255 | 16 | 2 879 504 | 72 |
+| 8 | 2 850 835 | 15 | 2 854 102 | 57 |
+| 9 | 2 842 845 | 12 | 2 840 473 | 55 |
+| 10 | 2 826 386 | 9 | 2 822 307 | 40 |
+| 11 | 2 815 820 | 7 | 2 811 983 | 29 |
+| 12 | 2 808 776 | 5 | 2 811 429 | 24 |
 
-Level 2 compresses better than `zstd -2` (close to `-3`), level 1 about as
-well as `zstd -1`. Speed: about 90 MB/s (level 1) and 120 MB/s (level 2) on
-the test machine, two to three times slower than the zstd tool. Every output
-is checked by the regression runner (compression step: compress, extract,
-compare) and was checked with `zstd -d` on 510 random inputs (random bytes,
-small alphabets, source text, long repeats, sizes up to 3 MB, content size
-known or not).
+The sizes are within 1% of zstd at every level (smaller at levels 1, 2, 6
+to 8 and 12); the speed is four to five times lower. Every output is checked
+by the regression runner (compression step: compress, extract, compare) and
+was checked with `zstd -d` on 990 random inputs over all levels (random
+bytes, small alphabets, source text, long repeats, sizes up to 3 MB, content
+size known or not) and on a 1.2 GB stream (level 5).
 
 ## Variants and versions
 

@@ -41,7 +41,7 @@ Each format has a technical page (detection, file layout, methods, limits, sourc
 | TAR+BZIP2 (.tar.bz2, .tbz2) | yes | yes | - |
 | TAR+XZ (.tar.xz, .txz) | yes | yes | - |
 | TAR+LZ4 (.tar.lz4) | yes | yes | - |
-| TAR+Zstandard (.tar.zst) | yes | yes (levels 1-2) | - |
+| TAR+Zstandard (.tar.zst) | yes | yes (levels 1-12) | - |
 | TAR+Brotli (.tar.br) | yes | - | - |
 | TAR+lzip (.tar.lz, .tlz) | yes | - | - |
 | TAR+lzop (.tar.lzo, .tzo) | yes | - | - |
@@ -50,7 +50,7 @@ Each format has a technical page (detection, file layout, methods, limits, sourc
 | XZ | yes | yes | - |
 | LZMA (raw stream) | yes | - | - |
 | LZ4 | yes | - | - |
-| Zstandard | yes | yes (levels 1-2) | - |
+| Zstandard | yes | yes (levels 1-12) | - |
 | Snappy | yes | - | - |
 | Brotli | yes | - | - |
 | lzip (.lz) | yes | - | - |
@@ -169,7 +169,7 @@ The destination can be given with `-o dest` or as the second argument: `arcana x
 -f <format>    Force the input format (format name, extension or plugin id).
 -t <format>    Force the output format of c.
 -l <level>     Compression level: 0-9 for 7z, xz and tar.xz (default 6);
-               1 or 2 for zst and tar.zst (default 2);
+               1-12 for zst and tar.zst (default 3);
                5, 6 or 7 for lzh (-lh5- by default).
 -n             With s: list the pieces without writing anything.
 ```
@@ -335,8 +335,8 @@ FormatRegistry.builtin(ArcanaFormat.SEVEN_Z).createCompressor(9, password).compr
 FormatRegistry.builtin(ArcanaFormat.TAR_XZ).createCompressor(-1, null).compress(new File("mydir"), new File("backup.tar.xz"));
 FormatRegistry.builtin(ArcanaFormat.TAR_ZSTD).createCompressor(1, null).compress(new File("mydir"), new File("backup.tar.zst"));
 
-// Zstandard as a stream (level 1 or 2; finish() keeps the underlying stream open)
-try (ZstdOutputStream zst = new ZstdOutputStream(new FileOutputStream("data.zst"), 2)) {
+// Zstandard as a stream (level 1 to 12; finish() keeps the underlying stream open)
+try (ZstdOutputStream zst = new ZstdOutputStream(new FileOutputStream("data.zst"), 9)) {
     zst.write(bytes);
 }
 ```

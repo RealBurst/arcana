@@ -25,7 +25,7 @@ import java.io.OutputStream;
 
 /**
  * Compressor for TAR + Zstandard archives (.tar.zst): files and directories,
- * levels 1 and 2 (see {@link ZstdOutputStream}).
+ * levels 1 to 12 (see {@link ZstdOutputStream}).
  *
  * @author Stef
  * @since 1.2.0
@@ -42,7 +42,7 @@ public class TarZstdCompressor implements ArchiveCompressor {
         this(ZstdOutputStream.DEFAULT_LEVEL);
     }
 
-    /** @param level 1 or 2 (lower values give 1, higher values 2) */
+    /** @param level 1 to 12 (values out of range are brought into it) */
     public TarZstdCompressor(final int level) {
         this.level = level;
     }

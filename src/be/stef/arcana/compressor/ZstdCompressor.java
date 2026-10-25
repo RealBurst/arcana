@@ -26,7 +26,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 /**
- * Compressor for single Zstandard files (.zst): levels 1 and 2 (see
+ * Compressor for single Zstandard files (.zst): levels 1 to 12 (see
  * {@link ZstdOutputStream}). For directories, use {@link TarZstdCompressor}.
  *
  * @author Stef
@@ -43,7 +43,7 @@ public class ZstdCompressor implements ArchiveCompressor {
         this(ZstdOutputStream.DEFAULT_LEVEL);
     }
 
-    /** @param level 1 or 2 (lower values give 1, higher values 2) */
+    /** @param level 1 to 12 (values out of range are brought into it) */
     public ZstdCompressor(final int level) {
         this.level = level;
     }

@@ -28,9 +28,10 @@ import java.io.OutputStream;
  *       help, RLE when the block is one repeated byte;</li>
  *   <li>content checksum (low 32 bits of XXH64).</li>
  * </ul>
- * Levels: 1 ("fast", window 512 KiB) and 2 ("double fast", window 1 MiB);
- * other values are brought into that range. Output readable by any
- * Zstandard decoder (zstd 1.x, Arcana).
+ * Levels 1 to 12 (default 3, as the zstd tool): 1 "fast", 2 to 4 "double
+ * fast", 5 "greedy", 6 and 7 "lazy", 8 to 12 "lazy2", windows of 512 KiB
+ * to 4 MiB (see {@code ZstdMatchFinder}); other values are brought into
+ * that range. Output readable by any Zstandard decoder (zstd 1.x, Arcana).
  *
  * <p>{@link #finish()} ends the frame without closing the underlying stream;
  * {@link #close()} finishes and closes it.</p>
@@ -43,9 +44,9 @@ public class ZstdOutputStream extends OutputStream {
     /** Lowest level. */
     public static final int MIN_LEVEL = 1;
     /** Highest level implemented. */
-    public static final int MAX_LEVEL = 2;
-    /** Default level. */
-    public static final int DEFAULT_LEVEL = 2;
+    public static final int MAX_LEVEL = ZstdMatchFinder.MAX_LEVEL;
+    /** Default level (as the zstd tool). */
+    public static final int DEFAULT_LEVEL = 3;
 
     private static final int BLOCK = Constants.MAX_BLOCK_SIZE;
 
@@ -78,21 +79,22 @@ public class ZstdOutputStream extends OutputStream {
 
     /**
      * @param out         destination
-     * @param level       1 or 2 (lower values give 1, higher values 2)
+     * @param level       1 to 12 (values out of range are brought into it)
      * @param contentSize number of bytes that will be written, stored in the frame header and checked by {@link #finish()}; -1 if unknown
      */
     public ZstdOutputStream(final OutputStream out, final int level, final long contentSize) {
         this.out = out;
         final int lv = Math.max(MIN_LEVEL, Math.min(MAX_LEVEL, level));
         this.contentSize = contentSize;
-        int wlog = lv == 1 ? 19 : 20;
+        final ZstdMatchFinder.Params params = ZstdMatchFinder.forLevel(lv);
+        int wlog = params.windowLog;
         if (contentSize >= 0) {
             while (wlog > Constants.MIN_WINDOW_LOG && (1L << (wlog - 1)) >= contentSize) wlog--;
         }
         this.windowLog = wlog;
         this.windowSize = 1 << wlog;
         this.buf = new byte[windowSize + BLOCK];
-        this.finder = new ZstdMatchFinder(lv, windowSize);
+        this.finder = new ZstdMatchFinder(params, windowSize);
     }
 
     @Override
