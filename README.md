@@ -107,12 +107,12 @@ Or get it from Maven Central (`io.github.realburst:arcana`):
 <dependency>
   <groupId>io.github.realburst</groupId>
   <artifactId>arcana</artifactId>
-  <version>1.0.8</version>
+  <version>1.1.0</version>
 </dependency>
 ```
 
 ```
-implementation 'io.github.realburst:arcana:1.0.8'
+implementation 'io.github.realburst:arcana:1.1.0'
 ```
 
 ---
@@ -120,7 +120,7 @@ implementation 'io.github.realburst:arcana:1.0.8'
 ## Command-line usage
 
 ```
-java -jar Arcana-v1.0.8.jar <command> [options]
+java -jar Arcana-v1.1.0.jar <command> [options]
 ```
 
 Run it without arguments to see the syntax of every command, and with `help` for the full description, the options and some examples.
@@ -238,6 +238,58 @@ try (ArchiveReader reader = Arcana.read(new File("upload.tar.gz"))) {
 try (ArchiveReader reader = Arcana.withPassword(pwd).limits(ExtractionLimits.none()).reader(file)) { ... }
 try (ArchiveReader reader = Arcana.with(ArcanaFormat.TAR_GZ).reader(inputStream)) { ... }
 ```
+
+#### Extract one file or one folder
+
+To take a few entries out of a large archive, read it entry by entry and copy only the wanted ones. Names are returned as stored: TAR archives often start them with `./`, and old archives may use `\`, so normalize them before comparing. `SafePathBuilder` refuses names that would leave the output folder (`../`, absolute paths).
+
+```java
+import be.stef.arcana.util.SafePathBuilder;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
+
+File out = new File("out");
+
+// One file: stop as soon as it is found
+try (ArchiveReader reader = Arcana.read(new File("big.7z"))) {
+    for (ArchiveItem item : reader) {
+        String name = normalize(item.getEntry().getName());
+        if (!name.equals("docs/manual.pdf")) continue;
+        File target = SafePathBuilder.buildSafePath(out, name);
+        target.getParentFile().mkdirs();
+        try (InputStream in = item.openStream()) {
+            Files.copy(in, target.toPath(), StandardCopyOption.REPLACE_EXISTING);
+        }
+        break;
+    }
+}
+
+// One folder and everything under it
+try (ArchiveReader reader = Arcana.read(new File("big.tar.gz"))) {
+    for (ArchiveItem item : reader) {
+        ArcanaEntry e = item.getEntry();
+        String name = normalize(e.getName());
+        if (!name.startsWith("images/")) continue;
+        File target = SafePathBuilder.buildSafePath(out, name);
+        if (e.isDirectory()) {
+            target.mkdirs();
+            continue;
+        }
+        target.getParentFile().mkdirs();
+        try (InputStream in = item.openStream()) {
+            Files.copy(in, target.toPath(), StandardCopyOption.REPLACE_EXISTING);
+        }
+    }
+}
+
+static String normalize(String name) {
+    name = name.replace('\\', '/');
+    while (name.startsWith("./")) name = name.substring(2);
+    return name;
+}
+```
+
+What is decoded depends on the format. In a ZIP or a non-solid 7z, entries that are not opened are not decompressed at all. A solid 7z block, a solid RAR, or a compressed TAR (`.tar.gz`, `.tar.xz`...) is one compressed stream: the entries before the wanted one are decoded (and discarded) to reach it, so `break` as soon as you have what you need. Formats that are not read entry by entry (`reader.isStreaming()` false) are first extracted to a temporary directory.
 
 An item can be read until the next one is requested. ZIP, 7z (solid blocks included), RAR 4 and RAR 5 (solid, volumes, encryption), TAR (plain or compressed: `.tar.gz`, `.tar.xz`, `.tar.zst`...), CPIO and single compressed files are decoded entry by entry (`reader.isStreaming()` is true): nothing is written to the disk. The other formats and the plugin formats are first extracted to a temporary directory, deleted by `close()`. Entry names are returned as stored in the archive: sanitize them before using them as file paths.
 

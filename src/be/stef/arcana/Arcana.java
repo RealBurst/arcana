@@ -645,7 +645,7 @@ public final class Arcana {
                                         .format(new java.util.Date(e.getLastModifiedTime() * 1000L))
                                 : "-";
                         System.out.printf("%12s  %-19s  %s%s%n",
-                                size, mtime, e.getName(), e.isDirectory() ? "/" : "");
+                                size, mtime, e.getName(), e.isDirectory() && !e.getName().endsWith("/") ? "/" : "");
                     }
                     System.out.println("  " + entries.size() + " entr" + (entries.size() == 1 ? "y" : "ies"));
                 } else {
