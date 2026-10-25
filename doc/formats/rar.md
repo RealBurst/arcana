@@ -6,7 +6,7 @@
 | Signature | RAR 5: `52 61 72 21 1A 07 01 00` ("Rar!" 1A 07 01 00); RAR 4 (1.5 to 4.x): `52 61 72 21 1A 07 00`, at offset 0 |
 | Arcana support | list, extract (solid, volumes, AES encryption, encrypted headers); no creation |
 | Main classes | `be.stef.arcana.extractor.RarExtractor`, `be.stef.arcana.formats.rar.Unrar5j`; RAR 5: `rar5.Rar5Reader`, `rar5.Rar5Extractor`, `rar5.Rar5HeaderDecryptor`, `rar5.crypto.Rar5Crypto`, `rar5.decompress.Rar5LZDecoder`, `util.Blake2sp`; RAR 4: `rar4.Rar4HeaderParser`, `rar4.Rar4Extractor`, `rar4.crypto.Rar4Crypto`, `rar4.decompress.Lz77Decompressor` (all under `be.stef.arcana.formats.rar`) |
-| Test samples | `test/samples/rar/` (`rar5.rar`, `rar5-solid.rar`, `rar5-encrypted.rar`, `rar5-encrypted-headers.rar`, `rar4.rar`, `rar4-solid.rar`, `rar4-encrypted.rar`, `rar4-encrypted-headers.rar`, `names-utf8.rar`, `volumes/rar5-volumes.part1.rar` to `part5.rar`), `test/samples/damaged/flipped.rar`, `test/samples/damaged/truncated-rar4.rar`, `test/samples/damaged/wrong-password-rar5.rar` and `wrong-password-rar4.rar` (encrypted headers, wrong password) |
+| Test samples | `test/samples/rar/` (`rar5.rar`, `rar5-solid.rar`, `rar5-solid-window.rar`, `rar5-encrypted.rar`, `rar5-encrypted-headers.rar`, `rar4.rar`, `rar4-solid.rar`, `rar4-encrypted.rar`, `rar4-encrypted-headers.rar`, `names-utf8.rar`, `volumes/rar5-volumes.part1.rar` to `part5.rar`), `test/samples/damaged/flipped.rar`, `test/samples/damaged/truncated-rar4.rar`, `test/samples/damaged/wrong-password-rar5.rar` and `wrong-password-rar4.rar` (encrypted headers, wrong password) |
 
 ## Overview
 
@@ -107,8 +107,9 @@ File header (`Rar4FileBlock`):
 
 File flags: 0x0001 / 0x0002 continued from / to another volume, 0x0004
 encrypted, 0x0010 solid, bits 5-7 dictionary size (64 KiB to 4 MiB; value 7
-means directory). RAR 4 names use `\` as separator: the listing shows them
-as stored (`bin\random.bin`), extraction converts them.
+means directory). RAR 4 names use `\` as separator: the listing and
+`Arcana.read` show them with `/` (`bin/random.bin`, since 1.1.0), extraction
+converts them.
 
 ## Compression and encryption
 
@@ -185,6 +186,10 @@ RAR 5 hash record is present (`util.Blake2sp`, `Blake2spOutputStream`).
 - Solid archives: `rar5-solid.rar`, `rar4-solid.rar`. The decoder state is
   kept from file to file; with a file filter, skipped files of a solid
   stream are decoded to nowhere (`Rar5Extractor.decompressToNull`).
+  `rar5-solid-window.rar` (128 KB dictionary, 267 KB of data) checks the
+  decoding of the next files after the window wrapped: the end of a file is
+  measured from the start of that file (`lzFileStart`), not from the start
+  of the solid stream.
 - Volumes: `Rar5Extractor.discoverVolumes` and
   `Rar4Extractor.discoverVolumes` find `nameN.rar`, `nameN+1.rar`, ... (any
   digit width). For RAR 5 the search first goes back to the lowest existing
@@ -192,8 +197,12 @@ RAR 5 hash record is present (`util.Blake2sp`, `Blake2spOutputStream`).
   `rar5-volumes.partN.rar` reference shows the same 6 extracted items);
   RAR 4 starts from the part given. File pieces are chained by
   `Rar5MultiVolumeInputStream` / `Rar4MultiVolumeInputStream`. Old style
-  names (`.rar`, `.r00`, `.r01`) are not searched. Listing a volume lists the
-  headers of that volume only.
+  names (`.rar`, `.r00`, `.r01`) are not searched. Since 1.1.0, listing a
+  volume lists the whole set (`Rar5Extractor.listVolumeSet`,
+  `Rar4Extractor.listVolumeSet`: the headers of every volume, a file continued
+  in the next volumes given once); before, only the headers of the volume
+  given were listed, so `rar5-volumes.part1.rar` showed 4 entries instead of
+  12.
 - Encryption: `rar5-encrypted.rar` (data only, names visible),
   `rar5-encrypted-headers.rar` (`-hp`), `rar4-encrypted.rar` (data only),
   `rar4-encrypted-headers.rar` (`-ma4 -hp`); `damaged/wrong-password-rar5.rar`
@@ -258,6 +267,21 @@ RAR 5 hash record is present (`util.Blake2sp`, `Blake2spOutputStream`).
   the header decryption described above.
 - The RAR 4 VM is avoided on purpose: standard filters are recognized by the
   CRC-32 of their byte code (`Lz77Decompressor`).
+- Several RAR archives can be extracted or read at the same time (since
+  1.1.0): the output paths and the encrypted-headers flag of RAR 5 are kept
+  per extraction (`ExtractionContext`), the output paths and the
+  decompressors (with their solid state) of RAR 4 per thread; `extract` is no
+  longer `synchronized`.
+- Entry by entry (`Arcana.read`, `extractor/RarArchiveReader`): the RAR 4 and
+  RAR 5 extractors run in a background thread with a `RarOutput.Sink` instead
+  of writing files. Each file is decoded into a 256 KiB buffer read by the
+  entry stream (the decoder waits when the reader is slower); an entry that is
+  not read is decoded and dropped (needed by the next entries of a solid
+  archive). The verdict of an entry (CRC32, BLAKE2sp, password) is given when
+  its stream ends; an entry that fails before any data (wrong password for an
+  encrypted file) is given with an error that `openStream` throws. Nothing is
+  written to the disk; the extractors run sequentially in this mode (no
+  parallel RAR 5 extraction) and show no progress bar.
 
 ## Sources
 

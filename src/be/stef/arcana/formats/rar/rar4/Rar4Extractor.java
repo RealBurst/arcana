@@ -34,6 +34,9 @@ import be.stef.arcana.formats.rar.ExtractionError;
 import be.stef.arcana.formats.rar.ExtractionResult;
 import be.stef.arcana.formats.rar.util.BoundedInputStream;
 import be.stef.arcana.formats.rar.util.CrcOutputStream;
+import be.stef.arcana.ArcanaFormat;
+import be.stef.arcana.ArcanaEntry;
+import be.stef.arcana.formats.rar.RarOutput;
 import be.stef.arcana.util.ProgressOutputStream;
 import be.stef.arcana.formats.rar.util.SafePathBuilder;
 import be.stef.arcana.formats.rar.rar4.blocks.Rar4FileBlock;
@@ -54,11 +57,13 @@ import be.stef.arcana.formats.rar.rar4.decompress.Rar4DecompressorRegistry;
  */
 public class Rar4Extractor {
     public static boolean  showProgress      = true;
-    public static SafePathBuilder pathBuilder = null;
+    /** Output paths of the extraction running in this thread (several archives can be extracted or read at once). */
+    private static final ThreadLocal<SafePathBuilder> PATH_BUILDER = new ThreadLocal<SafePathBuilder>();
     /** @deprecated ignored since 1.3: the declared size is not trusted any more, see {@link be.stef.arcana.util.ExtractionLimits}. */
     @Deprecated
     public static long     maxCompressionRatio = 1000;
-    private static final Rar4DecompressorRegistry registry = new Rar4DecompressorRegistry();
+    /** Decompressors (with their solid state) of the extraction running in this thread. */
+    private static final ThreadLocal<Rar4DecompressorRegistry> REGISTRY = new ThreadLocal<Rar4DecompressorRegistry>();
     
     // -------------------------------------------------------------------------
     // Public API
@@ -68,7 +73,17 @@ public class Rar4Extractor {
         return extract(archivePath, outputDir, password, null);
     }
 
-    public static synchronized ExtractionResult extract(String archivePath, String outputDir, String password, String fileFilter) {
+    public static ExtractionResult extract(String archivePath, String outputDir, String password, String fileFilter) {
+        REGISTRY.set(new Rar4DecompressorRegistry());
+        try {
+            return extractInThread(archivePath, outputDir, password, fileFilter);
+        } finally {
+            PATH_BUILDER.remove();
+            REGISTRY.remove();
+        }
+    }
+
+    private static ExtractionResult extractInThread(String archivePath, String outputDir, String password, String fileFilter) {
         ExtractionResult result = new ExtractionResult();
         result.archiveName = archivePath;
 
@@ -82,7 +97,7 @@ public class Rar4Extractor {
             File outDir = new File(outputDir);
             if (!outDir.exists()) outDir.mkdirs();
 
-            pathBuilder = new SafePathBuilder(outDir);
+            PATH_BUILDER.set(new SafePathBuilder(outDir));
 
             // Parse headers
             Rar4HeaderParser parser = new Rar4HeaderParser();
@@ -169,14 +184,14 @@ public class Rar4Extractor {
 
        // Decompression bomb protection: enforced on the bytes actually written (ExtractionLimits / ExtractionGuard)
 
-       File outputFile = pathBuilder.buildSafePath(file.getFileName());
+       File outputFile = PATH_BUILDER.get().buildSafePath(file.getFileName());
        if (outputFile == null) return "Unsafe path rejected";
-       if (outputFile.getParentFile() != null) outputFile.getParentFile().mkdirs();
+       RarOutput.mkdirs(outputFile.getParentFile());
 
 
        Rar4Decompressor decompressor;
        try {
-          decompressor = registry.resolve(method, version);
+          decompressor = REGISTRY.get().resolve(method, version);
        } catch (Exception e) {
           return "Compression method 0x" + Integer.toHexString(method).toUpperCase() + " (version " + version + ") not supported";
        }
@@ -189,7 +204,7 @@ public class Rar4Extractor {
 
        raf.seek(file.getDataStart());
 
-       try (BufferedOutputStream bos = new BufferedOutputStream(ExtractionGuard.open(outputFile))) {
+       try (BufferedOutputStream bos = new BufferedOutputStream(RarOutput.open(outputFile, entryOf(file)))) {
           BoundedInputStream bounded = new BoundedInputStream(raf, file.getPackedSize());
 
           InputStream source = bounded;
@@ -205,7 +220,7 @@ public class Rar4Extractor {
               }
           }
           
-          OutputStream out = showProgress ? new ProgressOutputStream(bos, file.getUnpackedSize(), file.getFileName()) : bos;
+          OutputStream out = showProgress && !RarOutput.active() ? new ProgressOutputStream(bos, file.getUnpackedSize(), file.getFileName()) : bos;
 
           if (out instanceof ProgressOutputStream) progressOut = (ProgressOutputStream) out;
 
@@ -263,16 +278,16 @@ public class Rar4Extractor {
                   continue;
               }
 
-              File outputFile = pathBuilder.buildSafePath(head.getFileName());
+              File outputFile = PATH_BUILDER.get().buildSafePath(head.getFileName());
               if (outputFile == null) { result.errors.add(new ExtractionError(head.getFileName(), "Unsafe path")); continue; }
-              if (outputFile.getParentFile() != null) outputFile.getParentFile().mkdirs();
+              RarOutput.mkdirs(outputFile.getParentFile());
 
-              Rar4Decompressor decompressor = registry.resolve(head.getCompressionMethod(), head.getRequiredVersion());
+              Rar4Decompressor decompressor = REGISTRY.get().resolve(head.getCompressionMethod(), head.getRequiredVersion());
               decompressor.resetState(head.isSolid());
 
               CRC32 crc = new CRC32();
-              try (java.io.BufferedOutputStream bos = new java.io.BufferedOutputStream(ExtractionGuard.open(outputFile))) {
-                  OutputStream out = showProgress
+              try (java.io.BufferedOutputStream bos = new java.io.BufferedOutputStream(RarOutput.open(outputFile, entryOf(head)))) {
+                  OutputStream out = showProgress && !RarOutput.active()
                           ? new ProgressOutputStream(bos, lf.unpackedSize, head.getFileName()) : bos;
                   OutputStream crcOut = new CrcOutputStream(out, crc);
 
@@ -327,6 +342,23 @@ public class Rar4Extractor {
         return vols;
     }
     
+    /** Entry of the common API for a file block (sink of the per-entry reader, listing); '\\' separators become '/'. */
+    public static ArcanaEntry entryOf(Rar4FileBlock f) {
+       int method = f.getCompressionMethod();
+       String label = f.isDirectory() ? null : method == 0x30 ? "Stored" : "RAR " + (f.getRequiredVersion() / 10) + "." + (f.getRequiredVersion() % 10) + " level " + (method - 0x30);
+       return new ArcanaEntry.Builder(f.getFileName().replace('\\', '/')).uncompressedSize(f.isDirectory() ? -1L : f.getUnpackedSize()).lastModifiedTime(-1L).directory(f.isDirectory()).encrypted(f.isEncrypted()).method(label).format(ArcanaFormat.RAR).build(); // RAR4 time is MS-DOS local time: not given
+    }
+
+    /**
+     * First block of every file of a multi-volume set (a file continued in the
+     * next volumes is given once, by its first part), in archive order.
+     */
+    public static java.util.List<Rar4FileBlock> listVolumeSet(File firstVolume, String password) {
+       java.util.List<Rar4FileBlock> heads = new java.util.ArrayList<>();
+       for (LogicalFile lf : buildLogicalFiles(discoverVolumes(firstVolume), password, new java.util.ArrayList<String>())) heads.add(lf.head);
+       return heads;
+    }
+
     private static class LogicalFile {
        Rar4FileBlock head;   // first chunk: name, size, salt, method, flags
        long crc;             // CRC of the last chunk (= full-file CRC)
@@ -372,16 +404,18 @@ public class Rar4Extractor {
     // -------------------------------------------------------------------------
 
     private static void createEmptyFile(Rar4FileBlock file) throws IOException {
-       File outputFile = pathBuilder.buildSafePath(file.getFileName());
+       if (RarOutput.emptyFile(entryOf(file))) return;
+       File outputFile = PATH_BUILDER.get().buildSafePath(file.getFileName());
        if (outputFile == null) throw new IOException("Unsafe path rejected");
        if (outputFile.getParentFile() != null) outputFile.getParentFile().mkdirs();
        ExtractionGuard.open(outputFile).close();
     }
 
     private static void createDirectory(Rar4FileBlock file, File outDir) throws IOException {
+       if (RarOutput.directory(entryOf(file))) return;
        // buildSafeDirPath: no collision renaming - the directory usually already exists
        // (created by mkdirs() for the files it contains, which RAR stores before it)
-       File dir = pathBuilder.buildSafeDirPath(file.getFileName());
+       File dir = PATH_BUILDER.get().buildSafeDirPath(file.getFileName());
        if (dir == null) throw new IOException("Unsafe path rejected");
        if (!dir.exists() && !dir.mkdirs()) throw new IOException("Failed to create directory");
     }

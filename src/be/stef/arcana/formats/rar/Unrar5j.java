@@ -183,14 +183,10 @@ public class Unrar5j {
         } finally {
             if (tempFile != null) tempFile.delete();
         }
-        for (Rar5FileBlock f : reader.getFileBlocks()) {
-            result.add(new ArcanaEntry.Builder(f.getFileName())
-                    .uncompressedSize(f.isDirectory() ? -1L : f.getUnpackedSize())
-                    .lastModifiedTime(f.getUnixMTime())
-                    .directory(f.isDirectory())
-                    .format(ArcanaFormat.RAR)
-                    .build());
-        }
+        // Multi-volume set: the files whose first part is in a later volume are listed too (a continued file once)
+        boolean volume = reader.getMainArchive() != null && reader.getMainArchive().isVolume();
+        List<Rar5FileBlock> blocks = volume ? Rar5Extractor.listVolumeSet(source, password, tempFile != null) : reader.getFileBlocks();
+        for (Rar5FileBlock f : blocks) result.add(Rar5Extractor.entryOf(f));
         return result;
     }
 
@@ -204,14 +200,9 @@ public class Unrar5j {
             return result;
         }
         if (Rar4Extractor.isWrongHeaderPassword(parser)) throw new ArcanaEncryptedException("Wrong password for RAR archive with encrypted headers: " + name);
-        for (Rar4FileBlock f : parser.getFileBlocks()) {
-            result.add(new ArcanaEntry.Builder(f.getFileName())
-                    .uncompressedSize(f.isDirectory() ? -1L : f.getUnpackedSize())
-                    .lastModifiedTime(-1L) // RAR4 fileTime is MS-DOS format, not Unix epoch
-                    .directory(f.isDirectory())
-                    .format(ArcanaFormat.RAR)
-                    .build());
-        }
+        // Multi-volume set: the files whose first part is in a later volume are listed too (a continued file once)
+        List<Rar4FileBlock> blocks = parser.isVolume() ? Rar4Extractor.listVolumeSet(new File(archivePath), password) : parser.getFileBlocks();
+        for (Rar4FileBlock f : blocks) result.add(Rar4Extractor.entryOf(f));
         return result;
     }
 

@@ -26,6 +26,7 @@ import be.stef.arcana.util.ExtractionGuard;
 import be.stef.arcana.util.ExtractionLimits;
 import be.stef.arcana.exceptions.ArcanaUnsupportedFormatException;
 import be.stef.arcana.extractor.ArchiveExtractor;
+import be.stef.arcana.extractor.EntryReaders;
 import be.stef.arcana.extractor.SfxExtractor;
 import be.stef.arcana.analyze.AnalyzerRegistry;
 import be.stef.arcana.analyze.Identification;
@@ -107,6 +108,28 @@ public final class Arcana {
 
     public static List<ArcanaEntry> listEntries(final File archive) throws IOException {
         return new Arcana(null, null).doList(archive);
+    }
+
+    /**
+     * Reads the entries of {@code archive} one after the other, without writing
+     * anything to the disk (see {@link ArchiveReader}). Close the reader when done.
+     *
+     * <pre>
+     *     try (ArchiveReader reader = Arcana.read(file)) {
+     *         for (ArchiveItem item : reader) {
+     *             ArcanaEntry e = item.getEntry();
+     *             if (!e.isDirectory()) try (InputStream in = item.openStream()) { ... }
+     *         }
+     *     }
+     * </pre>
+     */
+    public static ArchiveReader read(final File archive) throws IOException {
+        return new Arcana(null, null).doRead(archive);
+    }
+
+    /** Same as {@link #read(File)}; the path must be on the default file system. */
+    public static ArchiveReader read(final Path archive) throws IOException {
+        return read(file(archive));
     }
 
     /** Same as {@link #extractTo(File, File)}; the paths must be on the default file system. */
@@ -333,6 +356,29 @@ public final class Arcana {
         return doList(archive);
     }
 
+    /** Same as {@link #read(File)} with this instance's format, plugin, password and limits. */
+    public ArchiveReader reader(final File archive) throws IOException {
+        return doRead(archive);
+    }
+
+    /** Same as {@link #reader(File)}; the path must be on the default file system. */
+    public ArchiveReader reader(final Path archive) throws IOException {
+        return doRead(file(archive));
+    }
+
+    /**
+     * Reads the entries of an archive coming from a stream; the format must be
+     * given ({@link #with(ArcanaFormat)}). TAR, CPIO and the compressed formats
+     * are read as the data arrives; the other formats are first copied to a
+     * temporary file, deleted when the reader is closed. The stream is closed
+     * with the reader.
+     */
+    public ArchiveReader reader(final InputStream in) throws IOException {
+        if (forcedFormat == null && forcedPlugin == null) throw new ArcanaUnsupportedFormatException("Format must be specified via Arcana.with(format) when reading from a stream.");
+        if (forcedPlugin != null) return EntryReaders.open(ArcanaFormat.UNKNOWN, in, password, forcedPlugin.createExtractor(password), limits);
+        return EntryReaders.open(forcedFormat, in, password, createExtractor(forcedFormat, password), limits);
+    }
+
     /** Same as {@link #list(File)}; the path must be on the default file system. */
     public List<ArcanaEntry> list(final Path archive) throws IOException {
         return doList(file(archive));
@@ -346,6 +392,13 @@ public final class Arcana {
         try (ExtractionGuard.Scope scope = ExtractionGuard.begin(archive, limits)) {
             extractorFor(archive).extract(archive, destination);
         }
+    }
+
+    private ArchiveReader doRead(final File archive) throws IOException {
+        final ArcanaPlugin plugin = forcedPlugin != null ? forcedPlugin : forcedFormat != null ? null : detectPlugin(archive);
+        if (plugin != null) return EntryReaders.fallback(ArcanaFormat.UNKNOWN, archive, plugin.createExtractor(password), limits, null);
+        final ArcanaFormat format = resolveFormat(archive);
+        return EntryReaders.open(format, archive, password, createExtractor(format, password), limits);
     }
 
     private List<ArcanaEntry> doList(final File archive) throws IOException {

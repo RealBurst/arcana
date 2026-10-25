@@ -90,27 +90,35 @@ public class RarExtractor implements ArchiveExtractor {
 
         ExtractionResult result = Unrar5j.extract(archivePath, destPath, password);
 
-        if (!result.isSuccess()) {
-            // Check if any error is due to encryption
-            for (ExtractionError error : result.errors) {
-                if (error.isEncryptedBlock) {
-                    // archive-level password error (no password, wrong password for encrypted headers): keep its message
-                    if (error.exception instanceof ArcanaEncryptedException) throw (ArcanaEncryptedException) error.exception;
-                    throw new ArcanaEncryptedException("Encrypted RAR entry could not be decrypted: " + error.fileName);
-                }
+        if (!result.isSuccess()) throw toException(result.errors, archive.getName());
+    }
+
+    /**
+     * Exception for the errors of an extraction: the password errors as
+     * {@link ArcanaEncryptedException}, an extraction limit as
+     * {@link ArcanaLimitExceededException}, the others summed up in an
+     * {@link ArcanaCorruptedException}.
+     */
+    static IOException toException(final List<ExtractionError> errors, final String archiveName) {
+        // Check if any error is due to encryption
+        for (ExtractionError error : errors) {
+            if (error.isEncryptedBlock) {
+                // archive-level password error (no password, wrong password for encrypted headers): keep its message
+                if (error.exception instanceof ArcanaEncryptedException) return (ArcanaEncryptedException) error.exception;
+                return new ArcanaEncryptedException("Encrypted RAR entry could not be decrypted: " + error.fileName);
             }
-            // An extraction limit (decompression bomb, disk full) keeps its own exception type
-            for (ExtractionError error : result.errors) {
-                if (error.exception instanceof ArcanaLimitExceededException) throw (ArcanaLimitExceededException) error.exception;
-            }
-            // Build a summary message from all errors
-            StringBuilder sb = new StringBuilder("RAR extraction failed for: ").append(archive.getName());
-            for (ExtractionError error : result.errors) {
-                sb.append("\n  ").append(error.fileName).append(": ").append(error.errorMessage);
-                if (error.exception != null && error.exception.getMessage() != null && !error.errorMessage.contains(error.exception.getMessage())) sb.append(" - ").append(error.exception.getMessage());
-            }
-            throw new ArcanaCorruptedException(sb.toString());
         }
+        // An extraction limit (decompression bomb, disk full) keeps its own exception type
+        for (ExtractionError error : errors) {
+            if (error.exception instanceof ArcanaLimitExceededException) return (ArcanaLimitExceededException) error.exception;
+        }
+        // Build a summary message from all errors
+        StringBuilder sb = new StringBuilder("RAR extraction failed for: ").append(archiveName);
+        for (ExtractionError error : errors) {
+            sb.append("\n  ").append(error.fileName).append(": ").append(error.errorMessage);
+            if (error.exception != null && error.exception.getMessage() != null && !error.errorMessage.contains(error.exception.getMessage())) sb.append(" - ").append(error.exception.getMessage());
+        }
+        return new ArcanaCorruptedException(sb.toString());
     }
 
     // =========================================================================

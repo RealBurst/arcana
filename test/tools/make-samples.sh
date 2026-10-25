@@ -113,6 +113,11 @@ if have "$RAR"; then
     mkdir -p "$OUT/rar/volumes"
     "$RAR" a -idq -r -m0 -v8k "$OUT/rar/volumes/rar5-volumes.rar" . >/dev/null
     (cd "$N" && "$RAR" a -idq -r "$OUT/rar/names-utf8.rar" . >/dev/null)
+    # solid, 128 KB dictionary: the data goes past the window size (RAR 5 solid decoding after a window wrap)
+    mkdir -p "$WORK/rar-window"
+    for i in 1 2 3 4 5 6 7 8; do cat docs/notes.txt; done > "$WORK/rar-window/big.txt"
+    cp readme.txt docs/notes.txt "$WORK/rar-window/"
+    (cd "$WORK/rar-window" && "$RAR" a -idq -s -md128k "$OUT/rar/rar5-solid-window.rar" big.txt notes.txt readme.txt >/dev/null)
 else skip "rar"; fi
 
 # ---------------------------------------------------------------------------
@@ -174,6 +179,7 @@ if have arj; then
     rm -f "$OUT"/arj/*.arj
     for m in 0 1 4; do arj a -r -y -m$m "$OUT/arj/method$m.arj" readme.txt docs/notes.txt bin/random.bin >/dev/null; done
     arj a -r -y -g"$PASSWORD" "$OUT/arj/garbled.arj" readme.txt docs/notes.txt >/dev/null
+    arj a -r -y -m4 -g"$PASSWORD" "$OUT/arj/garbled-m4.arj" readme.txt docs/notes.txt >/dev/null
 else skip "arj"; fi
 
 if have gcab; then
@@ -281,6 +287,12 @@ else skip "dmg (mkfs.hfsplus, hfsplus, dmg)"; fi
 "${GEN[@]}" dmg-encrypted "$OUT/dmg/encrypted-header.dmg"
 
 # ---------------------------------------------------------------------------
+# OLE compound files: password-protected Office document (EncryptionInfo + EncryptedPackage)
+# ---------------------------------------------------------------------------
+mk ole
+"${GEN[@]}" ooxml-encrypted "$OUT/ole/encrypted-office.docx"
+
+# ---------------------------------------------------------------------------
 # XAR, MSI, CHM, SZDD
 # ---------------------------------------------------------------------------
 if have "$XAR"; then
@@ -361,6 +373,7 @@ mk damaged
 "${GEN[@]}" damaged "$OUT"
 cp "$OUT/rar/rar5-encrypted-headers.rar" "$OUT/damaged/wrong-password-rar5.rar" 2>/dev/null || skip "wrong-password-rar5.rar"
 cp "$OUT/rar/rar4-encrypted-headers.rar" "$OUT/damaged/wrong-password-rar4.rar" 2>/dev/null || skip "wrong-password-rar4.rar"
+cp "$OUT/arj/garbled.arj" "$OUT/damaged/wrong-password-arj.arj" 2>/dev/null || skip "wrong-password-arj.arj"
 if have "$SEVENZ"; then
     rm -f "$WORK/aes-rounds.7z"
     "$SEVENZ" a -bso0 -p"$PASSWORD" -mhc=off "$WORK/aes-rounds.7z" readme.txt >/dev/null

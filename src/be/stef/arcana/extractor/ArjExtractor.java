@@ -33,13 +33,27 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Extractor for ARJ archives (.arj): methods 0 to 4, no encryption, no
- * multi-volume entries.
+ * Extractor for ARJ archives (.arj): methods 0 to 4, garbled (password)
+ * entries, no ARJCRYPT encryption, no multi-volume entries.
  *
  * @author Stef
  * @since 1.0.4
  */
 public class ArjExtractor implements ArchiveExtractor {
+
+    private final byte[] password;
+
+    public ArjExtractor() {
+        this(null);
+    }
+
+    /**
+     * @param password password of the garbled entries, or null
+     * @since 1.1.0
+     */
+    public ArjExtractor(final byte[] password) {
+        this.password = password;
+    }
 
     @Override
     public boolean supportsStream() {
@@ -56,7 +70,7 @@ public class ArjExtractor implements ArchiveExtractor {
     @Override
     public void extract(final InputStream in, final File destination) throws IOException {
         IOHelper.mkdirs(destination);
-        final ArjReader arj = new ArjReader(in instanceof BufferedInputStream ? in : new BufferedInputStream(in, 65536));
+        final ArjReader arj = new ArjReader(in instanceof BufferedInputStream ? in : new BufferedInputStream(in, 65536), password);
         final List<Object[]> dirTimes = new ArrayList<Object[]>();
         ArjEntry e;
         while ((e = arj.nextEntry()) != null) {

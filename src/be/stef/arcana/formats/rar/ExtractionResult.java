@@ -29,7 +29,16 @@ import java.util.List;
      public int successCount;       //Number of successfully extracted files
      public int errorCount;         //Number of files that failed to extract
      public int passwordStatus = 0;                                  
-     public final List<ExtractionError> errors = new ArrayList<>(); //List of extraction errors
+     /** List of extraction errors; every error added is also reported to the {@link RarOutput} sink, if any. */
+     public final List<ExtractionError> errors = new ArrayList<ExtractionError>() {
+         private static final long serialVersionUID = 1L;
+
+         @Override
+         public boolean add(final ExtractionError e) {
+             RarOutput.error(e);
+             return super.add(e);
+         }
+     };
      
      /**
       * Prints a summary of the extraction result.

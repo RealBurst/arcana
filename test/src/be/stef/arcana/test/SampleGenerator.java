@@ -57,6 +57,7 @@ import javax.crypto.spec.SecretKeySpec;
  *   wim-lzx-uncompressed WORK OUT    WIM whose LZX chunks hold an uncompressed block (wimlib-imagex)
  *   dmg-hfsx PAYLOAD MODE OUT        HFSX volume in a UDIF image: MODE raw, adc, features (zlib, decmpfs, links...) or whole (zlib, one "whole disk" entry holding an Apple partition map)
  *   dmg-encrypted OUT                header of an encrypted disk image (encrcdsa)
+ *   ooxml-encrypted OUT              OLE file of a password-protected Office document (EncryptionInfo 4.4 + EncryptedPackage)
  * </pre>
  *
  * <p>The outputs are byte-identical to the ones of the former Python scripts.
@@ -98,6 +99,7 @@ public final class SampleGenerator {
         else if ("wim-lzx-uncompressed".equals(cmd) && a.length == 3) wimLzxUncompressed(new File(a[1]), new File(a[2]));
         else if ("dmg-hfsx".equals(cmd) && a.length == 4 && a[2].matches("raw|adc|features|whole")) write(new File(a[3]), dmgHfsx(new File(a[1]), a[2]));
         else if ("dmg-encrypted".equals(cmd) && a.length == 2) write(new File(a[1]), dmgEncryptedHeader());
+        else if ("ooxml-encrypted".equals(cmd) && a.length == 2) write(new File(a[1]), ooxmlEncrypted());
         else {
             usage();
             return false;
@@ -119,6 +121,7 @@ public final class SampleGenerator {
         System.err.println("  wim-lzx-uncompressed WORK OUT   WIM whose LZX chunks hold an uncompressed block (needs wimlib-imagex)");
         System.err.println("  dmg-hfsx PAYLOAD MODE OUT       HFSX volume in a UDIF image: MODE raw, adc, features (zlib, decmpfs, links...) or whole (zlib, \"whole disk\" entry with an Apple partition map)");
         System.err.println("  dmg-encrypted OUT               header of an encrypted disk image (encrcdsa)");
+        System.err.println("  ooxml-encrypted OUT             OLE file of a password-protected Office document");
     }
 
     // -----------------------------------------------------------------------
@@ -1664,6 +1667,78 @@ public final class SampleGenerator {
         return b;
     }
 
+    /**
+     * OLE compound file (version 3, 512-byte sectors) shaped like a
+     * password-protected .docx ([MS-OFFCRYPTO]): an "EncryptionInfo" stream
+     * (version 4.4, agile encryption, with a minimal XML descriptor) and an
+     * "EncryptedPackage" stream of pseudo-random bytes. Both streams are 4096
+     * bytes or more, so no mini stream is needed. Arcana must report it as an
+     * encrypted Office document, not extract its streams.
+     */
+    private static byte[] ooxmlEncrypted() {
+        final byte[] info = new byte[4096];
+        putLe16(info, 0, 4);
+        putLe16(info, 2, 4);
+        putLe32(info, 4, 0x40);
+        final byte[] xml = ascii("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\r\n<encryption xmlns=\"http://schemas.microsoft.com/office/2006/encryption\"><keyData saltSize=\"16\" blockSize=\"16\" keyBits=\"256\" hashSize=\"64\" cipherAlgorithm=\"AES\" cipherChaining=\"ChainingModeCBC\" hashAlgorithm=\"SHA512\" saltValue=\"AAAAAAAAAAAAAAAAAAAAAA==\"/></encryption>");
+        System.arraycopy(xml, 0, info, 8, xml.length);
+        final byte[] pkg = new byte[8192];
+        putLe64(pkg, 0, 5000);
+        for (int i = 8; i < pkg.length; i++) pkg[i] = (byte) (i * 197 + (i >>> 7) * 31 + 11);
+        final int infoSectors = info.length / 512;
+        final int pkgSectors = pkg.length / 512;
+        final int infoStart = 2;
+        final int pkgStart = infoStart + infoSectors;
+        final int total = pkgStart + pkgSectors;
+        final byte[] out = new byte[512 + total * 512];
+        // header
+        final int[] sig = {0xD0, 0xCF, 0x11, 0xE0, 0xA1, 0xB1, 0x1A, 0xE1};
+        for (int i = 0; i < 8; i++) out[i] = (byte) sig[i];
+        putLe16(out, 24, 0x3E);
+        putLe16(out, 26, 3);
+        putLe16(out, 28, 0xFFFE);
+        putLe16(out, 30, 9);
+        putLe16(out, 32, 6);
+        putLe32(out, 44, 1);          // FAT sectors
+        putLe32(out, 48, 1);          // first directory sector
+        putLe32(out, 56, 4096);       // mini stream cutoff
+        putLe32(out, 60, 0xFFFFFFFE); // no mini FAT
+        putLe32(out, 68, 0xFFFFFFFE); // no DIFAT sector
+        putLe32(out, 76, 0);          // FAT in sector 0
+        for (int i = 1; i < 109; i++) putLe32(out, 76 + 4 * i, 0xFFFFFFFF);
+        // sector 0: FAT
+        final int fat = 512;
+        for (int i = 0; i < 128; i++) putLe32(out, fat + 4 * i, 0xFFFFFFFF);
+        putLe32(out, fat, 0xFFFFFFFD);      // FAT sector
+        putLe32(out, fat + 4, 0xFFFFFFFE);  // directory: one sector
+        for (int i = 0; i < infoSectors; i++) putLe32(out, fat + 4 * (infoStart + i), i == infoSectors - 1 ? 0xFFFFFFFE : infoStart + i + 1);
+        for (int i = 0; i < pkgSectors; i++) putLe32(out, fat + 4 * (pkgStart + i), i == pkgSectors - 1 ? 0xFFFFFFFE : pkgStart + i + 1);
+        // sector 1: directory (root, EncryptionInfo, EncryptedPackage, unused)
+        final int dir = 512 + 512;
+        oleDirEntry(out, dir, "Root Entry", 5, 0xFFFFFFFF, 0xFFFFFFFF, 1, 0xFFFFFFFE, 0);
+        oleDirEntry(out, dir + 128, "EncryptionInfo", 2, 0xFFFFFFFF, 2, 0xFFFFFFFF, infoStart, info.length);
+        oleDirEntry(out, dir + 256, "EncryptedPackage", 2, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, pkgStart, pkg.length);
+        putLe32(out, dir + 384 + 68, 0xFFFFFFFF);
+        putLe32(out, dir + 384 + 72, 0xFFFFFFFF);
+        putLe32(out, dir + 384 + 76, 0xFFFFFFFF);
+        System.arraycopy(info, 0, out, 512 + infoStart * 512, info.length);
+        System.arraycopy(pkg, 0, out, 512 + pkgStart * 512, pkg.length);
+        return out;
+    }
+
+    /** One 128-byte OLE directory entry (black node; times and CLSID left at zero). */
+    private static void oleDirEntry(final byte[] b, final int off, final String name, final int type, final int left, final int right, final int child, final int start, final long size) {
+        for (int i = 0; i < name.length(); i++) putLe16(b, off + 2 * i, name.charAt(i));
+        putLe16(b, off + 64, 2 * (name.length() + 1));
+        b[off + 66] = (byte) type;
+        b[off + 67] = 1;
+        putLe32(b, off + 68, left);
+        putLe32(b, off + 72, right);
+        putLe32(b, off + 76, child);
+        putLe32(b, off + 116, start);
+        putLe64(b, off + 120, size);
+    }
+
     // -----------------------------------------------------------------------
     // Helpers
     // -----------------------------------------------------------------------
@@ -1766,6 +1841,11 @@ public final class SampleGenerator {
 
     private static long le64(final byte[] b, final int off) {
         return le32(b, off) | le32(b, off + 4) << 32;
+    }
+
+    private static void putLe16(final byte[] b, final int off, final int v) {
+        b[off] = (byte) v;
+        b[off + 1] = (byte) (v >>> 8);
     }
 
     private static void putLe32(final byte[] b, final int off, final int v) {

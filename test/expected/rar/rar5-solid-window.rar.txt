@@ -1,0 +1,11 @@
+# Arcana regression reference (RegressionRunner --update)
+input: 65c32640f137b8210592d3ef5240248a125204c7c287ec1e7c163c9f8d353c96 1508
+identify: archive | RAR 5 - RAR archive, version 5.0
+list: 3 entries
+  big.txt 235920
+  notes.txt 29490
+  readme.txt 1520
+extracted: 3 items
+  big.txt 235920 5db3d80d7c8f4d3d0f7adb8f4afdfdcda29076493d3cb78aca3e02f84ec7da31
+  notes.txt 29490 d7e02c884850cdfa9d78d1e322269a120fdce78e1178469a980945b2d27d0c66
+  readme.txt 1520 ba2f1014c1181c953f32737172808623ce8dd59ba7c7598d2d73730ea4f6217c

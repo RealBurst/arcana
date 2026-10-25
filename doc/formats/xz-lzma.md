@@ -195,6 +195,27 @@ The sample `notes.txt.lzma` starts with `5D 00 00 80 00` (lc=3, lp=0, pb=2,
 - After an inner TAR or CPIO ends, `CompressedStreamExtractor` drains the
   stream so that the index, footer and checks are still verified.
 
+### Origin of the code and upstream changes
+
+`be.stef.arcana.formats.xz` (and `formats.xz.common`, `.lz`, `.lzma`,
+`.rangecoder`, `.delta`, `.simple`, `.check`, `.index`) is a port of XZ for
+Java ([tukaani-project/xz-java](https://github.com/tukaani-project/xz-java),
+0BSD license), package `org.tukaani.xz` renamed. Compared on 2026-10-23 with
+the tags of that repository, the closest release is **XZ for Java 1.11**
+(tag `v1.11`, 2025-11-19): of the 52 classes present in both, 37 are
+identical apart from the package and imports, and 15 carry small Arcana
+changes (filter options, `DeltaCoder` / `DeltaDecoder`, `LZMA2Options`,
+`LZDecoder`, `IndexHash`, `DecoderUtil`, `LZEncoder`...).
+`ParallelXZInputStream`, `ParallelXZOutputStream` and
+`ParallelLZMA2OutputStream` are Arcana's own (multi-threaded decoding and
+encoding). Some ported files keep the header "Changes: package only" although
+they were adapted later.
+
+To follow upstream: for each XZ for Java release, compare its
+`src/main/java/org/tukaani/xz` tree with this package (same file names, after
+the package line), port the fixes that concern decoding or validation, run the
+XZ, LZMA, 7z, lzip and SquashFS samples, and update the base version above.
+
 ## Sources
 
 - The .xz File Format, version 1.2.1, Tukaani project:

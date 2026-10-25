@@ -3,15 +3,15 @@ input: 1184f7eb94199b543dd9474d39d1c1461ad26b0f83d364bce86edb6edf436e39 5906
 identify: archive | RAR 4 - RAR archive, version 1.5-4.x
 list: 12 entries
   bin (folder)
-  bin\random.bin 4096
+  bin/random.bin 4096
   deep (folder)
-  deep\a (folder)
-  deep\a\b (folder)
-  deep\a\b\c (folder)
-  deep\a\b\c\leaf.txt 5
+  deep/a (folder)
+  deep/a/b (folder)
+  deep/a/b/c (folder)
+  deep/a/b/c/leaf.txt 5
   docs (folder)
-  docs\empty.txt 0
-  docs\notes.txt 29490
+  docs/empty.txt 0
+  docs/notes.txt 29490
   empty-dir (folder)
   readme.txt 1520
 extracted: 6 items

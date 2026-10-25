@@ -79,6 +79,12 @@ None left: see "Fixed in 1.0.6" at the end.
 
 - `test/samples/rar/names-utf8.rar` was made by `rar` in a non-UTF-8 locale: the accented name is stored wrongly and the reference records it.
 
+## Fixed in 1.1.0
+
+- RAR: listing a multi-volume archive gave the headers of the volume given only (`rar5-volumes.part1.rar`: 4 entries instead of 12); the whole set is now listed, from any volume [`rar/volumes/rar5-volumes.part1.rar` to `part5.rar`]. RAR 4 names are listed with `/`; encrypted RAR and ZIP entries are marked as encrypted in the listing.
+- RAR 5 solid: the decoder never ended (infinite loop) once the data of the archive went past the dictionary size, at the first next file smaller than the decoded data (end-of-file test made on the cumulative position instead of the position in the file); present since the first RAR 5 version [`rar/rar5-solid-window.rar`].
+- RAR: extraction was `synchronized` and kept its state in static fields: two RAR archives could not be extracted at once (now per extraction / per thread).
+
 ## Fixed in 1.0.6
 
 Each fix comes with a test sample (`test/samples`), named in brackets.

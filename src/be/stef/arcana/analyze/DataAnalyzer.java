@@ -63,6 +63,10 @@ public final class DataAnalyzer implements ArcanaAnalyzer {
 
     private static Identification ole(final ByteSource s, final String fileName) throws IOException {
         // OLE2 / Compound File Binary: legacy Office, MSI, MSG... Subtype needs the directory; use the name as a hint.
+        final String encryption = OleEncryption.ooxml(s.getFile());
+        if (encryption != null) {
+            return Identification.of("document", "OOXML (encrypted)").description("Encrypted Office document (OOXML in an OLE container, " + encryption + "): decryption not supported").detail("encryption", encryption).detail("encrypted", "yes (not supported)").build();
+        }
         final String n = fileName != null ? fileName.toLowerCase() : "";
         String type = "OLE2", desc = "OLE2 compound file (legacy Office document, MSI, or similar)";
         if (n.endsWith(".doc")) { type = "DOC"; desc = "Word 97-2003 document (OLE2)"; }

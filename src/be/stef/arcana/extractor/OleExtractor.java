@@ -20,6 +20,7 @@ import be.stef.arcana.ArcanaFormat;
 import be.stef.arcana.exceptions.ArcanaUnsupportedFormatException;
 import be.stef.arcana.formats.cab.CabEntry;
 import be.stef.arcana.formats.cab.CabReader;
+import be.stef.arcana.analyze.OleEncryption;
 import be.stef.arcana.formats.ole.CompoundFile;
 import be.stef.arcana.formats.ole.MsiPackage;
 import be.stef.arcana.util.ExtractionGuard;
@@ -88,6 +89,8 @@ public class OleExtractor implements ArchiveExtractor {
 
     @Override
     public void extract(final File archive, final File destination) throws IOException {
+        final String encryption = OleEncryption.ooxml(archive);
+        if (encryption != null) throw new ArcanaUnsupportedFormatException("Encrypted Office document (OOXML in an OLE container, " + encryption + "): decryption is not supported - " + archive.getName());
         IOHelper.mkdirs(destination);
         try (CompoundFile cf = new CompoundFile(archive)) {
             final MsiPackage msi = msi(cf);

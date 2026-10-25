@@ -213,6 +213,16 @@ the cabinet resource that holds the most expected keys.
 For any other compound file, `extractStorage` writes storages as folders and
 streams as files.
 
+A password-protected Office Open XML document (.docx, .xlsx, .pptx) is not a
+ZIP but a compound file with two root streams, `EncryptionInfo` and
+`EncryptedPackage` ([MS-OFFCRYPTO] 2.3.4). `OleEncryption.ooxml` recognizes
+it: `i` shows "OOXML (encrypted)" with the kind of encryption read from the
+version of `EncryptionInfo` (4.4 agile, 3.2/4.2 standard, 3.3/4.3
+extensible), `l` lists the two streams, and `x` stops with "Encrypted Office
+document ...: decryption is not supported" instead of writing the encrypted
+streams. Sample: `ole/encrypted-office.docx` (`SampleGenerator
+ooxml-encrypted`).
+
 ## Variants and versions
 
 - Version 3 (512-byte sectors) and version 4 (4096-byte sectors) compound

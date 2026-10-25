@@ -16,6 +16,7 @@
 package be.stef.arcana.formats.arj;
 
 import be.stef.arcana.exceptions.ArcanaCorruptedException;
+import be.stef.arcana.exceptions.ArcanaEncryptedException;
 import be.stef.arcana.exceptions.ArcanaUnsupportedFormatException;
 import be.stef.arcana.formats.lha.LhaDecoder;
 import java.io.EOFException;
@@ -64,6 +65,9 @@ public final class ArjReader implements AutoCloseable {
     private static final Charset OEM = oemCharset();
 
     private final InputStream in;
+    private final byte[] password;
+    /** Encryption version of the main header (byte 28): 0 and 1 = garbling with the password. */
+    private final int encryptionVersion;
     private ArjEntry current;
     private long remaining; // compressed bytes of the current entry not consumed yet
     private boolean finished;
@@ -74,9 +78,22 @@ public final class ArjReader implements AutoCloseable {
      * @param in archive data, from its first byte
      */
     public ArjReader(final InputStream in) throws IOException {
+        this(in, null);
+    }
+
+    /**
+     * Opens the archive and reads its main header.
+     *
+     * @param in       archive data, from its first byte
+     * @param password password of the garbled entries, or null
+     * @since 1.1.0
+     */
+    public ArjReader(final InputStream in, final byte[] password) throws IOException {
         this.in = in;
+        this.password = password != null && password.length > 0 ? password.clone() : null;
         final byte[] main = readHeader();
         if (main == null || main.length < 30 || (main[6] & 0xff) != TYPE_MAIN) throw new ArcanaCorruptedException("Not an ARJ archive");
+        this.encryptionVersion = (main[0] & 0xff) > 28 ? main[28] & 0xff : 0;
     }
 
     /**
@@ -112,7 +129,7 @@ public final class ArjReader implements AutoCloseable {
             if (type != TYPE_BINARY && type != TYPE_TEXT && type != TYPE_DIRECTORY) continue; // volume label, chapter
             final String name = path(decodeName(h, first, end - first));
             if (name.isEmpty()) continue;
-            current = new ArjEntry(name, type == TYPE_DIRECTORY, method, flags, size, packed, crc, host == HOST_UNIX || host == HOST_NEXT ? time * 1000L : dosTime(time));
+            current = new ArjEntry(name, type == TYPE_DIRECTORY, method, flags, size, packed, crc, h[7] & 0xff, host == HOST_UNIX || host == HOST_NEXT ? time * 1000L : dosTime(time));
             return current;
         }
     }
@@ -123,9 +140,11 @@ public final class ArjReader implements AutoCloseable {
     public InputStream openData() throws IOException {
         final ArjEntry e = current;
         if (e == null || e.directory) throw new IllegalStateException("No file entry");
-        if ((e.flags & FLAG_GARBLED) != 0) throw new ArcanaUnsupportedFormatException("Encrypted ARJ entry: " + e.name);
+        final boolean garbled = (e.flags & FLAG_GARBLED) != 0;
+        if (garbled && encryptionVersion > 1) throw new ArcanaUnsupportedFormatException("ARJ encryption version " + encryptionVersion + " (ARJCRYPT) is not supported: " + e.name);
+        if (garbled && password == null) throw new ArcanaEncryptedException("ARJ entry is encrypted and no password was provided: " + e.name);
         if ((e.flags & (FLAG_VOLUME | FLAG_EXTFILE)) != 0) throw new ArcanaUnsupportedFormatException("ARJ entry split across volumes: " + e.name);
-        final InputStream raw = new Bounded();
+        final InputStream raw = garbled ? new Ungarble(new Bounded(), password, e.modifier) : new Bounded();
         final InputStream data;
         switch (e.method) {
             case 0:
@@ -270,6 +289,43 @@ public final class ArjReader implements AutoCloseable {
         }
     }
 
+    /**
+     * Garbled data: each byte of the stored (compressed) data is XORed with
+     * (password byte + modifier), the password bytes taken in a cycle from the
+     * start of each entry. Found by comparing archives made by ARJ with known
+     * contents and passwords.
+     */
+    private static final class Ungarble extends InputStream {
+        private final InputStream in;
+        private final byte[] key;
+        private int pos;
+
+        Ungarble(final InputStream in, final byte[] password, final int modifier) {
+            this.in = in;
+            this.key = new byte[password.length];
+            for (int i = 0; i < key.length; i++) key[i] = (byte) (password[i] + modifier);
+        }
+
+        @Override
+        public int read() throws IOException {
+            final int b = in.read();
+            if (b < 0) return -1;
+            final int r = (b ^ key[pos]) & 0xff;
+            if (++pos == key.length) pos = 0;
+            return r;
+        }
+
+        @Override
+        public int read(final byte[] b, final int off, final int len) throws IOException {
+            final int n = in.read(b, off, len);
+            for (int i = 0; i < n; i++) {
+                b[off + i] ^= key[pos];
+                if (++pos == key.length) pos = 0;
+            }
+            return n;
+        }
+    }
+
     /** Stops at the original size and checks the CRC-32. */
     private static final class Checked extends InputStream {
         private final InputStream data;
@@ -294,7 +350,13 @@ public final class ArjReader implements AutoCloseable {
         public int read(final byte[] b, final int off, final int len) throws IOException {
             if (len == 0) return 0;
             if (left <= 0) return -1;
-            final int n = data.read(b, off, (int) Math.min(len, left));
+            final int n;
+            try {
+                n = data.read(b, off, (int) Math.min(len, left));
+            } catch (final IOException ex) {
+                if (entry.isEncrypted() && !(ex instanceof EOFException) && !(ex instanceof ArcanaEncryptedException)) throw new ArcanaEncryptedException("Wrong password for ARJ entry (data error): " + entry.name, ex);
+                throw ex;
+            }
             if (n < 0) throw new ArcanaCorruptedException("ARJ data truncated: " + entry.name);
             crc.update(b, off, n);
             left -= n;
@@ -303,7 +365,10 @@ public final class ArjReader implements AutoCloseable {
         }
 
         private void check() throws IOException {
-            if ((int) crc.getValue() != entry.crc) throw new ArcanaCorruptedException("ARJ CRC error: " + entry.name);
+            if ((int) crc.getValue() != entry.crc) {
+                if (entry.isEncrypted()) throw new ArcanaEncryptedException("Wrong password for ARJ entry (CRC error): " + entry.name);
+                throw new ArcanaCorruptedException("ARJ CRC error: " + entry.name);
+            }
         }
     }
 

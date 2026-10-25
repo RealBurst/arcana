@@ -56,6 +56,18 @@ public class ArcanaEntry {
     /** The archive format from which this entry was read. */
     private final ArcanaFormat format;
 
+    /** Compression method as named by the format ("Deflate", "LZMA2", "BCJ+LZMA"...), or {@code null} if unknown. */
+    private final String method;
+
+    /** Unix mode (file type and permission bits, e.g. 0100644), or {@code -1} if the archive stores none. */
+    private final int mode;
+
+    /** Target of a symbolic or hard link, or {@code null} for an ordinary entry. */
+    private final String linkTarget;
+
+    /** Comment stored with the entry, or {@code null}. */
+    private final String comment;
+
     // -------------------------------------------------------------------------
     // Construction via Builder
     // -------------------------------------------------------------------------
@@ -69,6 +81,10 @@ public class ArcanaEntry {
         this.encrypted        = b.encrypted;
         this.crc32            = b.crc32;
         this.format           = b.format;
+        this.method           = b.method;
+        this.mode             = b.mode;
+        this.linkTarget       = b.linkTarget;
+        this.comment          = b.comment;
     }
 
     // -------------------------------------------------------------------------
@@ -99,6 +115,21 @@ public class ArcanaEntry {
     /** @return the archive format from which this entry was read */
     public ArcanaFormat getFormat() { return format; }
 
+    /** @return compression method as named by the format ("Deflate", "LZMA2"...), or {@code null} if unknown */
+    public String getMethod() { return method; }
+
+    /** @return Unix mode (file type and permission bits, e.g. 0100644), or {@code -1} if not stored */
+    public int getMode() { return mode; }
+
+    /** @return target of a symbolic or hard link, or {@code null} for an ordinary entry */
+    public String getLinkTarget() { return linkTarget; }
+
+    /** @return {@code true} if this entry is a symbolic or hard link (see {@link #getLinkTarget()}) */
+    public boolean isLink() { return linkTarget != null; }
+
+    /** @return comment stored with the entry, or {@code null} */
+    public String getComment() { return comment; }
+
     @Override
     public String toString() {
         return "ArcanaEntry{name='" + name + "', size=" + uncompressedSize + ", dir=" + directory + ", format=" + format + "}";
@@ -124,6 +155,10 @@ public class ArcanaEntry {
         private boolean encrypted     = false;
         private long crc32            = -1L;
         private ArcanaFormat format  = ArcanaFormat.UNKNOWN;
+        private String method         = null;
+        private int mode              = -1;
+        private String linkTarget     = null;
+        private String comment        = null;
 
         /**
          * Creates a builder with the mandatory entry name.
@@ -142,6 +177,10 @@ public class ArcanaEntry {
         public Builder encrypted(boolean enc)      { this.encrypted        = enc;   return this; }
         public Builder crc32(long crc)             { this.crc32            = crc;   return this; }
         public Builder format(ArcanaFormat fmt)   { this.format           = fmt;   return this; }
+        public Builder method(String m)            { this.method           = m;     return this; }
+        public Builder mode(int m)                 { this.mode             = m;     return this; }
+        public Builder linkTarget(String target)   { this.linkTarget       = target; return this; }
+        public Builder comment(String c)           { this.comment          = c;     return this; }
 
         /** @return the built {@link ArcanaEntry} */
         public ArcanaEntry build() { return new ArcanaEntry(this); }

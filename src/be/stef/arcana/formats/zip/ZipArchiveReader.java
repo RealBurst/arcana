@@ -95,6 +95,9 @@ public final class ZipArchiveReader implements Closeable {
         int    aesVendorVersion;   // 1 (AE-1) or 2 (AE-2), 0 if not AES
         int    aesStrength;        // 1 = 128, 2 = 192, 3 = 256
         int    aesMethod;          // real compression method under AES
+        int    versionMadeBy;      // high byte = host system (3 = Unix)
+        long   externalAttributes; // Unix mode in the high 16 bits when the host is Unix
+        String comment;            // entry comment, or null
 
         public String  getName()               { return name; }
         public int     getFlags()              { return flags; }
@@ -111,6 +114,13 @@ public final class ZipArchiveReader implements Closeable {
         public int     getAesVendorVersion()   { return aesVendorVersion; }
         public int     getAesStrength()        { return aesStrength; }
         public int     getAesMethod()          { return aesMethod; }
+        public String  getComment()            { return comment; }
+
+        /** Unix mode (type and permission bits) when the entry was made on Unix, else -1. */
+        public int getUnixMode() {
+            final int mode = (int) (externalAttributes >>> 16) & 0xFFFF;
+            return (versionMadeBy >>> 8) == 3 && mode != 0 ? mode : -1;
+        }
 
         /** Last modification time in seconds since the epoch, or -1 if unknown. */
         public long getLastModifiedSeconds() {
@@ -234,6 +244,7 @@ public final class ZipArchiveReader implements Closeable {
         int q = 0;
         while (q + 46 <= cd.length && le32(cd, q) == SIG_CENTRAL) {
             final Entry e = new Entry();
+            e.versionMadeBy     = le16(cd, q + 4);
             e.flags             = le16(cd, q + 8);
             e.method            = le16(cd, q + 10);
             e.dosTime           = le16(cd, q + 12);
@@ -244,11 +255,13 @@ public final class ZipArchiveReader implements Closeable {
             final int nameLen   = le16(cd, q + 28);
             final int extraLen  = le16(cd, q + 30);
             final int commLen   = le16(cd, q + 32);
+            e.externalAttributes = le32(cd, q + 38) & ZIP64_MAGIC;
             e.localHeaderOffset = le32(cd, q + 42) & ZIP64_MAGIC;
             final int nameOff   = q + 46;
             if (nameOff + nameLen + extraLen + commLen > cd.length) throw new ArcanaCorruptedException("Truncated ZIP central directory: " + archiveName);
             e.name = decodeName(cd, nameOff, nameLen, (e.flags & 0x800) != 0);
             parseExtra(e, cd, nameOff + nameLen, extraLen, cd, nameOff, nameLen);
+            if (commLen > 0) e.comment = decodeName(cd, nameOff + nameLen + extraLen, commLen, (e.flags & 0x800) != 0);
             list.add(e);
             q = nameOff + nameLen + extraLen + commLen;
         }

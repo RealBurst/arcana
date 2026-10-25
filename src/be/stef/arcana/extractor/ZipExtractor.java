@@ -190,8 +190,12 @@ public class ZipExtractor implements ArchiveExtractor {
 
     // ---- entry decoding ----
 
-    /** Returns the decrypted, decompressed and CRC-checked content of an entry. */
-    private InputStream openEntry(final ZipArchiveReader zip, final ZipArchiveReader.Entry e) throws IOException {
+    /**
+     * Returns the decrypted, decompressed and CRC-checked content of an entry
+     * (the CRC and size are checked when the stream reaches its end). Used by
+     * the extraction and by {@link EntryReaders} for the per-entry API.
+     */
+    public InputStream openEntry(final ZipArchiveReader zip, final ZipArchiveReader.Entry e) throws IOException {
         int method = e.getMethod();
         InputStream raw;
         AesZipInputStream aes = null;
@@ -306,11 +310,38 @@ public class ZipExtractor implements ArchiveExtractor {
         }
     }
 
-    private static ArcanaEntry toArcanaEntry(final ZipArchiveReader.Entry e) {
+    /** Entry of the common API, with the method, Unix mode, encryption and comment of the ZIP entry. */
+    public static ArcanaEntry toArcanaEntry(final ZipArchiveReader.Entry e) {
+        final boolean aeCrc = !(e.isAes() && e.getAesVendorVersion() == 2); // AE-2: CRC field is 0 by design
         return new ArcanaEntry.Builder(e.getName())
                 .compressedSize(e.getCompressedSize()).uncompressedSize(e.getSize())
                 .lastModifiedTime(e.getLastModifiedSeconds())
-                .directory(e.isDirectory()).crc32(e.getCrc()).format(ArcanaFormat.ZIP).build();
+                .directory(e.isDirectory()).crc32(aeCrc ? e.getCrc() : -1L).format(ArcanaFormat.ZIP)
+                .encrypted(e.isEncrypted()).method(methodLabel(e)).mode(e.getUnixMode()).comment(e.getComment()).build();
+    }
+
+    /** Readable method of an entry: "Deflate", "AES-256 + Deflate", "ZipCrypto + Stored"... */
+    private static String methodLabel(final ZipArchiveReader.Entry e) {
+        if (e.isAes()) {
+            final int bits = e.getAesStrength() == 1 ? 128 : e.getAesStrength() == 2 ? 192 : 256;
+            return "AES-" + bits + " + " + compressionName(e.getAesMethod());
+        }
+        if (e.isEncrypted()) return (e.isStrongEncryption() ? "PKWARE strong encryption + " : "ZipCrypto + ") + compressionName(e.getMethod());
+        return compressionName(e.getMethod());
+    }
+
+    private static String compressionName(final int method) {
+        switch (method) {
+            case METHOD_STORED:    return "Stored";
+            case METHOD_DEFLATED:  return "Deflate";
+            case METHOD_DEFLATE64: return "Deflate64";
+            case METHOD_BZIP2:     return "BZip2";
+            case METHOD_LZMA:      return "LZMA";
+            case METHOD_ZSTD:      return "Zstandard";
+            case METHOD_XZ:        return "XZ";
+            case METHOD_PPMD:      return "PPMd";
+            default:               return "method " + method;
+        }
     }
 
     // ---- stream helpers ----

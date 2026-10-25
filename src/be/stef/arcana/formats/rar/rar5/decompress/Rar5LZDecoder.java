@@ -753,19 +753,12 @@ public class Rar5LZDecoder {
 
         while (true) {
            
-            if (isUnpackedSizeDefined) {
-                long decodedSize = lzSize + curWinPos - windowPos;
-                if (decodedSize >= unpackedSize) {
-                    break;
-                }
-            }
-           
-            if (curWinPos >= limit) {
+            // end of the current file: size decoded since the start of THIS file (lzSize is cumulative in a solid archive)
+            if (isUnpackedSizeDefined && lzSize + curWinPos - lzFileStart >= unpackedSize) {
                 break;
             }
 
-            long totalUnpacked = lzSize + curWinPos;
-            if (isUnpackedSizeDefined && totalUnpacked >= unpackedSize + windowPos) {
+            if (curWinPos >= limit) {
                 break;
             }
            

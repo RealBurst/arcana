@@ -34,10 +34,12 @@ public final class ArjEntry {
     /** Compressed size. */
     public final long packedSize;
     final int crc;
+    /** Password modifier of a garbled entry (byte 7 of its header). */
+    final int modifier;
     /** Modification time in milliseconds, 0 if unknown. */
     public final long lastModified;
 
-    ArjEntry(final String name, final boolean directory, final int method, final int flags, final long size, final long packedSize, final int crc, final long lastModified) {
+    ArjEntry(final String name, final boolean directory, final int method, final int flags, final long size, final long packedSize, final int crc, final int modifier, final long lastModified) {
         this.name = name;
         this.directory = directory;
         this.method = method;
@@ -45,6 +47,7 @@ public final class ArjEntry {
         this.size = size;
         this.packedSize = packedSize;
         this.crc = crc;
+        this.modifier = modifier;
         this.lastModified = lastModified;
     }
 

@@ -34,6 +34,9 @@ import be.stef.arcana.exceptions.RarCorruptedDataException;
 import be.stef.arcana.exceptions.RarDecryptException;
 import be.stef.arcana.formats.rar.ExtractionError;
 import be.stef.arcana.formats.rar.ExtractionResult;
+import be.stef.arcana.formats.rar.RarOutput;
+import be.stef.arcana.ArcanaEntry;
+import be.stef.arcana.ArcanaFormat;
 import be.stef.arcana.formats.rar.util.Blake2sp;
 import be.stef.arcana.formats.rar.util.Blake2spOutputStream;
 import be.stef.arcana.formats.rar.util.BoundedInputStream;
@@ -87,8 +90,6 @@ import java.util.concurrent.atomic.AtomicInteger;
  */
 public class Rar5Extractor {
     public static boolean showProgress = true;    
-    public static boolean isEncryptedArchive;
-    public static SafePathBuilder pathBuilder;
     /** @deprecated ignored since 1.3: the declared size is not trusted any more, see {@link be.stef.arcana.util.ExtractionLimits}. */
     @Deprecated
     public static long maxCompressionRatio = 1000;
@@ -150,10 +151,10 @@ public class Rar5Extractor {
        return extract(archivePath, outputDir, password, null);
     }
     
-    public static synchronized ExtractionResult extract(String archivePath, String outputDir, String password, String fileFilter) {
+    public static ExtractionResult extract(String archivePath, String outputDir, String password, String fileFilter) {
         ExtractionResult result = new ExtractionResult();
         File tempFile = null;
-        isEncryptedArchive = false;
+        boolean isEncryptedArchive = false; // headers encrypted (rar -hp): the CRC of an encrypted file is then stored as is
         
         result.archiveName = archivePath;
               
@@ -171,7 +172,7 @@ public class Rar5Extractor {
             }
             
             // Initialize SafePathBuilder for path traversal protection
-            pathBuilder = new SafePathBuilder(outDir);
+            SafePathBuilder pathBuilder = new SafePathBuilder(outDir);
             
             // Step 1: Decrypt headers if needed
             if (isEncrypted(archivePath)) {
@@ -208,8 +209,7 @@ public class Rar5Extractor {
                 // Use the ORIGINAL archive path for volume discovery: when the
                 // headers were decrypted to a temp file, archiveFile points at
                 // that temp file, which has no sibling volumes on disk.
-                return extractMultiVolume(new File(archivePath), outputDir, password,
-                                          fileFilter, result, isEncryptedArchive);
+                return extractMultiVolume(new File(archivePath), pathBuilder, password, fileFilter, result, isEncryptedArchive);
             }
 
             List<Rar5FileBlock> fileBlocks = reader.getFileBlocks();
@@ -221,10 +221,11 @@ public class Rar5Extractor {
             // (decoder + pathBuilder) so there is no shared mutable state.
             boolean arcSolid  = mainArchive != null && mainArchive.isSolid();
             boolean anySolid  = arcSolid || fileBlocks.stream().anyMatch(Rar5FileBlock::isSolid);
-            boolean canParallel = !anySolid && fileBlocks.size() > 1 && fileFilter == null;
+            boolean canParallel = !anySolid && fileBlocks.size() > 1 && fileFilter == null && !RarOutput.active(); // a sink receives the entries in order, from this thread
 
             if (canParallel) {
                 final File archiveFileRef = archiveFile;
+                final boolean encryptedHeaders = isEncryptedArchive;
                 int threads = Math.min(fileBlocks.size(),
                                        Math.max(1, Runtime.getRuntime().availableProcessors()));
                 ExecutorService pool = Executors.newFixedThreadPool(threads);
@@ -246,6 +247,7 @@ public class Rar5Extractor {
                             // Each task owns its RAF and ExtractionContext (decoder + pathBuilder).
                             ExtractionContext ctx = new ExtractionContext(
                                 new SafePathBuilder(new java.io.File(outputDir)));
+                            ctx.encryptedHeaders = encryptedHeaders;
                             try (RandomAccessFile raf = new RandomAccessFile(archiveFileRef, "r")) {
                                 ExtractionResult localResult = new ExtractionResult();
                                 extractFile(file, raf, reader, outputDir, password, localResult, ctx);
@@ -269,6 +271,7 @@ public class Rar5Extractor {
             } else {
                 // Sequential path: solid, mono-file, or filtered extraction.
                 ExtractionContext ctx = new ExtractionContext(pathBuilder);
+                ctx.encryptedHeaders = isEncryptedArchive;
                 try (RandomAccessFile raf = new RandomAccessFile(archiveFile, "r")) {
                     for (Rar5FileBlock file : fileBlocks) {
                         try {
@@ -439,7 +442,7 @@ public class Rar5Extractor {
     private static void extractFile(Rar5FileBlock file, RandomAccessFile raf, Rar5Reader reader, String outputDir, String password, ExtractionResult result, boolean writeOutput, ExtractionContext ctx) throws Exception {
         // Handle directories
         if (file.isDirectory()) {
-            if (writeOutput) {
+            if (writeOutput && !RarOutput.directory(entryOf(file))) {
                 File dir = ctx.pathBuilder.buildSafeDirPath(file.getFileName());
                 dir.mkdirs();
             }
@@ -453,7 +456,7 @@ public class Rar5Extractor {
         long dataSize = end - start;
         
         if (dataSize == 0) {
-            if (writeOutput) {
+            if (writeOutput && !RarOutput.emptyFile(entryOf(file))) {
                 File outFile = ctx.pathBuilder.buildSafePath(file.getFileName());
                 outFile.getParentFile().mkdirs();
                 outFile.createNewFile();
@@ -520,7 +523,7 @@ public class Rar5Extractor {
         if (writeOutput) {
             // --- Normal mode: decompress to file ---
             File outFile = ctx.pathBuilder.buildSafePath(file.getFileName()); // use ctx, not static field
-            outFile.getParentFile().mkdirs();
+            RarOutput.mkdirs(outFile.getParentFile());
             
             be.stef.arcana.formats.rar.rar5.extra.Rar5ExtraHash extraHash = file.getHash();
             boolean needBlake2 = extraHash != null && extraHash.isBlake2sp();
@@ -540,7 +543,7 @@ public class Rar5Extractor {
                 long expectedCRC = file.getCRC();
                 
                 boolean crcOk;
-                if (file.isEncrypted() && !isEncryptedArchive) {
+                if (file.isEncrypted() && !ctx.encryptedHeaders) {
                     Rar5ExtraCrypto crypto = file.getCrypto();
                     byte[] hashKeyN16 = Rar5Crypto.deriveCrcHashKeyN16_Standard(password, crypto);
                     crcOk = Rar5Crypto.verifyCrcWithHMAC(calculatedCRC, expectedCRC, hashKeyN16);
@@ -582,6 +585,13 @@ public class Rar5Extractor {
         }
     }
     
+    /** Entry of the common API for a file block (sink of the per-entry reader, listing). */
+    public static ArcanaEntry entryOf(Rar5FileBlock f) {
+        int method = f.getCompressionMethod();
+        String label = f.isDirectory() ? null : method == Rar5Constants.COMPRESS_METHOD_STORE ? "Stored" : "RAR5 level " + method;
+        return new ArcanaEntry.Builder(f.getFileName()).uncompressedSize(f.isDirectory() ? -1L : f.getUnpackedSize()).lastModifiedTime(f.getUnixMTime()).directory(f.isDirectory()).encrypted(f.isEncrypted()).method(label).format(ArcanaFormat.RAR).build();
+    }
+
     private static OutputStream wrapVerifiers(OutputStream out, CRC32 crc, Blake2sp.Digest blake2) {
         OutputStream o = out;
         if (crc    != null) o = new CrcOutputStream(o, crc);
@@ -608,11 +618,11 @@ public class Rar5Extractor {
 
            // Method 0 = store (no compression)
            if (method == Rar5Constants.COMPRESS_METHOD_STORE) {
-               try (FileOutputStream fos = ExtractionGuard.open(outputFile);
+               try (OutputStream fos = RarOutput.open(outputFile, entryOf(file));
                    BufferedOutputStream bos = new BufferedOutputStream(fos, 1 << 18)) {
                    
                    OutputStream targetOut = wrapVerifiers(bos, crc, blake2);
-                   targetOut = showProgress
+                   targetOut = showProgress && !RarOutput.active()
                        ? new ProgressOutputStream(targetOut, unpackedSize, file.getFileName())
                        : targetOut;
 
@@ -644,10 +654,10 @@ public class Rar5Extractor {
 
            ctx.decoder.setDecoderProperties(properties);
 
-           try (FileOutputStream fos = ExtractionGuard.open(outputFile);
+           try (OutputStream fos = RarOutput.open(outputFile, entryOf(file));
                 BufferedOutputStream bos = new BufferedOutputStream(fos, 1 << 18)) {
                OutputStream verifiedOut = wrapVerifiers(bos, crc, blake2);
-               OutputStream targetOut = showProgress
+               OutputStream targetOut = showProgress && !RarOutput.active()
                    ? new ProgressOutputStream(verifiedOut, unpackedSize, file.getFileName())
                    : verifiedOut;
 
@@ -748,7 +758,7 @@ public class Rar5Extractor {
      * <p>Supported: plain archives and per-file encrypted archives (clear
      * headers). Header-encrypted (-hp) multi-volume sets are rejected earlier.</p>
      */
-    private static ExtractionResult extractMultiVolume(File firstVolume, String outputDir, String password, String fileFilter, ExtractionResult result, boolean headerEncrypted) {
+    private static ExtractionResult extractMultiVolume(File firstVolume, SafePathBuilder pathBuilder, String password, String fileFilter, ExtractionResult result, boolean headerEncrypted) {
         java.util.List<File> volumes   = discoverVolumes(firstVolume);
         java.util.List<File> tempFiles = new java.util.ArrayList<>();
         System.out.println("Multi-volume archive: " + volumes.size() + " volume(s) found" + (headerEncrypted ? " (encrypted headers)" : ""));
@@ -764,7 +774,7 @@ public class Rar5Extractor {
 
                 if (head.isDirectory()) {
                     if (isTarget) {
-                        pathBuilder.buildSafeDirPath(head.getFileName()).mkdirs();
+                        if (!RarOutput.directory(entryOf(head))) pathBuilder.buildSafeDirPath(head.getFileName()).mkdirs();
                         result.successCount++;
                     }
                     continue;
@@ -785,10 +795,10 @@ public class Rar5Extractor {
                     result.errorCount++;
                     continue;
                 }
-                outFile.getParentFile().mkdirs();
+                RarOutput.mkdirs(outFile.getParentFile());
 
                 if (lf.unpackedSize == 0) {
-                    outFile.createNewFile();
+                    if (!RarOutput.emptyFile(entryOf(head))) outFile.createNewFile();
                     result.successCount++;
                     result.unpackedFiles.add(head.getFileName());
                     continue;
@@ -811,7 +821,7 @@ public class Rar5Extractor {
                     long calculatedCRC = crcAcc.getValue();
                     long expectedCRC = lf.crc;
                     boolean crcOk;
-                    if (head.isEncrypted() && !isEncryptedArchive) {
+                    if (head.isEncrypted() && !headerEncrypted) {
                         Rar5ExtraCrypto crypto = head.getCrypto();
                         byte[] hashKeyN16 = Rar5Crypto.deriveCrcHashKeyN16_Standard(password, crypto);
                         crcOk = Rar5Crypto.verifyCrcWithHMAC(calculatedCRC, expectedCRC, hashKeyN16);
@@ -910,6 +920,26 @@ public class Rar5Extractor {
             n++;
         }
         return vols;
+    }
+
+    /**
+     * First block of every file of a multi-volume set (a file continued in the
+     * next volumes is given once, by its first part), in archive order: the
+     * listing of a volume set, whose first volume alone does not hold every file.
+     *
+     * @param anyVolume       a volume of the set (the set is searched from its lowest number)
+     * @param password        password, or null
+     * @param headerEncrypted true if the headers are encrypted (rar -hp)
+     */
+    public static java.util.List<Rar5FileBlock> listVolumeSet(File anyVolume, String password, boolean headerEncrypted) {
+        java.util.List<File> tempFiles = new java.util.ArrayList<>();
+        try {
+            java.util.List<Rar5FileBlock> heads = new java.util.ArrayList<>();
+            for (LogicalFile5 lf : buildLogicalFiles(discoverVolumes(anyVolume), password, headerEncrypted, tempFiles, new java.util.ArrayList<ExtractionError>())) heads.add(lf.head);
+            return heads;
+        } finally {
+            for (File t : tempFiles) t.delete();
+        }
     }
 
     /** A file reconstructed from one or more split chunks across volumes. */

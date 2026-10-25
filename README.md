@@ -15,7 +15,7 @@ No native libraries. No JNI. No external dependencies. Runs on Java 8 or later.
 
 ## Features
 
-- **Extract** every supported format, including encrypted archives: ZIP (ZipCrypto and WinZip AES), 7z (AES-256, encrypted headers included), RAR 4 (AES-128) and RAR 5 (AES-256), with encrypted headers and multi-volume RAR archives.
+- **Extract** every supported format, including encrypted archives: ZIP (ZipCrypto and WinZip AES), 7z (AES-256, encrypted headers included), RAR 4 (AES-128) and RAR 5 (AES-256), with encrypted headers and multi-volume RAR archives, ARJ (garbled).
 - **Open archive-based files**: Office documents, OpenDocument files, EPUB books, Java and Android packages, Dia diagrams... (see [below](#archive-based-files)).
 - **Compress** to ZIP, 7z, TAR, TAR+GZIP, TAR+BZIP2, TAR+XZ, TAR+LZ4, GZIP, BZIP2, XZ, LHA and CAB.
 - **Encrypt** ZIP archives (WinZip AES-256, or ZipCrypto from the library) and 7z archives (AES-256).
@@ -58,7 +58,7 @@ Each format has a technical page (detection, file layout, methods, limits, sourc
 | Unix compress (.Z) | yes | - | - |
 | MS compress.exe (SZDD: .ex_, .dl_...) | yes | - | - |
 | LHA / LZH | yes | yes (-lh5-, -lh6-, -lh7-) | - |
-| ARJ (methods 0 to 4) | yes | - | - |
+| ARJ (methods 0 to 4) | yes | - | garbled (password) |
 | Microsoft Cabinet (.cab) | yes (stored, MSZIP, LZX) | yes (MSZIP) | - |
 | Windows Installer (.msi: installed file tree, embedded or external cabinets) | yes | - | - |
 | OLE compound file (.msp, Office 97-2003, .msg: streams) | yes | - | - |
@@ -215,6 +215,31 @@ import be.stef.arcana.Arcana;
 import be.stef.arcana.ArcanaEntry;
 import be.stef.arcana.ArcanaFormat;
 ```
+
+### Read entry by entry
+
+`Arcana.read` gives the entries one after the other, in archive order, with their metadata (name, sizes, dates, compression method, Unix mode, link target, encryption, comment) and their content as an `InputStream`, without writing anything to the disk:
+
+```java
+import be.stef.arcana.ArchiveItem;
+import be.stef.arcana.ArchiveReader;
+
+try (ArchiveReader reader = Arcana.read(new File("upload.tar.gz"))) {
+    for (ArchiveItem item : reader) {
+        ArcanaEntry e = item.getEntry();
+        if (e.isDirectory() || !e.getName().endsWith(".xml")) continue;   // skipped: nothing decoded for nothing
+        try (InputStream in = item.openStream()) {                       // decoded and checked (CRC) on the fly
+            process(e, in);
+        }
+    }
+}
+
+// Password, limits, a stream instead of a file
+try (ArchiveReader reader = Arcana.withPassword(pwd).limits(ExtractionLimits.none()).reader(file)) { ... }
+try (ArchiveReader reader = Arcana.with(ArcanaFormat.TAR_GZ).reader(inputStream)) { ... }
+```
+
+An item can be read until the next one is requested. ZIP, 7z (solid blocks included), RAR 4 and RAR 5 (solid, volumes, encryption), TAR (plain or compressed: `.tar.gz`, `.tar.xz`, `.tar.zst`...), CPIO and single compressed files are decoded entry by entry (`reader.isStreaming()` is true): nothing is written to the disk. The other formats and the plugin formats are first extracted to a temporary directory, deleted by `close()`. Entry names are returned as stored in the archive: sanitize them before using them as file paths.
 
 ### Extract and list
 

@@ -37,6 +37,7 @@ public final class ByteSource implements Closeable {
     private static final int PAGES = 8;
 
     private final RandomAccessFile raf;
+    private final File file;
     private final long length;
     private final long[] pageIndex = new long[PAGES];
     private final byte[][] pageData = new byte[PAGES][];
@@ -45,12 +46,18 @@ public final class ByteSource implements Closeable {
 
     public ByteSource(final File file) throws IOException {
         this.raf = new RandomAccessFile(file, "r");
+        this.file = file;
         this.length = raf.length();
         for (int i = 0; i < PAGES; i++) pageIndex[i] = -1;
     }
 
     public long length() {
         return length;
+    }
+
+    /** The file read by this source (for the analyzers that need a format reader). */
+    public File getFile() {
+        return file;
     }
 
     private int page(final long p) throws IOException {

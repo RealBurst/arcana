@@ -44,6 +44,9 @@ public final class ExtractionContext {
     /** Safe path builder; never null after construction. */
     public final SafePathBuilder pathBuilder;
 
+    /** True when the archive headers are encrypted (rar -hp): the CRC of an encrypted file is then stored as is, not as an HMAC. */
+    public boolean encryptedHeaders;
+
     /**
      * Creates a context with a fresh decoder and the given path builder.
      *

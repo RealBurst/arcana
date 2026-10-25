@@ -123,7 +123,7 @@ public final class FormatRegistry {
         l.add(new BuiltinFormat(ArcanaFormat.DMG, ARCHIVE, names("dmg"), "dmg", "Apple disk image (UDIF: zlib, bzip2, LZFSE, LZMA, ADC, raw; HFS+ files, other partitions as raw images)", pw -> new DmgExtractor(), null, null));
         l.add(new BuiltinFormat(ArcanaFormat.WIM, ARCHIVE, names("wim", "swm", "esd"), "wim  esd", "Windows Imaging Format (XPRESS, LZX; not LZMS)", pw -> new WimExtractor(), null, null));
         l.add(new BuiltinFormat(ArcanaFormat.OLE, ARCHIVE, names("msi", "msp", "doc", "xls", "ppt", "msg"), "msi  msp  doc  xls  ppt  msg", "OLE compound file (MSI: installed file tree; Office 97-2003, Outlook: streams)", pw -> new OleExtractor(), null, null));
-        l.add(new BuiltinFormat(ArcanaFormat.ARJ, ARCHIVE, names("arj"), "arj", "ARJ archive (methods 0 to 4)", pw -> new ArjExtractor(), null, null));
+        l.add(new BuiltinFormat(ArcanaFormat.ARJ, ARCHIVE, names("arj"), "arj", "ARJ archive (methods 0 to 4)", pw -> new ArjExtractor(pw), null, null));
         l.add(new BuiltinFormat(ArcanaFormat.CHM, ARCHIVE, names("chm", "chi", "chq", "chw"), "chm", "Compiled HTML Help (LZX)", pw -> new ChmExtractor(), null, null));
         // ---- Single-file compression (a TAR or CPIO inside is unpacked automatically) ----
         l.add(new BuiltinFormat(ArcanaFormat.GZIP, SINGLE_FILE, names("gz", "gzip"), "gz   gzip", "GZip", pw -> new CompressedStreamExtractor(ArcanaFormat.GZIP, new GzipExtractor()), "GZip (single file only)", (level, pw) -> new GzipCompressor()));

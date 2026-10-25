@@ -1,0 +1,9 @@
+# Arcana regression reference (RegressionRunner --update)
+input: 971abe43f3fff356ec86d67614c7e7413fe049a48f75fd11c0ed3ac8ff369a76 13824
+identify: document | OOXML (encrypted) - Encrypted Office document (OOXML in an OLE container, ECMA-376 agile encryption (EncryptionInfo 4.4)): decryption not supported
+  encryption: ECMA-376 agile encryption (EncryptionInfo 4.4)
+  encrypted: yes (not supported)
+list: 2 entries
+  EncryptedPackage 8192
+  EncryptionInfo 4096
+extract: ERROR ArcanaUnsupportedFormatException: Encrypted Office document (OOXML in an OLE container, ECMA-376 agile encryption (EncryptionInfo 4.4)): decryption is not supported - encrypted-office.docx

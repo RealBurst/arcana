@@ -17,6 +17,8 @@ package be.stef.arcana.test;
 
 import be.stef.arcana.Arcana;
 import be.stef.arcana.ArcanaEntry;
+import be.stef.arcana.ArchiveItem;
+import be.stef.arcana.ArchiveReader;
 import be.stef.arcana.analyze.Identification;
 import java.io.File;
 import java.io.FileInputStream;
@@ -343,10 +345,44 @@ public final class RegressionRunner {
             Collections.sort(files);
             sb.append("extracted: ").append(files.size()).append(" items\n");
             for (final String l : files) sb.append("  ").append(l).append('\n');
+            // per-entry API: same contents as the extraction (only a mismatch is written, so the references do not change)
+            final String read = readCheck(sample, arcana, files);
+            if (read != null) sb.append("read: ").append(read).append('\n');
         } finally {
             delete(out);
         }
         return sb.toString();
+    }
+
+    /**
+     * Reads the sample with {@link ArchiveReader} and compares the contents of its
+     * entries (SHA-256, directories and links left out) with the extracted files.
+     *
+     * @return null when they match, otherwise what differs
+     */
+    private static String readCheck(final File sample, final Arcana arcana, final List<String> files) {
+        final java.util.TreeSet<String> want = new java.util.TreeSet<String>();
+        for (final String l : files) if (!l.endsWith("(empty folder)")) want.add(l.substring(l.lastIndexOf(' ') + 1));
+        final java.util.TreeSet<String> got = new java.util.TreeSet<String>();
+        try (ArchiveReader r = arcana != null ? arcana.reader(sample) : Arcana.read(sample)) {
+            for (final ArchiveItem item : r) {
+                final ArcanaEntry e = item.getEntry();
+                if (e.isDirectory() || e.isLink()) continue;
+                try (InputStream in = item.openStream()) {
+                    got.add(sha256(in));
+                } catch (final be.stef.arcana.exceptions.ArcanaUnsupportedFormatException notExtracted) {
+                    // listed but not extracted (payload outside the archive...): nothing to compare
+                }
+            }
+        } catch (final Exception | StackOverflowError e) {
+            return "ERROR " + error(e, sample);
+        }
+        if (want.equals(got)) return null;
+        final java.util.TreeSet<String> missing = new java.util.TreeSet<String>(want);
+        missing.removeAll(got);
+        final java.util.TreeSet<String> extra = new java.util.TreeSet<String>(got);
+        extra.removeAll(want);
+        return "MISMATCH " + missing.size() + " extracted content(s) not read, " + extra.size() + " read content(s) not extracted";
     }
 
     private static String error(final Throwable e, final File sample) {
@@ -379,6 +415,12 @@ public final class RegressionRunner {
 
     static String sha256(final File f) throws IOException {
         try (InputStream in = new FileInputStream(f)) {
+            return sha256(in);
+        }
+    }
+
+    static String sha256(final InputStream in) throws IOException {
+        try {
             final MessageDigest md = MessageDigest.getInstance("SHA-256");
             final byte[] buf = new byte[65536];
             int n;

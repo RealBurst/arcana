@@ -56,7 +56,8 @@ public class SevenZExtractor implements ArchiveExtractor {
      */
     private String sevenZipPassword() { return password == null ? null : new String(password, StandardCharsets.UTF_8); }
 
-    private SevenZFile open(final File archive) throws IOException {
+    /** Opens the archive (split volumes included) with this extractor's password and memory limit. */
+    SevenZFile open(final File archive) throws IOException {
         // split archive (x.7z.001, x.7z.002...): the volumes are read as one file
         final MultiVolumeChannel volumes = MultiVolumeChannel.open(archive);
         if (volumes != null) {

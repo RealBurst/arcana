@@ -4,9 +4,9 @@
 |---|---|
 | Extensions | `.arj` (volumes `.a01`, `.a02`... are found by their signature) |
 | Signature | `60 EA` at offset 0, with an archive header (file type 2) |
-| Arcana support | list, extract (methods 0 to 4) |
+| Arcana support | list, extract (methods 0 to 4, garbled entries with the password) |
 | Main classes | `be.stef.arcana.formats.arj.ArjReader`, `be.stef.arcana.formats.arj.ArjEntry`, `be.stef.arcana.extractor.ArjExtractor` (+ `be.stef.arcana.formats.lha.LhaDecoder` for methods 1 to 3) |
-| Test samples | `test/samples/arj/` (`method0.arj`, `method1.arj`, `method4.arj`, `garbled.arj` with password `secret`) |
+| Test samples | `test/samples/arj/` (`method0.arj`, `method1.arj`, `method4.arj`, `garbled.arj` and `garbled-m4.arj` with password `secret`), `test/samples/damaged/wrong-password-arj.arj` (password `wrong`) |
 
 ## Overview
 
@@ -60,7 +60,7 @@ basic header, as used in `ArjReader.nextEntry`):
 | 4 | 1 | flags | 0x01 garbled, 0x04 volume, 0x08 extfile, 0x10 path translated, 0x20 backup |
 | 5 | 1 | method | 0 to 4 |
 | 6 | 1 | file type | 0 binary, 1 text, 3 directory, 4 volume label, 5 chapter label |
-| 7 | 1 | reserved | password modifier for garbled files; ignored |
+| 7 | 1 | reserved | password modifier of a garbled file (see Encryption) |
 | 8 | 4 | modification time | Unix seconds for hosts 2 and 8, MS-DOS date and time otherwise |
 | 12 | 4 | compressed size | |
 | 16 | 4 | original size | |
@@ -107,11 +107,29 @@ significant bit first, zeros past the end of the data:
 - the copy starts distance + 1 bytes back in a 26624-byte circular window.
 
 Encryption: ARJ "garbles" the data of protected files with the password
-(flag 0x01). Arcana does not decrypt it: such entries are listed (marked
-encrypted in `ArcanaEntry`), but extracting one raises
-`ArcanaUnsupportedFormatException` "Encrypted ARJ entry: <name>". The `-p`
-option is not used. Verified with `garbled.arj`: the list shows both files,
-`x -p secret` stops on `readme.txt` without creating it.
+(flag 0x01, `arj a -g<password>`). The technical notes do not describe the
+algorithm; it was found by comparing archives made by `arj` 3.10 with known
+contents and passwords (stored zeros, then bytes 0 to 255, several
+passwords, several files): each byte of the stored data (the compressed
+data, before decoding) is XORed with `password[i % length] + modifier`
+(8 bits), where `i` counts from 0 at the start of each entry and `modifier`
+is byte 7 of the file header (a value chosen per archive, the same for its
+files). The password is used as given (`-p`, bytes of
+`Arcana.withPassword`).
+
+- No password: `ArcanaEncryptedException` "ARJ entry is encrypted and no
+  password was provided: <name>". Listing needs no password (the entries
+  are marked encrypted).
+- Wrong password: the CRC-32 differs ("Wrong password for ARJ entry (CRC
+  error)"), or the decoder of methods 1 to 4 fails first ("Wrong password
+  for ARJ entry (data error)"); both are `ArcanaEncryptedException`.
+- Main header byte 28: "currently not used" in the 1993 technical notes;
+  `arj` 3.10 writes 1 there in garbled archives (the `file` command shows
+  it as the encryption version). Arcana decrypts when it is 0 or 1 and
+  refuses higher values ("ARJ encryption version N (ARJCRYPT) is not
+  supported"), assumed to be the ARJCRYPT (GOST) modes of later ARJ
+  versions: not verified, the `arjcrypt` module of the Debian `arj` package
+  crashes, so no sample could be made.
 
 ## Variants and versions
 
@@ -131,7 +149,7 @@ option is not used. Verified with `garbled.arj`: the list shows both files,
 
 ## Limits
 
-- Garbled (password-protected) entries: not supported, see above.
+- ARJCRYPT (GOST) encrypted archives: not supported, see Encryption.
 - Files split across volumes (flag 0x04 or 0x08): "ARJ entry split across
   volumes: <name>". The error stops the whole extraction, so the complete
   files of that volume that come after the split one are not extracted

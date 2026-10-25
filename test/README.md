@@ -53,6 +53,12 @@ extracted: 6 items
   ...
 ```
 
+When the extraction succeeds, the sample is also read entry by entry with
+`Arcana.read` (`ArchiveReader`): the contents read must be the extracted files
+(SHA-256, directories and links left out). Nothing is written to the reference
+when they match; a mismatch adds a `read: MISMATCH ...` (or `read: ERROR ...`)
+line, so the sample shows as `DIFF`.
+
 A step that fails is recorded as `ERROR <exception>: <message>`: for damaged
 samples, the error IS the expected result. When the extraction fails, the
 files written before the error are not compared (they depend on timing).
@@ -75,7 +81,7 @@ single streams (gz, bz2, xz, lzma, lz, lz4, lzo, zst, br, Z), ARJ, CAB, CPIO, AR
 RPM (gzip, bzip2, xz, zstd payloads), ISO 9660 / Joliet / Rock Ridge / UDF,
 WIM (XPRESS, LZX, LZMS, solid), SquashFS, Apple disk images (UDZO, UDBZ,
 ULFO, ULMO, UDRO, UDCO; HFS+ and HFSX with links and compressed files), XAR,
-MSI, CHM, SZDD, and the PAK and UPX plugins. `test/samples/damaged` holds broken files (truncated, flipped
+MSI, CHM, an encrypted Office document (OLE container), SZDD, and the PAK and UPX plugins. `test/samples/damaged` holds broken files (truncated, flipped
 byte, bad CRC, garbage): Arcana must report an error, never hang or crash.
 
 The password of the encrypted samples is `secret`.
