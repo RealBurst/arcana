@@ -41,7 +41,7 @@ Each format has a technical page (detection, file layout, methods, limits, sourc
 | TAR+BZIP2 (.tar.bz2, .tbz2) | yes | yes | - |
 | TAR+XZ (.tar.xz, .txz) | yes | yes | - |
 | TAR+LZ4 (.tar.lz4) | yes | yes | - |
-| TAR+Zstandard (.tar.zst) | yes | - | - |
+| TAR+Zstandard (.tar.zst) | yes | yes (levels 1-2) | - |
 | TAR+Brotli (.tar.br) | yes | - | - |
 | TAR+lzip (.tar.lz, .tlz) | yes | - | - |
 | TAR+lzop (.tar.lzo, .tzo) | yes | - | - |
@@ -50,7 +50,7 @@ Each format has a technical page (detection, file layout, methods, limits, sourc
 | XZ | yes | yes | - |
 | LZMA (raw stream) | yes | - | - |
 | LZ4 | yes | - | - |
-| Zstandard | yes | - | - |
+| Zstandard | yes | yes (levels 1-2) | - |
 | Snappy | yes | - | - |
 | Brotli | yes | - | - |
 | lzip (.lz) | yes | - | - |
@@ -169,6 +169,7 @@ The destination can be given with `-o dest` or as the second argument: `arcana x
 -f <format>    Force the input format (format name, extension or plugin id).
 -t <format>    Force the output format of c.
 -l <level>     Compression level: 0-9 for 7z, xz and tar.xz (default 6);
+               1 or 2 for zst and tar.zst (default 2);
                5, 6 or 7 for lzh (-lh5- by default).
 -n             With s: list the pieces without writing anything.
 ```
@@ -320,6 +321,7 @@ try (InputStream in = new FileInputStream("data.bz2")) {
 
 ```java
 import be.stef.arcana.compressor.ZipCompressor;
+import be.stef.arcana.formats.zstd.ZstdOutputStream;
 import be.stef.arcana.plugin.FormatRegistry;
 
 byte[] password = "secret".getBytes("UTF-8");
@@ -328,9 +330,15 @@ new ZipCompressor().compress(new File("mydir"), new File("backup.zip"));
 new ZipCompressor(password).compress(new File("mydir"), new File("secure.zip"));      // WinZip AES-256
 new ZipCompressor(password, ZipCompressor.ENCRYPT_ZIPCRYPTO).compress(new File("mydir"), new File("legacy.zip"));
 
-// Any format by its ArcanaFormat: level 0-9 (-1 = default), password or null
+// Any format by its ArcanaFormat: level (-1 = default), password or null
 FormatRegistry.builtin(ArcanaFormat.SEVEN_Z).createCompressor(9, password).compress(new File("mydir"), new File("vault.7z"));
 FormatRegistry.builtin(ArcanaFormat.TAR_XZ).createCompressor(-1, null).compress(new File("mydir"), new File("backup.tar.xz"));
+FormatRegistry.builtin(ArcanaFormat.TAR_ZSTD).createCompressor(1, null).compress(new File("mydir"), new File("backup.tar.zst"));
+
+// Zstandard as a stream (level 1 or 2; finish() keeps the underlying stream open)
+try (ZstdOutputStream zst = new ZstdOutputStream(new FileOutputStream("data.zst"), 2)) {
+    zst.write(bytes);
+}
 ```
 
 `createCompressor` returns `null` for a format that Arcana can only extract.

@@ -66,6 +66,17 @@ files written before the error are not compared (they depend on timing).
 Always check the diff of `test/expected` / `test/corpus` before committing an
 `--update`: a reference must only change when the change is wanted.
 
+## Compression
+
+After the samples, every built-in compressor (ZIP, 7z, TAR and its
+compressed forms, gz, bz2, xz, zst, LHA, CAB; Zstandard at each level) is
+checked without reference file: the content of `zip/deflate.zip` plus a
+generated 1.5 MB file is compressed (the 1.5 MB file alone for the
+single-file formats), extracted by Arcana, and the files are compared
+(SHA-256 and size). A difference or an error shows as `DIFF compress/<ext>`.
+The filter applies: `build.bat test compress` runs only this step (and the
+samples whose path contains "compress").
+
 ## The two sets of samples
 
 ### test/samples (committed)

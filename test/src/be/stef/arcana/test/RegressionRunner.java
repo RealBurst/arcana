@@ -17,9 +17,12 @@ package be.stef.arcana.test;
 
 import be.stef.arcana.Arcana;
 import be.stef.arcana.ArcanaEntry;
+import be.stef.arcana.ArcanaFormat;
 import be.stef.arcana.ArchiveItem;
 import be.stef.arcana.ArchiveReader;
 import be.stef.arcana.analyze.Identification;
+import be.stef.arcana.plugin.BuiltinFormat;
+import be.stef.arcana.plugin.FormatRegistry;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -131,6 +134,7 @@ public final class RegressionRunner {
         });
         try {
             runSet("samples", new File(root, "test/samples"), new File(root, "test/expected"), false, pool);
+            runCompression();
             if (corpus != null) runSet("corpus", corpus.getCanonicalFile(), new File(root, "test/corpus"), true, pool);
             else CONSOLE.println("Corpus: not set (--corpus DIR or ARCANA_CORPUS), skipped");
         } finally {
@@ -141,6 +145,83 @@ public final class RegressionRunner {
         for (int i = 0; i < problems.size() && i < 30; i++) CONSOLE.println("  " + problems.get(i));
         if (problems.size() > 30) CONSOLE.println("  ... and " + (problems.size() - 30) + " more");
         return diff == 0 && failed == 0 && (update || created == 0);
+    }
+
+    /**
+     * Compresses a payload with every built-in compressor (each level of
+     * Zstandard), extracts the result with Arcana and compares the files
+     * (SHA-256 and size, names left out). The payload is the content of
+     * zip/deflate.zip plus a generated 1.5 MB file (several blocks).
+     */
+    private void runCompression() throws IOException {
+        CONSOLE.println();
+        CONSOLE.println("== compression: compress, extract, compare");
+        final File work = Files.createTempDirectory("arcana-compress-").toFile();
+        try {
+            final File src = new File(work, "payload");
+            Arcana.extractTo(new File(root, "test/samples/zip/deflate.zip"), src);
+            final File big = new File(src, "big.bin");
+            try (OutputStream o = new java.io.BufferedOutputStream(new java.io.FileOutputStream(big))) {
+                final byte[] notes = Files.readAllBytes(new File(src, "docs/notes.txt").toPath());
+                final java.util.Random r = new java.util.Random(1);
+                final byte[] noise = new byte[300000];
+                r.nextBytes(noise);
+                for (int i = 0; i < 40; i++) o.write(notes);
+                o.write(noise);
+                for (int i = 0; i < 10; i++) o.write(notes, i * 100, notes.length - i * 100);
+            }
+            final List<String> dirFiles = new ArrayList<String>();
+            hashFiles(src, dirFiles);
+            final List<String> bigFile = new ArrayList<String>();
+            bigFile.add(big.length() + " " + sha256(big));
+            for (final BuiltinFormat f : FormatRegistry.builtins()) {
+                if (!f.canCompress()) continue;
+                final boolean archive = f.getCategory() == BuiltinFormat.Category.ARCHIVE;
+                final boolean zstd = f.getFormat() == ArcanaFormat.ZSTD || f.getFormat() == ArcanaFormat.TAR_ZSTD;
+                final int[] levels = zstd ? new int[] {1, 2} : new int[] {-1};
+                for (final int level : levels) {
+                    final String name = "compress/" + f.getExtensions()[0] + (level >= 0 ? "-l" + level : "");
+                    if (!matches(name)) continue;
+                    final File archiveFile = new File(work, "a" + (level >= 0 ? level : "") + "." + f.getExtensions()[0]);
+                    final File out = new File(work, "out-" + f.getExtensions()[0] + level);
+                    String result;
+                    try {
+                        f.createCompressor(level, null).compress(archive ? src : big, archiveFile);
+                        Arcana.extractTo(archiveFile, out);
+                        final List<String> got = new ArrayList<String>();
+                        hashFiles(out, got);
+                        result = got.equals(archive ? dirFiles : bigFile) ? null : "files differ: " + got.size() + " extracted, " + (archive ? dirFiles.size() : 1) + " expected";
+                    } catch (final Exception e) {
+                        result = "ERROR " + e.getClass().getSimpleName() + ": " + e.getMessage();
+                    } finally {
+                        archiveFile.delete();
+                        delete(out);
+                    }
+                    if (result == null) {
+                        ok++;
+                        CONSOLE.println("OK       " + name);
+                    } else {
+                        diff++;
+                        problems.add(name + ": " + result);
+                        CONSOLE.println("DIFF     " + name + "  " + result);
+                    }
+                }
+            }
+        } finally {
+            delete(work);
+        }
+    }
+
+    /** "size sha256" of every regular file under {@code dir}, sorted. */
+    private static void hashFiles(final File dir, final List<String> out) throws IOException {
+        final File[] files = dir.listFiles();
+        if (files != null) {
+            for (final File f : files) {
+                if (f.isDirectory()) hashFiles(f, out);
+                else out.add(f.length() + " " + sha256(f));
+            }
+        }
+        Collections.sort(out);
     }
 
     /** Plugin JAR folders of the project (plugins/arcana-plugin-x/jar). */

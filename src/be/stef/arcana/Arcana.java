@@ -509,7 +509,7 @@ public final class Arcana {
      *   -p &lt;password&gt;  Password for encrypted archives (ZIP, 7z, RAR)
      *   -f &lt;format&gt;   Force archive format for extraction
      *   -t &lt;format&gt;   Target format for compression
-     *   -l &lt;level&gt;    Compression level 0-9 (for 7z and xz, default 6)
+     *   -l &lt;level&gt;    Compression level 0-9 (for 7z and xz, default 6), 1-2 (zst, tar.zst)
      *
      * Extract formats : zip rar 7z tar tar.gz tar.bz2 tar.xz tar.lz4 tar.zst tar.br
      *                   gz bz2 xz lzma Z lz4 zst snappy br
@@ -793,7 +793,7 @@ public final class Arcana {
         System.out.println("  -p <password>  Password: decryption, or encryption with c (zip and 7z: AES-256)");
         System.out.println("  -f <format>    Force the input format (bypasses auto-detection)");
         System.out.println("  -t <format>    Force the output format of c");
-        System.out.println("  -l <level>     Compression level 0-9 for 7z and xz (default: 6)");
+        System.out.println("  -l <level>     Compression level 0-9 for 7z and xz (default: 6), 1-2 for zst and tar.zst (default: 2)");
         System.out.println("  -n             With s: list the pieces without extracting");
         System.out.println();
         System.out.println("Examples:");

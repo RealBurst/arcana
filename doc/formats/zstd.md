@@ -4,8 +4,8 @@
 |---|---|
 | Extensions | `.zst`, `.zstd` (`.tar.zst`, `.tzst`: see [tar.md](tar.md)) |
 | Signature | `28 B5 2F FD` at offset 0 (frame magic 0xFD2FB528, little-endian) |
-| Arcana support | list, extract |
-| Main classes | `be.stef.arcana.formats.zstd.ZstdInputStream`, `be.stef.arcana.formats.zstd.ZstdFrameDecompressor`, `be.stef.arcana.formats.zstd.ZstdHelper`, `be.stef.arcana.extractor.ZstdExtractor`, `be.stef.arcana.extractor.CompressedStreamExtractor` |
+| Arcana support | list, extract, compress (levels 1 and 2) |
+| Main classes | `be.stef.arcana.formats.zstd.ZstdInputStream`, `be.stef.arcana.formats.zstd.ZstdFrameDecompressor`, `be.stef.arcana.formats.zstd.ZstdHelper`, `be.stef.arcana.extractor.ZstdExtractor`, `be.stef.arcana.extractor.CompressedStreamExtractor`; compression: `be.stef.arcana.formats.zstd.ZstdOutputStream` (+ `ZstdMatchFinder`, `ZstdSequenceStore`, `ZstdBlockEncoder`, `ZstdHuffmanEncoder`, `ZstdFseEncoder`, `ZstdBitWriter`), `be.stef.arcana.compressor.ZstdCompressor`, `be.stef.arcana.compressor.TarZstdCompressor` |
 | Test samples | `test/samples/stream/notes.txt.zst`, `seq-nosize.txt.zst`, `two-frames.txt.zst`, `skippable.txt.zst`, `zstd-no-extension.bin`; `test/samples/tar/payload.tar.zst`, `payload-pipe.tar.zst` |
 
 ## Overview
@@ -86,8 +86,61 @@ content size (29490), checksum.
   `ZstdHelper.decompress`, which copies the stream to the output file and
   optionally checks the expected size). It decodes one block (at most
   128 KiB) at a time into a history buffer, see Implementation notes.
-- No compressor: `arcana c file out.zst` answers "Arcana cannot create
-  Zstandard archives (extraction only)". No encryption.
+- Compression: `ZstdOutputStream` writes one frame, levels 1 and 2 (see
+  Compression below); `ZstdCompressor` (`.zst`, with the content size) and
+  `TarZstdCompressor` (`.tar.zst`, streamed) use it; `arcana c dir out.tar.zst
+  -l 1`. No encryption.
+
+## Compression
+
+Written from RFC 8878 (format), without the reference encoder:
+
+- Frame: magic, frame header (content size when known, single segment when
+  the content fits in the window, else a window descriptor), blocks,
+  content checksum (low 32 bits of XXH64, always written).
+- Blocks of 128 KiB. A block of one repeated byte is an RLE block; a
+  compressed block that is not smaller than the data is replaced by a raw
+  block (the repeated offsets are then restored, since the decoder does not
+  see that block's sequences).
+- Match finding (`ZstdMatchFinder`), positions kept in hash tables over a
+  buffer of window + 128 KiB that slides by whole blocks:
+  - level 1 ("fast"): one table (2^15 entries, hash of 6 bytes), the next
+    position is first tried with the last offset (repeat code 1), misses
+    skip faster and faster ((distance since last match >> 8) + 1); window
+    512 KiB;
+  - level 2 ("double fast"): a table hashed on 8 bytes (2^17) is tried
+    before the 5-byte one (2^16), and a short match is replaced by a long
+    one found one byte further; window 1 MiB.
+  A repeated offset is only used after at least one literal, so value 1
+  always means the last offset; new offsets are written as offset + 3.
+- Literals (`ZstdBlockEncoder`, `ZstdHuffmanEncoder`): RLE when one value,
+  raw below 64 bytes or when Huffman does not save anything, else Huffman:
+  code lengths from a Huffman tree limited to 11 bits (counts halved until
+  it fits), codes given in the order the decoder fills its table (by weight,
+  then symbol), one stream below 256 literals, else four with the jump table.
+  The weights are written FSE-compressed (two interleaved states, accuracy
+  6 at most) or as 4-bit values, whichever is shorter.
+- Sequences: literal length, offset and match length codes, each with the
+  predefined distribution, RLE (one code) or its own FSE table
+  (`FiniteStateEntropy.normalizeCounts` and `writeNormalizedCounts`),
+  chosen by estimated size; the bit stream is written from the last
+  sequence to the first (`ZstdFseEncoder`, `ZstdBitWriter`).
+
+Measured with zstd 1.5.5 on a 16.8 MB mix (Java sources, binaries, a JAR,
+text), one thread, size of the output:
+
+| | Arcana | zstd |
+|---|---|---|
+| level 1 | 5 112 562 | 5 078 694 (`-1`) |
+| level 2 | 4 280 056 | 4 577 290 (`-2`) |
+
+Level 2 compresses better than `zstd -2` (close to `-3`), level 1 about as
+well as `zstd -1`. Speed: about 90 MB/s (level 1) and 120 MB/s (level 2) on
+the test machine, two to three times slower than the zstd tool. Every output
+is checked by the regression runner (compression step: compress, extract,
+compare) and was checked with `zstd -d` on 510 random inputs (random bytes,
+small alphabets, source text, long repeats, sizes up to 3 MB, content size
+known or not).
 
 ## Variants and versions
 
@@ -173,3 +226,9 @@ states that its decompression engine is derived from aircompressor and that
 `sun.misc.Unsafe` was replaced by `MemoryAccess`. `ZstdInputStream`,
 `MemoryAccess`, `Rar5ZstdTestArchiveBuilder` and `ZstdExtractor` are
 Copyright 2025 Stephane Bury, Apache-2.0.
+The compression classes (`ZstdOutputStream`, `ZstdMatchFinder`,
+`ZstdSequenceStore`, `ZstdBlockEncoder`, `ZstdHuffmanEncoder`,
+`ZstdFseEncoder`, `ZstdBitWriter`, `ZstdCompressor`, `TarZstdCompressor`) are
+Copyright 2026 Stephane Bury, Apache-2.0, written from RFC 8878; they use
+`FiniteStateEntropy.optimalTableLog`, `normalizeCounts` and
+`writeNormalizedCounts`, which come with the aircompressor decoder classes.

@@ -158,7 +158,7 @@ Done.</pre>
             <tr><th scope="row">TAR + BZIP2</th><td class="yes">yes</td><td class="yes">yes</td><td><span class="hex">42 5A 68</span></td><td>.tar.bz2, .tbz2, .tbz</td></tr>
             <tr><th scope="row">TAR + XZ</th><td class="yes">yes</td><td class="yes">yes</td><td><span class="hex">FD 37 7A 58 5A 00</span></td><td>.tar.xz, .txz; levels 0 to 9</td></tr>
             <tr><th scope="row">TAR + LZ4</th><td class="yes">yes</td><td class="yes">yes</td><td><span class="hex">04 22 4D 18</span></td><td>.tar.lz4</td></tr>
-            <tr><th scope="row">TAR + Zstandard</th><td class="yes">yes</td><td class="no">no</td><td><span class="hex">FD 2F B5 28</span></td><td>.tar.zst, .tzst</td></tr>
+            <tr><th scope="row">TAR + Zstandard</th><td class="yes">yes</td><td class="yes">yes</td><td><span class="hex">FD 2F B5 28</span></td><td>.tar.zst, .tzst; levels 1 and 2</td></tr>
             <tr><th scope="row">TAR + Brotli</th><td class="yes">yes</td><td class="no">no</td><td>none</td><td>.tar.br, .tbr</td></tr>
             <tr><th scope="row">TAR + lzip</th><td class="yes">yes</td><td class="no">no</td><td><span class="hex">"LZIP" 01</span></td><td>.tar.lz, .tlz</td></tr>
             <tr><th scope="row">TAR + lzop</th><td class="yes">yes</td><td class="no">no</td><td><span class="hex">89 4C 5A 4F 00 0D 0A 1A 0A</span></td><td>.tar.lzo, .tzo</td></tr>
@@ -167,7 +167,7 @@ Done.</pre>
             <tr><th scope="row">XZ</th><td class="yes">yes</td><td class="yes">yes</td><td><span class="hex">FD 37 7A 58 5A 00</span></td><td>Single file, LZMA2, levels 0 to 9.</td></tr>
             <tr><th scope="row">LZMA</th><td class="yes">yes</td><td class="no">no</td><td>none</td><td>Raw .lzma stream, recognized by its extension.</td></tr>
             <tr><th scope="row">LZ4</th><td class="yes">yes</td><td class="no">no</td><td><span class="hex">04 22 4D 18</span></td><td>Frame format.</td></tr>
-            <tr><th scope="row">Zstandard</th><td class="yes">yes</td><td class="no">no</td><td><span class="hex">FD 2F B5 28</span></td><td>.zst, .zstd</td></tr>
+            <tr><th scope="row">Zstandard</th><td class="yes">yes</td><td class="yes">yes</td><td><span class="hex">FD 2F B5 28</span></td><td>.zst, .zstd; levels 1 and 2 (level 2 compresses better than zstd -2)</td></tr>
             <tr><th scope="row">Snappy</th><td class="yes">yes</td><td class="no">no</td><td><span class="hex">FF 06 00 00 73 4E 61 50 70 59</span></td><td>Framing format.</td></tr>
             <tr><th scope="row">Brotli</th><td class="yes">yes</td><td class="no">no</td><td>none</td><td>.br, recognized by its extension.</td></tr>
             <tr><th scope="row">lzip</th><td class="yes">yes</td><td class="no">no</td><td><span class="hex">"LZIP" 01</span></td><td>.lz; LZMA members, CRC32 and sizes checked.</td></tr>
@@ -318,7 +318,7 @@ Done.</pre>
             <tr><td><code>-p &lt;password&gt;</code></td><td>x, l, r, c</td><td>Password to decrypt; with <code>c</code>, encrypts the new ZIP or 7z archive with AES-256.</td></tr>
             <tr><td><code>-f &lt;format&gt;</code></td><td>x, l, r</td><td>Forces the input format instead of detecting it: a format name or extension (<code>zip</code>, <code>tar.gz</code>...), or a plugin id.</td></tr>
             <tr><td><code>-t &lt;format&gt;</code></td><td>c</td><td>Forces the output format instead of taking it from the archive name.</td></tr>
-            <tr><td><code>-l &lt;level&gt;</code></td><td>c</td><td>0 (fastest) to 9 (smallest) for 7z, xz and tar.xz, default 6; 5, 6 or 7 for lzh (-lh5-, -lh6-, -lh7-).</td></tr>
+            <tr><td><code>-l &lt;level&gt;</code></td><td>c</td><td>0 (fastest) to 9 (smallest) for 7z, xz and tar.xz, default 6; 1 or 2 for zst and tar.zst, default 2; 5, 6 or 7 for lzh (-lh5-, -lh6-, -lh7-).</td></tr>
             <tr><td><code>-n</code></td><td>s</td><td>Lists the pieces without writing anything.</td></tr>
           </tbody>
         </table>
