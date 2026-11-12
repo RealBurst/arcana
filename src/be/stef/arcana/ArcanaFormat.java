@@ -103,6 +103,9 @@ public enum ArcanaFormat {
     /** SquashFS 4.0 file system (.sqfs, .squashfs, .snap). gzip, LZMA, LZO, XZ, LZ4 and Zstandard. */
     SQUASHFS("SquashFS", new String[]{"sqfs", "squashfs", "snap"}),
 
+    /** Amiga floppy disk image (.adf): AmigaDOS OFS / FFS, double or high density. Extraction only. */
+    ADF("Amiga disk image", new String[]{"adf"}),
+
     /** Apple disk image (.dmg, UDIF): HFS+ volumes extracted, other partitions as raw images. Extraction only. */
     DMG("Apple disk image", new String[]{"dmg"}),
 

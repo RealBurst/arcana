@@ -55,7 +55,7 @@
       "license": "Apache-2.0",
       "jar": "arcana-plugin-jexepack.jar",
       "summary": "JexePack Java executables"
-    },    
+    },
     {
       "name": "arcana-plugin-pak",
       "url": "https://github.com/RealBurst/arcana/tree/main/plugins/arcana-plugin-pak",
@@ -77,6 +77,26 @@
       "license": "GPL-3.0-or-later",
       "jar": "arcana-plugin-upx.jar",
       "summary": "UPX-compressed executables"
+    },
+    {
+      "name": "arcana-plugin-xci",
+      "url": "https://github.com/RealBurst/arcana/tree/main/plugins/arcana-plugin-xci",
+      "description": "Extracts the files of Nintendo Switch XCI gamecard images: the NCA files of the update, normal, logo and secure partitions (HFS0), from plain dumps and dumps with the key area. Requires Arcana 1.2.0.",
+      "files": "Nintendo Switch gamecard images (.xci), by content",
+      "capabilities": "extract, recover",
+      "author": "Stephane Bury",
+      "license": "Apache-2.0",
+      "summary": "Nintendo Switch XCI"
+    },
+    {
+      "name": "arcana-plugin-sarc",
+      "url": "https://github.com/RealBurst/arcana/tree/main/plugins/arcana-plugin-sarc",
+      "description": "Extracts the files of Nintendo SARC archives (Wii U and Switch, little- and big-endian), plain or compressed with Yaz0 (.szs). A .pack.zs is first decompressed by Arcana. Requires Arcana 1.2.0.",
+      "files": "Nintendo archives (.sarc, .pack, .szs, .blarc...), by content",
+      "capabilities": "extract",
+      "author": "Stephane Bury",
+      "license": "Apache-2.0",
+      "summary": "Nintendo SARC"
     }
   ]
 }

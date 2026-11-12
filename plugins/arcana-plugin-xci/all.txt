@@ -1,0 +1,928 @@
+///FILE_SEPARATOR////1. Datas/coder/java/Prj_Tools/Arcana/plugins/arcana-plugin-xci/bin/io/github/realburst/arcana/plugin/xci/XciExtractor.java 
+/*
+ * Sample Arcana plugin: Nintendo Switch XCI archives.
+ * Licensed under the Apache License, Version 2.0.
+ */
+package io.github.realburst.arcana.plugin.xci;
+
+import be.stef.arcana.ArcanaEntry;
+import be.stef.arcana.extractor.ArchiveExtractor;
+import be.stef.arcana.plugin.PluginSupport;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.RandomAccessFile;
+import java.util.ArrayList;
+import java.util.List;
+
+/** Extracts and lists XCI archives. */
+final class XciExtractor implements ArchiveExtractor {
+
+    @Override
+    public void extract(final File archive, final File destination) throws IOException {
+        try (RandomAccessFile raf = new RandomAccessFile(archive, "r")) {
+            final byte[] buf = new byte[65536];
+            for (final XciFormat.Entry e : XciFormat.readEntries(raf)) {
+                // PluginSupport: safe path inside destination + Arcana's extraction limits
+                try (OutputStream out = PluginSupport.openOutput(destination, e.name)) {
+                    raf.seek(e.offset);
+                    long left = e.size;
+                    while (left > 0) {
+                        final int n = raf.read(buf, 0, (int) Math.min(buf.length, left));
+                        if (n < 0) throw new IOException("Truncated XCI entry: " + e.name);
+                        out.write(buf, 0, n);
+                        left -= n;
+                    }
+                }
+            }
+        }
+    }
+
+    /** XCI needs random access: the stream is copied to a temporary file. */
+    @Override
+    public void extract(final InputStream in, final File destination) throws IOException {
+        final File tmp = File.createTempFile("xci-", ".xci");
+        try {
+            try (OutputStream out = new BufferedOutputStream(new FileOutputStream(tmp))) {
+                final byte[] buf = new byte[65536];
+                int n;
+                while ((n = in.read(buf)) > 0) out.write(buf, 0, n);
+            }
+            extract(tmp, destination);
+        } finally {
+            if (!tmp.delete()) tmp.deleteOnExit();
+        }
+    }
+
+    @Override
+    public List<ArcanaEntry> list(final File archive) throws IOException {
+        final List<ArcanaEntry> result = new ArrayList<ArcanaEntry>();
+        try (RandomAccessFile raf = new RandomAccessFile(archive, "r")) {
+            for (final XciFormat.Entry e : XciFormat.readEntries(raf)) {
+                result.add(new ArcanaEntry.Builder(e.name).compressedSize(e.size).uncompressedSize(e.size).method("Stored").build()); // HFS0 stores the files as they are
+            }
+        }
+        return result;
+    }
+
+    @Override
+    public boolean supportsStream() {
+        return true;
+    }
+}///FILE_SEPARATOR////1. Datas/coder/java/Prj_Tools/Arcana/plugins/arcana-plugin-xci/bin/io/github/realburst/arcana/plugin/xci/XciFormat.java 
+/*
+ * Arcana plugin: Nintendo Switch XCI (NX Card Image) archives.
+ * Licensed under the Apache License, Version 2.0.
+ */
+package io.github.realburst.arcana.plugin.xci;
+
+import java.io.IOException;
+import java.io.RandomAccessFile;
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * Reading of the XCI gamecard header and of its HFS0 partitions.
+ *
+ * <p>Layout (switchbrew, "XCI"): the card header (0x200 bytes) holds the
+ * magic "HEAD" at 0x100 and, at 0x130 / 0x138, the address and size of the
+ * root HFS0, counted from the start of the header (usually 0xF000). Most
+ * dumps start with the header (HEAD at file offset 0x100); dumps that keep
+ * the 0x1000-byte key area put it at 0x1000 (HEAD at 0x1100).</p>
+ *
+ * <p>The root HFS0 lists the partitions ("update", "normal", "logo",
+ * "secure"), each one an HFS0 of its own holding the files (NCA...). The
+ * entries are returned as "partition/file".</p>
+ */
+final class XciFormat {
+
+    /** Offset of the HFS0 address field inside the card header. */
+    static final int HFS0_OFFSET_FIELD = 0x130;
+
+    /** Offset of the HFS0 header size field inside the card header. */
+    static final int HFS0_SIZE_FIELD = 0x138;
+
+    /** Size of one HFS0 file entry. */
+    static final int HFS0_ENTRY_SIZE = 0x40;
+
+    /** Size of the key area that some dumps keep before the card header. */
+    static final int KEY_AREA_SIZE = 0x1000;
+
+    /** Sanity limits of an HFS0 header. */
+    static final int MAX_FILES = 100000;
+    static final int MAX_STRING_TABLE = 0x1000000;
+
+    /** One file of the XCI. */
+    static final class Entry {
+        final String name;
+        final long offset;
+        final long size;
+
+        Entry(final String name, final long offset, final long size) {
+            this.name = name;
+            this.offset = offset;
+            this.size = size;
+        }
+    }
+
+    private XciFormat() {}
+
+    static long le64(final byte[] b, final int p) {
+        return (b[p] & 0xFFL) | ((b[p + 1] & 0xFFL) << 8) | ((b[p + 2] & 0xFFL) << 16) | ((b[p + 3] & 0xFFL) << 24) | ((b[p + 4] & 0xFFL) << 32) | ((b[p + 5] & 0xFFL) << 40) | ((b[p + 6] & 0xFFL) << 48) | ((b[p + 7] & 0xFFL) << 56);
+    }
+
+    static int le32(final byte[] b, final int p) {
+        return (b[p] & 0xFF) | ((b[p + 1] & 0xFF) << 8) | ((b[p + 2] & 0xFF) << 16) | ((b[p + 3] & 0xFF) << 24);
+    }
+
+    /** True if {@code b} holds "HEAD" at {@code p}. */
+    static boolean isHead(final byte[] b, final int p) {
+        return b.length >= p + 4 && b[p] == 'H' && b[p + 1] == 'E' && b[p + 2] == 'A' && b[p + 3] == 'D';
+    }
+
+    /** True if {@code b} holds "HFS0" at {@code p}. */
+    static boolean isHfs0(final byte[] b, final int p) {
+        return b.length >= p + 4 && b[p] == 'H' && b[p + 1] == 'F' && b[p + 2] == 'S' && b[p + 3] == '0';
+    }
+
+    /** File offset of the card header: 0 (usual dump) or 0x1000 (dump with the key area). */
+    static long headerOffset(final RandomAccessFile raf) throws IOException {
+        final byte[] m = new byte[4];
+        for (final long base : new long[] {0, KEY_AREA_SIZE}) {
+            if (raf.length() < base + 0x200) continue;
+            raf.seek(base + 0x100);
+            raf.readFully(m);
+            if (isHead(m, 0)) return base;
+        }
+        throw new IOException("Not an XCI archive (missing HEAD magic at 0x100 or 0x1100)");
+    }
+
+    /** File offset of the root HFS0. */
+    static long rootOffset(final RandomAccessFile raf, final long headerOffset) throws IOException {
+        final byte[] header = new byte[0x200];
+        raf.seek(headerOffset);
+        raf.readFully(header);
+        final long address = le64(header, HFS0_OFFSET_FIELD);
+        if (address < 0x200 || address > raf.length()) throw new IOException("Corrupted XCI: invalid root HFS0 address 0x" + Long.toHexString(address));
+        return headerOffset + address;
+    }
+
+    /** All the files of the XCI, as "partition/file". */
+    static List<Entry> readEntries(final RandomAccessFile raf) throws IOException {
+        final long root = rootOffset(raf, headerOffset(raf));
+        final List<Entry> list = new ArrayList<Entry>();
+        final byte[] magic = new byte[4];
+        for (final Entry partition : readHfs0(raf, root)) {
+            boolean nested = false;
+            if (partition.size >= 0x10) {
+                raf.seek(partition.offset);
+                raf.readFully(magic);
+                nested = isHfs0(magic, 0);
+            }
+            if (!nested) {
+                list.add(partition); // not a partition: kept as a file
+                continue;
+            }
+            for (final Entry e : readHfs0(raf, partition.offset)) {
+                if (e.offset + e.size > partition.offset + partition.size) throw new IOException("Corrupted XCI entry (outside its partition): " + partition.name + "/" + e.name);
+                list.add(new Entry(partition.name + "/" + e.name, e.offset, e.size));
+            }
+        }
+        return list;
+    }
+
+    /** The files of the HFS0 starting at file offset {@code start} (absolute offsets). */
+    static List<Entry> readHfs0(final RandomAccessFile raf, final long start) throws IOException {
+        final long fileLen = raf.length();
+        if (start + 0x10 > fileLen) throw new IOException("Corrupted XCI: HFS0 beyond the end of the file");
+        final byte[] h = new byte[0x10];
+        raf.seek(start);
+        raf.readFully(h);
+        if (!isHfs0(h, 0)) throw new IOException("Not an HFS0 partition at 0x" + Long.toHexString(start));
+        final int fileCount = le32(h, 4);
+        final int stringTableSize = le32(h, 8);
+        if (fileCount < 0 || fileCount > MAX_FILES || stringTableSize < 0 || stringTableSize > MAX_STRING_TABLE) throw new IOException("Corrupted HFS0 header at 0x" + Long.toHexString(start));
+        final long entryTableStart = start + 0x10;
+        final long stringTableStart = entryTableStart + (long) fileCount * HFS0_ENTRY_SIZE;
+        final long dataStart = stringTableStart + stringTableSize;
+        if (dataStart > fileLen) throw new IOException("Corrupted HFS0 header at 0x" + Long.toHexString(start));
+        final byte[] entries = new byte[fileCount * HFS0_ENTRY_SIZE];
+        raf.seek(entryTableStart);
+        raf.readFully(entries);
+        final byte[] strings = new byte[stringTableSize];
+        raf.readFully(strings);
+        final List<Entry> list = new ArrayList<Entry>(fileCount);
+        for (int i = 0; i < fileCount; i++) {
+            final int p = i * HFS0_ENTRY_SIZE;
+            final long offset = le64(entries, p);
+            final long size = le64(entries, p + 8);
+            final String name = name(strings, le32(entries, p + 0x10));
+            if (name == null) throw new IOException("Corrupted HFS0 entry " + i + " (bad name offset) at 0x" + Long.toHexString(start));
+            if (offset < 0 || size < 0 || dataStart + offset + size > fileLen || dataStart + offset < dataStart) throw new IOException("Corrupted XCI entry (data beyond EOF): " + name);
+            list.add(new Entry(name, dataStart + offset, size));
+        }
+        return list;
+    }
+
+    /** NUL-terminated name at {@code off} of the string table, or null if out of the table. */
+    static String name(final byte[] strings, final int off) {
+        if (off < 0 || off >= strings.length) return null;
+        int end = off;
+        while (end < strings.length && strings[end] != 0) end++;
+        return new String(strings, off, end - off, StandardCharsets.UTF_8);
+    }
+}
+///FILE_SEPARATOR////1. Datas/coder/java/Prj_Tools/Arcana/plugins/arcana-plugin-xci/bin/io/github/realburst/arcana/plugin/xci/XciPlugin.java 
+/*
+ * Arcana plugin: Nintendo Switch XCI (NX Card Image) archives.
+ * Licensed under the Apache License, Version 2.0.
+ */
+package io.github.realburst.arcana.plugin.xci;
+
+import be.stef.arcana.compressor.ArchiveCompressor;
+import be.stef.arcana.extractor.ArchiveExtractor;
+import be.stef.arcana.formats.recover.ArchiveRecoverer;
+import be.stef.arcana.plugin.ArcanaPlugin;
+
+/**
+ * Plugin descriptor for Nintendo Switch XCI archives.
+ *
+ * <p>An XCI is a gamecard image. It starts with a 0x200-byte card header
+ * (magic "HEAD" at offset 0x100), or with the 0x1000-byte key area followed
+ * by the header (HEAD at 0x1100). The header points (0x130 / 0x138) to the
+ * root HFS0, which lists the partitions (update, normal, logo, secure), each
+ * an HFS0 holding the files (NCA...). See {@link XciFormat}.</p>
+ */
+public final class XciPlugin implements ArcanaPlugin {
+
+    @Override public String getId() { return "io.github.realburst.xci"; }
+    @Override public String getName() { return "Nintendo Switch XCI archive"; }
+    @Override public String getVersion() { return "1.0.0"; }
+    @Override public String getAuthor() { return "Stephane Bury"; }
+    @Override public String getSourceUrl() { return "https://github.com/RealBurst/arcana/tree/main/plugins/arcana-plugin-xci"; }
+    @Override public String getLicense() { return "Apache-2.0"; }
+    @Override public String[] getExtensions() { return new String[] {"xci"}; }
+    @Override public int getProbeSize() { return 0x1104; } // up to the HEAD magic of a dump with key area
+
+    @Override
+    public boolean matches(final byte[] h, final String fileName) {
+        // "HEAD" at 0x100 (usual dump) or at 0x1100 (dump with the 0x1000-byte key area)
+        return XciFormat.isHead(h, 0x100) || XciFormat.isHead(h, 0x1100);
+    }
+
+    @Override
+    public ArchiveExtractor createExtractor(final byte[] password) {
+        return new XciExtractor();
+    }
+
+    @Override
+    public ArchiveCompressor createCompressor(final int level) {
+        // XCI is a gamecard image; we do not provide a compressor for it.
+        return null;
+    }
+
+    /** Recovery strategy: salvages a damaged XCI ("arcana r"). */
+    @Override
+    public ArchiveRecoverer createRecoverer(final byte[] password) {
+        return new XciRecoverer();
+    }
+}///FILE_SEPARATOR////1. Datas/coder/java/Prj_Tools/Arcana/plugins/arcana-plugin-xci/bin/io/github/realburst/arcana/plugin/xci/XciProbe.java 
+/*
+ * Sample Arcana plugin: Nintendo Switch XCI archives.
+ * Licensed under the Apache License, Version 2.0.
+ */
+package io.github.realburst.arcana.plugin.xci;
+
+import be.stef.arcana.formats.carve.ByteSource;
+import be.stef.arcana.formats.carve.FileCarver;
+import java.io.IOException;
+
+/**
+ * Carving probe: lets "arcana s" recognize an XCI archive embedded at an
+ * arbitrary position inside another file.
+ */
+public final class XciProbe implements FileCarver.FormatProbe {
+
+    @Override
+    public int[] leadBytes() {
+        return new int[] {'H'}; // "HEAD" magic is at 0x100 relative to the gamecard header
+    }
+
+    @Override
+    public FileCarver.Probe probeAt(final ByteSource s, final long p) throws IOException {
+        // An XCI starts with a 0x1000-byte CardKeyArea, then the Gamecard Header at 0x1000.
+        // The "HEAD" magic is at offset 0x100 inside the Gamecard Header, i.e. at p + 0x1100.
+        final long magicPos = p + 0x1100;
+        if (magicPos + 4 > s.length()) return null;
+        if (s.u8(magicPos) != 'H' || s.u8(magicPos + 1) != 'E' || s.u8(magicPos + 2) != 'A' || s.u8(magicPos + 3) != 'D') {
+            return null;
+        }
+
+        // Read the HFS0 offset and size from the Gamecard Header.
+        final long hfs0Offset = s.u64le(p + 0x1000 + XciFormat.HFS0_OFFSET_FIELD);
+        final long hfs0Size = s.u64le(p + 0x1000 + XciFormat.HFS0_SIZE_FIELD);
+        if (hfs0Offset < 0x10000 || hfs0Size < 0x10) return null;
+        final long hfs0Start = p + hfs0Offset;
+        if (hfs0Start + hfs0Size > s.length()) return null;
+
+        // Quick sanity check on the HFS0 magic.
+        if (s.u8(hfs0Start) != 'H' || s.u8(hfs0Start + 1) != 'F' || s.u8(hfs0Start + 2) != 'S' || s.u8(hfs0Start + 3) != '0') {
+            return null;
+        }
+
+        // The archive ends at the furthest of the HFS0 directory and the file data it points to.
+        long end = hfs0Start + hfs0Size;
+        final long fileCount = s.u32le(hfs0Start + 4);
+        final long stringTableSize = s.u32le(hfs0Start + 8);
+        if (fileCount > 100000 || stringTableSize > 0x1000000) return null; // sanity limits
+
+        final long entryTableStart = hfs0Start + 0x10;
+        final long stringTableStart = entryTableStart + fileCount * XciFormat.HFS0_ENTRY_SIZE;
+        final long dataStart = stringTableStart + stringTableSize;
+        for (long i = 0; i < fileCount; i++) {
+            final long entryPos = entryTableStart + i * XciFormat.HFS0_ENTRY_SIZE;
+            if (entryPos + XciFormat.HFS0_ENTRY_SIZE > s.length()) return null;
+            final long dataOffset = s.u64le(entryPos);
+            final long dataSize = s.u64le(entryPos + 8);
+            if (dataStart + dataOffset + dataSize > s.length()) return null;
+            end = Math.max(end, dataStart + dataOffset + dataSize);
+        }
+        return new FileCarver.Probe(end - p, "xci", "xci", "Nintendo Switch XCI archive (" + fileCount + " files)", null);
+    }
+}///FILE_SEPARATOR////1. Datas/coder/java/Prj_Tools/Arcana/plugins/arcana-plugin-xci/bin/io/github/realburst/arcana/plugin/xci/XciRecoverer.java 
+/*
+ * Arcana plugin: Nintendo Switch XCI (NX Card Image) archives.
+ * Licensed under the Apache License, Version 2.0.
+ */
+package io.github.realburst.arcana.plugin.xci;
+
+import be.stef.arcana.formats.recover.ArchiveRecoverer;
+import be.stef.arcana.formats.recover.RecoveredFile;
+import be.stef.arcana.formats.recover.RecoveryReport;
+import be.stef.arcana.plugin.PluginSupport;
+import java.io.File;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.RandomAccessFile;
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * Recovery strategy: lets "arcana r" salvage a damaged XCI. The root HFS0 and
+ * the partitions are read record by record; a record that points outside the
+ * file, or whose data cannot be fully read, still yields whatever bytes are
+ * present instead of aborting the whole archive.
+ */
+public final class XciRecoverer implements ArchiveRecoverer {
+
+    @Override
+    public List<RecoveredFile> recover(final File archive, final File destination) throws IOException {
+        final List<RecoveredFile> result = new ArrayList<RecoveredFile>();
+        try (RandomAccessFile raf = new RandomAccessFile(archive, "r")) {
+            final long root = XciFormat.rootOffset(raf, XciFormat.headerOffset(raf));
+            recoverHfs0(raf, root, "", destination, result, true);
+        }
+        return result;
+    }
+
+    /** Salvages the files of the HFS0 at {@code start}; in the root, the partitions are walked too. */
+    private static void recoverHfs0(final RandomAccessFile raf, final long start, final String prefix, final File destination, final List<RecoveredFile> result, final boolean root) throws IOException {
+        final long len = raf.length();
+        if (start + 0x10 > len) {
+            result.add(new RecoveredFile(prefix.isEmpty() ? "root" : prefix, RecoveryReport.Status.LOST, 0, "HFS0 header beyond the end of the file"));
+            return;
+        }
+        final byte[] h = new byte[0x10];
+        raf.seek(start);
+        raf.readFully(h);
+        if (!XciFormat.isHfs0(h, 0)) {
+            result.add(new RecoveredFile(prefix.isEmpty() ? "root" : prefix, RecoveryReport.Status.LOST, 0, "no HFS0 header at 0x" + Long.toHexString(start)));
+            return;
+        }
+        final int fileCount = XciFormat.le32(h, 4);
+        final int stringTableSize = XciFormat.le32(h, 8);
+        if (fileCount < 0 || fileCount > XciFormat.MAX_FILES || stringTableSize < 0 || stringTableSize > XciFormat.MAX_STRING_TABLE) {
+            result.add(new RecoveredFile(prefix.isEmpty() ? "root" : prefix, RecoveryReport.Status.LOST, 0, "corrupted HFS0 header"));
+            return;
+        }
+        final long entryTableStart = start + 0x10;
+        final long stringTableStart = entryTableStart + (long) fileCount * XciFormat.HFS0_ENTRY_SIZE;
+        final long dataStart = stringTableStart + stringTableSize;
+        // string table: what is present (missing names become entry_N)
+        final byte[] strings = new byte[(int) Math.max(0, Math.min(stringTableSize, len - stringTableStart))];
+        if (strings.length > 0) {
+            raf.seek(stringTableStart);
+            raf.readFully(strings);
+        }
+        final byte[] e = new byte[XciFormat.HFS0_ENTRY_SIZE];
+        final byte[] magic = new byte[4];
+        final byte[] buf = new byte[65536];
+        for (int i = 0; i < fileCount; i++) {
+            final long entryPos = entryTableStart + (long) i * XciFormat.HFS0_ENTRY_SIZE;
+            if (entryPos + XciFormat.HFS0_ENTRY_SIZE > len) {
+                result.add(new RecoveredFile(prefix + "entry_" + i, RecoveryReport.Status.LOST, 0, "file entry beyond the end of the file"));
+                continue;
+            }
+            raf.seek(entryPos);
+            raf.readFully(e);
+            final long dataOffset = XciFormat.le64(e, 0);
+            final long dataSize = XciFormat.le64(e, 8);
+            final String n = XciFormat.name(strings, XciFormat.le32(e, 0x10));
+            final String name = prefix + (n == null || n.isEmpty() ? "entry_" + i : n);
+            final long absolute = dataStart + dataOffset;
+            if (dataOffset < 0 || dataSize < 0 || absolute >= len) {
+                result.add(new RecoveredFile(name, RecoveryReport.Status.LOST, 0, "data beyond the end of the file"));
+                continue;
+            }
+            if (root && dataSize >= 0x10) {
+                raf.seek(absolute);
+                raf.readFully(magic);
+                if (XciFormat.isHfs0(magic, 0)) {
+                    recoverHfs0(raf, absolute, name + "/", destination, result, false); // a partition
+                    continue;
+                }
+            }
+            final long available = Math.min(dataSize, len - absolute);
+            long written = 0;
+            try (OutputStream o = PluginSupport.openOutput(destination, name)) {
+                raf.seek(absolute);
+                while (written < available) {
+                    final int k = raf.read(buf, 0, (int) Math.min(buf.length, available - written));
+                    if (k < 0) break;
+                    o.write(buf, 0, k);
+                    written += k;
+                }
+            }
+            if (written == dataSize) result.add(RecoveredFile.ok(name, written));
+            else result.add(RecoveredFile.partial(name, written, "truncated: " + written + " of " + dataSize + " bytes"));
+        }
+    }
+}
+///FILE_SEPARATOR////1. Datas/coder/java/Prj_Tools/Arcana/plugins/arcana-plugin-xci/src/io/github/realburst/arcana/plugin/xci/XciExtractor.java 
+/*
+ * Sample Arcana plugin: Nintendo Switch XCI archives.
+ * Licensed under the Apache License, Version 2.0.
+ */
+package io.github.realburst.arcana.plugin.xci;
+
+import be.stef.arcana.ArcanaEntry;
+import be.stef.arcana.extractor.ArchiveExtractor;
+import be.stef.arcana.plugin.PluginSupport;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.RandomAccessFile;
+import java.util.ArrayList;
+import java.util.List;
+
+/** Extracts and lists XCI archives. */
+final class XciExtractor implements ArchiveExtractor {
+
+    @Override
+    public void extract(final File archive, final File destination) throws IOException {
+        try (RandomAccessFile raf = new RandomAccessFile(archive, "r")) {
+            final byte[] buf = new byte[65536];
+            for (final XciFormat.Entry e : XciFormat.readEntries(raf)) {
+                // PluginSupport: safe path inside destination + Arcana's extraction limits
+                try (OutputStream out = PluginSupport.openOutput(destination, e.name)) {
+                    raf.seek(e.offset);
+                    long left = e.size;
+                    while (left > 0) {
+                        final int n = raf.read(buf, 0, (int) Math.min(buf.length, left));
+                        if (n < 0) throw new IOException("Truncated XCI entry: " + e.name);
+                        out.write(buf, 0, n);
+                        left -= n;
+                    }
+                }
+            }
+        }
+    }
+
+    /** XCI needs random access: the stream is copied to a temporary file. */
+    @Override
+    public void extract(final InputStream in, final File destination) throws IOException {
+        final File tmp = File.createTempFile("xci-", ".xci");
+        try {
+            try (OutputStream out = new BufferedOutputStream(new FileOutputStream(tmp))) {
+                final byte[] buf = new byte[65536];
+                int n;
+                while ((n = in.read(buf)) > 0) out.write(buf, 0, n);
+            }
+            extract(tmp, destination);
+        } finally {
+            if (!tmp.delete()) tmp.deleteOnExit();
+        }
+    }
+
+    @Override
+    public List<ArcanaEntry> list(final File archive) throws IOException {
+        final List<ArcanaEntry> result = new ArrayList<ArcanaEntry>();
+        try (RandomAccessFile raf = new RandomAccessFile(archive, "r")) {
+            for (final XciFormat.Entry e : XciFormat.readEntries(raf)) {
+                result.add(new ArcanaEntry.Builder(e.name).compressedSize(e.size).uncompressedSize(e.size).method("Stored").build()); // HFS0 stores the files as they are
+            }
+        }
+        return result;
+    }
+
+    @Override
+    public boolean supportsStream() {
+        return true;
+    }
+}///FILE_SEPARATOR////1. Datas/coder/java/Prj_Tools/Arcana/plugins/arcana-plugin-xci/src/io/github/realburst/arcana/plugin/xci/XciFormat.java 
+/*
+ * Arcana plugin: Nintendo Switch XCI (NX Card Image) archives.
+ * Licensed under the Apache License, Version 2.0.
+ */
+package io.github.realburst.arcana.plugin.xci;
+
+import java.io.IOException;
+import java.io.RandomAccessFile;
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * Reading of the XCI gamecard header and of its HFS0 partitions.
+ *
+ * <p>Layout (switchbrew, "XCI"): the card header (0x200 bytes) holds the
+ * magic "HEAD" at 0x100 and, at 0x130 / 0x138, the address and size of the
+ * root HFS0, counted from the start of the header (usually 0xF000). Most
+ * dumps start with the header (HEAD at file offset 0x100); dumps that keep
+ * the 0x1000-byte key area put it at 0x1000 (HEAD at 0x1100).</p>
+ *
+ * <p>The root HFS0 lists the partitions ("update", "normal", "logo",
+ * "secure"), each one an HFS0 of its own holding the files (NCA...). The
+ * entries are returned as "partition/file".</p>
+ */
+final class XciFormat {
+
+    /** Offset of the HFS0 address field inside the card header. */
+    static final int HFS0_OFFSET_FIELD = 0x130;
+
+    /** Offset of the HFS0 header size field inside the card header. */
+    static final int HFS0_SIZE_FIELD = 0x138;
+
+    /** Size of one HFS0 file entry. */
+    static final int HFS0_ENTRY_SIZE = 0x40;
+
+    /** Size of the key area that some dumps keep before the card header. */
+    static final int KEY_AREA_SIZE = 0x1000;
+
+    /** Sanity limits of an HFS0 header. */
+    static final int MAX_FILES = 100000;
+    static final int MAX_STRING_TABLE = 0x1000000;
+
+    /** One file of the XCI. */
+    static final class Entry {
+        final String name;
+        final long offset;
+        final long size;
+
+        Entry(final String name, final long offset, final long size) {
+            this.name = name;
+            this.offset = offset;
+            this.size = size;
+        }
+    }
+
+    private XciFormat() {}
+
+    static long le64(final byte[] b, final int p) {
+        return (b[p] & 0xFFL) | ((b[p + 1] & 0xFFL) << 8) | ((b[p + 2] & 0xFFL) << 16) | ((b[p + 3] & 0xFFL) << 24) | ((b[p + 4] & 0xFFL) << 32) | ((b[p + 5] & 0xFFL) << 40) | ((b[p + 6] & 0xFFL) << 48) | ((b[p + 7] & 0xFFL) << 56);
+    }
+
+    static int le32(final byte[] b, final int p) {
+        return (b[p] & 0xFF) | ((b[p + 1] & 0xFF) << 8) | ((b[p + 2] & 0xFF) << 16) | ((b[p + 3] & 0xFF) << 24);
+    }
+
+    /** True if {@code b} holds "HEAD" at {@code p}. */
+    static boolean isHead(final byte[] b, final int p) {
+        return b.length >= p + 4 && b[p] == 'H' && b[p + 1] == 'E' && b[p + 2] == 'A' && b[p + 3] == 'D';
+    }
+
+    /** True if {@code b} holds "HFS0" at {@code p}. */
+    static boolean isHfs0(final byte[] b, final int p) {
+        return b.length >= p + 4 && b[p] == 'H' && b[p + 1] == 'F' && b[p + 2] == 'S' && b[p + 3] == '0';
+    }
+
+    /** File offset of the card header: 0 (usual dump) or 0x1000 (dump with the key area). */
+    static long headerOffset(final RandomAccessFile raf) throws IOException {
+        final byte[] m = new byte[4];
+        for (final long base : new long[] {0, KEY_AREA_SIZE}) {
+            if (raf.length() < base + 0x200) continue;
+            raf.seek(base + 0x100);
+            raf.readFully(m);
+            if (isHead(m, 0)) return base;
+        }
+        throw new IOException("Not an XCI archive (missing HEAD magic at 0x100 or 0x1100)");
+    }
+
+    /** File offset of the root HFS0. */
+    static long rootOffset(final RandomAccessFile raf, final long headerOffset) throws IOException {
+        final byte[] header = new byte[0x200];
+        raf.seek(headerOffset);
+        raf.readFully(header);
+        final long address = le64(header, HFS0_OFFSET_FIELD);
+        if (address < 0x200 || address > raf.length()) throw new IOException("Corrupted XCI: invalid root HFS0 address 0x" + Long.toHexString(address));
+        return headerOffset + address;
+    }
+
+    /** All the files of the XCI, as "partition/file". */
+    static List<Entry> readEntries(final RandomAccessFile raf) throws IOException {
+        final long root = rootOffset(raf, headerOffset(raf));
+        final List<Entry> list = new ArrayList<Entry>();
+        final byte[] magic = new byte[4];
+        for (final Entry partition : readHfs0(raf, root)) {
+            boolean nested = false;
+            if (partition.size >= 0x10) {
+                raf.seek(partition.offset);
+                raf.readFully(magic);
+                nested = isHfs0(magic, 0);
+            }
+            if (!nested) {
+                list.add(partition); // not a partition: kept as a file
+                continue;
+            }
+            for (final Entry e : readHfs0(raf, partition.offset)) {
+                if (e.offset + e.size > partition.offset + partition.size) throw new IOException("Corrupted XCI entry (outside its partition): " + partition.name + "/" + e.name);
+                list.add(new Entry(partition.name + "/" + e.name, e.offset, e.size));
+            }
+        }
+        return list;
+    }
+
+    /** The files of the HFS0 starting at file offset {@code start} (absolute offsets). */
+    static List<Entry> readHfs0(final RandomAccessFile raf, final long start) throws IOException {
+        final long fileLen = raf.length();
+        if (start + 0x10 > fileLen) throw new IOException("Corrupted XCI: HFS0 beyond the end of the file");
+        final byte[] h = new byte[0x10];
+        raf.seek(start);
+        raf.readFully(h);
+        if (!isHfs0(h, 0)) throw new IOException("Not an HFS0 partition at 0x" + Long.toHexString(start));
+        final int fileCount = le32(h, 4);
+        final int stringTableSize = le32(h, 8);
+        if (fileCount < 0 || fileCount > MAX_FILES || stringTableSize < 0 || stringTableSize > MAX_STRING_TABLE) throw new IOException("Corrupted HFS0 header at 0x" + Long.toHexString(start));
+        final long entryTableStart = start + 0x10;
+        final long stringTableStart = entryTableStart + (long) fileCount * HFS0_ENTRY_SIZE;
+        final long dataStart = stringTableStart + stringTableSize;
+        if (dataStart > fileLen) throw new IOException("Corrupted HFS0 header at 0x" + Long.toHexString(start));
+        final byte[] entries = new byte[fileCount * HFS0_ENTRY_SIZE];
+        raf.seek(entryTableStart);
+        raf.readFully(entries);
+        final byte[] strings = new byte[stringTableSize];
+        raf.readFully(strings);
+        final List<Entry> list = new ArrayList<Entry>(fileCount);
+        for (int i = 0; i < fileCount; i++) {
+            final int p = i * HFS0_ENTRY_SIZE;
+            final long offset = le64(entries, p);
+            final long size = le64(entries, p + 8);
+            final String name = name(strings, le32(entries, p + 0x10));
+            if (name == null) throw new IOException("Corrupted HFS0 entry " + i + " (bad name offset) at 0x" + Long.toHexString(start));
+            if (offset < 0 || size < 0 || dataStart + offset + size > fileLen || dataStart + offset < dataStart) throw new IOException("Corrupted XCI entry (data beyond EOF): " + name);
+            list.add(new Entry(name, dataStart + offset, size));
+        }
+        return list;
+    }
+
+    /** NUL-terminated name at {@code off} of the string table, or null if out of the table. */
+    static String name(final byte[] strings, final int off) {
+        if (off < 0 || off >= strings.length) return null;
+        int end = off;
+        while (end < strings.length && strings[end] != 0) end++;
+        return new String(strings, off, end - off, StandardCharsets.UTF_8);
+    }
+}
+///FILE_SEPARATOR////1. Datas/coder/java/Prj_Tools/Arcana/plugins/arcana-plugin-xci/src/io/github/realburst/arcana/plugin/xci/XciPlugin.java 
+/*
+ * Arcana plugin: Nintendo Switch XCI (NX Card Image) archives.
+ * Licensed under the Apache License, Version 2.0.
+ */
+package io.github.realburst.arcana.plugin.xci;
+
+import be.stef.arcana.compressor.ArchiveCompressor;
+import be.stef.arcana.extractor.ArchiveExtractor;
+import be.stef.arcana.formats.recover.ArchiveRecoverer;
+import be.stef.arcana.plugin.ArcanaPlugin;
+
+/**
+ * Plugin descriptor for Nintendo Switch XCI archives.
+ *
+ * <p>An XCI is a gamecard image. It starts with a 0x200-byte card header
+ * (magic "HEAD" at offset 0x100), or with the 0x1000-byte key area followed
+ * by the header (HEAD at 0x1100). The header points (0x130 / 0x138) to the
+ * root HFS0, which lists the partitions (update, normal, logo, secure), each
+ * an HFS0 holding the files (NCA...). See {@link XciFormat}.</p>
+ */
+public final class XciPlugin implements ArcanaPlugin {
+
+    @Override public String getId() { return "io.github.realburst.xci"; }
+    @Override public String getName() { return "Nintendo Switch XCI archive"; }
+    @Override public String getVersion() { return "1.0.0"; }
+    @Override public String getAuthor() { return "Stephane Bury"; }
+    @Override public String getSourceUrl() { return "https://github.com/RealBurst/arcana/tree/main/plugins/arcana-plugin-xci"; }
+    @Override public String getLicense() { return "Apache-2.0"; }
+    @Override public String[] getExtensions() { return new String[] {"xci"}; }
+    @Override public int getProbeSize() { return 0x1104; } // up to the HEAD magic of a dump with key area
+
+    @Override
+    public boolean matches(final byte[] h, final String fileName) {
+        // "HEAD" at 0x100 (usual dump) or at 0x1100 (dump with the 0x1000-byte key area)
+        return XciFormat.isHead(h, 0x100) || XciFormat.isHead(h, 0x1100);
+    }
+
+    @Override
+    public ArchiveExtractor createExtractor(final byte[] password) {
+        return new XciExtractor();
+    }
+
+    @Override
+    public ArchiveCompressor createCompressor(final int level) {
+        // XCI is a gamecard image; we do not provide a compressor for it.
+        return null;
+    }
+
+    /** Recovery strategy: salvages a damaged XCI ("arcana r"). */
+    @Override
+    public ArchiveRecoverer createRecoverer(final byte[] password) {
+        return new XciRecoverer();
+    }
+}///FILE_SEPARATOR////1. Datas/coder/java/Prj_Tools/Arcana/plugins/arcana-plugin-xci/src/io/github/realburst/arcana/plugin/xci/XciProbe.java 
+/*
+ * Sample Arcana plugin: Nintendo Switch XCI archives.
+ * Licensed under the Apache License, Version 2.0.
+ */
+package io.github.realburst.arcana.plugin.xci;
+
+import be.stef.arcana.formats.carve.ByteSource;
+import be.stef.arcana.formats.carve.FileCarver;
+import java.io.IOException;
+
+/**
+ * Carving probe: lets "arcana s" recognize an XCI archive embedded at an
+ * arbitrary position inside another file.
+ */
+public final class XciProbe implements FileCarver.FormatProbe {
+
+    @Override
+    public int[] leadBytes() {
+        return new int[] {'H'}; // "HEAD" magic is at 0x100 relative to the gamecard header
+    }
+
+    @Override
+    public FileCarver.Probe probeAt(final ByteSource s, final long p) throws IOException {
+        // An XCI starts with a 0x1000-byte CardKeyArea, then the Gamecard Header at 0x1000.
+        // The "HEAD" magic is at offset 0x100 inside the Gamecard Header, i.e. at p + 0x1100.
+        final long magicPos = p + 0x1100;
+        if (magicPos + 4 > s.length()) return null;
+        if (s.u8(magicPos) != 'H' || s.u8(magicPos + 1) != 'E' || s.u8(magicPos + 2) != 'A' || s.u8(magicPos + 3) != 'D') {
+            return null;
+        }
+
+        // Read the HFS0 offset and size from the Gamecard Header.
+        final long hfs0Offset = s.u64le(p + 0x1000 + XciFormat.HFS0_OFFSET_FIELD);
+        final long hfs0Size = s.u64le(p + 0x1000 + XciFormat.HFS0_SIZE_FIELD);
+        if (hfs0Offset < 0x10000 || hfs0Size < 0x10) return null;
+        final long hfs0Start = p + hfs0Offset;
+        if (hfs0Start + hfs0Size > s.length()) return null;
+
+        // Quick sanity check on the HFS0 magic.
+        if (s.u8(hfs0Start) != 'H' || s.u8(hfs0Start + 1) != 'F' || s.u8(hfs0Start + 2) != 'S' || s.u8(hfs0Start + 3) != '0') {
+            return null;
+        }
+
+        // The archive ends at the furthest of the HFS0 directory and the file data it points to.
+        long end = hfs0Start + hfs0Size;
+        final long fileCount = s.u32le(hfs0Start + 4);
+        final long stringTableSize = s.u32le(hfs0Start + 8);
+        if (fileCount > 100000 || stringTableSize > 0x1000000) return null; // sanity limits
+
+        final long entryTableStart = hfs0Start + 0x10;
+        final long stringTableStart = entryTableStart + fileCount * XciFormat.HFS0_ENTRY_SIZE;
+        final long dataStart = stringTableStart + stringTableSize;
+        for (long i = 0; i < fileCount; i++) {
+            final long entryPos = entryTableStart + i * XciFormat.HFS0_ENTRY_SIZE;
+            if (entryPos + XciFormat.HFS0_ENTRY_SIZE > s.length()) return null;
+            final long dataOffset = s.u64le(entryPos);
+            final long dataSize = s.u64le(entryPos + 8);
+            if (dataStart + dataOffset + dataSize > s.length()) return null;
+            end = Math.max(end, dataStart + dataOffset + dataSize);
+        }
+        return new FileCarver.Probe(end - p, "xci", "xci", "Nintendo Switch XCI archive (" + fileCount + " files)", null);
+    }
+}///FILE_SEPARATOR////1. Datas/coder/java/Prj_Tools/Arcana/plugins/arcana-plugin-xci/src/io/github/realburst/arcana/plugin/xci/XciRecoverer.java 
+/*
+ * Arcana plugin: Nintendo Switch XCI (NX Card Image) archives.
+ * Licensed under the Apache License, Version 2.0.
+ */
+package io.github.realburst.arcana.plugin.xci;
+
+import be.stef.arcana.formats.recover.ArchiveRecoverer;
+import be.stef.arcana.formats.recover.RecoveredFile;
+import be.stef.arcana.formats.recover.RecoveryReport;
+import be.stef.arcana.plugin.PluginSupport;
+import java.io.File;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.RandomAccessFile;
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * Recovery strategy: lets "arcana r" salvage a damaged XCI. The root HFS0 and
+ * the partitions are read record by record; a record that points outside the
+ * file, or whose data cannot be fully read, still yields whatever bytes are
+ * present instead of aborting the whole archive.
+ */
+public final class XciRecoverer implements ArchiveRecoverer {
+
+    @Override
+    public List<RecoveredFile> recover(final File archive, final File destination) throws IOException {
+        final List<RecoveredFile> result = new ArrayList<RecoveredFile>();
+        try (RandomAccessFile raf = new RandomAccessFile(archive, "r")) {
+            final long root = XciFormat.rootOffset(raf, XciFormat.headerOffset(raf));
+            recoverHfs0(raf, root, "", destination, result, true);
+        }
+        return result;
+    }
+
+    /** Salvages the files of the HFS0 at {@code start}; in the root, the partitions are walked too. */
+    private static void recoverHfs0(final RandomAccessFile raf, final long start, final String prefix, final File destination, final List<RecoveredFile> result, final boolean root) throws IOException {
+        final long len = raf.length();
+        if (start + 0x10 > len) {
+            result.add(new RecoveredFile(prefix.isEmpty() ? "root" : prefix, RecoveryReport.Status.LOST, 0, "HFS0 header beyond the end of the file"));
+            return;
+        }
+        final byte[] h = new byte[0x10];
+        raf.seek(start);
+        raf.readFully(h);
+        if (!XciFormat.isHfs0(h, 0)) {
+            result.add(new RecoveredFile(prefix.isEmpty() ? "root" : prefix, RecoveryReport.Status.LOST, 0, "no HFS0 header at 0x" + Long.toHexString(start)));
+            return;
+        }
+        final int fileCount = XciFormat.le32(h, 4);
+        final int stringTableSize = XciFormat.le32(h, 8);
+        if (fileCount < 0 || fileCount > XciFormat.MAX_FILES || stringTableSize < 0 || stringTableSize > XciFormat.MAX_STRING_TABLE) {
+            result.add(new RecoveredFile(prefix.isEmpty() ? "root" : prefix, RecoveryReport.Status.LOST, 0, "corrupted HFS0 header"));
+            return;
+        }
+        final long entryTableStart = start + 0x10;
+        final long stringTableStart = entryTableStart + (long) fileCount * XciFormat.HFS0_ENTRY_SIZE;
+        final long dataStart = stringTableStart + stringTableSize;
+        // string table: what is present (missing names become entry_N)
+        final byte[] strings = new byte[(int) Math.max(0, Math.min(stringTableSize, len - stringTableStart))];
+        if (strings.length > 0) {
+            raf.seek(stringTableStart);
+            raf.readFully(strings);
+        }
+        final byte[] e = new byte[XciFormat.HFS0_ENTRY_SIZE];
+        final byte[] magic = new byte[4];
+        final byte[] buf = new byte[65536];
+        for (int i = 0; i < fileCount; i++) {
+            final long entryPos = entryTableStart + (long) i * XciFormat.HFS0_ENTRY_SIZE;
+            if (entryPos + XciFormat.HFS0_ENTRY_SIZE > len) {
+                result.add(new RecoveredFile(prefix + "entry_" + i, RecoveryReport.Status.LOST, 0, "file entry beyond the end of the file"));
+                continue;
+            }
+            raf.seek(entryPos);
+            raf.readFully(e);
+            final long dataOffset = XciFormat.le64(e, 0);
+            final long dataSize = XciFormat.le64(e, 8);
+            final String n = XciFormat.name(strings, XciFormat.le32(e, 0x10));
+            final String name = prefix + (n == null || n.isEmpty() ? "entry_" + i : n);
+            final long absolute = dataStart + dataOffset;
+            if (dataOffset < 0 || dataSize < 0 || absolute >= len) {
+                result.add(new RecoveredFile(name, RecoveryReport.Status.LOST, 0, "data beyond the end of the file"));
+                continue;
+            }
+            if (root && dataSize >= 0x10) {
+                raf.seek(absolute);
+                raf.readFully(magic);
+                if (XciFormat.isHfs0(magic, 0)) {
+                    recoverHfs0(raf, absolute, name + "/", destination, result, false); // a partition
+                    continue;
+                }
+            }
+            final long available = Math.min(dataSize, len - absolute);
+            long written = 0;
+            try (OutputStream o = PluginSupport.openOutput(destination, name)) {
+                raf.seek(absolute);
+                while (written < available) {
+                    final int k = raf.read(buf, 0, (int) Math.min(buf.length, available - written));
+                    if (k < 0) break;
+                    o.write(buf, 0, k);
+                    written += k;
+                }
+            }
+            if (written == dataSize) result.add(RecoveredFile.ok(name, written));
+            else result.add(RecoveredFile.partial(name, written, "truncated: " + written + " of " + dataSize + " bytes"));
+        }
+    }
+}

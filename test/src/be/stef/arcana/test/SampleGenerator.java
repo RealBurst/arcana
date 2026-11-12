@@ -90,6 +90,9 @@ public final class SampleGenerator {
         if ("payload".equals(cmd) && a.length == 2) payload(new File(a[1]));
         else if ("szdd".equals(cmd) && a.length == 3) write(new File(a[2]), szdd(read(new File(a[1]))));
         else if ("pak".equals(cmd) && a.length == 3) write(new File(a[2]), pak(new File(a[1])));
+        else if ("adf".equals(cmd) && a.length == 4 && a[2].matches("ofs|ffs")) write(new File(a[3]), adf(new File(a[1]), "ffs".equals(a[2])));
+        else if ("sarc".equals(cmd) && a.length == 4 && a[2].matches("le|be|szs")) write(new File(a[3]), sarcSample(new File(a[1]), a[2]));
+        else if ("xci".equals(cmd) && a.length == 4 && a[2].matches("plain|keyarea")) write(new File(a[3]), xci(new File(a[1]), "keyarea".equals(a[2])));
         else if ("damaged".equals(cmd) && a.length == 2) damaged(new File(a[1]));
         else if ("zip-aes-tampered".equals(cmd) && a.length == 2) zipAesTampered(new File(a[1]));
         else if ("zip-aes-utf8".equals(cmd) && a.length == 3) write(new File(a[2]), zipAesUtf8(new File(a[1])));
@@ -112,6 +115,9 @@ public final class SampleGenerator {
         System.err.println("  payload DIR                     the payload tree held by every archive");
         System.err.println("  szdd IN OUT                     SZDD (COMPRESS.EXE LZSS) file");
         System.err.println("  pak PAYLOAD OUT                 Quake PAK of the payload");
+        System.err.println("  adf PAYLOAD MODE OUT            Amiga 880 KiB floppy image of the payload: MODE ofs or ffs (plus big.txt, two copies of the notes: extension blocks)");
+        System.err.println("  sarc PAYLOAD MODE OUT           Nintendo SARC of the payload: MODE le (Switch), be (Wii U) or szs (big-endian, Yaz0-compressed)");
+        System.err.println("  xci PAYLOAD MODE OUT            Nintendo Switch XCI (MODE plain, or keyarea: 0x1000-byte key area first)");
         System.err.println("  damaged SAMPLES                 SAMPLES/damaged: flipped, truncated and crafted files");
         System.err.println("  zip-aes-tampered SAMPLES        zip/aes256.zip with one encrypted byte flipped");
         System.err.println("  zip-aes-utf8 PAYLOAD OUT        WinZip AE-2 ZIP with a UTF-8 password");
@@ -308,6 +314,324 @@ public final class SampleGenerator {
         writeLe32(out, entries.size());
         body.writeTo(out);
         entries.writeTo(out);
+        return out.toByteArray();
+    }
+
+    /**
+     * XCI gamecard image (switchbrew "XCI"): card header (signature, "HEAD",
+     * root HFS0 address 0xF000 and size at 0x130 / 0x138), root HFS0 at 0xF000
+     * listing the partitions update (readme.txt), normal (empty) and secure
+     * (docs/notes.txt as notes.nca, bin/random.bin as random.nca), each an
+     * HFS0. With the key area, 0x1000 zero bytes come first.
+     */
+    private static byte[] xci(final File payload, final boolean keyArea) throws IOException {
+        final byte[] update = hfs0(new String[] {"readme.nca"}, new byte[][] {read(new File(payload, "readme.txt"))});
+        final byte[] normal = hfs0(new String[0], new byte[0][]);
+        final byte[] secure = hfs0(new String[] {"notes.nca", "random.nca"}, new byte[][] {read(new File(payload, "docs/notes.txt")), read(new File(payload, "bin/random.bin"))});
+        final byte[] root = hfs0(new String[] {"update", "normal", "secure"}, new byte[][] {update, normal, secure});
+        final int rootHeaderSize = 0x10 + 3 * 0x40 + 0x200 - ((0x10 + 3 * 0x40) % 0x200);
+        final byte[] header = new byte[0x200];
+        final MersenneTwister r = new MersenneTwister(0x5C1L);
+        for (int i = 0; i < 0x100; i++) header[i] = (byte) r.getrandbits8(); // stands for the RSA signature
+        header[0x100] = 'H';
+        header[0x101] = 'E';
+        header[0x102] = 'A';
+        header[0x103] = 'D';
+        for (int i = 0; i < 8; i++) header[0x130 + i] = (byte) (0xF000L >>> (8 * i));
+        for (int i = 0; i < 8; i++) header[0x138 + i] = (byte) ((long) rootHeaderSize >>> (8 * i));
+        final ByteArrayOutputStream out = new ByteArrayOutputStream();
+        if (keyArea) out.write(new byte[0x1000], 0, 0x1000);
+        out.write(header, 0, header.length);
+        final byte[] pad = new byte[0xF000 - 0x200];
+        java.util.Arrays.fill(pad, (byte) 0xFF);
+        out.write(pad, 0, pad.length);
+        out.write(root, 0, root.length);
+        return out.toByteArray();
+    }
+
+    /**
+     * Amiga double density floppy image (AmigaDOS, ADFlib documentation): boot
+     * block "DOS" + 0 (OFS) or 1 (FFS), root block 880 (bitmap block 881, not
+     * filled: Arcana does not read it), directories and files with their hash
+     * chains, data blocks from block 2, extension blocks after 72 data blocks.
+     * Every header and OFS data block gets its checksum. Dates: 2024-01-02 03:04:05.
+     */
+    /** Blocks that get a checksum (headers, extension blocks, OFS data blocks), filled while the image is written. */
+    private static final java.util.Set<Integer> ADF_HEADERS = new java.util.TreeSet<Integer>();
+
+    private static byte[] adf(final File payload, final boolean ffs) throws IOException {
+        final byte[] disk = new byte[1760 * 512];
+        ADF_HEADERS.clear();
+        disk[0] = 'D';
+        disk[1] = 'O';
+        disk[2] = 'S';
+        disk[3] = (byte) (ffs ? 1 : 0);
+        final int[] next = {2};
+        final int root = 880;
+        adfHeader(disk, root, 2, root, 0, "Arcana", 1);
+        adfPut(disk, root, 12, 72); // hash table size
+        adfPut(disk, root, 312, -1); // bitmap flag
+        adfPut(disk, root, 316, 881);
+        adfDir(disk, payload, root, next, ffs);
+        final byte[] notes = read(new File(payload, "docs/notes.txt"));
+        final byte[] big = new byte[notes.length * 2];
+        System.arraycopy(notes, 0, big, 0, notes.length);
+        System.arraycopy(notes, 0, big, notes.length, notes.length);
+        adfFile(disk, root, "big.txt", big, next, ffs);
+        for (final int b : ADF_HEADERS) adfChecksum(disk, b);
+        return disk;
+    }
+
+    private static void adfDir(final byte[] disk, final File dir, final int block, final int[] next, final boolean ffs) throws IOException {
+        for (final String n : sortedNames(dir, true)) {
+            final int b = adfAlloc(next);
+            adfHeader(disk, b, 2, b, block, n, 2);
+            adfLink(disk, block, b, n);
+            adfDir(disk, new File(dir, n), b, next, ffs);
+        }
+        for (final String n : sortedNames(dir, false)) adfFile(disk, block, n, read(new File(dir, n)), next, ffs);
+    }
+
+    private static void adfFile(final byte[] disk, final int parent, final String name, final byte[] data, final int[] next, final boolean ffs) {
+        final int per = ffs ? 512 : 488;
+        final int count = (data.length + per - 1) / per;
+        final int header = adfAlloc(next);
+        adfHeader(disk, header, 2, header, parent, name, -3);
+        adfPut(disk, header, 324, data.length);
+        adfLink(disk, parent, header, name);
+        int list = header;
+        int inList = 0;
+        int prevData = 0;
+        for (int i = 0; i < count; i++) {
+            if (inList == 72) {
+                final int ext = adfAlloc(next);
+                ADF_HEADERS.add(ext);
+                adfPut(disk, ext, 0, 16);
+                adfPut(disk, ext, 4, ext);
+                adfPut(disk, ext, 500, header);
+                adfPut(disk, ext, 508, -3);
+                adfPut(disk, list, 504, ext);
+                list = ext;
+                inList = 0;
+            }
+            final int db = adfAlloc(next);
+            adfPut(disk, list, 308 - 4 * inList, db);
+            adfPut(disk, list, 8, ++inList);
+            final int len = Math.min(per, data.length - i * per);
+            if (ffs) {
+                System.arraycopy(data, i * per, disk, db * 512, len);
+            } else {
+                adfPut(disk, db, 0, 8);
+                adfPut(disk, db, 4, header);
+                adfPut(disk, db, 8, i + 1);
+                adfPut(disk, db, 12, len);
+                System.arraycopy(data, i * per, disk, db * 512 + 24, len);
+                if (prevData != 0) adfPut(disk, prevData, 16, db);
+                else adfPut(disk, header, 16, db);
+                prevData = db;
+                ADF_HEADERS.add(db); // OFS data blocks have a checksum too
+            }
+        }
+    }
+
+    /** Header block of a root (1), directory (2) or file (-3): type, own block, name, date, parent. */
+    private static void adfHeader(final byte[] disk, final int b, final int type, final int self, final int parent, final String name, final int secType) {
+        ADF_HEADERS.add(b);
+        adfPut(disk, b, 0, type);
+        adfPut(disk, b, 4, self);
+        final int days = (int) ((1704164645L - 252460800L) / 86400L);
+        final int secs = (int) ((1704164645L - 252460800L) % 86400L);
+        adfPut(disk, b, 420, days);
+        adfPut(disk, b, 424, secs / 60);
+        adfPut(disk, b, 428, (secs % 60) * 50);
+        final byte[] nb = name.getBytes(StandardCharsets.ISO_8859_1);
+        disk[b * 512 + 432] = (byte) nb.length;
+        System.arraycopy(nb, 0, disk, b * 512 + 433, nb.length);
+        if (secType != 1) adfPut(disk, b, 500, parent);
+        adfPut(disk, b, 508, secType);
+    }
+
+    /** Puts header block {@code b} in the hash table of directory {@code dir} (in front of its chain). */
+    private static void adfLink(final byte[] disk, final int dir, final int b, final String name) {
+        int h = name.length();
+        for (final char c : name.toCharArray()) h = (h * 13 + Character.toUpperCase(c)) & 0x7FF;
+        final int slot = 24 + 4 * (h % 72);
+        adfPut(disk, b, 496, adfGet(disk, dir, slot));
+        adfPut(disk, dir, slot, b);
+    }
+
+    private static int adfAlloc(final int[] next) {
+        if (next[0] == 880) next[0] = 882;
+        return next[0]++;
+    }
+
+    private static void adfChecksum(final byte[] disk, final int b) {
+        adfPut(disk, b, 20, 0); // the checksum is at 20 in header, extension and OFS data blocks
+        int sum = 0;
+        for (int i = 0; i < 512; i += 4) sum += adfGet(disk, b, i);
+        adfPut(disk, b, 20, -sum);
+    }
+
+    private static void adfPut(final byte[] disk, final int b, final int at, final int v) {
+        final int p = b * 512 + at;
+        disk[p] = (byte) (v >>> 24);
+        disk[p + 1] = (byte) (v >>> 16);
+        disk[p + 2] = (byte) (v >>> 8);
+        disk[p + 3] = (byte) v;
+    }
+
+    private static int adfGet(final byte[] disk, final int b, final int at) {
+        final int p = b * 512 + at;
+        return ((disk[p] & 0xFF) << 24) | ((disk[p + 1] & 0xFF) << 16) | ((disk[p + 2] & 0xFF) << 8) | (disk[p + 3] & 0xFF);
+    }
+
+    /**
+     * SARC of the payload files (empty files included, folders not stored),
+     * names sorted by their hash (key 0x65), each on 4 bytes, data aligned on
+     * 8 bytes; mode "szs" compresses the big-endian archive with Yaz0.
+     */
+    private static byte[] sarcSample(final File payload, final String mode) throws IOException {
+        final List<String> dirs = new ArrayList<String>();
+        listDirs(payload, "", dirs);
+        final List<String> names = new ArrayList<String>();
+        for (final String d : dirs) for (final String n : sortedNames(new File(payload, d), false)) names.add(d.isEmpty() ? n : d + "/" + n);
+        final java.util.Map<String, Long> hashes = new java.util.HashMap<String, Long>();
+        for (final String n : names) {
+            long h = 0;
+            for (final byte b : n.getBytes(StandardCharsets.UTF_8)) h = (h * 0x65 + b) & 0xFFFFFFFFL; // b is signed, as in sead
+            hashes.put(n, h);
+        }
+        names.sort((x, y) -> Long.compare(hashes.get(x), hashes.get(y)));
+        final boolean le = "le".equals(mode);
+        final ByteArrayOutputStream nameTable = new ByteArrayOutputStream();
+        final ByteArrayOutputStream data = new ByteArrayOutputStream();
+        final ByteArrayOutputStream nodes = new ByteArrayOutputStream();
+        for (final String n : names) {
+            final byte[] nb = n.getBytes(StandardCharsets.UTF_8);
+            final int nameOffset = nameTable.size() / 4;
+            nameTable.write(nb, 0, nb.length);
+            do nameTable.write(0); while (nameTable.size() % 4 != 0);
+            while (data.size() % 8 != 0) data.write(0);
+            final byte[] content = read(new File(payload, n));
+            final int start = data.size();
+            data.write(content, 0, content.length);
+            put32(nodes, hashes.get(n), le);
+            put32(nodes, 0x01000000L | nameOffset, le);
+            put32(nodes, start, le);
+            put32(nodes, data.size(), le);
+        }
+        final int headerEnd = 0x14 + 0x0C + nodes.size() + 8 + nameTable.size();
+        final int dataOffset = (headerEnd + 0x7F) & ~0x7F;
+        final ByteArrayOutputStream out = new ByteArrayOutputStream();
+        out.write(new byte[] {'S', 'A', 'R', 'C'}, 0, 4);
+        put16(out, 0x14, le);
+        put16(out, 0xFEFF, le);
+        put32(out, dataOffset + data.size(), le);
+        put32(out, dataOffset, le);
+        put16(out, 0x0100, le);
+        put16(out, 0, le);
+        out.write(new byte[] {'S', 'F', 'A', 'T'}, 0, 4);
+        put16(out, 0x0C, le);
+        put16(out, names.size(), le);
+        put32(out, 0x65, le);
+        nodes.writeTo(out);
+        out.write(new byte[] {'S', 'F', 'N', 'T'}, 0, 4);
+        put16(out, 8, le);
+        put16(out, 0, le);
+        nameTable.writeTo(out);
+        while (out.size() < dataOffset) out.write(0);
+        data.writeTo(out);
+        final byte[] sarc = out.toByteArray();
+        return "szs".equals(mode) ? yaz0(sarc) : sarc;
+    }
+
+    private static void put16(final ByteArrayOutputStream o, final int v, final boolean le) {
+        if (le) {
+            o.write(v);
+            o.write(v >>> 8);
+        } else {
+            o.write(v >>> 8);
+            o.write(v);
+        }
+    }
+
+    private static void put32(final ByteArrayOutputStream o, final long v, final boolean le) {
+        for (int i = 0; i < 4; i++) o.write((int) (v >>> (le ? 8 * i : 8 * (3 - i))));
+    }
+
+    /** Yaz0 compression: greedy search of the longest copy in the last 4 KiB (lengths 3 to 0x111). */
+    private static byte[] yaz0(final byte[] src) throws IOException {
+        final ByteArrayOutputStream out = new ByteArrayOutputStream();
+        out.write(new byte[] {'Y', 'a', 'z', '0'}, 0, 4);
+        put32(out, src.length, false);
+        out.write(new byte[8], 0, 8);
+        int p = 0;
+        while (p < src.length) {
+            int flags = 0;
+            final ByteArrayOutputStream group = new ByteArrayOutputStream();
+            for (int bit = 0; bit < 8 && p < src.length; bit++) {
+                int bestLen = 0;
+                int bestDist = 0;
+                for (int d = 1; d <= Math.min(0x1000, p); d++) {
+                    int l = 0;
+                    while (l < 0x111 && p + l < src.length && src[p + l] == src[p + l - d]) l++;
+                    if (l > bestLen) {
+                        bestLen = l;
+                        bestDist = d;
+                    }
+                }
+                if (bestLen < 3) {
+                    flags |= 0x80 >>> bit;
+                    group.write(src[p++]);
+                } else if (bestLen < 0x12) {
+                    group.write(((bestLen - 2) << 4) | ((bestDist - 1) >>> 8));
+                    group.write(bestDist - 1);
+                    p += bestLen;
+                } else {
+                    group.write((bestDist - 1) >>> 8);
+                    group.write(bestDist - 1);
+                    group.write(bestLen - 0x12);
+                    p += bestLen;
+                }
+            }
+            out.write(flags);
+            group.writeTo(out);
+        }
+        return out.toByteArray();
+    }
+
+    /** HFS0: header, 0x40-byte entries, string table padded to 0x200, data aligned on 0x200. */
+    private static byte[] hfs0(final String[] names, final byte[][] files) throws IOException {
+        final ByteArrayOutputStream strings = new ByteArrayOutputStream();
+        final int[] nameOffsets = new int[names.length];
+        for (int i = 0; i < names.length; i++) {
+            nameOffsets[i] = strings.size();
+            final byte[] n = names[i].getBytes(StandardCharsets.US_ASCII);
+            strings.write(n, 0, n.length);
+            strings.write(0);
+        }
+        while ((0x10 + 0x40 * names.length + strings.size()) % 0x200 != 0) strings.write(0);
+        final ByteArrayOutputStream data = new ByteArrayOutputStream();
+        final ByteArrayOutputStream entries = new ByteArrayOutputStream();
+        for (int i = 0; i < files.length; i++) {
+            writeLe32(entries, data.size());
+            writeLe32(entries, 0);
+            writeLe32(entries, files[i].length);
+            writeLe32(entries, 0);
+            writeLe32(entries, nameOffsets[i]);
+            writeLe32(entries, Math.min(0x200, files[i].length)); // hashed region size
+            entries.write(new byte[8 + 32], 0, 40); // reserved, hash (not checked by Arcana)
+            data.write(files[i], 0, files[i].length);
+            while (data.size() % 0x200 != 0) data.write(0);
+        }
+        final ByteArrayOutputStream out = new ByteArrayOutputStream();
+        out.write(new byte[] {'H', 'F', 'S', '0'}, 0, 4);
+        writeLe32(out, names.length);
+        writeLe32(out, strings.size());
+        writeLe32(out, 0);
+        entries.writeTo(out);
+        strings.writeTo(out);
+        data.writeTo(out);
         return out.toByteArray();
     }
 

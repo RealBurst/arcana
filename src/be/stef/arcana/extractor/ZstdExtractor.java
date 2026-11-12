@@ -44,8 +44,8 @@ import be.stef.arcana.util.SafePathBuilder;
  * <h3>Important</h3>
  * <p>Zstandard is a single-file compressor, not a container format.  Like
  * GZIP and BZIP2, a {@code .zst} file always holds exactly one compressed
- * stream; the output file name is derived by stripping the {@code .zst} or
- * {@code .zstd} extension.</p>
+ * stream; the output file name is derived by stripping the {@code .zst},
+ * {@code .zstd} or {@code .zs} (Nintendo games) extension.</p>
  *
  * <p>The data is decoded block by block by
  * {@link be.stef.arcana.formats.zstd.ZstdInputStream} and written as it is
@@ -147,6 +147,7 @@ public class ZstdExtractor implements ArchiveExtractor {
         String lower = archiveName.toLowerCase();
         if (lower.endsWith(".zst"))  return archiveName.substring(0, archiveName.length() - 4);
         if (lower.endsWith(".zstd")) return archiveName.substring(0, archiveName.length() - 5);
+        if (lower.endsWith(".zs"))   return archiveName.substring(0, archiveName.length() - 3); // Nintendo games (ZsDic.pack.zs, *.byml.zs...)
         return "output";
     }
 }

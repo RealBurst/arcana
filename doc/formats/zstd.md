@@ -43,7 +43,7 @@ again by `ZstdFrameDecompressor.readFrameHeader`:
 | 0 | 4 | magic | `28 B5 2F FD` |
 | 4 | 1 | frame header descriptor | bits 6-7: content size field size (0, 2, 4, 8 bytes; 0 means 1 byte when single segment); bit 5: single segment; bit 2: content checksum; bits 0-1: dictionary ID size (0, 1, 2, 4 bytes) |
 | 5 | 0 or 1 | window descriptor | absent when single segment; window = 2^(10 + exponent) + mantissa/8 of that |
-| ... | 0-4 | dictionary ID | 0 (no dictionary) is accepted, any other value is rejected |
+| ... | 0-4 | dictionary ID | 0 (no dictionary), or a dictionary given through the Java API (see Dictionaries) |
 | ... | 0-8 | content size | the 2-byte form adds 256 |
 
 Then blocks, each with a 3-byte header (24-bit little-endian):
@@ -199,14 +199,41 @@ size known or not) and on a 1.2 GB stream (level 5).
 - Frames in the old v0.7 format (magic 0xFD2FB527) are rejected with "Data
   encoded in unsupported ZSTD v0.7 format".
 
+## Dictionaries
+
+A frame whose header gives a dictionary ID is decoded with that dictionary
+(RFC 8878, section 5), given by a `ZstdDictionary.Provider`:
+
+```java
+List<ZstdDictionary> dicts = Arrays.asList(ZstdDictionary.of(new File("zs.zsdic")), ZstdDictionary.of(new File("pack.zsdic")));
+try (InputStream in = new ZstdInputStream(new FileInputStream("file.byml.zs"), ZstdDictionary.provider(dicts))) { ... }
+```
+
+- Dictionaries made by `zstd --train` (magic `37 A4 30 EC`, ID, entropy
+  tables, three repeated offsets, content): `ZstdFrameDecompressor.loadDictionary`
+  loads the Huffman table of the literals, the FSE tables of the offset
+  codes, match lengths and literal lengths (usable by "treeless" literals and
+  "repeat" sequence modes) and the repeated offsets; the content is copied
+  before the first byte of the frame in the history buffer, so that matches
+  can copy from it (the history size and the buffer capacity grow by the
+  content size; the content is not given to the reader and not counted in
+  the checksum).
+- Raw content (any other bytes): ID 0, content only.
+- Checked with the three dictionaries of a Nintendo `ZsDic.pack` (IDs 1 to 3):
+  a game file of 914,420 bytes and 60 frames made by the zstd library
+  (levels 1 to 19, with and without checksum and content size, up to 3 MB)
+  give the bytes of the reference decoder.
+
 ## Limits
 
 - Windows above 128 MiB (`--long=28` and more, which the zstd tool itself
   only decodes with `--memory`) fail with "Window size too large: N bytes
   (maximum 134217728)"; single-segment frames whose content size exceeds
   128 MiB give "Zstd window size too large".
-- Dictionaries are not supported: a frame with a non-zero dictionary ID
-  fails with "Zstandard dictionaries are not supported (dictionary ID N)".
+- Dictionaries: only through the Java API (see Dictionaries below). The
+  command line and the extractors give no dictionary: a frame with a
+  non-zero dictionary ID fails with "Zstandard dictionary N needed to decode
+  this frame (not provided)". The compressor does not use dictionaries.
 - Trailing data that is not a frame fails ("Not a Zstd stream (magic ...)").
 - `l` shows `?` and the archive file date; the content size is not used for
   listing.

@@ -32,6 +32,7 @@ page and its test samples (see [test/README.md](../../test/README.md)).
 | UDF | [udf.md](udf.md) | list, extract (UDF 1.02 to 2.60) |
 | WIM / ESD | [wim.md](wim.md) | list, extract (XPRESS, LZX, LZMS, solid resources) |
 | SquashFS | [squashfs.md](squashfs.md) | list, extract (version 4.0, all compressors) |
+| Amiga disk image (ADF) | [adf.md](adf.md) | list, extract (AmigaDOS OFS and FFS) |
 | Apple disk image (DMG, UDIF) | [dmg.md](dmg.md) | list, extract (zlib, bzip2, LZFSE, LZMA, ADC, raw chunks; APFS and other partitions as raw images) |
 | HFS+ / HFSX | [hfsplus.md](hfsplus.md) | list, extract (inside disk images: hard links, decmpfs compression) |
 

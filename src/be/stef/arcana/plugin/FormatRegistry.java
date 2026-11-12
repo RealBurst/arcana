@@ -39,6 +39,7 @@ import be.stef.arcana.extractor.ArExtractor;
 import be.stef.arcana.extractor.BZip2Extractor;
 import be.stef.arcana.extractor.BrotliExtractor;
 import be.stef.arcana.extractor.CabExtractor;
+import be.stef.arcana.extractor.AdfExtractor;
 import be.stef.arcana.extractor.ArjExtractor;
 import be.stef.arcana.extractor.ChmExtractor;
 import be.stef.arcana.extractor.MsLzExtractor;
@@ -119,6 +120,7 @@ public final class FormatRegistry {
         l.add(new BuiltinFormat(ArcanaFormat.AR, ARCHIVE, names("a", "deb"), "a    deb", "AR archive, Debian package (deb: contents unpacked, control files in DEBIAN/)", pw -> new ArExtractor(), null, null));
         l.add(new BuiltinFormat(ArcanaFormat.RPM, ARCHIVE, names("rpm"), "rpm", "RPM package (gzip/bzip2/xz/zstd payload)", pw -> new RpmExtractor(), null, null));
         l.add(new BuiltinFormat(ArcanaFormat.XAR, ARCHIVE, names("xar"), "xar", "XAR archive (Apple)", pw -> new XarExtractor(), null, null));
+        l.add(new BuiltinFormat(ArcanaFormat.ADF, ARCHIVE, names("adf"), "adf", "Amiga disk image (AmigaDOS OFS / FFS)", pw -> new AdfExtractor(), null, null));
         l.add(new BuiltinFormat(ArcanaFormat.ISO, ARCHIVE, names("iso"), "iso", "ISO 9660 disc image", pw -> new IsoExtractor(), null, null));
         l.add(new BuiltinFormat(ArcanaFormat.UDF, ARCHIVE, names("udf"), "udf", "UDF disc image (DVD, Blu-ray, Windows media), revisions 1.02 to 2.60", pw -> new UdfExtractor(), null, null));
         l.add(new BuiltinFormat(ArcanaFormat.SQUASHFS, ARCHIVE, names("sqfs", "squashfs", "snap"), "sqfs squashfs snap", "SquashFS 4.0 (gzip, LZMA, LZO, XZ, LZ4, Zstandard)", pw -> new SquashfsExtractor(), null, null));

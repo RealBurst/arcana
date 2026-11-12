@@ -72,8 +72,21 @@ public final class ZstdInputStream extends InputStream {
     private long produced;
     private XxHash64 hasher;
 
+    /** Dictionaries of the frames that declare one, or null. */
+    private final ZstdDictionary.Provider dictionaries;
+
     public ZstdInputStream(final InputStream in) {
+        this(in, null);
+    }
+
+    /**
+     * @param dictionaries gives the dictionary of the frames that declare one
+     *                     (frame header dictionary ID); null if there is none
+     * @since 1.2.0
+     */
+    public ZstdInputStream(final InputStream in, final ZstdDictionary.Provider dictionaries) {
         this.in = in;
+        this.dictionaries = dictionaries;
     }
 
     // =========================================================================
@@ -215,6 +228,11 @@ public final class ZstdInputStream extends InputStream {
         readFully(hdr, 1, rest, true);
         final FrameHeader fh = ZstdFrameDecompressor.readFrameHeader(hdr, BASE, BASE + 1 + rest);
 
+        ZstdDictionary dict = null;
+        if (fh.dictionaryId > 0) {
+            dict = dictionaries != null ? dictionaries.get(fh.dictionaryId) : null;
+            if (dict == null) throw new IOException("Zstandard dictionary " + fh.dictionaryId + " needed to decode this frame (not provided)");
+        }
         contentSize = fh.contentSize;
         if (fh.windowSize >= 0) {
             historySize = fh.windowSize;
@@ -227,13 +245,22 @@ public final class ZstdInputStream extends InputStream {
         final int margin = Math.max(4 * Constants.MAX_BLOCK_SIZE, historySize >= (1 << 24) ? historySize / 2 : historySize);
         long cap = (fh.windowSize >= 0) ? (long) historySize + margin : historySize;
         if (contentSize >= 0 && contentSize < cap) cap = contentSize;
-        capacity = (int) cap;
+        final int dictSize = dict != null ? dict.getContentSize() : 0;
+        capacity = (int) Math.min(Integer.MAX_VALUE - 64, cap + dictSize);
+        historySize += dictSize; // the dictionary content stands before the frame: matches may reach it
 
         decompressor.reset();
         hasher = fh.hasChecksum ? new XxHash64() : null;
         if (window.length > capacity) window = new byte[0];
         winPos = 0;
         outPos = 0;
+        if (dict != null) {
+            dict.load(decompressor);
+            if (window.length < dictSize) window = new byte[(int) Math.min(capacity, (long) dictSize + 4 * Constants.MAX_BLOCK_SIZE)];
+            dict.copyContent(window, 0);
+            winPos = dictSize;
+            outPos = dictSize; // not given to the reader
+        }
         produced = 0;
         lastBlock = false;
         inFrame = true;

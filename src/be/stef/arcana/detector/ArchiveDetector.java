@@ -142,8 +142,22 @@ public final class ArchiveDetector {
      * be incomplete), else ISO 9660 ("CD001").
      */
     private static ArcanaFormat discFormat(File file) {
+        if (isAdf(file)) return ArcanaFormat.ADF;
         if (isUdf(file)) return ArcanaFormat.UDF;
         return isIso9660(file) ? ArcanaFormat.ISO : ArcanaFormat.UNKNOWN;
+    }
+
+    /** Amiga floppy image: 880 or 1760 KiB, AmigaDOS boot block ("DOS" and a flag byte 0 to 7). */
+    private static boolean isAdf(File file) {
+        final long len = file.length();
+        if (len != 901120L && len != 1802240L) return false;
+        try (java.io.RandomAccessFile raf = new java.io.RandomAccessFile(file, "r")) {
+            final byte[] h = new byte[4];
+            raf.readFully(h);
+            return be.stef.arcana.formats.adf.AdfVolume.looksLikeAdf(len, h);
+        } catch (java.io.IOException e) {
+            return false;
+        }
     }
 
     private static boolean isUdf(File file) {
@@ -309,6 +323,7 @@ public final class ArchiveDetector {
         if (lower.endsWith(".br"))                                          return ArcanaFormat.BROTLI;
         if (lower.endsWith(".iso"))                                         return ArcanaFormat.ISO;
         if (lower.endsWith(".udf"))                                         return ArcanaFormat.UDF;
+        if (lower.endsWith(".adf"))                                         return ArcanaFormat.ADF;
         if (lower.endsWith(".wim") || lower.endsWith(".swm") || lower.endsWith(".esd")) return ArcanaFormat.WIM;
         if (lower.endsWith(".dmg") || lower.endsWith(".sparseimage"))      return ArcanaFormat.DMG;
         if (lower.endsWith(".sqfs") || lower.endsWith(".squashfs") || lower.endsWith(".snap")) return ArcanaFormat.SQUASHFS;

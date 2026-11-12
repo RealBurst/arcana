@@ -1,0 +1,10 @@
+ Points clés de l'implémentation
+Détection et validation : Le plugin vérifie la présence du magic HEAD à l'offset 0x100 de l'en-tête de la cartouche (lui-même situé à l'offset 0x1000 du fichier). Le getProbeSize() a été fixé à 0x200 pour garantir que l'en-tête complet est disponible lors de la détection.
+
+Lecture du HFS0 : Le cœur de l'extraction réside dans XciFormat.readEntries(). Il lit l'offset et la taille du HFS0 depuis l'en-tête de la cartouche, puis parcourt la table des entrées du HFS0 pour construire la liste des fichiers avec leurs noms, offsets absolus et tailles.
+
+Extraction et listage : XciExtractor utilise RandomAccessFile pour accéder directement aux données de chaque fichier au sein du HFS0. La méthode list() renvoie les mêmes entrées formatées pour l'API d'Arcana. Le support du streaming est assuré par la copie préalable vers un fichier temporaire, car le format nécessite un accès aléatoire.
+
+Carving et récupération : XciProbe recherche la signature HEAD à l'offset 0x1100 (0x1000 + 0x100) pour localiser un XCI enfoui dans un autre fichier. XciRecoverer est conçu pour être tolérant aux fichiers tronqués ou corrompus, en récupérant autant de données que possible au lieu d'échouer.
+
+Ce plugin s'intègre directement dans l'écosystème Arcana et devrait permettre à arcana x, arcana l, arcana s et arcana r de gérer les fichiers XCI de manière robuste.

@@ -28,6 +28,7 @@ import static be.stef.arcana.formats.zstd.Constants.MATCH_LENGTH_BITS;
 import static be.stef.arcana.formats.zstd.Constants.MATCH_LENGTH_TABLE_LOG;
 import static be.stef.arcana.formats.zstd.Constants.MAX_BLOCK_SIZE;
 import static be.stef.arcana.formats.zstd.Constants.MAX_LITERALS_LENGTH_SYMBOL;
+import static be.stef.arcana.formats.zstd.Constants.MAX_OFFSET_CODE_SYMBOL;
 import static be.stef.arcana.formats.zstd.Constants.MAX_MATCH_LENGTH_SYMBOL;
 import static be.stef.arcana.formats.zstd.Constants.MIN_BLOCK_SIZE;
 import static be.stef.arcana.formats.zstd.Constants.MIN_SEQUENCES_SIZE;
@@ -151,6 +152,7 @@ class ZstdFrameDecompressor
             input += verifyMagic(inputBase, input, inputLimit);
 
             FrameHeader frameHeader = readFrameHeader(inputBase, input, inputLimit);
+            verify(frameHeader.dictionaryId <= 0, input, "Zstandard dictionaries are not supported here (dictionary ID " + frameHeader.dictionaryId + ")");
             input += frameHeader.headerSize;
 
             boolean lastBlock;
@@ -206,6 +208,34 @@ class ZstdFrameDecompressor
         }
 
         return (int) (output - outputAddress);
+    }
+
+    /**
+     * Loads the entropy tables and the repeated offsets of a dictionary (RFC 8878,
+     * section 5), after {@link #reset()}: Huffman table of the literals, then the
+     * FSE tables of the offset codes, match lengths and literal lengths, then 3
+     * repeated offsets (little-endian 32 bits).
+     *
+     * @return the offset of the dictionary content in {@code dict}
+     */
+    int loadDictionary(final byte[] dict)
+    {
+        long input = BASE + 8; // magic and dictionary ID
+        final long limit = BASE + dict.length;
+        input += huffman.readTable(dict, input, (int) (limit - input));
+        input += fse.readFseTable(offsetCodesTable, dict, input, limit, MAX_OFFSET_CODE_SYMBOL, OFFSET_TABLE_LOG);
+        currentOffsetCodesTable = offsetCodesTable;
+        input += fse.readFseTable(matchLengthTable, dict, input, limit, MAX_MATCH_LENGTH_SYMBOL, MATCH_LENGTH_TABLE_LOG);
+        currentMatchLengthTable = matchLengthTable;
+        input += fse.readFseTable(literalsLengthTable, dict, input, limit, MAX_LITERALS_LENGTH_SYMBOL, LITERAL_LENGTH_TABLE_LOG);
+        currentLiteralsLengthTable = literalsLengthTable;
+        verify(input + 12 <= limit, input, "Zstandard dictionary truncated");
+        for (int i = 0; i < 3; i++) {
+            previousOffsets[i] = getInt(dict, input);
+            verify(previousOffsets[i] > 0, input, "Zstandard dictionary: invalid repeated offset");
+            input += SIZE_OF_INT;
+        }
+        return (int) (input - BASE);
     }
 
     void reset()
@@ -921,7 +951,6 @@ class ZstdFrameDecompressor
                 input += SIZE_OF_INT;
                 break;
         }
-        verify(dictionaryId <= 0, input, "Zstandard dictionaries are not supported (dictionary ID " + dictionaryId + ")");
 
         // decode content size
         long contentSize = -1;

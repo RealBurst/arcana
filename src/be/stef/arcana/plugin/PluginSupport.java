@@ -17,6 +17,7 @@ package be.stef.arcana.plugin;
 
 import be.stef.arcana.util.ExtractionGuard;
 import be.stef.arcana.util.IOHelper;
+import be.stef.arcana.util.ProgressOutputStream;
 import be.stef.arcana.util.SafePathBuilder;
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -47,6 +48,32 @@ public final class PluginSupport {
         final File target = SafePathBuilder.buildSafePath(destination, entryName);
         IOHelper.mkdirs(target.getParentFile());
         return new BufferedOutputStream(ExtractionGuard.open(target), 65536);
+    }
+
+    /**
+     * Same as {@link #openOutput(File, String)}, with a progress bar on the
+     * console while the entry is written, as for Arcana's own formats:
+     * {@code [=====     ] 1.2 GB  40% (secure/xxx.nca)}, then the elapsed time
+     * when the stream is closed.
+     *
+     * @param size size of the entry in bytes (0 or less if unknown: only the byte count is shown)
+     * @since 1.2.0
+     */
+    public static OutputStream openOutput(final File destination, final String entryName, final long size) throws IOException {
+        return new ProgressOutputStream(openOutput(destination, entryName), size, entryName) {
+            private boolean closed;
+
+            @Override
+            public void close() throws IOException {
+                if (closed) return;
+                closed = true;
+                try {
+                    super.close();
+                } finally {
+                    finish(); // completes the line: elapsed time, then a new line
+                }
+            }
+        };
     }
 
     /** Creates the directory of a directory entry (sanitized name). */

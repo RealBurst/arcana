@@ -353,10 +353,22 @@ mk sfx
 "${GEN[@]}" sfx-zip-inside "$P" "$OUT/sfx/zip-inside-image.exe"
 
 # ---------------------------------------------------------------------------
-# Plugins: Quake PAK, UPX (needs gcc and upx; UPX=path of the upx binary)
+# Plugins: Quake PAK, Nintendo SARC, Nintendo Switch XCI, UPX (needs gcc and upx; UPX=path of the upx binary)
 # ---------------------------------------------------------------------------
 mk plugins/pak
 "${GEN[@]}" pak "$P" "$OUT/plugins/pak/payload.pak"
+# Amiga floppy images (AmigaDOS OFS and FFS), written by SampleGenerator
+mk adf
+"${GEN[@]}" adf "$P" ofs "$OUT/adf/payload-ofs.adf"
+"${GEN[@]}" adf "$P" ffs "$OUT/adf/payload-ffs.adf"
+
+mk plugins/sarc
+"${GEN[@]}" sarc "$P" le "$OUT/plugins/sarc/payload.sarc"
+"${GEN[@]}" sarc "$P" be "$OUT/plugins/sarc/payload-wiiu.pack"
+"${GEN[@]}" sarc "$P" szs "$OUT/plugins/sarc/payload.szs"
+mk plugins/xci
+"${GEN[@]}" xci "$P" plain "$OUT/plugins/xci/payload.xci"
+"${GEN[@]}" xci "$P" keyarea "$OUT/plugins/xci/payload-keyarea.xci"
 UPX="${UPX:-$(command -v upx || true)}"
 if have "$UPX" && have gcc; then
     mk plugins/upx
