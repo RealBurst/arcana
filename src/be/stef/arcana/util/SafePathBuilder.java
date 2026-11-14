@@ -88,9 +88,12 @@ public final class SafePathBuilder {
             // a name can hold characters the platform refuses to parse before sanitize() gets
             // to replace them; fall back to splitting on the separator ourselves instead of
             // aborting the whole extraction with an unhandled error
-            for (String raw : normalized.split("/", -1)) {
+            safe = Paths.get(""); // the loop above may have resolved some components already
+            String[] parts = normalized.split("/", -1);
+            for (int i = 0; i < parts.length; i++) {
+                String raw = parts[i];
                 if (raw.isEmpty() || raw.equals(".")) continue;
-                if (raw.length() == 2 && raw.charAt(1) == ':') continue; // drive letter, dropped as Paths.get would
+                if (i == 0 && raw.length() == 2 && raw.charAt(1) == ':') continue; // leading drive letter, dropped as Paths.get would
                 safe = safe.resolve(sanitize(raw));
             }
         }
