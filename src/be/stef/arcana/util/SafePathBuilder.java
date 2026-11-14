@@ -17,6 +17,7 @@ package be.stef.arcana.util;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.InvalidPathException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
@@ -74,20 +75,32 @@ public final class SafePathBuilder {
         String normalized = entryName.replace('\\', '/');
 
         // Build sanitised path component by component
-        Path p = Paths.get(normalized);
         Path safe = Paths.get("");
-        for (Path component : p) {
-            String raw = component.toString();
-            if (raw.isEmpty() || raw.equals(".")) continue; // "./usr/bin" (TAR, CPIO, DEB) must not become "_/usr/bin"
-            String sanitized = sanitize(raw);
-            safe = safe.resolve(sanitized);
+        try {
+            Path p = Paths.get(normalized);
+            for (Path component : p) {
+                String raw = component.toString();
+                if (raw.isEmpty() || raw.equals(".")) continue; // "./usr/bin" (TAR, CPIO, DEB) must not become "_/usr/bin"
+                String sanitized = sanitize(raw);
+                safe = safe.resolve(sanitized);
+            }
+        } catch (InvalidPathException e) {
+            // a name can hold characters the platform refuses to parse before sanitize() gets
+            // to replace them; fall back to splitting on the separator ourselves instead of
+            // aborting the whole extraction with an unhandled error
+            for (String raw : normalized.split("/", -1)) {
+                if (raw.isEmpty() || raw.equals(".")) continue;
+                if (raw.length() == 2 && raw.charAt(1) == ':') continue; // drive letter, dropped as Paths.get would
+                safe = safe.resolve(sanitize(raw));
+            }
         }
 
         File target = new File(baseDir, safe.toString());
 
-        // Path traversal guard
-        if (!target.getCanonicalPath().startsWith(baseDir.getCanonicalPath() + File.separator)
-                && !target.getCanonicalPath().equals(baseDir.getCanonicalPath())) {
+        // Path traversal guard; Path.startsWith compares element-wise, so the guard also
+        // holds when the base directory is a filesystem root (its canonical form ends in
+        // the separator, which broke the string-prefix check)
+        if (!target.getCanonicalFile().toPath().startsWith(baseDir.getCanonicalFile().toPath())) {
             throw new IOException("Security: path traversal attempt blocked: " + entryName);
         }
 

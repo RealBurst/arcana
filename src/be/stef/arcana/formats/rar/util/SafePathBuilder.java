@@ -18,6 +18,7 @@ package be.stef.arcana.formats.rar.util;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.InvalidPathException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
@@ -67,19 +68,31 @@ public class SafePathBuilder {
 
     public File buildSafePath(String originalPath) throws IOException {
         // Path normalization and hardening
-        String normalized = originalPath.replace("\\", "/"); 
-        Path p = Paths.get(normalized);
+        String normalized = originalPath.replace("\\", "/");
         Path safePath = Paths.get("");
 
-        for (Path component : p) {
-            String sanitizedName = sanitizeComponent(component.toString());
-            safePath = safePath.resolve(sanitizedName);
+        try {
+            Path p = Paths.get(normalized);
+            for (Path component : p) {
+                String sanitizedName = sanitizeComponent(component.toString());
+                safePath = safePath.resolve(sanitizedName);
+            }
+        } catch (InvalidPathException e) {
+            // a name can hold characters the platform refuses to parse before
+            // sanitizeComponent() gets to replace them; split on the separator ourselves
+            for (String raw : normalized.split("/", -1)) {
+                if (raw.isEmpty() || raw.equals(".")) continue;
+                if (raw.length() == 2 && raw.charAt(1) == ':') continue; // drive letter, dropped as Paths.get would
+                safePath = safePath.resolve(sanitizeComponent(raw));
+            }
         }
 
         File destFile = new File(baseDir, safePath.toString());
-        
-        // Protection Path Traversal
-        if (!destFile.getCanonicalPath().startsWith(baseDir.getCanonicalPath())) {
+
+        // Protection Path Traversal; Path.startsWith compares element-wise, so the guard
+        // also holds for a filesystem-root base directory and rejects sibling prefixes
+        // (e.g. "out2" when extracting to "out")
+        if (!destFile.getCanonicalFile().toPath().startsWith(baseDir.getCanonicalFile().toPath())) {
             throw new IOException("Security Error: Path traversal attempt: " + originalPath);
         }
 
@@ -92,19 +105,31 @@ public class SafePathBuilder {
      * (created by mkdirs() during file extraction) and should not be renamed.
      */
     public File buildSafeDirPath(String originalPath) throws IOException {
-        String normalized = originalPath.replace("\\", "/"); 
-        Path p = Paths.get(normalized);
+        String normalized = originalPath.replace("\\", "/");
         Path safePath = Paths.get("");
 
-        for (Path component : p) {
-            String sanitizedName = sanitizeComponent(component.toString());
-            safePath = safePath.resolve(sanitizedName);
+        try {
+            Path p = Paths.get(normalized);
+            for (Path component : p) {
+                String sanitizedName = sanitizeComponent(component.toString());
+                safePath = safePath.resolve(sanitizedName);
+            }
+        } catch (InvalidPathException e) {
+            // a name can hold characters the platform refuses to parse before
+            // sanitizeComponent() gets to replace them; split on the separator ourselves
+            for (String raw : normalized.split("/", -1)) {
+                if (raw.isEmpty() || raw.equals(".")) continue;
+                if (raw.length() == 2 && raw.charAt(1) == ':') continue; // drive letter, dropped as Paths.get would
+                safePath = safePath.resolve(sanitizeComponent(raw));
+            }
         }
 
         File destFile = new File(baseDir, safePath.toString());
-        
-        // Protection Path Traversal
-        if (!destFile.getCanonicalPath().startsWith(baseDir.getCanonicalPath())) {
+
+        // Protection Path Traversal; Path.startsWith compares element-wise, so the guard
+        // also holds for a filesystem-root base directory and rejects sibling prefixes
+        // (e.g. "out2" when extracting to "out")
+        if (!destFile.getCanonicalFile().toPath().startsWith(baseDir.getCanonicalFile().toPath())) {
             throw new IOException("Security Error: Path traversal attempt: " + originalPath);
 
         }
