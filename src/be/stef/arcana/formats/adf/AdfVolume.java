@@ -98,6 +98,14 @@ public final class AdfVolume {
         return (size == (long) DD_BLOCKS * BLOCK || size == (long) HD_BLOCKS * BLOCK) && head.length >= 4 && head[0] == 'D' && head[1] == 'O' && head[2] == 'S' && (head[3] & 0xFF) <= 7;
     }
 
+    /** True when the block in the middle of {@code disk} is a root block (type 2, secondary type 1). */
+    public static boolean hasRootBlock(final byte[] disk) {
+        final int p = disk.length / BLOCK / 2 * BLOCK;
+        final int type = ((disk[p] & 0xFF) << 24) | ((disk[p + 1] & 0xFF) << 16) | ((disk[p + 2] & 0xFF) << 8) | (disk[p + 3] & 0xFF);
+        final int sec = ((disk[p + 508] & 0xFF) << 24) | ((disk[p + 509] & 0xFF) << 16) | ((disk[p + 510] & 0xFF) << 8) | (disk[p + 511] & 0xFF);
+        return type == T_HEADER && sec == ST_ROOT;
+    }
+
     public AdfVolume(final byte[] disk) throws IOException {
         this.disk = disk;
         if (disk.length != DD_BLOCKS * BLOCK && disk.length != HD_BLOCKS * BLOCK) throw new ArcanaCorruptedException("Not an Amiga floppy image: " + disk.length + " bytes (expected 901120 or 1802240)");
@@ -107,6 +115,7 @@ public final class AdfVolume {
         if (flags > 5) throw new ArcanaUnsupportedFormatException("AmigaDOS file system DOS" + flags + " (long file names) is not supported");
         ffs = (flags & 1) != 0;
         final int root = blocks / 2;
+        if (s32(root, 0) != T_HEADER || s32(root, 508) != ST_ROOT) throw new ArcanaUnsupportedFormatException("Amiga disk without AmigaDOS file system: \"DOS\" boot block but no root block at " + root + " (a game with its own track loader), nothing to extract as files");
         checkHeader(root, ST_ROOT, "root");
         volumeName = name(root, 432);
         final Set<Integer> seen = new HashSet<Integer>();

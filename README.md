@@ -68,7 +68,7 @@ Each format has a technical page (detection, file layout, methods, limits, sourc
 | UDF (DVD, Blu-ray, Windows media; revisions 1.02 to 2.60) | yes | - | - |
 | WIM / ESD (XPRESS, LZX, LZMS; not split .swm) | yes | - | - |
 | SquashFS 4.0 (gzip, LZMA, LZO, XZ, LZ4, Zstandard) | yes | - | - |
-| Amiga disk image (.adf: AmigaDOS OFS and FFS, 880 KiB and 1.76 MiB floppies) | yes | - | - |
+| Amiga disk image (.adf: AmigaDOS OFS and FFS, 880 KiB and 1.76 MiB floppies; game disks without file system cut into pieces, packed programs unpacked, files of the game directory when found) | yes | - | - |
 | Apple disk image (.dmg: zlib, bzip2, LZFSE, LZMA, ADC, raw; HFS+ files, APFS and other partitions as raw images) | yes | - | - |
 | AR / Debian package (.a, .deb) | yes | - | - |
 | RPM (gzip, bzip2, xz, zstd payload) | yes | - | - |
@@ -108,12 +108,12 @@ Or get it from Maven Central (`io.github.realburst:arcana`):
 <dependency>
   <groupId>io.github.realburst</groupId>
   <artifactId>arcana</artifactId>
-  <version>1.2.0</version>
+  <version>1.1.0</version>
 </dependency>
 ```
 
 ```
-implementation 'io.github.realburst:arcana:1.2.0'
+implementation 'io.github.realburst:arcana:1.1.0'
 ```
 
 ---
@@ -121,7 +121,7 @@ implementation 'io.github.realburst:arcana:1.2.0'
 ## Command-line usage
 
 ```
-java -jar Arcana-v1.2.0.jar <command> [options]
+java -jar Arcana-v1.1.0.jar <command> [options]
 ```
 
 Run it without arguments to see the syntax of every command, and with `help` for the full description, the options and some examples.

@@ -91,6 +91,7 @@ public final class SampleGenerator {
         else if ("szdd".equals(cmd) && a.length == 3) write(new File(a[2]), szdd(read(new File(a[1]))));
         else if ("pak".equals(cmd) && a.length == 3) write(new File(a[2]), pak(new File(a[1])));
         else if ("adf".equals(cmd) && a.length == 4 && a[2].matches("ofs|ffs")) write(new File(a[3]), adf(new File(a[1]), "ffs".equals(a[2])));
+        else if ("adf".equals(cmd) && a.length == 4 && "raw".equals(a[2])) write(new File(a[3]), adfRaw(new File(a[1])));
         else if ("sarc".equals(cmd) && a.length == 4 && a[2].matches("le|be|szs")) write(new File(a[3]), sarcSample(new File(a[1]), a[2]));
         else if ("xci".equals(cmd) && a.length == 4 && a[2].matches("plain|keyarea")) write(new File(a[3]), xci(new File(a[1]), "keyarea".equals(a[2])));
         else if ("damaged".equals(cmd) && a.length == 2) damaged(new File(a[1]));
@@ -115,7 +116,8 @@ public final class SampleGenerator {
         System.err.println("  payload DIR                     the payload tree held by every archive");
         System.err.println("  szdd IN OUT                     SZDD (COMPRESS.EXE LZSS) file");
         System.err.println("  pak PAYLOAD OUT                 Quake PAK of the payload");
-        System.err.println("  adf PAYLOAD MODE OUT            Amiga 880 KiB floppy image of the payload: MODE ofs or ffs (plus big.txt, two copies of the notes: extension blocks)");
+        System.err.println("  adf PAYLOAD MODE OUT            Amiga 880 KiB floppy image of the payload: MODE ofs or ffs (plus big.txt, two copies of the notes: extension blocks),");
+        System.err.println("                                  or raw (no file system: boot block loading a packed program, see AmigaDecruncher)");
         System.err.println("  sarc PAYLOAD MODE OUT           Nintendo SARC of the payload: MODE le (Switch), be (Wii U) or szs (big-endian, Yaz0-compressed)");
         System.err.println("  xci PAYLOAD MODE OUT            Nintendo Switch XCI (MODE plain, or keyarea: 0x1000-byte key area first)");
         System.err.println("  damaged SAMPLES                 SAMPLES/damaged: flipped, truncated and crafted files");
@@ -483,6 +485,257 @@ public final class SampleGenerator {
     private static int adfGet(final byte[] disk, final int b, final int at) {
         final int p = b * 512 + at;
         return ((disk[p] & 0xFF) << 24) | ((disk[p + 1] & 0xFF) << 16) | ((disk[p + 2] & 0xFF) << 8) | (disk[p + 3] & 0xFF);
+    }
+
+    /**
+     * Amiga 880 KiB floppy without file system, like a game with its own
+     * track loader: a bootable "DOS" boot block (checksum filled) whose code
+     * reads cylinder 1 to $30000 with trackdisk.device (DoIO) and jumps to it;
+     * there, the LZ+RLE unpacking routine of AmigaDecruncher and the packed
+     * readme + notes + 300 zeros + 40 "A" + 64 bytes of bin/random.bin + the directory + readme,
+     * unpacked to $60000 (pass 1
+     * output ends at $50000). The program holds a game directory, (length,
+     * offset) longs: files 0, 1, 3, 4 and 5 (2 is empty) are random.bin,
+     * notes.txt, readme.txt, leaf.txt (5 bytes: the next file starts one byte
+     * later) and random.bin, one after the other from cylinder 40 (block 880,
+     * where a root block would be). Cylinder 60 holds random.bin again, in no
+     * directory.
+     */
+    private static byte[] adfRaw(final File payload) throws IOException {
+        final byte[] disk = new byte[1760 * 512];
+        final ByteArrayOutputStream plain = new ByteArrayOutputStream();
+        final byte[] readme = read(new File(payload, "readme.txt"));
+        plain.write(readme, 0, readme.length);
+        final byte[] notes = read(new File(payload, "docs/notes.txt"));
+        plain.write(notes, 0, notes.length);
+        plain.write(new byte[300], 0, 300);
+        for (int i = 0; i < 40; i++) plain.write('A');
+        final byte[] random = read(new File(payload, "bin/random.bin"));
+        plain.write(random, 0, 64); // a literal run longer than 14 bytes
+        // game directory: entries (length, offset) of files that follow each other from cylinder 40, at even offsets; entry 2 is empty
+        final byte[][] files = {random, notes, readme, read(new File(payload, "deep/a/b/c/leaf.txt")), random};
+        final byte[] table = new byte[8 * 7];
+        int at = 880 * 512;
+        for (int i = 0, entry = 0; i < files.length; i++, entry++) {
+            if (entry == 2) entry++;
+            putBe32(table, 8 * entry, files[i].length);
+            putBe32(table, 8 * entry + 4, at);
+            System.arraycopy(files[i], 0, disk, at, files[i].length);
+            at += (files[i].length + 1) & ~1;
+        }
+        plain.write(table, 0, table.length);
+        plain.write(readme, 0, readme.length);
+        final byte[] packed = amigaCrunch(plain.toByteArray(), 0x60000, 0x50000);
+        final int region = 22 * 512;
+        final int length = (packed.length + 511) / 512 * 512;
+        System.arraycopy(packed, 0, disk, region, packed.length);
+        System.arraycopy(random, 0, disk, 1320 * 512, random.length); // cylinder 60: not in the directory
+        disk[0] = 'D';
+        disk[1] = 'O';
+        disk[2] = 'S';
+        adfPut(disk, 0, 8, 880);
+        final int[] code = {0x337C, 0x0002, 0x001C, 0x237C, 0x0003, 0x0000, 0x0028, 0x237C, length >>> 16, length & 0xFFFF, 0x0024, 0x237C, region >>> 16, region & 0xFFFF, 0x002C, 0x2C78, 0x0004, 0x4EAE, 0xFE38, 0x4EF9, 0x0003, 0x0000};
+        for (int i = 0; i < code.length; i++) {
+            disk[12 + 2 * i] = (byte) (code[i] >>> 8);
+            disk[13 + 2 * i] = (byte) code[i];
+        }
+        long sum = 0;
+        for (int i = 0; i < 1024; i += 4) {
+            sum += adfGet(disk, 0, i) & 0xFFFFFFFFL;
+            if (sum > 0xFFFFFFFFL) sum = (sum & 0xFFFFFFFFL) + 1;
+        }
+        adfPut(disk, 0, 4, (int) ~sum); // boot block checksum: the sum with carry becomes all ones
+        return disk;
+    }
+
+    /**
+     * Packs {@code plain} for the LZ+RLE routine of AmigaDecruncher (unpacked to
+     * {@code finalAddress}, pass 1 output ending at {@code lzEnd}): RLE (runs of
+     * 3 to 256 bytes), then a greedy LZ77 over the RLE output, written in the
+     * order the routine reads it (backwards).
+     */
+    private static byte[] amigaCrunch(final byte[] plain, final int finalAddress, final int lzEnd) {
+        final int[] freq = new int[256];
+        for (final byte v : plain) freq[v & 0xFF]++;
+        int runEscape = 2;
+        int zeroEscape = 3;
+        for (int v = 2; v < 256; v++) {
+            if (freq[v] < freq[runEscape]) runEscape = v;
+        }
+        for (int v = 2; v < 256; v++) {
+            if (v != runEscape && (freq[v] < freq[zeroEscape] || zeroEscape == runEscape)) zeroEscape = v;
+        }
+        // RLE body, ascending: [value][count][runEscape], [count][zeroEscape] or the byte itself
+        final ByteArrayOutputStream body = new ByteArrayOutputStream();
+        for (int i = 0; i < plain.length;) {
+            final int v = plain[i] & 0xFF;
+            int n = 1;
+            while (i + n < plain.length && n < 256 && (plain[i + n] & 0xFF) == v) n++;
+            if (n < 3) n = 1;
+            if (n >= 3 && v == 0) {
+                body.write(n - 1);
+                body.write(zeroEscape);
+            } else if (n >= 3 || v == runEscape || v == zeroEscape) {
+                body.write(v);
+                body.write(n - 1);
+                body.write(runEscape);
+            } else {
+                body.write(v);
+            }
+            i += n;
+        }
+        final byte[] rle = body.toByteArray();
+        final byte[] t = new byte[9 + 2 + rle.length];
+        putBe32(t, 0, finalAddress + plain.length);
+        putBe32(t, 4, lzEnd);
+        t[8] = (byte) zeroEscape;
+        t[9] = 1;
+        t[10] = (byte) runEscape;
+        System.arraycopy(rle, 0, t, 11, rle.length);
+        // LZ77, the routine decodes from the end of t to its start
+        final int[] bits1 = {2, 3, 4, 4, 5, 6, 7, 8};
+        final int[] base1 = {0, 4, 0xC, 0x1C, 0x2C, 0x4C, 0x6C, 0xEC};
+        final int patch = 12;
+        final int[] bits2 = {3, 3, 4, 5, 6, 7, 8, patch};
+        final int[] base2 = {0, 8, 0x10, 0x20, 0x40, 0x80, 0x100, 0x200};
+        final AmigaBits out = new AmigaBits();
+        out.bytes.add(0); // bit counter: empty, the first bit read takes a byte
+        out.bytes.add(0); // bit buffer
+        out.bytes.add(patch);
+        final List<Integer> literals = new ArrayList<Integer>();
+        int q = t.length;
+        while (q > 0) {
+            int bestLength = 0;
+            int bestOffset = 0;
+            final int maxOffset = Math.min(base2[7] + (1 << (patch + 1)) - 1, t.length - q + 583);
+            for (int off = 1; off <= maxOffset; off++) {
+                int len = 0;
+                while (len < 583 && q - 1 - len >= 1 && q - 1 - len + off < t.length && t[q - 1 - len] == t[q - 1 - len + off]) len++;
+                if (len == 2 && off > base1[7] + (1 << (bits1[7] + 1)) - 1) len = 0;
+                if (len > bestLength) {
+                    bestLength = len;
+                    bestOffset = off;
+                }
+            }
+            if (bestLength < 2) {
+                literals.add(t[q - 1] & 0xFF);
+                q--;
+                if (literals.size() > 511) throw new IllegalStateException("amigaCrunch: literal run longer than 511 bytes");
+                continue;
+            }
+            out.literalStage(literals);
+            literals.clear();
+            final int[] bits;
+            final int[] base;
+            if (bestLength == 2) {
+                out.bits(1, 1);
+                bits = bits1;
+                base = base1;
+            } else {
+                out.bits(0, 1);
+                bits = bits2;
+                base = base2;
+                if (bestLength == 3) {
+                    out.bits(0, 1);
+                } else if (bestLength <= 5) {
+                    out.bits(1, 1);
+                    out.bits(bestLength - 4, 2);
+                } else if (bestLength <= 9) {
+                    out.bits(1, 1);
+                    out.bits(2, 2);
+                    out.bits(bestLength - 6, 2);
+                } else if (bestLength <= 39) {
+                    out.bits(1, 1);
+                    out.bits(3, 2);
+                    out.bits(bestLength - 8, 5);
+                } else if (bestLength <= 71) {
+                    out.bits(1, 1);
+                    out.bits(3, 2);
+                    out.bits(0, 5);
+                    out.bits(bestLength - 0x28, 5);
+                } else {
+                    out.bits(1, 1);
+                    out.bits(3, 2);
+                    out.bits(1, 5);
+                    out.bits(bestLength - 0x48, 9);
+                }
+            }
+            int index = 0;
+            while (bestOffset >= base[index] + (1 << (bits[index] + 1))) index++;
+            out.bits(index, 3);
+            out.bits(bestOffset - base[index], bits[index] + 1);
+            q -= bestLength;
+        }
+        out.literalStage(literals); // the last stage always has bytes (t[0] is never in a match): the routine stops when they are read
+        final int[] stub = new int[0x168];
+        final String hex = be.stef.arcana.formats.adf.AmigaDecruncher.LZ_RLE_STUB;
+        for (int i = 0; i < stub.length; i++) {
+            final String h = hex.substring(2 * i, 2 * i + 2);
+            stub[i] = "??".equals(h) ? 0 : Integer.parseInt(h, 16);
+        }
+        stub[0x62] = 0x13; // MOVE.B D6,$DFF180: flashes the screen while unpacking
+        stub[0x63] = 0xC6;
+        stub[0x107] = runEscape;
+        stub[0x134] = finalAddress >>> 24;
+        stub[0x135] = (finalAddress >>> 16) & 0xFF;
+        stub[0x136] = (finalAddress >>> 8) & 0xFF;
+        stub[0x137] = finalAddress & 0xFF;
+        stub[0x147] = 7;
+        final int n = out.bytes.size();
+        final byte[] r = new byte[0x168 + 8 + n];
+        for (int i = 0; i < 0x168; i++) r[i] = (byte) stub[i];
+        putBe32(r, 0x168, lzEnd);
+        putBe32(r, 0x16C, n);
+        for (int i = 0; i < n; i++) r[0x170 + i] = (byte) (int) out.bytes.get(n - 1 - i); // read backwards by the routine
+        return r;
+    }
+
+    /** Packed stream of amigaCrunch, in the order the routine reads it: a bit byte is taken when its first bit is needed. */
+    private static final class AmigaBits {
+        final List<Integer> bytes = new ArrayList<Integer>();
+        int current = -1;
+        int left;
+
+        void bits(final int value, final int n) {
+            for (int i = n - 1; i >= 0; i--) {
+                if (left == 0) {
+                    bytes.add(0);
+                    current = bytes.size() - 1;
+                    left = 8;
+                }
+                left--;
+                if (((value >>> i) & 1) != 0) bytes.set(current, bytes.get(current) | (1 << left));
+            }
+        }
+
+        /** Literal run: 0 / 11 / 10+2 bits (2-4) / 10 11+2 (5-7) / 10 11 11+3 (8-14) / 10 11 11 111+9 (15-511). */
+        void literalStage(final List<Integer> lits) {
+            final int n = lits.size();
+            if (n == 0) {
+                bits(0, 1);
+            } else if (n == 1) {
+                bits(3, 2);
+            } else if (n <= 4) {
+                bits(2, 2);
+                bits(n - 2, 2);
+            } else if (n <= 7) {
+                bits(2, 2);
+                bits(3, 2);
+                bits(n - 5, 2);
+            } else if (n <= 14) {
+                bits(2, 2);
+                bits(3, 2);
+                bits(3, 2);
+                bits(n - 8, 3);
+            } else {
+                bits(2, 2);
+                bits(3, 2);
+                bits(3, 2);
+                bits(7, 3);
+                bits(n, 9);
+            }
+            bytes.addAll(lits);
+        }
     }
 
     /**

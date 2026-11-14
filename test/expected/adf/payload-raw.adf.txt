@@ -1,0 +1,23 @@
+# Arcana regression reference (RegressionRunner --update)
+input: fb2b18a7e8f41295e3dc5a24c7beee586bfb291d75fc455b2ea5422b1bbca753 901120
+identify: archive | Amiga disk image - Amiga disk image archive
+list: 9 entries
+  002C00.bin 4096
+  002C00.unpacked.bin 32990
+  0A5000.bin 4096
+  bootblock.bin 1024
+  file-000.bin 4096
+  file-001.bin 29490
+  file-003.bin 1520
+  file-004.bin 5
+  file-005.bin 4096
+extracted: 9 items
+  002C00.bin 4096 01fac370658f6189f49ebfd0b23aa9f28d90c9cf74d612f13d25adf51c267120
+  002C00.unpacked.bin 32990 ae204bc983bc46fa138d90d615037c5af37b2dcba80d3a49b1bed7fb7c9a414e
+  0A5000.bin 4096 8fe774a9e65a6c63fc7df534a66e2bafb44a73813a37b2abcc178749b237552e
+  bootblock.bin 1024 9aa46fe460a74c5074cbc50ce9a0282502791999383463ce1aa80de7d9b1f659
+  file-000.bin 4096 8fe774a9e65a6c63fc7df534a66e2bafb44a73813a37b2abcc178749b237552e
+  file-001.bin 29490 d7e02c884850cdfa9d78d1e322269a120fdce78e1178469a980945b2d27d0c66
+  file-003.bin 1520 ba2f1014c1181c953f32737172808623ce8dd59ba7c7598d2d73730ea4f6217c
+  file-004.bin 5 26d0bac9f0c7a35b2f3322a0f4ad4517265f56b2c0f4b2ed7cb5cbd30c5868e2
+  file-005.bin 4096 8fe774a9e65a6c63fc7df534a66e2bafb44a73813a37b2abcc178749b237552e

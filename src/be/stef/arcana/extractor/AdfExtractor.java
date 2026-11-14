@@ -18,6 +18,7 @@ package be.stef.arcana.extractor;
 import be.stef.arcana.ArcanaEntry;
 import be.stef.arcana.ArcanaFormat;
 import be.stef.arcana.exceptions.ArcanaCorruptedException;
+import be.stef.arcana.formats.adf.AdfRawDisk;
 import be.stef.arcana.formats.adf.AdfVolume;
 import be.stef.arcana.util.ExtractionGuard;
 import be.stef.arcana.util.IOHelper;
@@ -39,6 +40,10 @@ import java.util.List;
  * (damaged disk, or copy protection: a "file" pointing at specially formatted
  * sectors) is skipped; their names are printed, the other files extracted.
  *
+ * <p>A disk without file system (a game with its own track loader) is cut
+ * into pieces named after their offset, packed programs unpacked: see
+ * {@link AdfRawDisk}.</p>
+ *
  * @author Stef
  * @since 1.2.0
  */
@@ -51,7 +56,7 @@ public class AdfExtractor implements ArchiveExtractor {
 
     @Override
     public void extract(final File archive, final File destination) throws IOException {
-        extract(new AdfVolume(Files.readAllBytes(archive.toPath())), destination);
+        extract(Files.readAllBytes(archive.toPath()), destination);
     }
 
     @Override
@@ -63,7 +68,23 @@ public class AdfExtractor implements ArchiveExtractor {
             all.write(buf, 0, n);
             if (all.size() > AdfVolume.HD_BLOCKS * AdfVolume.BLOCK) throw new IOException("Not an Amiga floppy image (too large)");
         }
-        extract(new AdfVolume(all.toByteArray()), destination);
+        extract(all.toByteArray(), destination);
+    }
+
+    private static void extract(final byte[] disk, final File destination) throws IOException {
+        if (AdfRawDisk.isRaw(disk)) extractRaw(new AdfRawDisk(disk), destination);
+        else extract(new AdfVolume(disk), destination);
+    }
+
+    private static void extractRaw(final AdfRawDisk d, final File destination) throws IOException {
+        IOHelper.mkdirs(destination);
+        for (final AdfRawDisk.Entry e : d.entries()) {
+            final File target = SafePathBuilder.buildSafePath(destination, e.name);
+            try (OutputStream out = new BufferedOutputStream(ExtractionGuard.open(target), 65536)) {
+                out.write(d.data(e));
+            }
+        }
+        for (final String s : d.skipped()) System.out.println("  skipped: " + s);
     }
 
     private static void extract(final AdfVolume v, final File destination) throws IOException {
@@ -96,8 +117,13 @@ public class AdfExtractor implements ArchiveExtractor {
 
     @Override
     public List<ArcanaEntry> list(final File archive) throws IOException {
-        final AdfVolume v = new AdfVolume(Files.readAllBytes(archive.toPath()));
+        final byte[] disk = Files.readAllBytes(archive.toPath());
         final List<ArcanaEntry> result = new ArrayList<ArcanaEntry>();
+        if (AdfRawDisk.isRaw(disk)) {
+            for (final AdfRawDisk.Entry e : new AdfRawDisk(disk).entries()) result.add(new ArcanaEntry.Builder(e.name).uncompressedSize(e.size).compressedSize(e.offset < 0 ? -1 : e.size).comment(e.description).method(e.offset < 0 ? "Unpacked" : "Raw").format(ArcanaFormat.ADF).build());
+            return result;
+        }
+        final AdfVolume v = new AdfVolume(disk);
         for (final AdfVolume.Entry e : v.entries()) result.add(new ArcanaEntry.Builder(e.path).uncompressedSize(e.size).compressedSize(e.size).lastModifiedTime(e.time).directory(e.directory).comment(e.comment).method(e.directory ? null : v.getFileSystem()).format(ArcanaFormat.ADF).build());
         return result;
     }

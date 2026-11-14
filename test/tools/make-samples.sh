@@ -357,10 +357,11 @@ mk sfx
 # ---------------------------------------------------------------------------
 mk plugins/pak
 "${GEN[@]}" pak "$P" "$OUT/plugins/pak/payload.pak"
-# Amiga floppy images (AmigaDOS OFS and FFS), written by SampleGenerator
+# Amiga floppy images (AmigaDOS OFS and FFS, and a disk without file system), written by SampleGenerator
 mk adf
 "${GEN[@]}" adf "$P" ofs "$OUT/adf/payload-ofs.adf"
 "${GEN[@]}" adf "$P" ffs "$OUT/adf/payload-ffs.adf"
+"${GEN[@]}" adf "$P" raw "$OUT/adf/payload-raw.adf"
 
 mk plugins/sarc
 "${GEN[@]}" sarc "$P" le "$OUT/plugins/sarc/payload.sarc"
