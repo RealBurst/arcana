@@ -108,12 +108,12 @@ Or get it from Maven Central (`io.github.realburst:arcana`):
 <dependency>
   <groupId>io.github.realburst</groupId>
   <artifactId>arcana</artifactId>
-  <version>1.1.0</version>
+  <version>1.2.1</version>
 </dependency>
 ```
 
 ```
-implementation 'io.github.realburst:arcana:1.1.0'
+implementation 'io.github.realburst:arcana:1.2.1'
 ```
 
 ---
@@ -121,7 +121,7 @@ implementation 'io.github.realburst:arcana:1.1.0'
 ## Command-line usage
 
 ```
-java -jar Arcana-v1.1.0.jar <command> [options]
+java -jar Arcana-v1.2.1.jar <command> [options]
 ```
 
 Run it without arguments to see the syntax of every command, and with `help` for the full description, the options and some examples.
